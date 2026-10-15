@@ -45,6 +45,20 @@ module Adviverse
 
     attr_accessor :carousel_items
 
+    attr_accessor :duration
+
+    # >0 makes the linear ad skippable after N seconds (VAST skipoffset).
+    attr_accessor :skip_offset_sec
+
+    # Interactive VPAID (application/javascript) creative file, https.
+    attr_accessor :vpaid_url
+
+    # Companion banners (VAST CompanionAds), max 5.
+    attr_accessor :companions
+
+    # Third-party VAST tag (the advertiser's own ad server), https. Only valid for type video/audio. Makes assetUrl optional: with no assetUrl the engine serves a VAST <Wrapper> pointing at this tag; when both are set the inline asset wins.
+    attr_accessor :vast_tag_url
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -62,7 +76,12 @@ module Adviverse
         :'width' => :'width',
         :'height' => :'height',
         :'weight' => :'weight',
-        :'carousel_items' => :'carouselItems'
+        :'carousel_items' => :'carouselItems',
+        :'duration' => :'duration',
+        :'skip_offset_sec' => :'skipOffsetSec',
+        :'vpaid_url' => :'vpaidUrl',
+        :'companions' => :'companions',
+        :'vast_tag_url' => :'vastTagUrl'
       }
     end
 
@@ -88,7 +107,12 @@ module Adviverse
         :'width' => :'Float',
         :'height' => :'Float',
         :'weight' => :'Float',
-        :'carousel_items' => :'Array<CarouselItemDto>'
+        :'carousel_items' => :'Array<CarouselItemDto>',
+        :'duration' => :'Float',
+        :'skip_offset_sec' => :'Float',
+        :'vpaid_url' => :'String',
+        :'companions' => :'Array<CompanionDto>',
+        :'vast_tag_url' => :'String'
       }
     end
 
@@ -174,6 +198,28 @@ module Adviverse
           self.carousel_items = value
         end
       end
+
+      if attributes.key?(:'duration')
+        self.duration = attributes[:'duration']
+      end
+
+      if attributes.key?(:'skip_offset_sec')
+        self.skip_offset_sec = attributes[:'skip_offset_sec']
+      end
+
+      if attributes.key?(:'vpaid_url')
+        self.vpaid_url = attributes[:'vpaid_url']
+      end
+
+      if attributes.key?(:'companions')
+        if (value = attributes[:'companions']).is_a?(Array)
+          self.companions = value
+        end
+      end
+
+      if attributes.key?(:'vast_tag_url')
+        self.vast_tag_url = attributes[:'vast_tag_url']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -181,6 +227,34 @@ module Adviverse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if !@duration.nil? && @duration > 600
+        invalid_properties.push('invalid value for "duration", must be smaller than or equal to 600.')
+      end
+
+      if !@duration.nil? && @duration < 1
+        invalid_properties.push('invalid value for "duration", must be greater than or equal to 1.')
+      end
+
+      if !@skip_offset_sec.nil? && @skip_offset_sec > 600
+        invalid_properties.push('invalid value for "skip_offset_sec", must be smaller than or equal to 600.')
+      end
+
+      if !@skip_offset_sec.nil? && @skip_offset_sec < 0
+        invalid_properties.push('invalid value for "skip_offset_sec", must be greater than or equal to 0.')
+      end
+
+      if !@vpaid_url.nil? && @vpaid_url.to_s.length > 2048
+        invalid_properties.push('invalid value for "vpaid_url", the character length must be smaller than or equal to 2048.')
+      end
+
+      if !@companions.nil? && @companions.length > 5
+        invalid_properties.push('invalid value for "companions", number of items must be less than or equal to 5.')
+      end
+
+      if !@vast_tag_url.nil? && @vast_tag_url.to_s.length > 2048
+        invalid_properties.push('invalid value for "vast_tag_url", the character length must be smaller than or equal to 2048.')
+      end
+
       invalid_properties
     end
 
@@ -188,7 +262,92 @@ module Adviverse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if !@duration.nil? && @duration > 600
+      return false if !@duration.nil? && @duration < 1
+      return false if !@skip_offset_sec.nil? && @skip_offset_sec > 600
+      return false if !@skip_offset_sec.nil? && @skip_offset_sec < 0
+      return false if !@vpaid_url.nil? && @vpaid_url.to_s.length > 2048
+      return false if !@companions.nil? && @companions.length > 5
+      return false if !@vast_tag_url.nil? && @vast_tag_url.to_s.length > 2048
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] duration Value to be assigned
+    def duration=(duration)
+      if duration.nil?
+        fail ArgumentError, 'duration cannot be nil'
+      end
+
+      if duration > 600
+        fail ArgumentError, 'invalid value for "duration", must be smaller than or equal to 600.'
+      end
+
+      if duration < 1
+        fail ArgumentError, 'invalid value for "duration", must be greater than or equal to 1.'
+      end
+
+      @duration = duration
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] skip_offset_sec Value to be assigned
+    def skip_offset_sec=(skip_offset_sec)
+      if skip_offset_sec.nil?
+        fail ArgumentError, 'skip_offset_sec cannot be nil'
+      end
+
+      if skip_offset_sec > 600
+        fail ArgumentError, 'invalid value for "skip_offset_sec", must be smaller than or equal to 600.'
+      end
+
+      if skip_offset_sec < 0
+        fail ArgumentError, 'invalid value for "skip_offset_sec", must be greater than or equal to 0.'
+      end
+
+      @skip_offset_sec = skip_offset_sec
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] vpaid_url Value to be assigned
+    def vpaid_url=(vpaid_url)
+      if vpaid_url.nil?
+        fail ArgumentError, 'vpaid_url cannot be nil'
+      end
+
+      if vpaid_url.to_s.length > 2048
+        fail ArgumentError, 'invalid value for "vpaid_url", the character length must be smaller than or equal to 2048.'
+      end
+
+      @vpaid_url = vpaid_url
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] companions Value to be assigned
+    def companions=(companions)
+      if companions.nil?
+        fail ArgumentError, 'companions cannot be nil'
+      end
+
+      if companions.length > 5
+        fail ArgumentError, 'invalid value for "companions", number of items must be less than or equal to 5.'
+      end
+
+      @companions = companions
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] vast_tag_url Value to be assigned
+    def vast_tag_url=(vast_tag_url)
+      if vast_tag_url.nil?
+        fail ArgumentError, 'vast_tag_url cannot be nil'
+      end
+
+      if vast_tag_url.to_s.length > 2048
+        fail ArgumentError, 'invalid value for "vast_tag_url", the character length must be smaller than or equal to 2048.'
+      end
+
+      @vast_tag_url = vast_tag_url
     end
 
     # Checks equality by comparing each attribute.
@@ -210,7 +369,12 @@ module Adviverse
           width == o.width &&
           height == o.height &&
           weight == o.weight &&
-          carousel_items == o.carousel_items
+          carousel_items == o.carousel_items &&
+          duration == o.duration &&
+          skip_offset_sec == o.skip_offset_sec &&
+          vpaid_url == o.vpaid_url &&
+          companions == o.companions &&
+          vast_tag_url == o.vast_tag_url
     end
 
     # @see the `==` method
@@ -222,7 +386,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [campaign_id, type, asset_url, landing_url, title, description, icon_url, main_image_url, cta, brand_name, star_rating, width, height, weight, carousel_items].hash
+      [campaign_id, type, asset_url, landing_url, title, description, icon_url, main_image_url, cta, brand_name, star_rating, width, height, weight, carousel_items, duration, skip_offset_sec, vpaid_url, companions, vast_tag_url].hash
     end
 
     # Builds the object from hash

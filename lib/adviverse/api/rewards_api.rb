@@ -77,6 +77,68 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # @param create_onchain_pool_dto [CreateOnchainPoolDto] 
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def rewards_controller_create_onchain_pool(create_onchain_pool_dto, opts = {})
+      rewards_controller_create_onchain_pool_with_http_info(create_onchain_pool_dto, opts)
+      nil
+    end
+
+    # @param create_onchain_pool_dto [CreateOnchainPoolDto] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    def rewards_controller_create_onchain_pool_with_http_info(create_onchain_pool_dto, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: RewardsApi.rewards_controller_create_onchain_pool ...'
+      end
+      # verify the required parameter 'create_onchain_pool_dto' is set
+      if @api_client.config.client_side_validation && create_onchain_pool_dto.nil?
+        fail ArgumentError, "Missing the required parameter 'create_onchain_pool_dto' when calling RewardsApi.rewards_controller_create_onchain_pool"
+      end
+      # resource path
+      local_var_path = '/v1/rewards/pools/onchain'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_onchain_pool_dto)
+
+      # return_type
+      return_type = opts[:debug_return_type]
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"RewardsApi.rewards_controller_create_onchain_pool",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: RewardsApi#rewards_controller_create_onchain_pool\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # @param fund_pool_dto [FundPoolDto] 
     # @param [Hash] opts the optional parameters
     # @return [nil]
@@ -438,6 +500,63 @@ module Adviverse
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: RewardsApi#rewards_controller_set_world_webhook\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # @param campaign_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def rewards_controller_voucher_secret(campaign_id, opts = {})
+      rewards_controller_voucher_secret_with_http_info(campaign_id, opts)
+      nil
+    end
+
+    # @param campaign_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    def rewards_controller_voucher_secret_with_http_info(campaign_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: RewardsApi.rewards_controller_voucher_secret ...'
+      end
+      # verify the required parameter 'campaign_id' is set
+      if @api_client.config.client_side_validation && campaign_id.nil?
+        fail ArgumentError, "Missing the required parameter 'campaign_id' when calling RewardsApi.rewards_controller_voucher_secret"
+      end
+      # resource path
+      local_var_path = '/v1/rewards/pools/{campaignId}/voucher-secret'.sub('{' + 'campaignId' + '}', CGI.escape(campaign_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type]
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"RewardsApi.rewards_controller_voucher_secret",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: RewardsApi#rewards_controller_voucher_secret\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
