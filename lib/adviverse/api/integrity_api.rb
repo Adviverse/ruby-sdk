@@ -19,19 +19,23 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Get per-install liveness for your tags
+    # Lists up to 500 installs that pinged any of your tags in the last `days` (default 7, max 30), with last-seen time, latest tag/uid, whether ads are enabled, and `alive` (pinged within ~95 minutes). Optional `?client=` scopes to one client id. The summary counts alive-and-enabled, alive-but-disabled, and stale installs.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param client [String] 
     # @param days [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [IntegrityControllerLiveness200Response]
     def integrity_controller_liveness(client, days, opts = {})
-      integrity_controller_liveness_with_http_info(client, days, opts)
-      nil
+      data, _status_code, _headers = integrity_controller_liveness_with_http_info(client, days, opts)
+      data
     end
 
+    # Get per-install liveness for your tags
+    # Lists up to 500 installs that pinged any of your tags in the last &#x60;days&#x60; (default 7, max 30), with last-seen time, latest tag/uid, whether ads are enabled, and &#x60;alive&#x60; (pinged within ~95 minutes). Optional &#x60;?client&#x3D;&#x60; scopes to one client id. The summary counts alive-and-enabled, alive-but-disabled, and stale installs.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param client [String] 
     # @param days [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(IntegrityControllerLiveness200Response, Integer, Hash)>] IntegrityControllerLiveness200Response data, response status code and response headers
     def integrity_controller_liveness_with_http_info(client, days, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: IntegrityApi.integrity_controller_liveness ...'
@@ -54,6 +58,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -62,10 +68,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'IntegrityControllerLiveness200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"IntegrityApi.integrity_controller_liveness",
@@ -84,17 +90,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Report a client integrity ping
+    # Public, rate-limited endpoint the terminal SDK calls about hourly per install with the `tag` it serves, its `client` id, `install_id`/`installId`, machine `uid` and `enabled` state. The ping is recorded against the tag's publisher for integrity and liveness reports. For placements with a signing secret, `ts` and `sig` (HMAC-SHA256 of `tag|uid|ts`, within 300s) are required or the ping is ignored. Always returns `{ ok: true }`, even for unknown tags or failures, so it never affects serving.  Auth: public, no credentials required.
     # @param client_ping_dto [ClientPingDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerResendVerification201Response]
     def integrity_controller_ping(client_ping_dto, opts = {})
-      integrity_controller_ping_with_http_info(client_ping_dto, opts)
-      nil
+      data, _status_code, _headers = integrity_controller_ping_with_http_info(client_ping_dto, opts)
+      data
     end
 
+    # Report a client integrity ping
+    # Public, rate-limited endpoint the terminal SDK calls about hourly per install with the &#x60;tag&#x60; it serves, its &#x60;client&#x60; id, &#x60;install_id&#x60;/&#x60;installId&#x60;, machine &#x60;uid&#x60; and &#x60;enabled&#x60; state. The ping is recorded against the tag&#39;s publisher for integrity and liveness reports. For placements with a signing secret, &#x60;ts&#x60; and &#x60;sig&#x60; (HMAC-SHA256 of &#x60;tag|uid|ts&#x60;, within 300s) are required or the ping is ignored. Always returns &#x60;{ ok: true }&#x60;, even for unknown tags or failures, so it never affects serving.  Auth: public, no credentials required.
     # @param client_ping_dto [ClientPingDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerResendVerification201Response, Integer, Hash)>] AuthControllerResendVerification201Response data, response status code and response headers
     def integrity_controller_ping_with_http_info(client_ping_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: IntegrityApi.integrity_controller_ping ...'
@@ -111,6 +121,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -124,7 +136,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(client_ping_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerResendVerification201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -146,19 +158,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get the terminal integrity report
+    # Over the last `days` (default 7, max 30) of client pings, lists machines running one of your tags that also run a foreign tag (`competing`), and, when `?client=` is given, installs reporting your client id while serving a tag you don't own (`swapped`). Also returns your tag keys and distinct install/machine counts. Empty result if you have no placements.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param client [String] 
     # @param days [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [IntegrityControllerReport200Response]
     def integrity_controller_report(client, days, opts = {})
-      integrity_controller_report_with_http_info(client, days, opts)
-      nil
+      data, _status_code, _headers = integrity_controller_report_with_http_info(client, days, opts)
+      data
     end
 
+    # Get the terminal integrity report
+    # Over the last &#x60;days&#x60; (default 7, max 30) of client pings, lists machines running one of your tags that also run a foreign tag (&#x60;competing&#x60;), and, when &#x60;?client&#x3D;&#x60; is given, installs reporting your client id while serving a tag you don&#39;t own (&#x60;swapped&#x60;). Also returns your tag keys and distinct install/machine counts. Empty result if you have no placements.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param client [String] 
     # @param days [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(IntegrityControllerReport200Response, Integer, Hash)>] IntegrityControllerReport200Response data, response status code and response headers
     def integrity_controller_report_with_http_info(client, days, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: IntegrityApi.integrity_controller_report ...'
@@ -181,6 +197,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -189,10 +207,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'IntegrityControllerReport200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"IntegrityApi.integrity_controller_report",

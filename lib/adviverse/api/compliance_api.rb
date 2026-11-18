@@ -19,15 +19,19 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Get the ads.txt line
+    # Public. Returns the single ads.txt line (`<domain>, <seller id>, DIRECT`) publishers add to their own ads.txt to authorize Adviverse to sell their inventory.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [String]
     def compliance_controller_ads_txt(opts = {})
-      compliance_controller_ads_txt_with_http_info(opts)
-      nil
+      data, _status_code, _headers = compliance_controller_ads_txt_with_http_info(opts)
+      data
     end
 
+    # Get the ads.txt line
+    # Public. Returns the single ads.txt line (&#x60;&lt;domain&gt;, &lt;seller id&gt;, DIRECT&#x60;) publishers add to their own ads.txt to authorize Adviverse to sell their inventory.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
     def compliance_controller_ads_txt_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ComplianceApi.compliance_controller_ads_txt ...'
@@ -40,6 +44,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/plain']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -48,7 +54,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'String'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -70,17 +76,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Complete a data-subject request
+    # Marks a DSAR completed. For delete requests it also deletes consent-log rows matching the subject hash. Returns `{ ok: false }` for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdminControllerSetStatus201Response]
     def compliance_controller_complete(id, opts = {})
-      compliance_controller_complete_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = compliance_controller_complete_with_http_info(id, opts)
+      data
     end
 
+    # Complete a data-subject request
+    # Marks a DSAR completed. For delete requests it also deletes consent-log rows matching the subject hash. Returns &#x60;{ ok: false }&#x60; for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdminControllerSetStatus201Response, Integer, Hash)>] AdminControllerSetStatus201Response data, response status code and response headers
     def compliance_controller_complete_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ComplianceApi.compliance_controller_complete ...'
@@ -97,6 +107,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -105,10 +117,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdminControllerSetStatus201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ComplianceApi.compliance_controller_complete",
@@ -127,17 +139,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Log a consent signal
+    # Public, rate-limited; called by the SDK/CMP bridge. Stores a consent record with a SHA-256 hash of `userId`, plus optional `tcf`, `gpp`, `gpc`, `purposes` and `mode`. `publisherId` and `propertyId` attribute the record and are kept only when they are well-formed UUIDs.  Auth: public, no credentials required.
     # @param consent_dto [ConsentDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ComplianceControllerConsent201Response]
     def compliance_controller_consent(consent_dto, opts = {})
-      compliance_controller_consent_with_http_info(consent_dto, opts)
-      nil
+      data, _status_code, _headers = compliance_controller_consent_with_http_info(consent_dto, opts)
+      data
     end
 
+    # Log a consent signal
+    # Public, rate-limited; called by the SDK/CMP bridge. Stores a consent record with a SHA-256 hash of &#x60;userId&#x60;, plus optional &#x60;tcf&#x60;, &#x60;gpp&#x60;, &#x60;gpc&#x60;, &#x60;purposes&#x60; and &#x60;mode&#x60;. &#x60;publisherId&#x60; and &#x60;propertyId&#x60; attribute the record and are kept only when they are well-formed UUIDs.  Auth: public, no credentials required.
     # @param consent_dto [ConsentDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ComplianceControllerConsent201Response, Integer, Hash)>] ComplianceControllerConsent201Response data, response status code and response headers
     def compliance_controller_consent_with_http_info(consent_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ComplianceApi.compliance_controller_consent ...'
@@ -154,6 +170,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -167,7 +185,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(consent_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ComplianceControllerConsent201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -189,15 +207,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List recent consent records
+    # Returns the 100 most recent consent-log entries forwarded by this publisher's snippet.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ComplianceControllerConsentLog200ResponseInner>]
     def compliance_controller_consent_log(opts = {})
-      compliance_controller_consent_log_with_http_info(opts)
-      nil
+      data, _status_code, _headers = compliance_controller_consent_log_with_http_info(opts)
+      data
     end
 
+    # List recent consent records
+    # Returns the 100 most recent consent-log entries forwarded by this publisher&#39;s snippet.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ComplianceControllerConsentLog200ResponseInner>, Integer, Hash)>] Array<ComplianceControllerConsentLog200ResponseInner> data, response status code and response headers
     def compliance_controller_consent_log_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ComplianceApi.compliance_controller_consent_log ...'
@@ -210,6 +232,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -218,10 +242,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ComplianceControllerConsentLog200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ComplianceApi.compliance_controller_consent_log",
@@ -240,6 +264,8 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get the DomainConnect verification template
+    # Public. Serves the DomainConnect template for publisher domain verification at the standard service-provider path. The template applies one TXT record at the verification host carrying the `%txt%` token. Any other provider/service id returns 404.  Auth: public, no credentials required.
     # @param provider_id [String] 
     # @param service_id [String] 
     # @param [Hash] opts the optional parameters
@@ -249,6 +275,8 @@ module Adviverse
       nil
     end
 
+    # Get the DomainConnect verification template
+    # Public. Serves the DomainConnect template for publisher domain verification at the standard service-provider path. The template applies one TXT record at the verification host carrying the &#x60;%txt%&#x60; token. Any other provider/service id returns 404.  Auth: public, no credentials required.
     # @param provider_id [String] 
     # @param service_id [String] 
     # @param [Hash] opts the optional parameters
@@ -303,17 +331,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Submit a data-subject request
+    # Public, rate-limited. Files an `access` or `delete` request for `email`; only a hash of the subject is stored. A delete request starts erasing the subject from identity maps, CDP traits, segment memberships and event history and suppresses re-collection (fail-soft, in the background). An access request returns the stored request plus an `export` of the data held on the subject.  Auth: public, no credentials required.
     # @param dsar_dto [DsarDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ComplianceDsar]
     def compliance_controller_dsar(dsar_dto, opts = {})
-      compliance_controller_dsar_with_http_info(dsar_dto, opts)
-      nil
+      data, _status_code, _headers = compliance_controller_dsar_with_http_info(dsar_dto, opts)
+      data
     end
 
+    # Submit a data-subject request
+    # Public, rate-limited. Files an &#x60;access&#x60; or &#x60;delete&#x60; request for &#x60;email&#x60;; only a hash of the subject is stored. A delete request starts erasing the subject from identity maps, CDP traits, segment memberships and event history and suppresses re-collection (fail-soft, in the background). An access request returns the stored request plus an &#x60;export&#x60; of the data held on the subject.  Auth: public, no credentials required.
     # @param dsar_dto [DsarDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ComplianceDsar, Integer, Hash)>] ComplianceDsar data, response status code and response headers
     def compliance_controller_dsar_with_http_info(dsar_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ComplianceApi.compliance_controller_dsar ...'
@@ -330,6 +362,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -343,7 +377,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(dsar_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ComplianceDsar'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -365,17 +399,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get consent configuration
+    # Returns the consent config for `propertyId`, falling back to the account-wide default and then to built-in defaults (TCF v2, no default consent, all collection on). Without `propertyId` the account default is returned. The property must belong to the caller (400).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param property_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ComplianceConsentConfig]
     def compliance_controller_get_consent_config(property_id, opts = {})
-      compliance_controller_get_consent_config_with_http_info(property_id, opts)
-      nil
+      data, _status_code, _headers = compliance_controller_get_consent_config_with_http_info(property_id, opts)
+      data
     end
 
+    # Get consent configuration
+    # Returns the consent config for &#x60;propertyId&#x60;, falling back to the account-wide default and then to built-in defaults (TCF v2, no default consent, all collection on). Without &#x60;propertyId&#x60; the account default is returned. The property must belong to the caller (400).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param property_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ComplianceConsentConfig, Integer, Hash)>] ComplianceConsentConfig data, response status code and response headers
     def compliance_controller_get_consent_config_with_http_info(property_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ComplianceApi.compliance_controller_get_consent_config ...'
@@ -393,6 +431,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -401,10 +441,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ComplianceConsentConfig'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ComplianceApi.compliance_controller_get_consent_config",
@@ -423,15 +463,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get sellers.json listing preference
+    # Returns whether the publisher is listed publicly in sellers.json and its declared seller domain. Defaults to confidential.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ComplianceSellerListing]
     def compliance_controller_get_seller_listing(opts = {})
-      compliance_controller_get_seller_listing_with_http_info(opts)
-      nil
+      data, _status_code, _headers = compliance_controller_get_seller_listing_with_http_info(opts)
+      data
     end
 
+    # Get sellers.json listing preference
+    # Returns whether the publisher is listed publicly in sellers.json and its declared seller domain. Defaults to confidential.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ComplianceSellerListing, Integer, Hash)>] ComplianceSellerListing data, response status code and response headers
     def compliance_controller_get_seller_listing_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ComplianceApi.compliance_controller_get_seller_listing ...'
@@ -444,6 +488,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -452,10 +498,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ComplianceSellerListing'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ComplianceApi.compliance_controller_get_seller_listing",
@@ -474,15 +520,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List data-subject requests
+    # Returns the 200 most recent DSAR requests, newest first.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ComplianceDsar>]
     def compliance_controller_list_dsar(opts = {})
-      compliance_controller_list_dsar_with_http_info(opts)
-      nil
+      data, _status_code, _headers = compliance_controller_list_dsar_with_http_info(opts)
+      data
     end
 
+    # List data-subject requests
+    # Returns the 200 most recent DSAR requests, newest first.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ComplianceDsar>, Integer, Hash)>] Array<ComplianceDsar> data, response status code and response headers
     def compliance_controller_list_dsar_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ComplianceApi.compliance_controller_list_dsar ...'
@@ -495,6 +545,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -503,10 +555,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ComplianceDsar>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ComplianceApi.compliance_controller_list_dsar",
@@ -525,17 +577,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Save consent configuration
+    # Upserts the consent config for `propertyId`, or the account default when omitted. Requires `mode` (`tcf_v2`, `gpp`, `custom`) and `defaultConsent`; snippet controls default to true. For a custom CMP, `consentSource` `cookie` or `global` requires `consentKey` (cookie name or JS global path), and `consentGrantValue` defaults to `true`. `tcfPurpose` (1-11, default 1) and `tcfVendorId` are range-checked. Invalid mode, source or key returns 400.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param consent_config_dto [ConsentConfigDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ComplianceConsentConfig]
     def compliance_controller_save_consent_config(consent_config_dto, opts = {})
-      compliance_controller_save_consent_config_with_http_info(consent_config_dto, opts)
-      nil
+      data, _status_code, _headers = compliance_controller_save_consent_config_with_http_info(consent_config_dto, opts)
+      data
     end
 
+    # Save consent configuration
+    # Upserts the consent config for &#x60;propertyId&#x60;, or the account default when omitted. Requires &#x60;mode&#x60; (&#x60;tcf_v2&#x60;, &#x60;gpp&#x60;, &#x60;custom&#x60;) and &#x60;defaultConsent&#x60;; snippet controls default to true. For a custom CMP, &#x60;consentSource&#x60; &#x60;cookie&#x60; or &#x60;global&#x60; requires &#x60;consentKey&#x60; (cookie name or JS global path), and &#x60;consentGrantValue&#x60; defaults to &#x60;true&#x60;. &#x60;tcfPurpose&#x60; (1-11, default 1) and &#x60;tcfVendorId&#x60; are range-checked. Invalid mode, source or key returns 400.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param consent_config_dto [ConsentConfigDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ComplianceConsentConfig, Integer, Hash)>] ComplianceConsentConfig data, response status code and response headers
     def compliance_controller_save_consent_config_with_http_info(consent_config_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ComplianceApi.compliance_controller_save_consent_config ...'
@@ -552,6 +608,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -565,10 +623,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(consent_config_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ComplianceConsentConfig'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ComplianceApi.compliance_controller_save_consent_config",
@@ -587,17 +645,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Set sellers.json listing preference
+    # Sets `sellerPublic` and an optional `sellerDomain`. The domain is normalized (scheme, path and `www.` stripped, lowercased) and must be a valid hostname (400 otherwise). A public listing exposes the company name and domain in sellers.json.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param seller_listing_dto [SellerListingDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ComplianceSellerListing]
     def compliance_controller_save_seller_listing(seller_listing_dto, opts = {})
-      compliance_controller_save_seller_listing_with_http_info(seller_listing_dto, opts)
-      nil
+      data, _status_code, _headers = compliance_controller_save_seller_listing_with_http_info(seller_listing_dto, opts)
+      data
     end
 
+    # Set sellers.json listing preference
+    # Sets &#x60;sellerPublic&#x60; and an optional &#x60;sellerDomain&#x60;. The domain is normalized (scheme, path and &#x60;www.&#x60; stripped, lowercased) and must be a valid hostname (400 otherwise). A public listing exposes the company name and domain in sellers.json.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param seller_listing_dto [SellerListingDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ComplianceSellerListing, Integer, Hash)>] ComplianceSellerListing data, response status code and response headers
     def compliance_controller_save_seller_listing_with_http_info(seller_listing_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ComplianceApi.compliance_controller_save_seller_listing ...'
@@ -614,6 +676,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -627,10 +691,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(seller_listing_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ComplianceSellerListing'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ComplianceApi.compliance_controller_save_seller_listing",
@@ -649,15 +713,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get sellers.json
+    # Public IAB sellers.json listing active publisher accounts as PUBLISHER sellers. Advertisers are not listed. Sellers are confidential (`is_confidential: 1`, no name/domain) unless the publisher opted into a public listing, which exposes their company name and seller domain.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ComplianceControllerSellers200Response]
     def compliance_controller_sellers(opts = {})
-      compliance_controller_sellers_with_http_info(opts)
-      nil
+      data, _status_code, _headers = compliance_controller_sellers_with_http_info(opts)
+      data
     end
 
+    # Get sellers.json
+    # Public IAB sellers.json listing active publisher accounts as PUBLISHER sellers. Advertisers are not listed. Sellers are confidential (&#x60;is_confidential: 1&#x60;, no name/domain) unless the publisher opted into a public listing, which exposes their company name and seller domain.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ComplianceControllerSellers200Response, Integer, Hash)>] ComplianceControllerSellers200Response data, response status code and response headers
     def compliance_controller_sellers_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ComplianceApi.compliance_controller_sellers ...'
@@ -670,6 +738,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -678,7 +748,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ComplianceControllerSellers200Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []

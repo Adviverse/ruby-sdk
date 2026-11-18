@@ -19,17 +19,21 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Generate a draft invoice for an account (admin)
+    # Creates a draft invoice for `accountId` over `periodStart`..`periodEnd` (YYYY-MM-DD, inclusive). The charge equals the account's ledger 'spend' for the period; ClickHouse impression/click counts only label zero-amount detail lines. Tax comes from tax_rates for the account's tax_country (0 if none). Numbered INV-YYYY-NNNNNN. 404 if the account does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param generate_invoice_dto [GenerateInvoiceDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [BillingControllerGenerate201Response]
     def billing_controller_generate(generate_invoice_dto, opts = {})
-      billing_controller_generate_with_http_info(generate_invoice_dto, opts)
-      nil
+      data, _status_code, _headers = billing_controller_generate_with_http_info(generate_invoice_dto, opts)
+      data
     end
 
+    # Generate a draft invoice for an account (admin)
+    # Creates a draft invoice for &#x60;accountId&#x60; over &#x60;periodStart&#x60;..&#x60;periodEnd&#x60; (YYYY-MM-DD, inclusive). The charge equals the account&#39;s ledger &#39;spend&#39; for the period; ClickHouse impression/click counts only label zero-amount detail lines. Tax comes from tax_rates for the account&#39;s tax_country (0 if none). Numbered INV-YYYY-NNNNNN. 404 if the account does not exist.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param generate_invoice_dto [GenerateInvoiceDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(BillingControllerGenerate201Response, Integer, Hash)>] BillingControllerGenerate201Response data, response status code and response headers
     def billing_controller_generate_with_http_info(generate_invoice_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BillingApi.billing_controller_generate ...'
@@ -46,6 +50,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -59,10 +65,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(generate_invoice_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'BillingControllerGenerate201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"BillingApi.billing_controller_generate",
@@ -81,17 +87,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get an invoice with its line items
+    # Returns one invoice by id with its lines. Advertisers may only read their own invoices (403 otherwise); 404 if not found.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [BillingInvoiceWithLines]
     def billing_controller_get(id, opts = {})
-      billing_controller_get_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = billing_controller_get_with_http_info(id, opts)
+      data
     end
 
+    # Get an invoice with its line items
+    # Returns one invoice by id with its lines. Advertisers may only read their own invoices (403 otherwise); 404 if not found.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(BillingInvoiceWithLines, Integer, Hash)>] BillingInvoiceWithLines data, response status code and response headers
     def billing_controller_get_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BillingApi.billing_controller_get ...'
@@ -108,6 +118,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -116,10 +128,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'BillingInvoiceWithLines'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"BillingApi.billing_controller_get",
@@ -138,17 +150,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Issue a draft invoice (admin)
+    # Moves a draft invoice to 'issued', setting issued_at to now and due_date from the account's payment_terms_days. 400 if the invoice is not a draft.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [BillingInvoice]
     def billing_controller_issue(id, opts = {})
-      billing_controller_issue_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = billing_controller_issue_with_http_info(id, opts)
+      data
     end
 
+    # Issue a draft invoice (admin)
+    # Moves a draft invoice to &#39;issued&#39;, setting issued_at to now and due_date from the account&#39;s payment_terms_days. 400 if the invoice is not a draft.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(BillingInvoice, Integer, Hash)>] BillingInvoice data, response status code and response headers
     def billing_controller_issue_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BillingApi.billing_controller_issue ...'
@@ -165,6 +181,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -173,10 +191,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'BillingInvoice'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"BillingApi.billing_controller_issue",
@@ -195,17 +213,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List invoices
+    # Returns up to 500 invoices, newest first. Advertisers see only their own; admins see all and may filter with `?accountId=`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param account_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<BillingInvoice>]
     def billing_controller_list(account_id, opts = {})
-      billing_controller_list_with_http_info(account_id, opts)
-      nil
+      data, _status_code, _headers = billing_controller_list_with_http_info(account_id, opts)
+      data
     end
 
+    # List invoices
+    # Returns up to 500 invoices, newest first. Advertisers see only their own; admins see all and may filter with &#x60;?accountId&#x3D;&#x60;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param account_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<BillingInvoice>, Integer, Hash)>] Array<BillingInvoice> data, response status code and response headers
     def billing_controller_list_with_http_info(account_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BillingApi.billing_controller_list ...'
@@ -223,6 +245,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -231,10 +255,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<BillingInvoice>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"BillingApi.billing_controller_list",
@@ -253,17 +277,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Pay an issued invoice from the balance
+    # Posts an 'invoice_payment' debit for the invoice total against the account's available balance (idempotent per invoice) and marks the invoice paid. Already-paid invoices are returned unchanged; other non-issued statuses return 400, and insufficient funds return 400. Advertisers may pay only their own invoices.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [BillingInvoice]
     def billing_controller_pay(id, opts = {})
-      billing_controller_pay_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = billing_controller_pay_with_http_info(id, opts)
+      data
     end
 
+    # Pay an issued invoice from the balance
+    # Posts an &#39;invoice_payment&#39; debit for the invoice total against the account&#39;s available balance (idempotent per invoice) and marks the invoice paid. Already-paid invoices are returned unchanged; other non-issued statuses return 400, and insufficient funds return 400. Advertisers may pay only their own invoices.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(BillingInvoice, Integer, Hash)>] BillingInvoice data, response status code and response headers
     def billing_controller_pay_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BillingApi.billing_controller_pay ...'
@@ -280,6 +308,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -288,10 +318,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'BillingInvoice'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"BillingApi.billing_controller_pay",
@@ -310,17 +340,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Render an invoice as HTML
+    # Returns a self-contained printable HTML document for the invoice (number, status, period, dates, line items and totals). Same access rules as fetching the invoice.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [String]
     def billing_controller_render(id, opts = {})
-      billing_controller_render_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = billing_controller_render_with_http_info(id, opts)
+      data
     end
 
+    # Render an invoice as HTML
+    # Returns a self-contained printable HTML document for the invoice (number, status, period, dates, line items and totals). Same access rules as fetching the invoice.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
     def billing_controller_render_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BillingApi.billing_controller_render ...'
@@ -337,6 +371,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/html']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -345,10 +381,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'String'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"BillingApi.billing_controller_render",
@@ -367,15 +403,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get an account statement from the ledger
+    # Derives a statement over `from`..`to` (YYYY-MM-DD; defaults 2020-01-01 to today) from ledger entries that touched the available balance: opening balance, charges (debits), payments (credits), closing balance, and up to 1000 entries in the window. Admins may pass `?accountId=`; advertisers always get their own.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [BillingControllerStatement200Response]
     def billing_controller_statement(opts = {})
-      billing_controller_statement_with_http_info(opts)
-      nil
+      data, _status_code, _headers = billing_controller_statement_with_http_info(opts)
+      data
     end
 
+    # Get an account statement from the ledger
+    # Derives a statement over &#x60;from&#x60;..&#x60;to&#x60; (YYYY-MM-DD; defaults 2020-01-01 to today) from ledger entries that touched the available balance: opening balance, charges (debits), payments (credits), closing balance, and up to 1000 entries in the window. Admins may pass &#x60;?accountId&#x3D;&#x60;; advertisers always get their own.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(BillingControllerStatement200Response, Integer, Hash)>] BillingControllerStatement200Response data, response status code and response headers
     def billing_controller_statement_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BillingApi.billing_controller_statement ...'
@@ -388,6 +428,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -396,10 +438,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'BillingControllerStatement200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"BillingApi.billing_controller_statement",
@@ -418,17 +460,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Void an invoice (admin)
+    # Marks any unpaid invoice as 'void'. Paid invoices cannot be voided (400); an already-void invoice is returned unchanged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [BillingInvoice]
     def billing_controller_void(id, opts = {})
-      billing_controller_void_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = billing_controller_void_with_http_info(id, opts)
+      data
     end
 
+    # Void an invoice (admin)
+    # Marks any unpaid invoice as &#39;void&#39;. Paid invoices cannot be voided (400); an already-void invoice is returned unchanged.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(BillingInvoice, Integer, Hash)>] BillingInvoice data, response status code and response headers
     def billing_controller_void_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BillingApi.billing_controller_void ...'
@@ -445,6 +491,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -453,10 +501,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'BillingInvoice'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"BillingApi.billing_controller_void",

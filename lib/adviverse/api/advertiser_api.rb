@@ -19,19 +19,23 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Add hashed members to an audience
+    # Adds the strings in `hashes` (user id hashes) to the audience's member set; empty or non-string entries are skipped. Returns the number of accepted entries and the resulting set size. Responds 404/403 when the audience is missing or not owned.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param audience_members_dto [AudienceMembersDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerAddAudienceMembers201Response]
     def advertiser_controller_add_audience_members(id, audience_members_dto, opts = {})
-      advertiser_controller_add_audience_members_with_http_info(id, audience_members_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_add_audience_members_with_http_info(id, audience_members_dto, opts)
+      data
     end
 
+    # Add hashed members to an audience
+    # Adds the strings in &#x60;hashes&#x60; (user id hashes) to the audience&#39;s member set; empty or non-string entries are skipped. Returns the number of accepted entries and the resulting set size. Responds 404/403 when the audience is missing or not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param audience_members_dto [AudienceMembersDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerAddAudienceMembers201Response, Integer, Hash)>] AdvertiserControllerAddAudienceMembers201Response data, response status code and response headers
     def advertiser_controller_add_audience_members_with_http_info(id, audience_members_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_add_audience_members ...'
@@ -52,6 +56,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -65,10 +71,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(audience_members_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerAddAudienceMembers201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_add_audience_members",
@@ -87,19 +93,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Add a DCO component to a creative's pool
+    # Adds one `{ slot, value }` component to the component pool of the creative's campaign. `slot` is headline, body, image, cta, logo or bg_color; `value` must be non-empty and image/logo values are SSRF-checked (400). The creative must be owned and authored under a campaign (404 otherwise). Republishes the serving index.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param add_component_dto [AddComponentDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerAddComponent201Response]
     def advertiser_controller_add_component(id, add_component_dto, opts = {})
-      advertiser_controller_add_component_with_http_info(id, add_component_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_add_component_with_http_info(id, add_component_dto, opts)
+      data
     end
 
+    # Add a DCO component to a creative&#39;s pool
+    # Adds one &#x60;{ slot, value }&#x60; component to the component pool of the creative&#39;s campaign. &#x60;slot&#x60; is headline, body, image, cta, logo or bg_color; &#x60;value&#x60; must be non-empty and image/logo values are SSRF-checked (400). The creative must be owned and authored under a campaign (404 otherwise). Republishes the serving index.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param add_component_dto [AddComponentDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerAddComponent201Response, Integer, Hash)>] AdvertiserControllerAddComponent201Response data, response status code and response headers
     def advertiser_controller_add_component_with_http_info(id, add_component_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_add_component ...'
@@ -120,6 +130,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -133,10 +145,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(add_component_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerAddComponent201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_add_component",
@@ -155,19 +167,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Attach a library creative to a campaign
+    # Links the creative to `campaignId` with an optional rotation `weight` (minimum 1, default 1). Attaching again updates the weight and re-enables the link. Both the creative (404) and campaign (404/403) must be owned. Republishes the serving index.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param attach_creative_dto [AttachCreativeDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerAttachCreative201Response]
     def advertiser_controller_attach_creative(id, attach_creative_dto, opts = {})
-      advertiser_controller_attach_creative_with_http_info(id, attach_creative_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_attach_creative_with_http_info(id, attach_creative_dto, opts)
+      data
     end
 
+    # Attach a library creative to a campaign
+    # Links the creative to &#x60;campaignId&#x60; with an optional rotation &#x60;weight&#x60; (minimum 1, default 1). Attaching again updates the weight and re-enables the link. Both the creative (404) and campaign (404/403) must be owned. Republishes the serving index.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param attach_creative_dto [AttachCreativeDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerAttachCreative201Response, Integer, Hash)>] AdvertiserControllerAttachCreative201Response data, response status code and response headers
     def advertiser_controller_attach_creative_with_http_info(id, attach_creative_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_attach_creative ...'
@@ -188,6 +204,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -201,10 +219,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(attach_creative_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerAttachCreative201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_attach_creative",
@@ -223,17 +241,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get the retargeting pixel snippet for an audience
+    # Returns the tracking URL plus ready-to-paste `<img>` and `<script>` snippets that add the visiting user to this audience via /v1/track/audience. Replace the USER_ID placeholder (the script uses window.ADNET_UID). 404/403 when the audience is not owned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerAudiencePixel200Response]
     def advertiser_controller_audience_pixel(id, opts = {})
-      advertiser_controller_audience_pixel_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_audience_pixel_with_http_info(id, opts)
+      data
     end
 
+    # Get the retargeting pixel snippet for an audience
+    # Returns the tracking URL plus ready-to-paste &#x60;&lt;img&gt;&#x60; and &#x60;&lt;script&gt;&#x60; snippets that add the visiting user to this audience via /v1/track/audience. Replace the USER_ID placeholder (the script uses window.ADNET_UID). 404/403 when the audience is not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerAudiencePixel200Response, Integer, Hash)>] AdvertiserControllerAudiencePixel200Response data, response status code and response headers
     def advertiser_controller_audience_pixel_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_audience_pixel ...'
@@ -250,6 +272,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -258,10 +282,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerAudiencePixel200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_audience_pixel",
@@ -280,17 +304,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Suggest audiences from pixel activity
+    # Inspects the account's pixel events over the last `days` (1-180, default 30) and returns ready-to-create rule audiences such as all visitors, engaged visitors, cart and checkout abandoners, purchasers, high-value buyers, unconverted leads and viewers of the top 5 products. Each suggestion has a `rule` to pass to POST /audiences and an `estReach` upper bound. `eventInventory` maps each event name to its distinct users.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param days [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerAudienceSuggestions200Response]
     def advertiser_controller_audience_suggestions(days, opts = {})
-      advertiser_controller_audience_suggestions_with_http_info(days, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_audience_suggestions_with_http_info(days, opts)
+      data
     end
 
+    # Suggest audiences from pixel activity
+    # Inspects the account&#39;s pixel events over the last &#x60;days&#x60; (1-180, default 30) and returns ready-to-create rule audiences such as all visitors, engaged visitors, cart and checkout abandoners, purchasers, high-value buyers, unconverted leads and viewers of the top 5 products. Each suggestion has a &#x60;rule&#x60; to pass to POST /audiences and an &#x60;estReach&#x60; upper bound. &#x60;eventInventory&#x60; maps each event name to its distinct users.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param days [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerAudienceSuggestions200Response, Integer, Hash)>] AdvertiserControllerAudienceSuggestions200Response data, response status code and response headers
     def advertiser_controller_audience_suggestions_with_http_info(days, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_audience_suggestions ...'
@@ -308,6 +336,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -316,10 +346,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerAudienceSuggestions200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_audience_suggestions",
@@ -338,17 +368,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create a campaign (ad set)
+    # Creates a campaign in `draft` status together with its targeting row and, if `conversion` is given, a conversion config. Key body fields: `name`, `format`, `pricingModel`, `bidAmount`, budgets, `pacing`, schedule, `targeting`, `bidStrategy`/`targetCpa`/`targetRoas`, `houseAd`, `priorityTier`, `groupId`. The currency is always taken from the advertiser's account (a client-sent `currency` is ignored), `terminal` format is forced to CPM, and `groupId` is silently dropped unless the advertiser owns that group. A house ad with no placement whitelist is confined to the owner's own active placements. Submit the draft for review to start serving.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param create_campaign_dto [CreateCampaignDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvCampaign]
     def advertiser_controller_create(create_campaign_dto, opts = {})
-      advertiser_controller_create_with_http_info(create_campaign_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_create_with_http_info(create_campaign_dto, opts)
+      data
     end
 
+    # Create a campaign (ad set)
+    # Creates a campaign in &#x60;draft&#x60; status together with its targeting row and, if &#x60;conversion&#x60; is given, a conversion config. Key body fields: &#x60;name&#x60;, &#x60;format&#x60;, &#x60;pricingModel&#x60;, &#x60;bidAmount&#x60;, budgets, &#x60;pacing&#x60;, schedule, &#x60;targeting&#x60;, &#x60;bidStrategy&#x60;/&#x60;targetCpa&#x60;/&#x60;targetRoas&#x60;, &#x60;houseAd&#x60;, &#x60;priorityTier&#x60;, &#x60;groupId&#x60;. The currency is always taken from the advertiser&#39;s account (a client-sent &#x60;currency&#x60; is ignored), &#x60;terminal&#x60; format is forced to CPM, and &#x60;groupId&#x60; is silently dropped unless the advertiser owns that group. A house ad with no placement whitelist is confined to the owner&#39;s own active placements. Submit the draft for review to start serving.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param create_campaign_dto [CreateCampaignDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvCampaign, Integer, Hash)>] AdvCampaign data, response status code and response headers
     def advertiser_controller_create_with_http_info(create_campaign_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_create ...'
@@ -365,6 +399,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -378,10 +414,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_campaign_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvCampaign'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_create",
@@ -400,17 +436,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create an audience
+    # Creates an audience. Passing a `rule` makes it an event-rule audience (type `rule`) built from pixel events: the rule is bounds-checked (400), membership is resolved immediately in the background, and the resolver keeps it fresh. Without a rule, `type` selects uploaded, lookalike or retargeting (the default). `pixelId` scopes the audience to one pixel.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param create_audience_dto [CreateAudienceDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerCreateAudience201Response]
     def advertiser_controller_create_audience(create_audience_dto, opts = {})
-      advertiser_controller_create_audience_with_http_info(create_audience_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_create_audience_with_http_info(create_audience_dto, opts)
+      data
     end
 
+    # Create an audience
+    # Creates an audience. Passing a &#x60;rule&#x60; makes it an event-rule audience (type &#x60;rule&#x60;) built from pixel events: the rule is bounds-checked (400), membership is resolved immediately in the background, and the resolver keeps it fresh. Without a rule, &#x60;type&#x60; selects uploaded, lookalike or retargeting (the default). &#x60;pixelId&#x60; scopes the audience to one pixel.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param create_audience_dto [CreateAudienceDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerCreateAudience201Response, Integer, Hash)>] AdvertiserControllerCreateAudience201Response data, response status code and response headers
     def advertiser_controller_create_audience_with_http_info(create_audience_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_create_audience ...'
@@ -427,6 +467,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -440,10 +482,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_audience_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerCreateAudience201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_create_audience",
@@ -462,17 +504,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create a creative
+    # Creates a creative in the library; pass `campaignId` to also author it directly under a campaign (404/403 if that campaign is not owned). Every URL field is SSRF-checked (400 for internal destinations) and video/VAST fields are validated (`duration` 1-600, `skipOffsetSec`, https `vastTagUrl`/`vpaidUrl`, `companions`); `carouselItems` is capped at 20. Marketplace creatives start `pending` and enter moderation; creatives under a house-ad campaign are approved immediately. A malware scan always runs, video assets are queued for HLS transcoding, and a VAST tag without `duration` is probed in the background.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param create_creative_dto [CreateCreativeDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvCreative]
     def advertiser_controller_create_creative(create_creative_dto, opts = {})
-      advertiser_controller_create_creative_with_http_info(create_creative_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_create_creative_with_http_info(create_creative_dto, opts)
+      data
     end
 
+    # Create a creative
+    # Creates a creative in the library; pass &#x60;campaignId&#x60; to also author it directly under a campaign (404/403 if that campaign is not owned). Every URL field is SSRF-checked (400 for internal destinations) and video/VAST fields are validated (&#x60;duration&#x60; 1-600, &#x60;skipOffsetSec&#x60;, https &#x60;vastTagUrl&#x60;/&#x60;vpaidUrl&#x60;, &#x60;companions&#x60;); &#x60;carouselItems&#x60; is capped at 20. Marketplace creatives start &#x60;pending&#x60; and enter moderation; creatives under a house-ad campaign are approved immediately. A malware scan always runs, video assets are queued for HLS transcoding, and a VAST tag without &#x60;duration&#x60; is probed in the background.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param create_creative_dto [CreateCreativeDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvCreative, Integer, Hash)>] AdvCreative data, response status code and response headers
     def advertiser_controller_create_creative_with_http_info(create_creative_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_create_creative ...'
@@ -489,6 +535,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -502,10 +550,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_creative_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvCreative'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_create_creative",
@@ -524,19 +572,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Add a sync destination to an audience
+    # Creates a destination of `type` webhook (default; HMAC-signed, SSRF-guarded HTTPS push), meta_custom_audience or google_customer_match, with adapter settings and credentials in `config`. Responds 404 when the audience is not owned. Active destinations are synced on a schedule; PII destinations receive only hashed email/phone, never raw PII.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param create_destination_dto [CreateDestinationDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerCreateAudience201Response]
     def advertiser_controller_create_destination(id, create_destination_dto, opts = {})
-      advertiser_controller_create_destination_with_http_info(id, create_destination_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_create_destination_with_http_info(id, create_destination_dto, opts)
+      data
     end
 
+    # Add a sync destination to an audience
+    # Creates a destination of &#x60;type&#x60; webhook (default; HMAC-signed, SSRF-guarded HTTPS push), meta_custom_audience or google_customer_match, with adapter settings and credentials in &#x60;config&#x60;. Responds 404 when the audience is not owned. Active destinations are synced on a schedule; PII destinations receive only hashed email/phone, never raw PII.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param create_destination_dto [CreateDestinationDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerCreateAudience201Response, Integer, Hash)>] AdvertiserControllerCreateAudience201Response data, response status code and response headers
     def advertiser_controller_create_destination_with_http_info(id, create_destination_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_create_destination ...'
@@ -557,6 +609,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -570,10 +624,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_destination_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerCreateAudience201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_create_destination",
@@ -592,17 +646,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Register a product feed
+    # Registers a product feed for dynamic product ads. Body: `name`, `url` (http/https), `format` (csv, xml or google_merchant) and optional `scheduleCron`. Responds 400 for a missing name, a non-http URL or an unknown format. The feed is not fetched until a fetch is triggered or the scheduler runs.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param create_feed_dto [CreateFeedDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvProductFeed]
     def advertiser_controller_create_feed(create_feed_dto, opts = {})
-      advertiser_controller_create_feed_with_http_info(create_feed_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_create_feed_with_http_info(create_feed_dto, opts)
+      data
     end
 
+    # Register a product feed
+    # Registers a product feed for dynamic product ads. Body: &#x60;name&#x60;, &#x60;url&#x60; (http/https), &#x60;format&#x60; (csv, xml or google_merchant) and optional &#x60;scheduleCron&#x60;. Responds 400 for a missing name, a non-http URL or an unknown format. The feed is not fetched until a fetch is triggered or the scheduler runs.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param create_feed_dto [CreateFeedDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvProductFeed, Integer, Hash)>] AdvProductFeed data, response status code and response headers
     def advertiser_controller_create_feed_with_http_info(create_feed_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_create_feed ...'
@@ -619,6 +677,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -632,10 +692,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_feed_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvProductFeed'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_create_feed",
@@ -654,17 +714,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create a campaign group
+    # Creates a campaign group with `name` and an optional `objective`. New groups start with status `active`. Ad sets are attached to a group by passing `groupId` when creating a campaign.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param campaign_group_dto [CampaignGroupDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvCampaignGroup]
     def advertiser_controller_create_group(campaign_group_dto, opts = {})
-      advertiser_controller_create_group_with_http_info(campaign_group_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_create_group_with_http_info(campaign_group_dto, opts)
+      data
     end
 
+    # Create a campaign group
+    # Creates a campaign group with &#x60;name&#x60; and an optional &#x60;objective&#x60;. New groups start with status &#x60;active&#x60;. Ad sets are attached to a group by passing &#x60;groupId&#x60; when creating a campaign.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param campaign_group_dto [CampaignGroupDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvCampaignGroup, Integer, Hash)>] AdvCampaignGroup data, response status code and response headers
     def advertiser_controller_create_group_with_http_info(campaign_group_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_create_group ...'
@@ -681,6 +745,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -694,10 +760,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(campaign_group_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvCampaignGroup'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_create_group",
@@ -716,17 +782,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create a sponsored-product promote campaign
+    # Creates a draft campaign that promotes catalog items. `itemSelector` must be exactly one of `{ item_ids }`, `{ keywords }` or `{ all: true }`. `pricingModel` is cpc (default) or cpa; cpc and flat cpa need `bidAmount` > 0, while cpa with `cpaMode: percent` needs `cpaPercent` in (0, 1]. Also accepts budgets, `pacing` (even|asap), `minOrderValue` (CPA fraud floor), `currency`, schedule and `targeting`. Validation failures return 400. The created row is returned with NUMERIC columns as strings.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param create_promote_campaign_dto [CreatePromoteCampaignDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvPromoteCampaign]
     def advertiser_controller_create_promote(create_promote_campaign_dto, opts = {})
-      advertiser_controller_create_promote_with_http_info(create_promote_campaign_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_create_promote_with_http_info(create_promote_campaign_dto, opts)
+      data
     end
 
+    # Create a sponsored-product promote campaign
+    # Creates a draft campaign that promotes catalog items. &#x60;itemSelector&#x60; must be exactly one of &#x60;{ item_ids }&#x60;, &#x60;{ keywords }&#x60; or &#x60;{ all: true }&#x60;. &#x60;pricingModel&#x60; is cpc (default) or cpa; cpc and flat cpa need &#x60;bidAmount&#x60; &gt; 0, while cpa with &#x60;cpaMode: percent&#x60; needs &#x60;cpaPercent&#x60; in (0, 1]. Also accepts budgets, &#x60;pacing&#x60; (even|asap), &#x60;minOrderValue&#x60; (CPA fraud floor), &#x60;currency&#x60;, schedule and &#x60;targeting&#x60;. Validation failures return 400. The created row is returned with NUMERIC columns as strings.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param create_promote_campaign_dto [CreatePromoteCampaignDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvPromoteCampaign, Integer, Hash)>] AdvPromoteCampaign data, response status code and response headers
     def advertiser_controller_create_promote_with_http_info(create_promote_campaign_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_create_promote ...'
@@ -743,6 +813,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -756,10 +828,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_promote_campaign_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvPromoteCampaign'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_create_promote",
@@ -778,17 +850,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List campaigns a creative is attached to
+    # Returns the non-deleted campaigns this library creative is attached to, with the attachment `weight` and `enabled` flag. Creatives authored directly under a campaign without an attachment do not appear. 404 when the creative is not owned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AdvCreativeAssignment>]
     def advertiser_controller_creative_assignments(id, opts = {})
-      advertiser_controller_creative_assignments_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_creative_assignments_with_http_info(id, opts)
+      data
     end
 
+    # List campaigns a creative is attached to
+    # Returns the non-deleted campaigns this library creative is attached to, with the attachment &#x60;weight&#x60; and &#x60;enabled&#x60; flag. Creatives authored directly under a campaign without an attachment do not appear. 404 when the creative is not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AdvCreativeAssignment>, Integer, Hash)>] Array<AdvCreativeAssignment> data, response status code and response headers
     def advertiser_controller_creative_assignments_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_creative_assignments ...'
@@ -805,6 +881,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -813,10 +891,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AdvCreativeAssignment>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_creative_assignments",
@@ -835,19 +913,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Detach a library creative from a campaign
+    # Removes the link between the creative and `campaignId` and republishes the serving index. Succeeds even if no link existed. 404 when the creative is not owned.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param attach_creative_dto [AttachCreativeDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerDetachCreative201Response]
     def advertiser_controller_detach_creative(id, attach_creative_dto, opts = {})
-      advertiser_controller_detach_creative_with_http_info(id, attach_creative_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_detach_creative_with_http_info(id, attach_creative_dto, opts)
+      data
     end
 
+    # Detach a library creative from a campaign
+    # Removes the link between the creative and &#x60;campaignId&#x60; and republishes the serving index. Succeeds even if no link existed. 404 when the creative is not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param attach_creative_dto [AttachCreativeDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerDetachCreative201Response, Integer, Hash)>] AdvertiserControllerDetachCreative201Response data, response status code and response headers
     def advertiser_controller_detach_creative_with_http_info(id, attach_creative_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_detach_creative ...'
@@ -868,6 +950,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -881,10 +965,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(attach_creative_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerDetachCreative201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_detach_creative",
@@ -903,17 +987,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Estimate the size of an audience rule
+    # Counts the distinct users matching `rule` (optionally limited to `pixelId`) without creating an audience. The rule is bounds-checked (400). A query failure returns 0. Rate-limited to 20 calls per throttle window because each call runs a ClickHouse aggregation.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param create_audience_dto [CreateAudienceDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerEstimateAudience201Response]
     def advertiser_controller_estimate_audience(create_audience_dto, opts = {})
-      advertiser_controller_estimate_audience_with_http_info(create_audience_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_estimate_audience_with_http_info(create_audience_dto, opts)
+      data
     end
 
+    # Estimate the size of an audience rule
+    # Counts the distinct users matching &#x60;rule&#x60; (optionally limited to &#x60;pixelId&#x60;) without creating an audience. The rule is bounds-checked (400). A query failure returns 0. Rate-limited to 20 calls per throttle window because each call runs a ClickHouse aggregation.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param create_audience_dto [CreateAudienceDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerEstimateAudience201Response, Integer, Hash)>] AdvertiserControllerEstimateAudience201Response data, response status code and response headers
     def advertiser_controller_estimate_audience_with_http_info(create_audience_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_estimate_audience ...'
@@ -930,6 +1018,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -943,10 +1033,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_audience_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerEstimateAudience201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_estimate_audience",
@@ -965,17 +1055,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Fetch a product feed now
+    # Downloads (SSRF-guarded) and parses the feed immediately and upserts its products, returning the parsed and upserted counts. Rate-limited to 5 calls per throttle window. Responds 404 when the feed does not exist and 403 when it belongs to another advertiser.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerFetchFeed201Response]
     def advertiser_controller_fetch_feed(id, opts = {})
-      advertiser_controller_fetch_feed_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_fetch_feed_with_http_info(id, opts)
+      data
     end
 
+    # Fetch a product feed now
+    # Downloads (SSRF-guarded) and parses the feed immediately and upserts its products, returning the parsed and upserted counts. Rate-limited to 5 calls per throttle window. Responds 404 when the feed does not exist and 403 when it belongs to another advertiser.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerFetchFeed201Response, Integer, Hash)>] AdvertiserControllerFetchFeed201Response data, response status code and response headers
     def advertiser_controller_fetch_feed_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_fetch_feed ...'
@@ -992,6 +1086,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1000,10 +1096,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerFetchFeed201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_fetch_feed",
@@ -1022,17 +1118,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get a campaign with targeting and creatives
+    # Returns the campaign row plus its raw `targeting` row and the creatives authored directly under it (library-attached creatives are listed by GET /campaigns/{id}/creatives). Responds 404 when the campaign does not exist or is deleted, and 403 when it belongs to another advertiser.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvCampaignDetail]
     def advertiser_controller_get(id, opts = {})
-      advertiser_controller_get_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_get_with_http_info(id, opts)
+      data
     end
 
+    # Get a campaign with targeting and creatives
+    # Returns the campaign row plus its raw &#x60;targeting&#x60; row and the creatives authored directly under it (library-attached creatives are listed by GET /campaigns/{id}/creatives). Responds 404 when the campaign does not exist or is deleted, and 403 when it belongs to another advertiser.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvCampaignDetail, Integer, Hash)>] AdvCampaignDetail data, response status code and response headers
     def advertiser_controller_get_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_get ...'
@@ -1049,6 +1149,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1057,10 +1159,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvCampaignDetail'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_get",
@@ -1079,17 +1181,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get a campaign's conversion config
+    # Returns the conversion-tracking config for the campaign (event type, payout, postback URL, dedupe and attribution windows, CPA mode). The body is empty (null) when none has been set. Responds 404 when the campaign is missing and 403 when not owned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvConversionConfig]
     def advertiser_controller_get_conversion_config(id, opts = {})
-      advertiser_controller_get_conversion_config_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_get_conversion_config_with_http_info(id, opts)
+      data
     end
 
+    # Get a campaign&#39;s conversion config
+    # Returns the conversion-tracking config for the campaign (event type, payout, postback URL, dedupe and attribution windows, CPA mode). The body is empty (null) when none has been set. Responds 404 when the campaign is missing and 403 when not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvConversionConfig, Integer, Hash)>] AdvConversionConfig data, response status code and response headers
     def advertiser_controller_get_conversion_config_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_get_conversion_config ...'
@@ -1106,6 +1212,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1114,10 +1222,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvConversionConfig'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_get_conversion_config",
@@ -1136,17 +1244,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get a creative
+    # Returns one creative owned by the advertiser. Responds 404 when it does not exist, is deleted, or belongs to another advertiser.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvCreative]
     def advertiser_controller_get_creative(id, opts = {})
-      advertiser_controller_get_creative_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_get_creative_with_http_info(id, opts)
+      data
     end
 
+    # Get a creative
+    # Returns one creative owned by the advertiser. Responds 404 when it does not exist, is deleted, or belongs to another advertiser.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvCreative, Integer, Hash)>] AdvCreative data, response status code and response headers
     def advertiser_controller_get_creative_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_get_creative ...'
@@ -1163,6 +1275,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1171,10 +1285,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvCreative'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_get_creative",
@@ -1193,17 +1307,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get a campaign group
+    # Returns one campaign group row. Responds 404 when the group does not exist, is deleted, or belongs to another advertiser. Ad sets are not nested here; the list endpoint includes them.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvCampaignGroup]
     def advertiser_controller_get_group(id, opts = {})
-      advertiser_controller_get_group_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_get_group_with_http_info(id, opts)
+      data
     end
 
+    # Get a campaign group
+    # Returns one campaign group row. Responds 404 when the group does not exist, is deleted, or belongs to another advertiser. Ad sets are not nested here; the list endpoint includes them.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvCampaignGroup, Integer, Hash)>] AdvCampaignGroup data, response status code and response headers
     def advertiser_controller_get_group_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_get_group ...'
@@ -1220,6 +1338,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1228,10 +1348,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvCampaignGroup'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_get_group",
@@ -1250,17 +1370,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get campaign targeting
+    # Returns the campaign's targeting normalized to the camelCase shape accepted by create/update. Absent fields come back as empty arrays (or null for `osVersionMin` and `frequencyCap`). `dayparting` is a 168-element array indexed weekday*24+hour (Sunday=0); empty means all hours. 404/403 as for GET campaign.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvTargeting]
     def advertiser_controller_get_targeting(id, opts = {})
-      advertiser_controller_get_targeting_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_get_targeting_with_http_info(id, opts)
+      data
     end
 
+    # Get campaign targeting
+    # Returns the campaign&#39;s targeting normalized to the camelCase shape accepted by create/update. Absent fields come back as empty arrays (or null for &#x60;osVersionMin&#x60; and &#x60;frequencyCap&#x60;). &#x60;dayparting&#x60; is a 168-element array indexed weekday*24+hour (Sunday&#x3D;0); empty means all hours. 404/403 as for GET campaign.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvTargeting, Integer, Hash)>] AdvTargeting data, response status code and response headers
     def advertiser_controller_get_targeting_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_get_targeting ...'
@@ -1277,6 +1401,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1285,10 +1411,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvTargeting'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_get_targeting",
@@ -1307,15 +1433,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List campaigns (ad sets)
+    # Returns the advertiser's non-deleted `campaigns` rows (the UI \"Ad set\", the real targeting and serving unit), newest first. Pagination is opt-in: pass `limit` (clamped to 1-500) and `offset`; without `limit` the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AdvCampaign>]
     def advertiser_controller_list(opts = {})
-      advertiser_controller_list_with_http_info(opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_list_with_http_info(opts)
+      data
     end
 
+    # List campaigns (ad sets)
+    # Returns the advertiser&#39;s non-deleted &#x60;campaigns&#x60; rows (the UI \&quot;Ad set\&quot;, the real targeting and serving unit), newest first. Pagination is opt-in: pass &#x60;limit&#x60; (clamped to 1-500) and &#x60;offset&#x60;; without &#x60;limit&#x60; the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AdvCampaign>, Integer, Hash)>] Array<AdvCampaign> data, response status code and response headers
     def advertiser_controller_list_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_list ...'
@@ -1328,6 +1458,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1336,10 +1468,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AdvCampaign>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_list",
@@ -1358,15 +1490,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List the creative library
+    # Returns every non-deleted creative owned by the advertiser, independent of campaigns, with `campaign_count` (number of library attachments). Used by Creative Studio.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AdvLibraryCreative>]
     def advertiser_controller_list_all_creatives(opts = {})
-      advertiser_controller_list_all_creatives_with_http_info(opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_list_all_creatives_with_http_info(opts)
+      data
     end
 
+    # List the creative library
+    # Returns every non-deleted creative owned by the advertiser, independent of campaigns, with &#x60;campaign_count&#x60; (number of library attachments). Used by Creative Studio.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AdvLibraryCreative>, Integer, Hash)>] Array<AdvLibraryCreative> data, response status code and response headers
     def advertiser_controller_list_all_creatives_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_list_all_creatives ...'
@@ -1379,6 +1515,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1387,10 +1525,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AdvLibraryCreative>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_list_all_creatives",
@@ -1409,15 +1547,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List audiences
+    # Returns the account's audiences, newest first, with the live member count read from the serving set. A team member scoped to specific pixels only sees audiences tied to those pixels.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AdvAudience>]
     def advertiser_controller_list_audiences(opts = {})
-      advertiser_controller_list_audiences_with_http_info(opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_list_audiences_with_http_info(opts)
+      data
     end
 
+    # List audiences
+    # Returns the account&#39;s audiences, newest first, with the live member count read from the serving set. A team member scoped to specific pixels only sees audiences tied to those pixels.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AdvAudience>, Integer, Hash)>] Array<AdvAudience> data, response status code and response headers
     def advertiser_controller_list_audiences_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_list_audiences ...'
@@ -1430,6 +1572,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1438,10 +1582,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AdvAudience>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_list_audiences",
@@ -1460,15 +1604,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List marketplace catalog items
+    # Returns the advertiser's non-deleted catalog items, most recently updated first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AdvCatalogItem>]
     def advertiser_controller_list_catalog(opts = {})
-      advertiser_controller_list_catalog_with_http_info(opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_list_catalog_with_http_info(opts)
+      data
     end
 
+    # List marketplace catalog items
+    # Returns the advertiser&#39;s non-deleted catalog items, most recently updated first.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AdvCatalogItem>, Integer, Hash)>] Array<AdvCatalogItem> data, response status code and response headers
     def advertiser_controller_list_catalog_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_list_catalog ...'
@@ -1481,6 +1629,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1489,10 +1639,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AdvCatalogItem>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_list_catalog",
@@ -1511,15 +1661,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List scheduled catalog feeds
+    # Returns the advertiser's non-deleted catalog feeds, newest first, with the last sync time and last error.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AdvCatalogFeed>]
     def advertiser_controller_list_catalog_feeds(opts = {})
-      advertiser_controller_list_catalog_feeds_with_http_info(opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_list_catalog_feeds_with_http_info(opts)
+      data
     end
 
+    # List scheduled catalog feeds
+    # Returns the advertiser&#39;s non-deleted catalog feeds, newest first, with the last sync time and last error.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AdvCatalogFeed>, Integer, Hash)>] Array<AdvCatalogFeed> data, response status code and response headers
     def advertiser_controller_list_catalog_feeds_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_list_catalog_feeds ...'
@@ -1532,6 +1686,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1540,10 +1696,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AdvCatalogFeed>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_list_catalog_feeds",
@@ -1562,17 +1718,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List DCO components for a creative
+    # Returns the components in the creative's campaign pool plus account-wide components (no campaign), ordered by slot. Each row includes bandit impressions/clicks and the derived `ctr` (0 with no impressions). 404 when the creative is not owned or has no campaign.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AdvCreativeComponent>]
     def advertiser_controller_list_components(id, opts = {})
-      advertiser_controller_list_components_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_list_components_with_http_info(id, opts)
+      data
     end
 
+    # List DCO components for a creative
+    # Returns the components in the creative&#39;s campaign pool plus account-wide components (no campaign), ordered by slot. Each row includes bandit impressions/clicks and the derived &#x60;ctr&#x60; (0 with no impressions). 404 when the creative is not owned or has no campaign.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AdvCreativeComponent>, Integer, Hash)>] Array<AdvCreativeComponent> data, response status code and response headers
     def advertiser_controller_list_components_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_list_components ...'
@@ -1589,6 +1749,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1597,10 +1759,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AdvCreativeComponent>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_list_components",
@@ -1619,17 +1781,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List creatives serving a campaign
+    # Returns creatives authored directly under the campaign plus library creatives attached to it, newest first. Each row adds `effective_weight` (attachment weight, else the creative weight) and `attached`. Returns an empty list for a campaign the advertiser does not own.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AdvCampaignCreative>]
     def advertiser_controller_list_creatives(id, opts = {})
-      advertiser_controller_list_creatives_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_list_creatives_with_http_info(id, opts)
+      data
     end
 
+    # List creatives serving a campaign
+    # Returns creatives authored directly under the campaign plus library creatives attached to it, newest first. Each row adds &#x60;effective_weight&#x60; (attachment weight, else the creative weight) and &#x60;attached&#x60;. Returns an empty list for a campaign the advertiser does not own.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AdvCampaignCreative>, Integer, Hash)>] Array<AdvCampaignCreative> data, response status code and response headers
     def advertiser_controller_list_creatives_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_list_creatives ...'
@@ -1646,6 +1812,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1654,10 +1822,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AdvCampaignCreative>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_list_creatives",
@@ -1676,17 +1844,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List sync destinations for an audience
+    # Returns the destinations that push this audience's members to external systems, newest first. Secrets and tokens in `config` are redacted. Returns an empty list for an audience the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AdvAudienceDestination>]
     def advertiser_controller_list_destinations(id, opts = {})
-      advertiser_controller_list_destinations_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_list_destinations_with_http_info(id, opts)
+      data
     end
 
+    # List sync destinations for an audience
+    # Returns the destinations that push this audience&#39;s members to external systems, newest first. Secrets and tokens in &#x60;config&#x60; are redacted. Returns an empty list for an audience the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AdvAudienceDestination>, Integer, Hash)>] Array<AdvAudienceDestination> data, response status code and response headers
     def advertiser_controller_list_destinations_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_list_destinations ...'
@@ -1703,6 +1875,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1711,10 +1885,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AdvAudienceDestination>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_list_destinations",
@@ -1733,21 +1907,25 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List products parsed from a feed
+    # Returns products from the feed, most recently updated first. Query `limit` (1-500, default 50) and `offset` (default 0). Responds 404/403 when the feed is missing or not owned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param limit [String] 
     # @param offset [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerListFeedProducts200Response]
     def advertiser_controller_list_feed_products(id, limit, offset, opts = {})
-      advertiser_controller_list_feed_products_with_http_info(id, limit, offset, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_list_feed_products_with_http_info(id, limit, offset, opts)
+      data
     end
 
+    # List products parsed from a feed
+    # Returns products from the feed, most recently updated first. Query &#x60;limit&#x60; (1-500, default 50) and &#x60;offset&#x60; (default 0). Responds 404/403 when the feed is missing or not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param limit [String] 
     # @param offset [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerListFeedProducts200Response, Integer, Hash)>] AdvertiserControllerListFeedProducts200Response data, response status code and response headers
     def advertiser_controller_list_feed_products_with_http_info(id, limit, offset, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_list_feed_products ...'
@@ -1774,6 +1952,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1782,10 +1962,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerListFeedProducts200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_list_feed_products",
@@ -1804,15 +1984,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List product feeds
+    # Returns the advertiser's non-deleted product feeds, newest first, with their fetch schedule, last fetch time and status.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AdvProductFeed>]
     def advertiser_controller_list_feeds(opts = {})
-      advertiser_controller_list_feeds_with_http_info(opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_list_feeds_with_http_info(opts)
+      data
     end
 
+    # List product feeds
+    # Returns the advertiser&#39;s non-deleted product feeds, newest first, with their fetch schedule, last fetch time and status.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AdvProductFeed>, Integer, Hash)>] Array<AdvProductFeed> data, response status code and response headers
     def advertiser_controller_list_feeds_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_list_feeds ...'
@@ -1825,6 +2009,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1833,10 +2019,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AdvProductFeed>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_list_feeds",
@@ -1855,15 +2041,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List campaign groups with their ad sets
+    # Returns every non-deleted campaign group (the UI \"Campaign\") owned by the advertiser, newest first. Each group carries a spend rollup (`spent_total`, summed over its live ad sets) and an `adSets` array with a compact summary of each ad set (`campaigns` row) under it. Ad sets with no group are not included here; use GET /v1/advertiser/campaigns for those.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AdvCampaignGroupWithAdSets>]
     def advertiser_controller_list_groups(opts = {})
-      advertiser_controller_list_groups_with_http_info(opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_list_groups_with_http_info(opts)
+      data
     end
 
+    # List campaign groups with their ad sets
+    # Returns every non-deleted campaign group (the UI \&quot;Campaign\&quot;) owned by the advertiser, newest first. Each group carries a spend rollup (&#x60;spent_total&#x60;, summed over its live ad sets) and an &#x60;adSets&#x60; array with a compact summary of each ad set (&#x60;campaigns&#x60; row) under it. Ad sets with no group are not included here; use GET /v1/advertiser/campaigns for those.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AdvCampaignGroupWithAdSets>, Integer, Hash)>] Array<AdvCampaignGroupWithAdSets> data, response status code and response headers
     def advertiser_controller_list_groups_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_list_groups ...'
@@ -1876,6 +2066,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1884,10 +2076,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AdvCampaignGroupWithAdSets>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_list_groups",
@@ -1906,15 +2098,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List sponsored-product promote campaigns
+    # Returns the advertiser's non-deleted promote campaigns, newest first, with money fields as numbers.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AdvPromoteCampaign>]
     def advertiser_controller_list_promote(opts = {})
-      advertiser_controller_list_promote_with_http_info(opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_list_promote_with_http_info(opts)
+      data
     end
 
+    # List sponsored-product promote campaigns
+    # Returns the advertiser&#39;s non-deleted promote campaigns, newest first, with money fields as numbers.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AdvPromoteCampaign>, Integer, Hash)>] Array<AdvPromoteCampaign> data, response status code and response headers
     def advertiser_controller_list_promote_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_list_promote ...'
@@ -1927,6 +2123,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1935,10 +2133,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AdvPromoteCampaign>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_list_promote",
@@ -1957,19 +2155,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create a heuristic lookalike audience
+    # Builds a new `lookalike` audience from the seed audience using a profile heuristic, not a trained model: it finds the dominant geo/device of the seed's recent impressions (falling back to the network-wide profile) and selects other recent users with that profile, excluding seed members. `size` is capped by LOOKALIKE_MAX (default 50,000). The result can be empty. 404/403 when the seed is not owned.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param lookalike_dto [LookalikeDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerLookalikeAudience201Response]
     def advertiser_controller_lookalike_audience(id, lookalike_dto, opts = {})
-      advertiser_controller_lookalike_audience_with_http_info(id, lookalike_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_lookalike_audience_with_http_info(id, lookalike_dto, opts)
+      data
     end
 
+    # Create a heuristic lookalike audience
+    # Builds a new &#x60;lookalike&#x60; audience from the seed audience using a profile heuristic, not a trained model: it finds the dominant geo/device of the seed&#39;s recent impressions (falling back to the network-wide profile) and selects other recent users with that profile, excluding seed members. &#x60;size&#x60; is capped by LOOKALIKE_MAX (default 50,000). The result can be empty. 404/403 when the seed is not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param lookalike_dto [LookalikeDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerLookalikeAudience201Response, Integer, Hash)>] AdvertiserControllerLookalikeAudience201Response data, response status code and response headers
     def advertiser_controller_lookalike_audience_with_http_info(id, lookalike_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_lookalike_audience ...'
@@ -1990,6 +2192,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -2003,10 +2207,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(lookalike_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerLookalikeAudience201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_lookalike_audience",
@@ -2025,17 +2229,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create a modeled lookalike audience
+    # Fits a model of the seed audience's distinctive first-party pixel features against the account's background audience, scores recent pixel-active users (excluding seed members and opt-outs) and creates a new lookalike audience. Body: `seedAudienceId`, optional `size` and `minScore` (0-1). Responds 400 when the seed or the output is below the k-anonymity floor, and 404/403 when the seed is not owned. The audience is rebuilt periodically.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param modeled_lookalike_dto [ModeledLookalikeDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerModeledLookalike201Response]
     def advertiser_controller_modeled_lookalike(modeled_lookalike_dto, opts = {})
-      advertiser_controller_modeled_lookalike_with_http_info(modeled_lookalike_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_modeled_lookalike_with_http_info(modeled_lookalike_dto, opts)
+      data
     end
 
+    # Create a modeled lookalike audience
+    # Fits a model of the seed audience&#39;s distinctive first-party pixel features against the account&#39;s background audience, scores recent pixel-active users (excluding seed members and opt-outs) and creates a new lookalike audience. Body: &#x60;seedAudienceId&#x60;, optional &#x60;size&#x60; and &#x60;minScore&#x60; (0-1). Responds 400 when the seed or the output is below the k-anonymity floor, and 404/403 when the seed is not owned. The audience is rebuilt periodically.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param modeled_lookalike_dto [ModeledLookalikeDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerModeledLookalike201Response, Integer, Hash)>] AdvertiserControllerModeledLookalike201Response data, response status code and response headers
     def advertiser_controller_modeled_lookalike_with_http_info(modeled_lookalike_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_modeled_lookalike ...'
@@ -2052,6 +2260,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -2065,10 +2275,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(modeled_lookalike_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerModeledLookalike201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_modeled_lookalike",
@@ -2087,17 +2297,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Preview a modeled lookalike for a seed
+    # Returns the seed and background sizes, whether the seed passes the k-anonymity gate (`eligible`) and the most distinctive features, without creating an audience. When ineligible, `note` explains why and `topFeatures` is empty. 404/403 when the seed is not owned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerModeledLookalikePreview200Response]
     def advertiser_controller_modeled_lookalike_preview(id, opts = {})
-      advertiser_controller_modeled_lookalike_preview_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_modeled_lookalike_preview_with_http_info(id, opts)
+      data
     end
 
+    # Preview a modeled lookalike for a seed
+    # Returns the seed and background sizes, whether the seed passes the k-anonymity gate (&#x60;eligible&#x60;) and the most distinctive features, without creating an audience. When ineligible, &#x60;note&#x60; explains why and &#x60;topFeatures&#x60; is empty. 404/403 when the seed is not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerModeledLookalikePreview200Response, Integer, Hash)>] AdvertiserControllerModeledLookalikePreview200Response data, response status code and response headers
     def advertiser_controller_modeled_lookalike_preview_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_modeled_lookalike_preview ...'
@@ -2114,6 +2328,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2122,10 +2338,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerModeledLookalikePreview200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_modeled_lookalike_preview",
@@ -2144,19 +2360,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Activate or pause a promote campaign
+    # Sets `status` to active or paused and republishes the serving index so the engine adds or removes it from sponsored-product auctions. 404/403 when missing or not owned.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param set_promote_status_dto [SetPromoteStatusDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvStatusResult]
     def advertiser_controller_promote_status(id, set_promote_status_dto, opts = {})
-      advertiser_controller_promote_status_with_http_info(id, set_promote_status_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_promote_status_with_http_info(id, set_promote_status_dto, opts)
+      data
     end
 
+    # Activate or pause a promote campaign
+    # Sets &#x60;status&#x60; to active or paused and republishes the serving index so the engine adds or removes it from sponsored-product auctions. 404/403 when missing or not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param set_promote_status_dto [SetPromoteStatusDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvStatusResult, Integer, Hash)>] AdvStatusResult data, response status code and response headers
     def advertiser_controller_promote_status_with_http_info(id, set_promote_status_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_promote_status ...'
@@ -2177,6 +2397,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -2190,10 +2412,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(set_promote_status_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvStatusResult'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_promote_status",
@@ -2212,17 +2434,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Estimate daily reach for targeting
+    # Estimates available daily impressions as the average daily ad-request volume over the last 7 days, optionally filtered by `geoInclude` (country codes) and `deviceTypes`. The `format` field is accepted but not used in the estimate. If ClickHouse has no usable history the estimate is 0 with a `note`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param reach_estimate_dto [ReachEstimateDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerReach201Response]
     def advertiser_controller_reach(reach_estimate_dto, opts = {})
-      advertiser_controller_reach_with_http_info(reach_estimate_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_reach_with_http_info(reach_estimate_dto, opts)
+      data
     end
 
+    # Estimate daily reach for targeting
+    # Estimates available daily impressions as the average daily ad-request volume over the last 7 days, optionally filtered by &#x60;geoInclude&#x60; (country codes) and &#x60;deviceTypes&#x60;. The &#x60;format&#x60; field is accepted but not used in the estimate. If ClickHouse has no usable history the estimate is 0 with a &#x60;note&#x60;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param reach_estimate_dto [ReachEstimateDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerReach201Response, Integer, Hash)>] AdvertiserControllerReach201Response data, response status code and response headers
     def advertiser_controller_reach_with_http_info(reach_estimate_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_reach ...'
@@ -2239,6 +2465,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -2252,10 +2480,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(reach_estimate_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerReach201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_reach",
@@ -2274,17 +2502,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Register a scheduled catalog feed
+    # Registers a hosted JSON or CSV catalog at `feedUrl` (http/https; 400 otherwise) that a background job re-fetches every `intervalMinutes` (minimum 15, default 360) into the catalog. Registering a URL that is already registered updates its interval and reactivates it instead of creating a duplicate.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param register_catalog_feed_dto [RegisterCatalogFeedDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvCatalogFeed]
     def advertiser_controller_register_catalog_feed(register_catalog_feed_dto, opts = {})
-      advertiser_controller_register_catalog_feed_with_http_info(register_catalog_feed_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_register_catalog_feed_with_http_info(register_catalog_feed_dto, opts)
+      data
     end
 
+    # Register a scheduled catalog feed
+    # Registers a hosted JSON or CSV catalog at &#x60;feedUrl&#x60; (http/https; 400 otherwise) that a background job re-fetches every &#x60;intervalMinutes&#x60; (minimum 15, default 360) into the catalog. Registering a URL that is already registered updates its interval and reactivates it instead of creating a duplicate.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param register_catalog_feed_dto [RegisterCatalogFeedDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvCatalogFeed, Integer, Hash)>] AdvCatalogFeed data, response status code and response headers
     def advertiser_controller_register_catalog_feed_with_http_info(register_catalog_feed_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_register_catalog_feed ...'
@@ -2301,6 +2533,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -2314,10 +2548,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(register_catalog_feed_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvCatalogFeed'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_register_catalog_feed",
@@ -2336,17 +2570,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delete a campaign
+    # Soft-deletes the campaign and republishes the serving index so it stops serving immediately. Historical spend and stats remain available for reporting. Responds 404 when missing and 403 when not owned.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvDeleted]
     def advertiser_controller_remove(id, opts = {})
-      advertiser_controller_remove_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_remove_with_http_info(id, opts)
+      data
     end
 
+    # Delete a campaign
+    # Soft-deletes the campaign and republishes the serving index so it stops serving immediately. Historical spend and stats remain available for reporting. Responds 404 when missing and 403 when not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvDeleted, Integer, Hash)>] AdvDeleted data, response status code and response headers
     def advertiser_controller_remove_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_remove ...'
@@ -2363,6 +2601,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2371,10 +2611,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvDeleted'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_remove",
@@ -2393,17 +2633,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delete an audience
+    # Permanently deletes the audience row and its member set, so targeting that references it stops matching. Responds 404/403 when missing or not owned.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvDeleted]
     def advertiser_controller_remove_audience(id, opts = {})
-      advertiser_controller_remove_audience_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_remove_audience_with_http_info(id, opts)
+      data
     end
 
+    # Delete an audience
+    # Permanently deletes the audience row and its member set, so targeting that references it stops matching. Responds 404/403 when missing or not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvDeleted, Integer, Hash)>] AdvDeleted data, response status code and response headers
     def advertiser_controller_remove_audience_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_remove_audience ...'
@@ -2420,6 +2664,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2428,10 +2674,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvDeleted'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_remove_audience",
@@ -2450,17 +2696,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delete a scheduled catalog feed
+    # Soft-deletes the feed and stops its scheduled syncs; items already imported stay in the catalog. Returns `deleted: false` (not 404) when no owned, live feed matches.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvDeleted]
     def advertiser_controller_remove_catalog_feed(id, opts = {})
-      advertiser_controller_remove_catalog_feed_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_remove_catalog_feed_with_http_info(id, opts)
+      data
     end
 
+    # Delete a scheduled catalog feed
+    # Soft-deletes the feed and stops its scheduled syncs; items already imported stay in the catalog. Returns &#x60;deleted: false&#x60; (not 404) when no owned, live feed matches.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvDeleted, Integer, Hash)>] AdvDeleted data, response status code and response headers
     def advertiser_controller_remove_catalog_feed_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_remove_catalog_feed ...'
@@ -2477,6 +2727,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2485,10 +2737,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvDeleted'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_remove_catalog_feed",
@@ -2507,19 +2759,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delete a DCO component
+    # Soft-deletes component `cid` and republishes the serving index. Responds 404 when the creative or the component is not owned by the advertiser.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param cid [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvDeleted]
     def advertiser_controller_remove_component(id, cid, opts = {})
-      advertiser_controller_remove_component_with_http_info(id, cid, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_remove_component_with_http_info(id, cid, opts)
+      data
     end
 
+    # Delete a DCO component
+    # Soft-deletes component &#x60;cid&#x60; and republishes the serving index. Responds 404 when the creative or the component is not owned by the advertiser.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param cid [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvDeleted, Integer, Hash)>] AdvDeleted data, response status code and response headers
     def advertiser_controller_remove_component_with_http_info(id, cid, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_remove_component ...'
@@ -2540,6 +2796,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2548,10 +2806,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvDeleted'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_remove_component",
@@ -2570,17 +2828,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delete a creative
+    # Soft-deletes the creative, removes all its campaign attachments, and republishes the serving index. Responds 404 when not owned.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvDeleted]
     def advertiser_controller_remove_creative(id, opts = {})
-      advertiser_controller_remove_creative_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_remove_creative_with_http_info(id, opts)
+      data
     end
 
+    # Delete a creative
+    # Soft-deletes the creative, removes all its campaign attachments, and republishes the serving index. Responds 404 when not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvDeleted, Integer, Hash)>] AdvDeleted data, response status code and response headers
     def advertiser_controller_remove_creative_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_remove_creative ...'
@@ -2597,6 +2859,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2605,10 +2869,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvDeleted'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_remove_creative",
@@ -2627,17 +2891,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delete a sync destination
+    # Deletes the destination; members already pushed to the external system are not removed there. 404/403 when missing or not owned.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param did [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvDeleted]
     def advertiser_controller_remove_destination(did, opts = {})
-      advertiser_controller_remove_destination_with_http_info(did, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_remove_destination_with_http_info(did, opts)
+      data
     end
 
+    # Delete a sync destination
+    # Deletes the destination; members already pushed to the external system are not removed there. 404/403 when missing or not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param did [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvDeleted, Integer, Hash)>] AdvDeleted data, response status code and response headers
     def advertiser_controller_remove_destination_with_http_info(did, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_remove_destination ...'
@@ -2654,6 +2922,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2662,10 +2932,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvDeleted'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_remove_destination",
@@ -2684,17 +2954,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delete a campaign group
+    # Soft-deletes the group. Its ad sets are not deleted; they are detached (`group_id` set to null) and keep serving as standalone campaigns. Responds 404 when the group is not owned.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvDeleted]
     def advertiser_controller_remove_group(id, opts = {})
-      advertiser_controller_remove_group_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_remove_group_with_http_info(id, opts)
+      data
     end
 
+    # Delete a campaign group
+    # Soft-deletes the group. Its ad sets are not deleted; they are detached (&#x60;group_id&#x60; set to null) and keep serving as standalone campaigns. Responds 404 when the group is not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvDeleted, Integer, Hash)>] AdvDeleted data, response status code and response headers
     def advertiser_controller_remove_group_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_remove_group ...'
@@ -2711,6 +2985,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2719,10 +2995,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvDeleted'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_remove_group",
@@ -2741,19 +3017,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Set DCO and product-ad flags on a creative
+    # Sets `isDco` (default true) and `dcoContext` (global, geo, device or audience; default global; 400 otherwise), and optionally `productAd` and `defaultProductId` for dynamic product ads. When DCO is on, the engine fills the creative per render from the component pools. 404 when the creative is not owned or has no campaign.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param set_dco_dto [SetDcoDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerSetDco200Response]
     def advertiser_controller_set_dco(id, set_dco_dto, opts = {})
-      advertiser_controller_set_dco_with_http_info(id, set_dco_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_set_dco_with_http_info(id, set_dco_dto, opts)
+      data
     end
 
+    # Set DCO and product-ad flags on a creative
+    # Sets &#x60;isDco&#x60; (default true) and &#x60;dcoContext&#x60; (global, geo, device or audience; default global; 400 otherwise), and optionally &#x60;productAd&#x60; and &#x60;defaultProductId&#x60; for dynamic product ads. When DCO is on, the engine fills the creative per render from the component pools. 404 when the creative is not owned or has no campaign.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param set_dco_dto [SetDcoDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerSetDco200Response, Integer, Hash)>] AdvertiserControllerSetDco200Response data, response status code and response headers
     def advertiser_controller_set_dco_with_http_info(id, set_dco_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_set_dco ...'
@@ -2774,6 +3054,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -2787,10 +3069,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(set_dco_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerSetDco200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_set_dco",
@@ -2809,17 +3091,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Activate or pause a campaign
+    # Sets the campaign status from the body field `status` (`active` or `paused`) and republishes the serving index. Returns the status that was written. 404/403 as for GET campaign.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvStatusResult]
     def advertiser_controller_status(id, opts = {})
-      advertiser_controller_status_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_status_with_http_info(id, opts)
+      data
     end
 
+    # Activate or pause a campaign
+    # Sets the campaign status from the body field &#x60;status&#x60; (&#x60;active&#x60; or &#x60;paused&#x60;) and republishes the serving index. Returns the status that was written. 404/403 as for GET campaign.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvStatusResult, Integer, Hash)>] AdvStatusResult data, response status code and response headers
     def advertiser_controller_status_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_status ...'
@@ -2836,6 +3122,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2844,10 +3132,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvStatusResult'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_status",
@@ -2866,17 +3154,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Submit a campaign for moderation review
+    # Moves a `draft` campaign to `pending_review` and enqueues it in the moderation queue. A campaign that is not in draft keeps its status, but the response still reports `pending_review`. 404/403 as for GET campaign.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvStatusResult]
     def advertiser_controller_submit(id, opts = {})
-      advertiser_controller_submit_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_submit_with_http_info(id, opts)
+      data
     end
 
+    # Submit a campaign for moderation review
+    # Moves a &#x60;draft&#x60; campaign to &#x60;pending_review&#x60; and enqueues it in the moderation queue. A campaign that is not in draft keeps its status, but the response still reports &#x60;pending_review&#x60;. 404/403 as for GET campaign.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvStatusResult, Integer, Hash)>] AdvStatusResult data, response status code and response headers
     def advertiser_controller_submit_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_submit ...'
@@ -2893,6 +3185,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2901,10 +3195,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvStatusResult'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_submit",
@@ -2923,17 +3217,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Submit a promote campaign for review
+    # Moves a draft promote campaign to `pending_review` and enqueues it for moderation; a non-draft keeps its status. Responds 404 when missing and 403 when not owned.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvStatusResult]
     def advertiser_controller_submit_promote(id, opts = {})
-      advertiser_controller_submit_promote_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_submit_promote_with_http_info(id, opts)
+      data
     end
 
+    # Submit a promote campaign for review
+    # Moves a draft promote campaign to &#x60;pending_review&#x60; and enqueues it for moderation; a non-draft keeps its status. Responds 404 when missing and 403 when not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvStatusResult, Integer, Hash)>] AdvStatusResult data, response status code and response headers
     def advertiser_controller_submit_promote_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_submit_promote ...'
@@ -2950,6 +3248,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2958,10 +3258,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvStatusResult'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_submit_promote",
@@ -2980,17 +3280,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Sync a destination now
+    # Pushes the audience's current members (up to 500,000, excluding opt-outs) to the destination immediately and records the outcome on the destination. Returns the sync status and member count. 404/403 when the destination is missing or not owned.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param did [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerSyncDestination201Response]
     def advertiser_controller_sync_destination(did, opts = {})
-      advertiser_controller_sync_destination_with_http_info(did, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_sync_destination_with_http_info(did, opts)
+      data
     end
 
+    # Sync a destination now
+    # Pushes the audience&#39;s current members (up to 500,000, excluding opt-outs) to the destination immediately and records the outcome on the destination. Returns the sync status and member count. 404/403 when the destination is missing or not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param did [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerSyncDestination201Response, Integer, Hash)>] AdvertiserControllerSyncDestination201Response data, response status code and response headers
     def advertiser_controller_sync_destination_with_http_info(did, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_sync_destination ...'
@@ -3007,6 +3311,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -3015,10 +3321,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerSyncDestination201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_sync_destination",
@@ -3037,17 +3343,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Queue HLS transcoding for a video creative
+    # Starts (or restarts) transcoding the creative's video to HLS so SSAI can splice its segments. The job runs in the background and errors are not reported; the response only confirms it was queued. Responds 404 when the creative is not owned.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerTranscodeCreative201Response]
     def advertiser_controller_transcode_creative(id, opts = {})
-      advertiser_controller_transcode_creative_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_transcode_creative_with_http_info(id, opts)
+      data
     end
 
+    # Queue HLS transcoding for a video creative
+    # Starts (or restarts) transcoding the creative&#39;s video to HLS so SSAI can splice its segments. The job runs in the background and errors are not reported; the response only confirms it was queued. Responds 404 when the creative is not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerTranscodeCreative201Response, Integer, Hash)>] AdvertiserControllerTranscodeCreative201Response data, response status code and response headers
     def advertiser_controller_transcode_creative_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_transcode_creative ...'
@@ -3064,6 +3374,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -3072,10 +3384,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerTranscodeCreative201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_transcode_creative",
@@ -3094,19 +3406,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update a campaign
+    # Patches the campaign. Updatable: name, bidAmount, budgets, pacing, startAt/endAt, SKAdNetwork ids, houseAd, priorityTier, deliveryGoal/goalType, bidModifiers, portfolioFreqCap, sequenceGroup/sequenceOrder, suppressAfterConversion, holdoutPct (clamped 0-1), bidStrategy/targetCpa/targetRoas and utm (null resets to defaults). Passing `targeting` replaces the whole targeting row (omitted targeting fields are cleared). Format, pricing model and currency cannot change. Republishes the serving index and returns the same shape as GET; 404/403 as for GET.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param update_campaign_dto [UpdateCampaignDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvCampaignDetail]
     def advertiser_controller_update(id, update_campaign_dto, opts = {})
-      advertiser_controller_update_with_http_info(id, update_campaign_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_update_with_http_info(id, update_campaign_dto, opts)
+      data
     end
 
+    # Update a campaign
+    # Patches the campaign. Updatable: name, bidAmount, budgets, pacing, startAt/endAt, SKAdNetwork ids, houseAd, priorityTier, deliveryGoal/goalType, bidModifiers, portfolioFreqCap, sequenceGroup/sequenceOrder, suppressAfterConversion, holdoutPct (clamped 0-1), bidStrategy/targetCpa/targetRoas and utm (null resets to defaults). Passing &#x60;targeting&#x60; replaces the whole targeting row (omitted targeting fields are cleared). Format, pricing model and currency cannot change. Republishes the serving index and returns the same shape as GET; 404/403 as for GET.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param update_campaign_dto [UpdateCampaignDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvCampaignDetail, Integer, Hash)>] AdvCampaignDetail data, response status code and response headers
     def advertiser_controller_update_with_http_info(id, update_campaign_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_update ...'
@@ -3127,6 +3443,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -3140,10 +3458,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(update_campaign_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvCampaignDetail'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_update",
@@ -3162,19 +3480,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update an audience
+    # Updates `name` and/or `rule`. Setting a rule converts the audience to type `rule` and re-resolves its membership in the background. Responds 404 when the audience does not exist and 403 when it belongs to another account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param create_audience_dto [CreateAudienceDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerCreateAudience201Response]
     def advertiser_controller_update_audience(id, create_audience_dto, opts = {})
-      advertiser_controller_update_audience_with_http_info(id, create_audience_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_update_audience_with_http_info(id, create_audience_dto, opts)
+      data
     end
 
+    # Update an audience
+    # Updates &#x60;name&#x60; and/or &#x60;rule&#x60;. Setting a rule converts the audience to type &#x60;rule&#x60; and re-resolves its membership in the background. Responds 404 when the audience does not exist and 403 when it belongs to another account.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param create_audience_dto [CreateAudienceDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerCreateAudience201Response, Integer, Hash)>] AdvertiserControllerCreateAudience201Response data, response status code and response headers
     def advertiser_controller_update_audience_with_http_info(id, create_audience_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_update_audience ...'
@@ -3195,6 +3517,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -3208,10 +3532,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_audience_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerCreateAudience201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_update_audience",
@@ -3230,19 +3554,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update a creative
+    # Patches the creative's editable fields (asset/landing/icon/main-image URLs, copy, dimensions, weight, carousel items, video and VAST fields). URLs are SSRF-checked and the merged video fields re-validated (400). Any content change (asset, landing, copy, images, VAST tag, VPAID, companions) resets moderation to `pending` and re-runs the malware scan. Republishes the serving index; an empty patch returns the current row. 404 when not owned.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param update_creative_dto [UpdateCreativeDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvCreative]
     def advertiser_controller_update_creative(id, update_creative_dto, opts = {})
-      advertiser_controller_update_creative_with_http_info(id, update_creative_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_update_creative_with_http_info(id, update_creative_dto, opts)
+      data
     end
 
+    # Update a creative
+    # Patches the creative&#39;s editable fields (asset/landing/icon/main-image URLs, copy, dimensions, weight, carousel items, video and VAST fields). URLs are SSRF-checked and the merged video fields re-validated (400). Any content change (asset, landing, copy, images, VAST tag, VPAID, companions) resets moderation to &#x60;pending&#x60; and re-runs the malware scan. Republishes the serving index; an empty patch returns the current row. 404 when not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param update_creative_dto [UpdateCreativeDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvCreative, Integer, Hash)>] AdvCreative data, response status code and response headers
     def advertiser_controller_update_creative_with_http_info(id, update_creative_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_update_creative ...'
@@ -3263,6 +3591,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -3276,10 +3606,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(update_creative_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvCreative'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_update_creative",
@@ -3298,19 +3628,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update a sync destination
+    # Updates the destination's `config` and/or `active` flag. Responds 404 when it does not exist and 403 when it belongs to another account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param did [String] 
     # @param update_destination_dto [UpdateDestinationDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerCreateAudience201Response]
     def advertiser_controller_update_destination(did, update_destination_dto, opts = {})
-      advertiser_controller_update_destination_with_http_info(did, update_destination_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_update_destination_with_http_info(did, update_destination_dto, opts)
+      data
     end
 
+    # Update a sync destination
+    # Updates the destination&#39;s &#x60;config&#x60; and/or &#x60;active&#x60; flag. Responds 404 when it does not exist and 403 when it belongs to another account.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param did [String] 
     # @param update_destination_dto [UpdateDestinationDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerCreateAudience201Response, Integer, Hash)>] AdvertiserControllerCreateAudience201Response data, response status code and response headers
     def advertiser_controller_update_destination_with_http_info(did, update_destination_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_update_destination ...'
@@ -3331,6 +3665,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -3344,10 +3680,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(update_destination_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerCreateAudience201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_update_destination",
@@ -3366,19 +3702,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update a campaign group
+    # Patches `name`, `status` (active | paused | draft) and/or `objective`. Status cascades to the group's ad sets: `paused` pauses every active ad set, `active` re-activates paused ones (drafts stay draft), and the serving index is republished. Responds 404 when the group is not owned.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param update_campaign_group_dto [UpdateCampaignGroupDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvCampaignGroup]
     def advertiser_controller_update_group(id, update_campaign_group_dto, opts = {})
-      advertiser_controller_update_group_with_http_info(id, update_campaign_group_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_update_group_with_http_info(id, update_campaign_group_dto, opts)
+      data
     end
 
+    # Update a campaign group
+    # Patches &#x60;name&#x60;, &#x60;status&#x60; (active | paused | draft) and/or &#x60;objective&#x60;. Status cascades to the group&#39;s ad sets: &#x60;paused&#x60; pauses every active ad set, &#x60;active&#x60; re-activates paused ones (drafts stay draft), and the serving index is republished. Responds 404 when the group is not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param update_campaign_group_dto [UpdateCampaignGroupDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvCampaignGroup, Integer, Hash)>] AdvCampaignGroup data, response status code and response headers
     def advertiser_controller_update_group_with_http_info(id, update_campaign_group_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_update_group ...'
@@ -3399,6 +3739,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -3412,10 +3754,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(update_campaign_group_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvCampaignGroup'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_update_group",
@@ -3434,15 +3776,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Upload a creative asset file
+    # Multipart upload with the file in field `file` (400 if missing). The file is ClamAV-scanned (fail-open: `skipped` when the scanner is unavailable), stored on object storage, and PNG/GIF/JPEG dimensions are detected. Pass the returned `assetUrl` to POST /v1/advertiser/creatives; this call does not create a creative.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerUploadCreative201Response]
     def advertiser_controller_upload_creative(opts = {})
-      advertiser_controller_upload_creative_with_http_info(opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_upload_creative_with_http_info(opts)
+      data
     end
 
+    # Upload a creative asset file
+    # Multipart upload with the file in field &#x60;file&#x60; (400 if missing). The file is ClamAV-scanned (fail-open: &#x60;skipped&#x60; when the scanner is unavailable), stored on object storage, and PNG/GIF/JPEG dimensions are detected. Pass the returned &#x60;assetUrl&#x60; to POST /v1/advertiser/creatives; this call does not create a creative.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerUploadCreative201Response, Integer, Hash)>] AdvertiserControllerUploadCreative201Response data, response status code and response headers
     def advertiser_controller_upload_creative_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_upload_creative ...'
@@ -3455,6 +3801,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -3463,10 +3811,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerUploadCreative201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_upload_creative",
@@ -3485,15 +3833,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Upload a playable (HTML5) ZIP bundle
+    # Multipart upload of a ZIP in field `file`. The bundle is malware-scanned and validated: it must have an `index.html` at its root, only allowed file types, no unsafe paths, and stay within file-count and size limits (400 otherwise, including zip-bomb expansion). The sandbox/MRAID runtime is injected into the entry document and the files are hosted on the CDN. Pass the returned `assetUrl` with `type: html5` to POST creatives.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerUploadPlayable201Response]
     def advertiser_controller_upload_playable(opts = {})
-      advertiser_controller_upload_playable_with_http_info(opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_upload_playable_with_http_info(opts)
+      data
     end
 
+    # Upload a playable (HTML5) ZIP bundle
+    # Multipart upload of a ZIP in field &#x60;file&#x60;. The bundle is malware-scanned and validated: it must have an &#x60;index.html&#x60; at its root, only allowed file types, no unsafe paths, and stay within file-count and size limits (400 otherwise, including zip-bomb expansion). The sandbox/MRAID runtime is injected into the entry document and the files are hosted on the CDN. Pass the returned &#x60;assetUrl&#x60; with &#x60;type: html5&#x60; to POST creatives.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerUploadPlayable201Response, Integer, Hash)>] AdvertiserControllerUploadPlayable201Response data, response status code and response headers
     def advertiser_controller_upload_playable_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_upload_playable ...'
@@ -3506,6 +3858,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -3514,10 +3868,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerUploadPlayable201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_upload_playable",
@@ -3536,17 +3890,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Bulk upsert marketplace catalog items
+    # Upserts `items` into the marketplace catalog keyed by `externalId` (items without one are dropped) and mirrors each to Redis for serve-time rendering and keyword matching of sponsored products. Responds 400 when `items` is empty, no item has an externalId, or more than 50,000 items are sent.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param bulk_upsert_catalog_dto [BulkUpsertCatalogDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvertiserControllerUpsertCatalog201Response]
     def advertiser_controller_upsert_catalog(bulk_upsert_catalog_dto, opts = {})
-      advertiser_controller_upsert_catalog_with_http_info(bulk_upsert_catalog_dto, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_upsert_catalog_with_http_info(bulk_upsert_catalog_dto, opts)
+      data
     end
 
+    # Bulk upsert marketplace catalog items
+    # Upserts &#x60;items&#x60; into the marketplace catalog keyed by &#x60;externalId&#x60; (items without one are dropped) and mirrors each to Redis for serve-time rendering and keyword matching of sponsored products. Responds 400 when &#x60;items&#x60; is empty, no item has an externalId, or more than 50,000 items are sent.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param bulk_upsert_catalog_dto [BulkUpsertCatalogDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvertiserControllerUpsertCatalog201Response, Integer, Hash)>] AdvertiserControllerUpsertCatalog201Response data, response status code and response headers
     def advertiser_controller_upsert_catalog_with_http_info(bulk_upsert_catalog_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_upsert_catalog ...'
@@ -3563,6 +3921,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -3576,10 +3936,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(bulk_upsert_catalog_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvertiserControllerUpsertCatalog201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_upsert_catalog",
@@ -3598,19 +3958,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create or replace a campaign's conversion config
+    # Upserts the conversion config. Body fields: `eventType` (default purchase), `payoutValue` (also stored as conversion_value), `postbackUrl`, `dedupeWindowSec` (default 0), `attributionWindowDays` (default 30), `cpaMode` flat|percent, `cpaPercent`, `minOrderValue` (fraud floor) and `viewThroughHours`. Omitted fields are reset to their defaults rather than kept. Returns the stored config; 404/403 as for GET.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param body [Object] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvConversionConfig]
     def advertiser_controller_upsert_conversion_config(id, body, opts = {})
-      advertiser_controller_upsert_conversion_config_with_http_info(id, body, opts)
-      nil
+      data, _status_code, _headers = advertiser_controller_upsert_conversion_config_with_http_info(id, body, opts)
+      data
     end
 
+    # Create or replace a campaign&#39;s conversion config
+    # Upserts the conversion config. Body fields: &#x60;eventType&#x60; (default purchase), &#x60;payoutValue&#x60; (also stored as conversion_value), &#x60;postbackUrl&#x60;, &#x60;dedupeWindowSec&#x60; (default 0), &#x60;attributionWindowDays&#x60; (default 30), &#x60;cpaMode&#x60; flat|percent, &#x60;cpaPercent&#x60;, &#x60;minOrderValue&#x60; (fraud floor) and &#x60;viewThroughHours&#x60;. Omitted fields are reset to their defaults rather than kept. Returns the stored config; 404/403 as for GET.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param body [Object] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvConversionConfig, Integer, Hash)>] AdvConversionConfig data, response status code and response headers
     def advertiser_controller_upsert_conversion_config_with_http_info(id, body, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserApi.advertiser_controller_upsert_conversion_config ...'
@@ -3631,6 +3995,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -3644,10 +4010,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(body)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvConversionConfig'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserApi.advertiser_controller_upsert_conversion_config",

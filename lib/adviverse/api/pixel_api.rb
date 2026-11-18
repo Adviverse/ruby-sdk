@@ -19,19 +19,23 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Closed-loop attribution by traffic source
+    # Breaks the funnel down by last-touch source (UTM source, else the referring host, else \"direct\"), medium and campaign over the last `days` (default 30, max 180): visitors, checkouts, purchases, abandoned checkouts, lost deals, revenue and lost value. Also returns account totals, lost-deal reasons and a first-touch source breakdown. Self-referrals are folded into \"direct\".  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param days [String] 
     # @param pixel_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PixelControllerAttribution200Response]
     def pixel_controller_attribution(days, pixel_id, opts = {})
-      pixel_controller_attribution_with_http_info(days, pixel_id, opts)
-      nil
+      data, _status_code, _headers = pixel_controller_attribution_with_http_info(days, pixel_id, opts)
+      data
     end
 
+    # Closed-loop attribution by traffic source
+    # Breaks the funnel down by last-touch source (UTM source, else the referring host, else \&quot;direct\&quot;), medium and campaign over the last &#x60;days&#x60; (default 30, max 180): visitors, checkouts, purchases, abandoned checkouts, lost deals, revenue and lost value. Also returns account totals, lost-deal reasons and a first-touch source breakdown. Self-referrals are folded into \&quot;direct\&quot;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param days [String] 
     # @param pixel_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PixelControllerAttribution200Response, Integer, Hash)>] PixelControllerAttribution200Response data, response status code and response headers
     def pixel_controller_attribution_with_http_info(days, pixel_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PixelApi.pixel_controller_attribution ...'
@@ -54,6 +58,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -62,10 +68,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PixelControllerAttribution200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PixelApi.pixel_controller_attribution",
@@ -84,15 +90,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Generate a one-time CLI link code
+    # Creates a single-use code, valid for 10 minutes, that a terminal client exchanges at /v1/track/link for the SHA-256 hash of the account email. This links CLI ad requests to the account identity without the raw email ever leaving the server. Returns 404 if the account has no email.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PixelControllerCliLinkCode201Response]
     def pixel_controller_cli_link_code(opts = {})
-      pixel_controller_cli_link_code_with_http_info(opts)
-      nil
+      data, _status_code, _headers = pixel_controller_cli_link_code_with_http_info(opts)
+      data
     end
 
+    # Generate a one-time CLI link code
+    # Creates a single-use code, valid for 10 minutes, that a terminal client exchanges at /v1/track/link for the SHA-256 hash of the account email. This links CLI ad requests to the account identity without the raw email ever leaving the server. Returns 404 if the account has no email.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PixelControllerCliLinkCode201Response, Integer, Hash)>] PixelControllerCliLinkCode201Response data, response status code and response headers
     def pixel_controller_cli_link_code_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PixelApi.pixel_controller_cli_link_code ...'
@@ -105,6 +115,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -113,10 +125,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PixelControllerCliLinkCode201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PixelApi.pixel_controller_cli_link_code",
@@ -135,15 +147,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Exchange a CLI link code for an email hash
+    # Public. Trades the `code` issued by /v1/advertiser/cli-link-code for the account's email hash (`em`), which the CLI then sends on ad requests. Codes are single-use and deleted on exchange; unknown or expired codes return `{ok:false}`.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PixelControllerCliLinkExchange201Response]
     def pixel_controller_cli_link_exchange(opts = {})
-      pixel_controller_cli_link_exchange_with_http_info(opts)
-      nil
+      data, _status_code, _headers = pixel_controller_cli_link_exchange_with_http_info(opts)
+      data
     end
 
+    # Exchange a CLI link code for an email hash
+    # Public. Trades the &#x60;code&#x60; issued by /v1/advertiser/cli-link-code for the account&#39;s email hash (&#x60;em&#x60;), which the CLI then sends on ad requests. Codes are single-use and deleted on exchange; unknown or expired codes return &#x60;{ok:false}&#x60;.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PixelControllerCliLinkExchange201Response, Integer, Hash)>] PixelControllerCliLinkExchange201Response data, response status code and response headers
     def pixel_controller_cli_link_exchange_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PixelApi.pixel_controller_cli_link_exchange ...'
@@ -156,6 +172,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -164,7 +182,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PixelControllerCliLinkExchange201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -186,15 +204,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create a pixel
+    # Creates an additional pixel under the account (agencies typically run one per client). Optional body field `name` (trimmed, max 80 chars, defaults to \"Default pixel\"). Returns the new pixel with its install snippet.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AudiencePixel]
     def pixel_controller_create_pixel(opts = {})
-      pixel_controller_create_pixel_with_http_info(opts)
-      nil
+      data, _status_code, _headers = pixel_controller_create_pixel_with_http_info(opts)
+      data
     end
 
+    # Create a pixel
+    # Creates an additional pixel under the account (agencies typically run one per client). Optional body field &#x60;name&#x60; (trimmed, max 80 chars, defaults to \&quot;Default pixel\&quot;). Returns the new pixel with its install snippet.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AudiencePixel, Integer, Hash)>] AudiencePixel data, response status code and response headers
     def pixel_controller_create_pixel_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PixelApi.pixel_controller_create_pixel ...'
@@ -207,6 +229,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -215,10 +239,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AudiencePixel'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PixelApi.pixel_controller_create_pixel",
@@ -237,17 +261,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delete a pixel
+    # Deletes the pixel `id` if it belongs to the account. An account always keeps at least one pixel, so deleting the last one fails with 400. Deleting an id the account does not own is a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PixelControllerDeletePixel200Response]
     def pixel_controller_delete_pixel(id, opts = {})
-      pixel_controller_delete_pixel_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = pixel_controller_delete_pixel_with_http_info(id, opts)
+      data
     end
 
+    # Delete a pixel
+    # Deletes the pixel &#x60;id&#x60; if it belongs to the account. An account always keeps at least one pixel, so deleting the last one fails with 400. Deleting an id the account does not own is a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PixelControllerDeletePixel200Response, Integer, Hash)>] PixelControllerDeletePixel200Response data, response status code and response headers
     def pixel_controller_delete_pixel_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PixelApi.pixel_controller_delete_pixel ...'
@@ -264,6 +292,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -272,10 +302,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PixelControllerDeletePixel200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PixelApi.pixel_controller_delete_pixel",
@@ -294,19 +324,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Per-event activity totals
+    # Aggregates pixel events from ClickHouse over the last `days` (default 30, clamped to 1-180), optionally filtered to `pixelId`. Returns one row per event name with event count, unique users and summed value, ordered by count.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param days [String] 
     # @param pixel_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<PixelControllerEvents200ResponseInner>]
     def pixel_controller_events(days, pixel_id, opts = {})
-      pixel_controller_events_with_http_info(days, pixel_id, opts)
-      nil
+      data, _status_code, _headers = pixel_controller_events_with_http_info(days, pixel_id, opts)
+      data
     end
 
+    # Per-event activity totals
+    # Aggregates pixel events from ClickHouse over the last &#x60;days&#x60; (default 30, clamped to 1-180), optionally filtered to &#x60;pixelId&#x60;. Returns one row per event name with event count, unique users and summed value, ordered by count.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param days [String] 
     # @param pixel_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<PixelControllerEvents200ResponseInner>, Integer, Hash)>] Array<PixelControllerEvents200ResponseInner> data, response status code and response headers
     def pixel_controller_events_with_http_info(days, pixel_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PixelApi.pixel_controller_events ...'
@@ -329,6 +363,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -337,10 +373,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<PixelControllerEvents200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PixelApi.pixel_controller_events",
@@ -359,17 +395,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get one pixel and its install snippet
+    # Returns the pixel named by the `pixelId` query param, or the account's primary pixel when omitted (created if the account has none). The response includes the pixel.js library URL, the base snippet to paste sitewide and the list of standard event names. Returns 404 when `pixelId` is not owned by the account.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param pixel_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AudiencePixel]
     def pixel_controller_get_pixel(pixel_id, opts = {})
-      pixel_controller_get_pixel_with_http_info(pixel_id, opts)
-      nil
+      data, _status_code, _headers = pixel_controller_get_pixel_with_http_info(pixel_id, opts)
+      data
     end
 
+    # Get one pixel and its install snippet
+    # Returns the pixel named by the &#x60;pixelId&#x60; query param, or the account&#39;s primary pixel when omitted (created if the account has none). The response includes the pixel.js library URL, the base snippet to paste sitewide and the list of standard event names. Returns 404 when &#x60;pixelId&#x60; is not owned by the account.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param pixel_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AudiencePixel, Integer, Hash)>] AudiencePixel data, response status code and response headers
     def pixel_controller_get_pixel_with_http_info(pixel_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PixelApi.pixel_controller_get_pixel ...'
@@ -387,6 +427,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -395,10 +437,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AudiencePixel'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PixelApi.pixel_controller_get_pixel",
@@ -417,19 +459,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Pixel funnel, ROAS summary and daily trend
+    # Builds the Pixel dashboard view over the last `days` (default 30, max 180), optionally scoped to `pixelId`: unique users per funnel stage, a summary of events, attributed conversions, revenue, ad spend and ROAS, and a daily events/conversions/revenue series. ROAS is 0 when there is no spend.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param days [String] 
     # @param pixel_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PixelControllerInsights200Response]
     def pixel_controller_insights(days, pixel_id, opts = {})
-      pixel_controller_insights_with_http_info(days, pixel_id, opts)
-      nil
+      data, _status_code, _headers = pixel_controller_insights_with_http_info(days, pixel_id, opts)
+      data
     end
 
+    # Pixel funnel, ROAS summary and daily trend
+    # Builds the Pixel dashboard view over the last &#x60;days&#x60; (default 30, max 180), optionally scoped to &#x60;pixelId&#x60;: unique users per funnel stage, a summary of events, attributed conversions, revenue, ad spend and ROAS, and a daily events/conversions/revenue series. ROAS is 0 when there is no spend.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param days [String] 
     # @param pixel_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PixelControllerInsights200Response, Integer, Hash)>] PixelControllerInsights200Response data, response status code and response headers
     def pixel_controller_insights_with_http_info(days, pixel_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PixelApi.pixel_controller_insights ...'
@@ -452,6 +498,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -460,10 +508,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PixelControllerInsights200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PixelApi.pixel_controller_insights",
@@ -482,6 +530,8 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Serve the pixel JavaScript library
+    # Returns the pixel.js library that the base snippet loads asynchronously; it drains the `adq(...)` command queue and posts events to /v1/track/event. Served as JavaScript with a one-hour public cache.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
     # @return [nil]
     def pixel_controller_library(opts = {})
@@ -489,6 +539,8 @@ module Adviverse
       nil
     end
 
+    # Serve the pixel JavaScript library
+    # Returns the pixel.js library that the base snippet loads asynchronously; it drains the &#x60;adq(...)&#x60; command queue and posts events to /v1/track/event. Served as JavaScript with a one-hour public cache.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
     # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
     def pixel_controller_library_with_http_info(opts = {})
@@ -533,15 +585,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List the account's pixels
+    # Returns every pixel owned by the account, oldest first so the primary pixel stays on top. If the account has no pixel yet, a default one is created and returned. Team members scoped to specific pixels only see the pixels assigned to them.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AudiencePixel>]
     def pixel_controller_list_pixels(opts = {})
-      pixel_controller_list_pixels_with_http_info(opts)
-      nil
+      data, _status_code, _headers = pixel_controller_list_pixels_with_http_info(opts)
+      data
     end
 
+    # List the account&#39;s pixels
+    # Returns every pixel owned by the account, oldest first so the primary pixel stays on top. If the account has no pixel yet, a default one is created and returned. Team members scoped to specific pixels only see the pixels assigned to them.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AudiencePixel>, Integer, Hash)>] Array<AudiencePixel> data, response status code and response headers
     def pixel_controller_list_pixels_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PixelApi.pixel_controller_list_pixels ...'
@@ -554,6 +610,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -562,10 +620,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AudiencePixel>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PixelApi.pixel_controller_list_pixels",
@@ -584,19 +642,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Product-level analytics
+    # Explodes the `content_ids` carried on pixel events and returns, per product id, unique users who viewed, added to cart, purchased or were lost, plus purchase revenue and lost value. Window is the last `days` (default 30, max 180), optional `pixelId` filter, limited to 200 products.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param days [String] 
     # @param pixel_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<PixelControllerProducts200ResponseInner>]
     def pixel_controller_products(days, pixel_id, opts = {})
-      pixel_controller_products_with_http_info(days, pixel_id, opts)
-      nil
+      data, _status_code, _headers = pixel_controller_products_with_http_info(days, pixel_id, opts)
+      data
     end
 
+    # Product-level analytics
+    # Explodes the &#x60;content_ids&#x60; carried on pixel events and returns, per product id, unique users who viewed, added to cart, purchased or were lost, plus purchase revenue and lost value. Window is the last &#x60;days&#x60; (default 30, max 180), optional &#x60;pixelId&#x60; filter, limited to 200 products.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param days [String] 
     # @param pixel_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<PixelControllerProducts200ResponseInner>, Integer, Hash)>] Array<PixelControllerProducts200ResponseInner> data, response status code and response headers
     def pixel_controller_products_with_http_info(days, pixel_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PixelApi.pixel_controller_products ...'
@@ -619,6 +681,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -627,10 +691,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<PixelControllerProducts200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PixelApi.pixel_controller_products",
@@ -649,15 +713,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Toggle real-time audiences for a pixel
+    # Turns real-time, action-based audience membership on or off (`enabled`) for `pixelId` (or the primary pixel). When on, each consented event and trait update is evaluated against the account's rule audiences by a background worker right after ingestion. Returns 404 for a pixel the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PixelControllerSetRealtime201Response]
     def pixel_controller_set_realtime(opts = {})
-      pixel_controller_set_realtime_with_http_info(opts)
-      nil
+      data, _status_code, _headers = pixel_controller_set_realtime_with_http_info(opts)
+      data
     end
 
+    # Toggle real-time audiences for a pixel
+    # Turns real-time, action-based audience membership on or off (&#x60;enabled&#x60;) for &#x60;pixelId&#x60; (or the primary pixel). When on, each consented event and trait update is evaluated against the account&#39;s rule audiences by a background worker right after ingestion. Returns 404 for a pixel the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PixelControllerSetRealtime201Response, Integer, Hash)>] PixelControllerSetRealtime201Response data, response status code and response headers
     def pixel_controller_set_realtime_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PixelApi.pixel_controller_set_realtime ...'
@@ -670,6 +738,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -678,10 +748,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PixelControllerSetRealtime201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PixelApi.pixel_controller_set_realtime",
@@ -700,15 +770,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Ingest a pixel event
+    # Called by pixel.js. Body carries `pixelId`, `event` (default PageView), optional `eventId` (deduplicated per account for 7 days), `url`, `referrer`, `params` (value, currency, content_ids, order_id...), UTM touch data, hashed `am` identifiers and consent flags. Events from hosts outside the pixel's allowed domains are rejected; without consent (GPC or consent:false) the event is stored for aggregate analytics only, with no identity linkage. Conversion events carrying an `adclid` are attributed to the clicked ad. Never throws: failures return `{status:\"error\"}` and the request sets the first-party uid cookie.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PixelControllerTrack201Response]
     def pixel_controller_track(opts = {})
-      pixel_controller_track_with_http_info(opts)
-      nil
+      data, _status_code, _headers = pixel_controller_track_with_http_info(opts)
+      data
     end
 
+    # Ingest a pixel event
+    # Called by pixel.js. Body carries &#x60;pixelId&#x60;, &#x60;event&#x60; (default PageView), optional &#x60;eventId&#x60; (deduplicated per account for 7 days), &#x60;url&#x60;, &#x60;referrer&#x60;, &#x60;params&#x60; (value, currency, content_ids, order_id...), UTM touch data, hashed &#x60;am&#x60; identifiers and consent flags. Events from hosts outside the pixel&#39;s allowed domains are rejected; without consent (GPC or consent:false) the event is stored for aggregate analytics only, with no identity linkage. Conversion events carrying an &#x60;adclid&#x60; are attributed to the clicked ad. Never throws: failures return &#x60;{status:\&quot;error\&quot;}&#x60; and the request sets the first-party uid cookie.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PixelControllerTrack201Response, Integer, Hash)>] PixelControllerTrack201Response data, response status code and response headers
     def pixel_controller_track_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PixelApi.pixel_controller_track ...'
@@ -721,6 +795,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -729,7 +805,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PixelControllerTrack201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -751,15 +827,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Record terminal coding-context keywords
+    # Public beacon for CLI/IDE clients. Body: `kw` (up to 20 keywords), `client`, and `em` (a SHA-256 email hash) or `uid`. Keywords are logged under a reserved network account keyed to the same email-derived canonical id the ad engine targets, so they feed developer interest segments. A valid `em` also writes the cross-surface identity link. Returns `skipped` when there are no keywords; never throws.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PixelControllerTrackCoding201Response]
     def pixel_controller_track_coding(opts = {})
-      pixel_controller_track_coding_with_http_info(opts)
-      nil
+      data, _status_code, _headers = pixel_controller_track_coding_with_http_info(opts)
+      data
     end
 
+    # Record terminal coding-context keywords
+    # Public beacon for CLI/IDE clients. Body: &#x60;kw&#x60; (up to 20 keywords), &#x60;client&#x60;, and &#x60;em&#x60; (a SHA-256 email hash) or &#x60;uid&#x60;. Keywords are logged under a reserved network account keyed to the same email-derived canonical id the ad engine targets, so they feed developer interest segments. A valid &#x60;em&#x60; also writes the cross-surface identity link. Returns &#x60;skipped&#x60; when there are no keywords; never throws.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PixelControllerTrackCoding201Response, Integer, Hash)>] PixelControllerTrackCoding201Response data, response status code and response headers
     def pixel_controller_track_coding_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PixelApi.pixel_controller_track_coding ...'
@@ -772,6 +852,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -780,7 +862,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PixelControllerTrackCoding201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -802,6 +884,8 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Ingest a pixel event via image beacon
+    # The noscript / image fallback for /v1/track/event. Query params `pixel_id`, `event`, `event_id`, `url` and `adclid` are read, and the full query string is stored as event params. Always responds with a 1x1 transparent GIF, even on failure.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
     # @return [nil]
     def pixel_controller_track_get(opts = {})
@@ -809,6 +893,8 @@ module Adviverse
       nil
     end
 
+    # Ingest a pixel event via image beacon
+    # The noscript / image fallback for /v1/track/event. Query params &#x60;pixel_id&#x60;, &#x60;event&#x60;, &#x60;event_id&#x60;, &#x60;url&#x60; and &#x60;adclid&#x60; are read, and the full query string is stored as event params. Always responds with a 1x1 transparent GIF, even on failure.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
     # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
     def pixel_controller_track_get_with_http_info(opts = {})
@@ -853,15 +939,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Set user traits for the visitor
+    # Stores CDP profile traits (`traits` object) for the caller's uid, resolved to a canonical id using optional hashed `am` identifiers. Traits require consent, so GPC or consent:false skips the write. When the pixel has real-time audiences enabled, trait-based rule audiences are re-evaluated. Fail-soft: errors (including an unknown pixel) return `{status:\"error\"}`.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PixelControllerTrait201Response]
     def pixel_controller_trait(opts = {})
-      pixel_controller_trait_with_http_info(opts)
-      nil
+      data, _status_code, _headers = pixel_controller_trait_with_http_info(opts)
+      data
     end
 
+    # Set user traits for the visitor
+    # Stores CDP profile traits (&#x60;traits&#x60; object) for the caller&#39;s uid, resolved to a canonical id using optional hashed &#x60;am&#x60; identifiers. Traits require consent, so GPC or consent:false skips the write. When the pixel has real-time audiences enabled, trait-based rule audiences are re-evaluated. Fail-soft: errors (including an unknown pixel) return &#x60;{status:\&quot;error\&quot;}&#x60;.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PixelControllerTrait201Response, Integer, Hash)>] PixelControllerTrait201Response data, response status code and response headers
     def pixel_controller_trait_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PixelApi.pixel_controller_trait ...'
@@ -874,6 +964,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -882,7 +974,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PixelControllerTrait201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -904,19 +996,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Look up a user's CDP traits
+    # Resolves the `user` query value (a canonical `id_...`, a cookie uid, a SHA-256 email/phone hash, or a raw email which is hashed server-side) to a canonical id through the identity map and returns its stored traits. With `pixelId`, only traits set by that pixel are shown. Unknown identifiers return an empty canonical and no traits rather than an error.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param user [String] 
     # @param pixel_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PixelControllerTraitLookup200Response]
     def pixel_controller_trait_lookup(user, pixel_id, opts = {})
-      pixel_controller_trait_lookup_with_http_info(user, pixel_id, opts)
-      nil
+      data, _status_code, _headers = pixel_controller_trait_lookup_with_http_info(user, pixel_id, opts)
+      data
     end
 
+    # Look up a user&#39;s CDP traits
+    # Resolves the &#x60;user&#x60; query value (a canonical &#x60;id_...&#x60;, a cookie uid, a SHA-256 email/phone hash, or a raw email which is hashed server-side) to a canonical id through the identity map and returns its stored traits. With &#x60;pixelId&#x60;, only traits set by that pixel are shown. Unknown identifiers return an empty canonical and no traits rather than an error.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param user [String] 
     # @param pixel_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PixelControllerTraitLookup200Response, Integer, Hash)>] PixelControllerTraitLookup200Response data, response status code and response headers
     def pixel_controller_trait_lookup_with_http_info(user, pixel_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PixelApi.pixel_controller_trait_lookup ...'
@@ -939,6 +1035,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -947,10 +1045,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PixelControllerTraitLookup200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PixelApi.pixel_controller_trait_lookup",
@@ -969,15 +1067,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update pixel settings
+    # Patches `name` (max 80 chars), `defaultConsent` (whether events without an explicit consent signal are treated as consented) and `allowedDomains` for `pixelId` (or the primary pixel). Domains are normalized to bare lowercase hosts, deduplicated and capped at 50; once set, events fired from other hosts are rejected. Omitted fields are left unchanged; returns the updated pixel, or 404 if not owned.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AudiencePixel]
     def pixel_controller_update_settings(opts = {})
-      pixel_controller_update_settings_with_http_info(opts)
-      nil
+      data, _status_code, _headers = pixel_controller_update_settings_with_http_info(opts)
+      data
     end
 
+    # Update pixel settings
+    # Patches &#x60;name&#x60; (max 80 chars), &#x60;defaultConsent&#x60; (whether events without an explicit consent signal are treated as consented) and &#x60;allowedDomains&#x60; for &#x60;pixelId&#x60; (or the primary pixel). Domains are normalized to bare lowercase hosts, deduplicated and capped at 50; once set, events fired from other hosts are rejected. Omitted fields are left unchanged; returns the updated pixel, or 404 if not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AudiencePixel, Integer, Hash)>] AudiencePixel data, response status code and response headers
     def pixel_controller_update_settings_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PixelApi.pixel_controller_update_settings ...'
@@ -990,6 +1092,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -998,10 +1102,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AudiencePixel'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PixelApi.pixel_controller_update_settings",

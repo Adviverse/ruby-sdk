@@ -19,17 +19,21 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Search accounts
+    # Returns up to 200 non-deleted accounts, newest first. `q` filters by case-insensitive substring match on email.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param q [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AdminControllerAccounts200ResponseInner>]
     def admin_controller_accounts(q, opts = {})
-      admin_controller_accounts_with_http_info(q, opts)
-      nil
+      data, _status_code, _headers = admin_controller_accounts_with_http_info(q, opts)
+      data
     end
 
+    # Search accounts
+    # Returns up to 200 non-deleted accounts, newest first. &#x60;q&#x60; filters by case-insensitive substring match on email.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param q [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AdminControllerAccounts200ResponseInner>, Integer, Hash)>] Array<AdminControllerAccounts200ResponseInner> data, response status code and response headers
     def admin_controller_accounts_with_http_info(q, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdminApi.admin_controller_accounts ...'
@@ -47,6 +51,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -55,10 +61,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AdminControllerAccounts200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdminApi.admin_controller_accounts",
@@ -77,17 +83,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Add a fraud blocklist entry
+    # Adds a `kind` (`ip`, `domain`, `asn`, `device`, `user_agent`, `country`, `subnet`) / `value` pair with an optional `reason`. Duplicates of an existing kind/value are ignored. The addition is audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param add_block_dto [AddBlockDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdminControllerSetStatus201Response]
     def admin_controller_add_block(add_block_dto, opts = {})
-      admin_controller_add_block_with_http_info(add_block_dto, opts)
-      nil
+      data, _status_code, _headers = admin_controller_add_block_with_http_info(add_block_dto, opts)
+      data
     end
 
+    # Add a fraud blocklist entry
+    # Adds a &#x60;kind&#x60; (&#x60;ip&#x60;, &#x60;domain&#x60;, &#x60;asn&#x60;, &#x60;device&#x60;, &#x60;user_agent&#x60;, &#x60;country&#x60;, &#x60;subnet&#x60;) / &#x60;value&#x60; pair with an optional &#x60;reason&#x60;. Duplicates of an existing kind/value are ignored. The addition is audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param add_block_dto [AddBlockDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdminControllerSetStatus201Response, Integer, Hash)>] AdminControllerSetStatus201Response data, response status code and response headers
     def admin_controller_add_block_with_http_info(add_block_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdminApi.admin_controller_add_block ...'
@@ -104,6 +114,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -117,10 +129,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(add_block_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdminControllerSetStatus201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdminApi.admin_controller_add_block",
@@ -139,6 +151,8 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Read the admin audit log
+    # Returns the 500 most recent `audit_log` rows (actor, action, target type/id, before/after JSON, timestamp). Includes account status changes, moderation decisions, blocks and config changes.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param [Hash] opts the optional parameters
     # @return [nil]
     def admin_controller_audits(opts = {})
@@ -146,6 +160,8 @@ module Adviverse
       nil
     end
 
+    # Read the admin audit log
+    # Returns the 500 most recent &#x60;audit_log&#x60; rows (actor, action, target type/id, before/after JSON, timestamp). Includes account status changes, moderation decisions, blocks and config changes.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param [Hash] opts the optional parameters
     # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
     def admin_controller_audits_with_http_info(opts = {})
@@ -171,7 +187,7 @@ module Adviverse
       return_type = opts[:debug_return_type]
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdminApi.admin_controller_audits",
@@ -190,6 +206,8 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List fraud blocklist entries
+    # Returns the 500 most recent `block_lists` rows (kind, value, reason, creator, timestamps).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param [Hash] opts the optional parameters
     # @return [nil]
     def admin_controller_blocklist(opts = {})
@@ -197,6 +215,8 @@ module Adviverse
       nil
     end
 
+    # List fraud blocklist entries
+    # Returns the 500 most recent &#x60;block_lists&#x60; rows (kind, value, reason, creator, timestamps).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param [Hash] opts the optional parameters
     # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
     def admin_controller_blocklist_with_http_info(opts = {})
@@ -222,7 +242,7 @@ module Adviverse
       return_type = opts[:debug_return_type]
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdminApi.admin_controller_blocklist",
@@ -241,15 +261,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List platform config and feature flags
+    # Returns all `platform_config` key/value pairs, ordered by key. Values are arbitrary JSON.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AdminControllerConfig200ResponseInner>]
     def admin_controller_config(opts = {})
-      admin_controller_config_with_http_info(opts)
-      nil
+      data, _status_code, _headers = admin_controller_config_with_http_info(opts)
+      data
     end
 
+    # List platform config and feature flags
+    # Returns all &#x60;platform_config&#x60; key/value pairs, ordered by key. Values are arbitrary JSON.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AdminControllerConfig200ResponseInner>, Integer, Hash)>] Array<AdminControllerConfig200ResponseInner> data, response status code and response headers
     def admin_controller_config_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdminApi.admin_controller_config ...'
@@ -262,6 +286,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -270,10 +296,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AdminControllerConfig200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdminApi.admin_controller_config",
@@ -292,17 +318,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Confirm a manual deposit
+    # Marks a manual deposit received and credits the advertiser ledger. `ref` is the bank/provider reference (defaults to `manual:<id>`). Idempotent: `ok` is true only when a new credit was posted. A deposit tied to an agency invoice also marks that invoice paid.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdminControllerSetStatus201Response]
     def admin_controller_confirm_deposit(id, opts = {})
-      admin_controller_confirm_deposit_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = admin_controller_confirm_deposit_with_http_info(id, opts)
+      data
     end
 
+    # Confirm a manual deposit
+    # Marks a manual deposit received and credits the advertiser ledger. &#x60;ref&#x60; is the bank/provider reference (defaults to &#x60;manual:&lt;id&gt;&#x60;). Idempotent: &#x60;ok&#x60; is true only when a new credit was posted. A deposit tied to an agency invoice also marks that invoice paid.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdminControllerSetStatus201Response, Integer, Hash)>] AdminControllerSetStatus201Response data, response status code and response headers
     def admin_controller_confirm_deposit_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdminApi.admin_controller_confirm_deposit ...'
@@ -319,6 +349,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -327,10 +359,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdminControllerSetStatus201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdminApi.admin_controller_confirm_deposit",
@@ -349,17 +381,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Confirm a manual payout
+    # For manual (wire) payouts left in `processing`: after ops sends the bank transfer, `paid: true` (default) settles it and releases the held funds, and `paid: false` marks it failed and returns them. Returns 404 for an unknown payout and 400 if it is not awaiting confirmation.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdminControllerSetStatus201Response]
     def admin_controller_confirm_payout(id, opts = {})
-      admin_controller_confirm_payout_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = admin_controller_confirm_payout_with_http_info(id, opts)
+      data
     end
 
+    # Confirm a manual payout
+    # For manual (wire) payouts left in &#x60;processing&#x60;: after ops sends the bank transfer, &#x60;paid: true&#x60; (default) settles it and releases the held funds, and &#x60;paid: false&#x60; marks it failed and returns them. Returns 404 for an unknown payout and 400 if it is not awaiting confirmation.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdminControllerSetStatus201Response, Integer, Hash)>] AdminControllerSetStatus201Response data, response status code and response headers
     def admin_controller_confirm_payout_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdminApi.admin_controller_confirm_payout ...'
@@ -376,6 +412,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -384,10 +422,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdminControllerSetStatus201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdminApi.admin_controller_confirm_payout",
@@ -406,19 +444,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Approve or reject a moderation item
+    # Applies `decision` (`approved` or `rejected`) with optional `notes` to a queue item. This updates the target: the creative's moderation status, the campaign or sponsored-product campaign's status (`active` or `rejected`), or the property's status. The decision is audit-logged and the serving index is republished, so approved items can serve within seconds. 404 for an unknown item.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param moderation_decision_dto [ModerationDecisionDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdminControllerSetStatus201Response]
     def admin_controller_decide(id, moderation_decision_dto, opts = {})
-      admin_controller_decide_with_http_info(id, moderation_decision_dto, opts)
-      nil
+      data, _status_code, _headers = admin_controller_decide_with_http_info(id, moderation_decision_dto, opts)
+      data
     end
 
+    # Approve or reject a moderation item
+    # Applies &#x60;decision&#x60; (&#x60;approved&#x60; or &#x60;rejected&#x60;) with optional &#x60;notes&#x60; to a queue item. This updates the target: the creative&#39;s moderation status, the campaign or sponsored-product campaign&#39;s status (&#x60;active&#x60; or &#x60;rejected&#x60;), or the property&#39;s status. The decision is audit-logged and the serving index is republished, so approved items can serve within seconds. 404 for an unknown item.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param moderation_decision_dto [ModerationDecisionDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdminControllerSetStatus201Response, Integer, Hash)>] AdminControllerSetStatus201Response data, response status code and response headers
     def admin_controller_decide_with_http_info(id, moderation_decision_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdminApi.admin_controller_decide ...'
@@ -439,6 +481,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -452,10 +496,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(moderation_decision_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdminControllerSetStatus201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdminApi.admin_controller_decide",
@@ -474,6 +518,8 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List manual deposits awaiting confirmation
+    # Returns up to 500 `pending` deposits on the manual `wire` and `paxum` rails, oldest first (all `deposits` columns).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param [Hash] opts the optional parameters
     # @return [nil]
     def admin_controller_pending_deposits(opts = {})
@@ -481,6 +527,8 @@ module Adviverse
       nil
     end
 
+    # List manual deposits awaiting confirmation
+    # Returns up to 500 &#x60;pending&#x60; deposits on the manual &#x60;wire&#x60; and &#x60;paxum&#x60; rails, oldest first (all &#x60;deposits&#x60; columns).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param [Hash] opts the optional parameters
     # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
     def admin_controller_pending_deposits_with_http_info(opts = {})
@@ -506,7 +554,7 @@ module Adviverse
       return_type = opts[:debug_return_type]
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdminApi.admin_controller_pending_deposits",
@@ -525,6 +573,8 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List payouts awaiting processing
+    # Returns publisher payouts in `requested` or `on_hold` status, oldest request first (all `payouts` columns).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param [Hash] opts the optional parameters
     # @return [nil]
     def admin_controller_pending_payouts(opts = {})
@@ -532,6 +582,8 @@ module Adviverse
       nil
     end
 
+    # List payouts awaiting processing
+    # Returns publisher payouts in &#x60;requested&#x60; or &#x60;on_hold&#x60; status, oldest request first (all &#x60;payouts&#x60; columns).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param [Hash] opts the optional parameters
     # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
     def admin_controller_pending_payouts_with_http_info(opts = {})
@@ -557,7 +609,7 @@ module Adviverse
       return_type = opts[:debug_return_type]
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdminApi.admin_controller_pending_payouts",
@@ -576,17 +628,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Process a requested payout
+    # Claims a `requested` payout atomically (so double-triggers call the provider once) and sends it through the payout rail for its method. If paid, the held funds are released from the ledger; if failed, the hold returns to available balance; manual rails such as wire stay `processing` until confirmed. Returns 400 if the payout is not in `requested`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdminControllerProcessPayout201Response]
     def admin_controller_process_payout(id, opts = {})
-      admin_controller_process_payout_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = admin_controller_process_payout_with_http_info(id, opts)
+      data
     end
 
+    # Process a requested payout
+    # Claims a &#x60;requested&#x60; payout atomically (so double-triggers call the provider once) and sends it through the payout rail for its method. If paid, the held funds are released from the ledger; if failed, the hold returns to available balance; manual rails such as wire stay &#x60;processing&#x60; until confirmed. Returns 400 if the payout is not in &#x60;requested&#x60;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdminControllerProcessPayout201Response, Integer, Hash)>] AdminControllerProcessPayout201Response data, response status code and response headers
     def admin_controller_process_payout_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdminApi.admin_controller_process_payout ...'
@@ -603,6 +659,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -611,10 +669,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdminControllerProcessPayout201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdminApi.admin_controller_process_payout",
@@ -633,15 +691,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List placement quality scores
+    # Returns the 200 most recent quality-score windows per placement with the property domain, IVT rate, fill rate and composite score.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AdminControllerQuality200ResponseInner>]
     def admin_controller_quality(opts = {})
-      admin_controller_quality_with_http_info(opts)
-      nil
+      data, _status_code, _headers = admin_controller_quality_with_http_info(opts)
+      data
     end
 
+    # List placement quality scores
+    # Returns the 200 most recent quality-score windows per placement with the property domain, IVT rate, fill rate and composite score.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AdminControllerQuality200ResponseInner>, Integer, Hash)>] Array<AdminControllerQuality200ResponseInner> data, response status code and response headers
     def admin_controller_quality_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdminApi.admin_controller_quality ...'
@@ -654,6 +716,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -662,10 +726,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AdminControllerQuality200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdminApi.admin_controller_quality",
@@ -684,6 +748,8 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List the pending moderation queue
+    # Returns pending moderation items, oldest first, optionally filtered by `type` (entity type such as `creative`, `campaign`, `promote_campaign`, `property`). Creative items are joined with what a reviewer needs to see the ad: type, asset and landing URLs, title, screenshot, VAST/VPAID URLs, duration and companions.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param type [String] 
     # @param [Hash] opts the optional parameters
     # @return [nil]
@@ -692,6 +758,8 @@ module Adviverse
       nil
     end
 
+    # List the pending moderation queue
+    # Returns pending moderation items, oldest first, optionally filtered by &#x60;type&#x60; (entity type such as &#x60;creative&#x60;, &#x60;campaign&#x60;, &#x60;promote_campaign&#x60;, &#x60;property&#x60;). Creative items are joined with what a reviewer needs to see the ad: type, asset and landing URLs, title, screenshot, VAST/VPAID URLs, duration and companions.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param type [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
@@ -723,7 +791,7 @@ module Adviverse
       return_type = opts[:debug_return_type]
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdminApi.admin_controller_queue",
@@ -742,17 +810,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Re-scan a creative for cloaking
+    # Recaptures the landing-page screenshot, then fetches the landing URL with a browser and a bot user agent and compares the responses. Repeated divergence adds cloaking strikes and, at the threshold, flags the creative and re-queues it for moderation. A matching fetch clears strikes and a prior cloaking flag. Fetch errors fail open (not flagged). The result is audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param creative_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdminControllerRescan201Response]
     def admin_controller_rescan(creative_id, opts = {})
-      admin_controller_rescan_with_http_info(creative_id, opts)
-      nil
+      data, _status_code, _headers = admin_controller_rescan_with_http_info(creative_id, opts)
+      data
     end
 
+    # Re-scan a creative for cloaking
+    # Recaptures the landing-page screenshot, then fetches the landing URL with a browser and a bot user agent and compares the responses. Repeated divergence adds cloaking strikes and, at the threshold, flags the creative and re-queues it for moderation. A matching fetch clears strikes and a prior cloaking flag. Fetch errors fail open (not flagged). The result is audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param creative_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdminControllerRescan201Response, Integer, Hash)>] AdminControllerRescan201Response data, response status code and response headers
     def admin_controller_rescan_with_http_info(creative_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdminApi.admin_controller_rescan ...'
@@ -769,6 +841,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -777,10 +851,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdminControllerRescan201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdminApi.admin_controller_rescan",
@@ -799,17 +873,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Set a platform config value
+    # Creates or replaces the config entry `key` (1-200 chars) with `value` (any JSON). The change is recorded with the admin as updater and audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param set_config_dto [SetConfigDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdminControllerSetStatus201Response]
     def admin_controller_set_config(set_config_dto, opts = {})
-      admin_controller_set_config_with_http_info(set_config_dto, opts)
-      nil
+      data, _status_code, _headers = admin_controller_set_config_with_http_info(set_config_dto, opts)
+      data
     end
 
+    # Set a platform config value
+    # Creates or replaces the config entry &#x60;key&#x60; (1-200 chars) with &#x60;value&#x60; (any JSON). The change is recorded with the admin as updater and audit-logged.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param set_config_dto [SetConfigDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdminControllerSetStatus201Response, Integer, Hash)>] AdminControllerSetStatus201Response data, response status code and response headers
     def admin_controller_set_config_with_http_info(set_config_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdminApi.admin_controller_set_config ...'
@@ -826,6 +904,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -839,10 +919,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(set_config_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdminControllerSetStatus201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdminApi.admin_controller_set_config",
@@ -861,19 +941,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Set an account's status
+    # Sets an account's `status` to `active`, `pending`, `suspended`, `banned` or `closed`. The previous and new status are written to the audit log. 404 if the account does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param set_account_status_dto [SetAccountStatusDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdminControllerSetStatus201Response]
     def admin_controller_set_status(id, set_account_status_dto, opts = {})
-      admin_controller_set_status_with_http_info(id, set_account_status_dto, opts)
-      nil
+      data, _status_code, _headers = admin_controller_set_status_with_http_info(id, set_account_status_dto, opts)
+      data
     end
 
+    # Set an account&#39;s status
+    # Sets an account&#39;s &#x60;status&#x60; to &#x60;active&#x60;, &#x60;pending&#x60;, &#x60;suspended&#x60;, &#x60;banned&#x60; or &#x60;closed&#x60;. The previous and new status are written to the audit log. 404 if the account does not exist.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param set_account_status_dto [SetAccountStatusDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdminControllerSetStatus201Response, Integer, Hash)>] AdminControllerSetStatus201Response data, response status code and response headers
     def admin_controller_set_status_with_http_info(id, set_account_status_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdminApi.admin_controller_set_status ...'
@@ -894,6 +978,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -907,10 +993,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(set_account_status_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdminControllerSetStatus201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdminApi.admin_controller_set_status",

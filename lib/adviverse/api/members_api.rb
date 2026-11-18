@@ -19,15 +19,19 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Accept a team invitation
+    # Public endpoint. Sets the member's password (minimum 8 characters) and optional `name`, activates the seat, consumes the invite token, and returns a new session token so the dashboard can log in straight away. Responds 400 for a short password or an invalid or expired token.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [MembersControllerAccept201Response]
     def members_controller_accept(opts = {})
-      members_controller_accept_with_http_info(opts)
-      nil
+      data, _status_code, _headers = members_controller_accept_with_http_info(opts)
+      data
     end
 
+    # Accept a team invitation
+    # Public endpoint. Sets the member&#39;s password (minimum 8 characters) and optional &#x60;name&#x60;, activates the seat, consumes the invite token, and returns a new session token so the dashboard can log in straight away. Responds 400 for a short password or an invalid or expired token.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(MembersControllerAccept201Response, Integer, Hash)>] MembersControllerAccept201Response data, response status code and response headers
     def members_controller_accept_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MembersApi.members_controller_accept ...'
@@ -40,6 +44,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -48,7 +54,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'MembersControllerAccept201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -70,15 +76,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Invite a team member
+    # Creates (or refreshes) an invited seat and emails a single-use accept link valid for 7 days. Body: `email`, `name`, `role` (admin, manager or analyst; anything else becomes analyst), `allPixels` and `pixelIds`. Admins always get all pixels. Responds 400 for an invalid email, an email that already has an Adviverse account or a seat on another account, or a pixel id the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvTeamMember]
     def members_controller_invite(opts = {})
-      members_controller_invite_with_http_info(opts)
-      nil
+      data, _status_code, _headers = members_controller_invite_with_http_info(opts)
+      data
     end
 
+    # Invite a team member
+    # Creates (or refreshes) an invited seat and emails a single-use accept link valid for 7 days. Body: &#x60;email&#x60;, &#x60;name&#x60;, &#x60;role&#x60; (admin, manager or analyst; anything else becomes analyst), &#x60;allPixels&#x60; and &#x60;pixelIds&#x60;. Admins always get all pixels. Responds 400 for an invalid email, an email that already has an Adviverse account or a seat on another account, or a pixel id the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvTeamMember, Integer, Hash)>] AdvTeamMember data, response status code and response headers
     def members_controller_invite_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MembersApi.members_controller_invite ...'
@@ -91,6 +101,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -99,10 +111,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvTeamMember'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MembersApi.members_controller_invite",
@@ -121,17 +133,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Look up an invitation by token
+    # Public endpoint for the accept-invite page. Returns the invited email, role and agency name for the `token` query parameter. Responds 404 when the token is invalid or expired.  Auth: public, no credentials required.
     # @param token [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [MembersControllerInviteInfo200Response]
     def members_controller_invite_info(token, opts = {})
-      members_controller_invite_info_with_http_info(token, opts)
-      nil
+      data, _status_code, _headers = members_controller_invite_info_with_http_info(token, opts)
+      data
     end
 
+    # Look up an invitation by token
+    # Public endpoint for the accept-invite page. Returns the invited email, role and agency name for the &#x60;token&#x60; query parameter. Responds 404 when the token is invalid or expired.  Auth: public, no credentials required.
     # @param token [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(MembersControllerInviteInfo200Response, Integer, Hash)>] MembersControllerInviteInfo200Response data, response status code and response headers
     def members_controller_invite_info_with_http_info(token, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MembersApi.members_controller_invite_info ...'
@@ -149,6 +165,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -157,7 +175,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'MembersControllerInviteInfo200Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -179,15 +197,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List team members
+    # Returns every seat on the agency account with role, status and pixel grants. Team-management routes are for the account owner and admin seats only; manager and analyst seats cannot reach them.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AdvTeamMember>]
     def members_controller_list(opts = {})
-      members_controller_list_with_http_info(opts)
-      nil
+      data, _status_code, _headers = members_controller_list_with_http_info(opts)
+      data
     end
 
+    # List team members
+    # Returns every seat on the agency account with role, status and pixel grants. Team-management routes are for the account owner and admin seats only; manager and analyst seats cannot reach them.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AdvTeamMember>, Integer, Hash)>] Array<AdvTeamMember> data, response status code and response headers
     def members_controller_list_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MembersApi.members_controller_list ...'
@@ -200,6 +222,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -208,10 +232,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AdvTeamMember>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MembersApi.members_controller_list",
@@ -230,17 +254,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Remove a team member
+    # Deletes the seat. Always returns `deleted: true`, even if no seat matched.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvDeleted]
     def members_controller_remove(id, opts = {})
-      members_controller_remove_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = members_controller_remove_with_http_info(id, opts)
+      data
     end
 
+    # Remove a team member
+    # Deletes the seat. Always returns &#x60;deleted: true&#x60;, even if no seat matched.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvDeleted, Integer, Hash)>] AdvDeleted data, response status code and response headers
     def members_controller_remove_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MembersApi.members_controller_remove ...'
@@ -257,6 +285,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -265,10 +295,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvDeleted'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MembersApi.members_controller_remove",
@@ -287,17 +317,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Resend a team invitation
+    # Issues a new invite token (invalidating the previous link), resets the 7-day expiry and emails it again. Responds 404 for an unknown member and 400 when the member is already active.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerResendVerification201Response]
     def members_controller_resend(id, opts = {})
-      members_controller_resend_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = members_controller_resend_with_http_info(id, opts)
+      data
     end
 
+    # Resend a team invitation
+    # Issues a new invite token (invalidating the previous link), resets the 7-day expiry and emails it again. Responds 404 for an unknown member and 400 when the member is already active.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerResendVerification201Response, Integer, Hash)>] AuthControllerResendVerification201Response data, response status code and response headers
     def members_controller_resend_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MembersApi.members_controller_resend ...'
@@ -314,6 +348,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -322,10 +358,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerResendVerification201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MembersApi.members_controller_resend",
@@ -344,17 +380,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update a team member
+    # Changes a seat's `role`, `allPixels`, `pixelIds` (replaces the grants), `status` (active, disabled or invited) and/or `name`. Disabling a member revokes their live sessions immediately. Responds 404 for an unknown member and 400 for a pixel the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdvTeamMember]
     def members_controller_update(id, opts = {})
-      members_controller_update_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = members_controller_update_with_http_info(id, opts)
+      data
     end
 
+    # Update a team member
+    # Changes a seat&#39;s &#x60;role&#x60;, &#x60;allPixels&#x60;, &#x60;pixelIds&#x60; (replaces the grants), &#x60;status&#x60; (active, disabled or invited) and/or &#x60;name&#x60;. Disabling a member revokes their live sessions immediately. Responds 404 for an unknown member and 400 for a pixel the account does not own.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdvTeamMember, Integer, Hash)>] AdvTeamMember data, response status code and response headers
     def members_controller_update_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MembersApi.members_controller_update ...'
@@ -371,6 +411,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -379,10 +421,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdvTeamMember'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MembersApi.members_controller_update",

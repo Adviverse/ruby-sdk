@@ -19,17 +19,21 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Acknowledge an alert
+    # Marks alert `id` as acknowledged. Ids not owned by the account are silently ignored, and the response is the same either way.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [OptimizationControllerAckAlert201Response]
     def optimization_controller_ack_alert(id, opts = {})
-      optimization_controller_ack_alert_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = optimization_controller_ack_alert_with_http_info(id, opts)
+      data
     end
 
+    # Acknowledge an alert
+    # Marks alert &#x60;id&#x60; as acknowledged. Ids not owned by the account are silently ignored, and the response is the same either way.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(OptimizationControllerAckAlert201Response, Integer, Hash)>] OptimizationControllerAckAlert201Response data, response status code and response headers
     def optimization_controller_ack_alert_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OptimizationApi.optimization_controller_ack_alert ...'
@@ -46,6 +50,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -54,10 +60,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'OptimizationControllerAckAlert201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"OptimizationApi.optimization_controller_ack_alert",
@@ -76,17 +82,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create an automation rule
+    # Creates a rule of the form \"when `metric` (cpa, ctr, spend, conversions, fill_rate) is `operator` (gt or lt) `threshold` over `windowHours`, apply `action`\" (pause, resume, notify or adjust_bid). `name`, `metric`, `operator`, `threshold` and `action` are required. `scope` is campaign (the default, which requires `targetId`) or all. `windowHours` defaults to 24 and is clamped to 1-720. `actionValue` is kept only for adjust_bid. Invalid input returns 400.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param create_automation_rule_dto [CreateAutomationRuleDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AudienceAutomationRule]
     def optimization_controller_create_rule(create_automation_rule_dto, opts = {})
-      optimization_controller_create_rule_with_http_info(create_automation_rule_dto, opts)
-      nil
+      data, _status_code, _headers = optimization_controller_create_rule_with_http_info(create_automation_rule_dto, opts)
+      data
     end
 
+    # Create an automation rule
+    # Creates a rule of the form \&quot;when &#x60;metric&#x60; (cpa, ctr, spend, conversions, fill_rate) is &#x60;operator&#x60; (gt or lt) &#x60;threshold&#x60; over &#x60;windowHours&#x60;, apply &#x60;action&#x60;\&quot; (pause, resume, notify or adjust_bid). &#x60;name&#x60;, &#x60;metric&#x60;, &#x60;operator&#x60;, &#x60;threshold&#x60; and &#x60;action&#x60; are required. &#x60;scope&#x60; is campaign (the default, which requires &#x60;targetId&#x60;) or all. &#x60;windowHours&#x60; defaults to 24 and is clamped to 1-720. &#x60;actionValue&#x60; is kept only for adjust_bid. Invalid input returns 400.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param create_automation_rule_dto [CreateAutomationRuleDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AudienceAutomationRule, Integer, Hash)>] AudienceAutomationRule data, response status code and response headers
     def optimization_controller_create_rule_with_http_info(create_automation_rule_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OptimizationApi.optimization_controller_create_rule ...'
@@ -103,6 +113,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -116,10 +128,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_automation_rule_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AudienceAutomationRule'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"OptimizationApi.optimization_controller_create_rule",
@@ -138,15 +150,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List anomaly alerts
+    # Returns up to 200 of the account's anomaly alerts, newest first. Alerts are raised by the hourly anomaly detector. Kinds include spend and CPA spikes, CTR and CVR drops, fill-rate drops and no-fill spikes.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<OptimizationControllerListAlerts200ResponseInner>]
     def optimization_controller_list_alerts(opts = {})
-      optimization_controller_list_alerts_with_http_info(opts)
-      nil
+      data, _status_code, _headers = optimization_controller_list_alerts_with_http_info(opts)
+      data
     end
 
+    # List anomaly alerts
+    # Returns up to 200 of the account&#39;s anomaly alerts, newest first. Alerts are raised by the hourly anomaly detector. Kinds include spend and CPA spikes, CTR and CVR drops, fill-rate drops and no-fill spikes.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<OptimizationControllerListAlerts200ResponseInner>, Integer, Hash)>] Array<OptimizationControllerListAlerts200ResponseInner> data, response status code and response headers
     def optimization_controller_list_alerts_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OptimizationApi.optimization_controller_list_alerts ...'
@@ -159,6 +175,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -167,10 +185,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<OptimizationControllerListAlerts200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"OptimizationApi.optimization_controller_list_alerts",
@@ -189,15 +207,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List automation rules
+    # Returns the account's automation rules, newest first. A background job evaluates each enabled rule's metric over its window and applies the action when the condition holds.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AudienceAutomationRule>]
     def optimization_controller_list_rules(opts = {})
-      optimization_controller_list_rules_with_http_info(opts)
-      nil
+      data, _status_code, _headers = optimization_controller_list_rules_with_http_info(opts)
+      data
     end
 
+    # List automation rules
+    # Returns the account&#39;s automation rules, newest first. A background job evaluates each enabled rule&#39;s metric over its window and applies the action when the condition holds.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AudienceAutomationRule>, Integer, Hash)>] Array<AudienceAutomationRule> data, response status code and response headers
     def optimization_controller_list_rules_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OptimizationApi.optimization_controller_list_rules ...'
@@ -210,6 +232,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -218,10 +242,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AudienceAutomationRule>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"OptimizationApi.optimization_controller_list_rules",
@@ -240,17 +264,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List budget-optimizer reallocations
+    # Audit log of the automatic budget reallocator. For auto-strategy campaigns it moves daily budget toward lower-CPA performers, keeps the advertiser's total budget unchanged and limits how far each campaign can move. Each row records the old and new budget and the CPA, conversions and spend that drove the change. `limit` defaults to 100 and is clamped to 1-500; newest first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param limit [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<OptimizationControllerOptimizerLog200ResponseInner>]
     def optimization_controller_optimizer_log(limit, opts = {})
-      optimization_controller_optimizer_log_with_http_info(limit, opts)
-      nil
+      data, _status_code, _headers = optimization_controller_optimizer_log_with_http_info(limit, opts)
+      data
     end
 
+    # List budget-optimizer reallocations
+    # Audit log of the automatic budget reallocator. For auto-strategy campaigns it moves daily budget toward lower-CPA performers, keeps the advertiser&#39;s total budget unchanged and limits how far each campaign can move. Each row records the old and new budget and the CPA, conversions and spend that drove the change. &#x60;limit&#x60; defaults to 100 and is clamped to 1-500; newest first.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param limit [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<OptimizationControllerOptimizerLog200ResponseInner>, Integer, Hash)>] Array<OptimizationControllerOptimizerLog200ResponseInner> data, response status code and response headers
     def optimization_controller_optimizer_log_with_http_info(limit, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OptimizationApi.optimization_controller_optimizer_log ...'
@@ -268,6 +296,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -276,10 +306,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<OptimizationControllerOptimizerLog200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"OptimizationApi.optimization_controller_optimizer_log",
@@ -298,17 +328,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delete an automation rule
+    # Deletes rule `id` if it belongs to the account. Deleting an id the account does not own is a silent no-op that still returns `{deleted:true}`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PixelControllerDeletePixel200Response]
     def optimization_controller_remove_rule(id, opts = {})
-      optimization_controller_remove_rule_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = optimization_controller_remove_rule_with_http_info(id, opts)
+      data
     end
 
+    # Delete an automation rule
+    # Deletes rule &#x60;id&#x60; if it belongs to the account. Deleting an id the account does not own is a silent no-op that still returns &#x60;{deleted:true}&#x60;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PixelControllerDeletePixel200Response, Integer, Hash)>] PixelControllerDeletePixel200Response data, response status code and response headers
     def optimization_controller_remove_rule_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OptimizationApi.optimization_controller_remove_rule ...'
@@ -325,6 +359,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -333,10 +369,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PixelControllerDeletePixel200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"OptimizationApi.optimization_controller_remove_rule",
@@ -355,17 +391,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Enable or disable an automation rule
+    # Sets `enabled` from the request body on rule `id` without deleting it. Returns the updated rule. If the rule does not exist or is not owned by the account, the response is 400 \"rule not found\".  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AudienceAutomationRule]
     def optimization_controller_set_rule_enabled(id, opts = {})
-      optimization_controller_set_rule_enabled_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = optimization_controller_set_rule_enabled_with_http_info(id, opts)
+      data
     end
 
+    # Enable or disable an automation rule
+    # Sets &#x60;enabled&#x60; from the request body on rule &#x60;id&#x60; without deleting it. Returns the updated rule. If the rule does not exist or is not owned by the account, the response is 400 \&quot;rule not found\&quot;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AudienceAutomationRule, Integer, Hash)>] AudienceAutomationRule data, response status code and response headers
     def optimization_controller_set_rule_enabled_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OptimizationApi.optimization_controller_set_rule_enabled ...'
@@ -382,6 +422,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -390,10 +432,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AudienceAutomationRule'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"OptimizationApi.optimization_controller_set_rule_enabled",

@@ -19,6 +19,8 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Retargeting pixel: add the visitor to an audience
+    # Adds the visitor's `adnet_uid` first-party cookie (minted on first contact) to audience `aud`, plus an advertiser-supplied `uid` when given. Only existing audiences accept members, and each audience has a size cap. GPC or `ac=0`/`ac=n` opts the visitor out: no cookie is set and no membership is recorded. Always responds with a 1x1 GIF.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
     # @return [nil]
     def conversions_controller_track_audience(opts = {})
@@ -26,6 +28,8 @@ module Adviverse
       nil
     end
 
+    # Retargeting pixel: add the visitor to an audience
+    # Adds the visitor&#39;s &#x60;adnet_uid&#x60; first-party cookie (minted on first contact) to audience &#x60;aud&#x60;, plus an advertiser-supplied &#x60;uid&#x60; when given. Only existing audiences accept members, and each audience has a size cap. GPC or &#x60;ac&#x3D;0&#x60;/&#x60;ac&#x3D;n&#x60; opts the visitor out: no cookie is set and no membership is recorded. Always responds with a 1x1 GIF.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
     # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
     def conversions_controller_track_audience_with_http_info(opts = {})
@@ -70,15 +74,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Record an S2S conversion postback (GET)
+    # Advertiser server-to-server postback keyed by `click_id`, with optional `value`, `order_id` and `order_value` query params. The click context cached by the ad engine resolves the campaign; the billed payout always comes from the campaign's server-side CPA config (flat or percent of order), never from the request. One conversion per click and one per (advertiser, order_id); orders below the configured minimum are rejected, and sponsored CPC clicks are skipped because they bill on the click. A recorded conversion emits the conversion event and fires the advertiser's outbound postback if one is configured.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ConversionsControllerTrackGet200Response]
     def conversions_controller_track_get(opts = {})
-      conversions_controller_track_get_with_http_info(opts)
-      nil
+      data, _status_code, _headers = conversions_controller_track_get_with_http_info(opts)
+      data
     end
 
+    # Record an S2S conversion postback (GET)
+    # Advertiser server-to-server postback keyed by &#x60;click_id&#x60;, with optional &#x60;value&#x60;, &#x60;order_id&#x60; and &#x60;order_value&#x60; query params. The click context cached by the ad engine resolves the campaign; the billed payout always comes from the campaign&#39;s server-side CPA config (flat or percent of order), never from the request. One conversion per click and one per (advertiser, order_id); orders below the configured minimum are rejected, and sponsored CPC clicks are skipped because they bill on the click. A recorded conversion emits the conversion event and fires the advertiser&#39;s outbound postback if one is configured.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ConversionsControllerTrackGet200Response, Integer, Hash)>] ConversionsControllerTrackGet200Response data, response status code and response headers
     def conversions_controller_track_get_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ConversionsApi.conversions_controller_track_get ...'
@@ -91,6 +99,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -99,7 +109,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ConversionsControllerTrackGet200Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -121,17 +131,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Record an S2S conversion postback (POST)
+    # JSON form of the conversion postback. Accepts `clickId`/`click_id`, `value`, `orderId`/`order_id` and `orderValue`/`order_value`, in camelCase or snake_case. Behaviour matches the GET form: dedup per click and per order, payout from the server-side CPA config, minimum-order check, and a `postbackId` returned when recorded. Unknown body fields are rejected with 400.  Auth: public, no credentials required.
     # @param track_conversion_dto [TrackConversionDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ConversionsControllerTrackPost201Response]
     def conversions_controller_track_post(track_conversion_dto, opts = {})
-      conversions_controller_track_post_with_http_info(track_conversion_dto, opts)
-      nil
+      data, _status_code, _headers = conversions_controller_track_post_with_http_info(track_conversion_dto, opts)
+      data
     end
 
+    # Record an S2S conversion postback (POST)
+    # JSON form of the conversion postback. Accepts &#x60;clickId&#x60;/&#x60;click_id&#x60;, &#x60;value&#x60;, &#x60;orderId&#x60;/&#x60;order_id&#x60; and &#x60;orderValue&#x60;/&#x60;order_value&#x60;, in camelCase or snake_case. Behaviour matches the GET form: dedup per click and per order, payout from the server-side CPA config, minimum-order check, and a &#x60;postbackId&#x60; returned when recorded. Unknown body fields are rejected with 400.  Auth: public, no credentials required.
     # @param track_conversion_dto [TrackConversionDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ConversionsControllerTrackPost201Response, Integer, Hash)>] ConversionsControllerTrackPost201Response data, response status code and response headers
     def conversions_controller_track_post_with_http_info(track_conversion_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ConversionsApi.conversions_controller_track_post ...'
@@ -148,6 +162,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -161,7 +177,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(track_conversion_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ConversionsControllerTrackPost201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -183,17 +199,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Report a refund or chargeback for an order
+    # Claws back a held or settled per-checkout CPA conversion identified by `orderId`/`order_id`, optionally narrowed by `advertiserId`/`advertiser_id`. Emits a compensating conversion event carrying the original payout and publisher earnings so the ledger posts exact reversing entries, then marks the row refunded. A missing order id returns `error`, an unknown order `not_found`, and a repeat call `already_refunded`.  Auth: public, no credentials required.
     # @param refund_dto [RefundDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ConversionsControllerTrackRefund201Response]
     def conversions_controller_track_refund(refund_dto, opts = {})
-      conversions_controller_track_refund_with_http_info(refund_dto, opts)
-      nil
+      data, _status_code, _headers = conversions_controller_track_refund_with_http_info(refund_dto, opts)
+      data
     end
 
+    # Report a refund or chargeback for an order
+    # Claws back a held or settled per-checkout CPA conversion identified by &#x60;orderId&#x60;/&#x60;order_id&#x60;, optionally narrowed by &#x60;advertiserId&#x60;/&#x60;advertiser_id&#x60;. Emits a compensating conversion event carrying the original payout and publisher earnings so the ledger posts exact reversing entries, then marks the row refunded. A missing order id returns &#x60;error&#x60;, an unknown order &#x60;not_found&#x60;, and a repeat call &#x60;already_refunded&#x60;.  Auth: public, no credentials required.
     # @param refund_dto [RefundDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ConversionsControllerTrackRefund201Response, Integer, Hash)>] ConversionsControllerTrackRefund201Response data, response status code and response headers
     def conversions_controller_track_refund_with_http_info(refund_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ConversionsApi.conversions_controller_track_refund ...'
@@ -210,6 +230,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -223,7 +245,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(refund_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ConversionsControllerTrackRefund201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []

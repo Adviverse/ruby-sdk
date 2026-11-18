@@ -19,17 +19,21 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # List recent reward payouts
+    # Admin view of the most recent reward payouts across all pools, including delivery attempts and last error. `?limit=` defaults to 200 (max 1000).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param limit [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<RewardsControllerAdminPayouts200ResponseInner>]
     def rewards_controller_admin_payouts(limit, opts = {})
-      rewards_controller_admin_payouts_with_http_info(limit, opts)
-      nil
+      data, _status_code, _headers = rewards_controller_admin_payouts_with_http_info(limit, opts)
+      data
     end
 
+    # List recent reward payouts
+    # Admin view of the most recent reward payouts across all pools, including delivery attempts and last error. &#x60;?limit&#x3D;&#x60; defaults to 200 (max 1000).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param limit [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<RewardsControllerAdminPayouts200ResponseInner>, Integer, Hash)>] Array<RewardsControllerAdminPayouts200ResponseInner> data, response status code and response headers
     def rewards_controller_admin_payouts_with_http_info(limit, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RewardsApi.rewards_controller_admin_payouts ...'
@@ -47,6 +51,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -55,10 +61,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<RewardsControllerAdminPayouts200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"RewardsApi.rewards_controller_admin_payouts",
@@ -77,17 +83,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create an on-chain (advertiser-custodied) reward pool
+    # Creates or converts a campaign's pool to `onchain_creative` mode: no escrow and no ledger movement, because your own contract pays users on-chain. Adviverse verifies each completion and issues the creative a signed single-use eligibility voucher. `perCompletion`, `token` and optional `chain` are display/report values. The response includes `voucher_secret`, used to verify vouchers before disbursing (empty if the platform voucher key is not configured). 404 if the campaign is not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param create_onchain_pool_dto [CreateOnchainPoolDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [RewPool]
     def rewards_controller_create_onchain_pool(create_onchain_pool_dto, opts = {})
-      rewards_controller_create_onchain_pool_with_http_info(create_onchain_pool_dto, opts)
-      nil
+      data, _status_code, _headers = rewards_controller_create_onchain_pool_with_http_info(create_onchain_pool_dto, opts)
+      data
     end
 
+    # Create an on-chain (advertiser-custodied) reward pool
+    # Creates or converts a campaign&#39;s pool to &#x60;onchain_creative&#x60; mode: no escrow and no ledger movement, because your own contract pays users on-chain. Adviverse verifies each completion and issues the creative a signed single-use eligibility voucher. &#x60;perCompletion&#x60;, &#x60;token&#x60; and optional &#x60;chain&#x60; are display/report values. The response includes &#x60;voucher_secret&#x60;, used to verify vouchers before disbursing (empty if the platform voucher key is not configured). 404 if the campaign is not yours.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param create_onchain_pool_dto [CreateOnchainPoolDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(RewPool, Integer, Hash)>] RewPool data, response status code and response headers
     def rewards_controller_create_onchain_pool_with_http_info(create_onchain_pool_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RewardsApi.rewards_controller_create_onchain_pool ...'
@@ -104,6 +114,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -117,10 +129,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_onchain_pool_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'RewPool'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"RewardsApi.rewards_controller_create_onchain_pool",
@@ -139,17 +151,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Fund or top up a campaign reward pool
+    # Creates the reward pool for one of your campaigns, or adds to it, and escrows `amount` from your available balance in the same transaction (a `reward_fund` ledger entry). `perCompletion` is the fixed reward per verified completion; `token` defaults to your account currency; `perUserDailyCap`/`perWalletDailyCap` default to 5. 404 if the campaign is not yours; fails with insufficient funds if your balance cannot cover `amount`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param fund_pool_dto [FundPoolDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [RewPool]
     def rewards_controller_fund_pool(fund_pool_dto, opts = {})
-      rewards_controller_fund_pool_with_http_info(fund_pool_dto, opts)
-      nil
+      data, _status_code, _headers = rewards_controller_fund_pool_with_http_info(fund_pool_dto, opts)
+      data
     end
 
+    # Fund or top up a campaign reward pool
+    # Creates the reward pool for one of your campaigns, or adds to it, and escrows &#x60;amount&#x60; from your available balance in the same transaction (a &#x60;reward_fund&#x60; ledger entry). &#x60;perCompletion&#x60; is the fixed reward per verified completion; &#x60;token&#x60; defaults to your account currency; &#x60;perUserDailyCap&#x60;/&#x60;perWalletDailyCap&#x60; default to 5. 404 if the campaign is not yours; fails with insufficient funds if your balance cannot cover &#x60;amount&#x60;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param fund_pool_dto [FundPoolDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(RewPool, Integer, Hash)>] RewPool data, response status code and response headers
     def rewards_controller_fund_pool_with_http_info(fund_pool_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RewardsApi.rewards_controller_fund_pool ...'
@@ -166,6 +182,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -179,10 +197,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(fund_pool_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'RewPool'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"RewardsApi.rewards_controller_fund_pool",
@@ -201,17 +219,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get a campaign reward pool
+    # Returns the reward pool for `campaignId`; on-chain pools also include `voucher_secret`. 404 if you have no pool for that campaign.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param campaign_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [RewPool]
     def rewards_controller_get_pool(campaign_id, opts = {})
-      rewards_controller_get_pool_with_http_info(campaign_id, opts)
-      nil
+      data, _status_code, _headers = rewards_controller_get_pool_with_http_info(campaign_id, opts)
+      data
     end
 
+    # Get a campaign reward pool
+    # Returns the reward pool for &#x60;campaignId&#x60;; on-chain pools also include &#x60;voucher_secret&#x60;. 404 if you have no pool for that campaign.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param campaign_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(RewPool, Integer, Hash)>] RewPool data, response status code and response headers
     def rewards_controller_get_pool_with_http_info(campaign_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RewardsApi.rewards_controller_get_pool ...'
@@ -228,6 +250,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -236,10 +260,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'RewPool'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"RewardsApi.rewards_controller_get_pool",
@@ -258,15 +282,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List your reward pools
+    # Returns all of your campaign reward pools, newest first. Voucher secrets are not included here.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<RewPool>]
     def rewards_controller_list_pools(opts = {})
-      rewards_controller_list_pools_with_http_info(opts)
-      nil
+      data, _status_code, _headers = rewards_controller_list_pools_with_http_info(opts)
+      data
     end
 
+    # List your reward pools
+    # Returns all of your campaign reward pools, newest first. Voucher secrets are not included here.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<RewPool>, Integer, Hash)>] Array<RewPool> data, response status code and response headers
     def rewards_controller_list_pools_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RewardsApi.rewards_controller_list_pools ...'
@@ -279,6 +307,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -287,10 +317,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<RewPool>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"RewardsApi.rewards_controller_list_pools",
@@ -309,19 +339,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get your reward payout report
+    # Reports reward payouts on your pools between `from` and `to` (default last 30 days): totals by status (sent, pending, failed, on-chain, on-chain with a tx hash), amount paid and distinct recipient wallets, a per-campaign breakdown, current pool balances, and up to 2000 payout rows.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param from [String] 
     # @param to [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [RewardsControllerReport200Response]
     def rewards_controller_report(from, to, opts = {})
-      rewards_controller_report_with_http_info(from, to, opts)
-      nil
+      data, _status_code, _headers = rewards_controller_report_with_http_info(from, to, opts)
+      data
     end
 
+    # Get your reward payout report
+    # Reports reward payouts on your pools between &#x60;from&#x60; and &#x60;to&#x60; (default last 30 days): totals by status (sent, pending, failed, on-chain, on-chain with a tx hash), amount paid and distinct recipient wallets, a per-campaign breakdown, current pool balances, and up to 2000 payout rows.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param from [String] 
     # @param to [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(RewardsControllerReport200Response, Integer, Hash)>] RewardsControllerReport200Response data, response status code and response headers
     def rewards_controller_report_with_http_info(from, to, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RewardsApi.rewards_controller_report ...'
@@ -344,6 +378,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -352,10 +388,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'RewardsControllerReport200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"RewardsApi.rewards_controller_report",
@@ -374,19 +410,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Pause or resume a reward pool
+    # Sets the pool `status` to `paused` (stops accruing completions) or `active`. 404 if you have no pool for that campaign.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param campaign_id [String] 
     # @param set_pool_status_dto [SetPoolStatusDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [RewardsControllerSetPoolStatus201Response]
     def rewards_controller_set_pool_status(campaign_id, set_pool_status_dto, opts = {})
-      rewards_controller_set_pool_status_with_http_info(campaign_id, set_pool_status_dto, opts)
-      nil
+      data, _status_code, _headers = rewards_controller_set_pool_status_with_http_info(campaign_id, set_pool_status_dto, opts)
+      data
     end
 
+    # Pause or resume a reward pool
+    # Sets the pool &#x60;status&#x60; to &#x60;paused&#x60; (stops accruing completions) or &#x60;active&#x60;. 404 if you have no pool for that campaign.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param campaign_id [String] 
     # @param set_pool_status_dto [SetPoolStatusDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(RewardsControllerSetPoolStatus201Response, Integer, Hash)>] RewardsControllerSetPoolStatus201Response data, response status code and response headers
     def rewards_controller_set_pool_status_with_http_info(campaign_id, set_pool_status_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RewardsApi.rewards_controller_set_pool_status ...'
@@ -407,6 +447,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -420,10 +462,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(set_pool_status_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'RewardsControllerSetPoolStatus201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"RewardsApi.rewards_controller_set_pool_status",
@@ -442,17 +484,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Set a world's reward-payout webhook
+    # Points one of your world integrations at `url`. Pending reward payouts for that operator are POSTed there as signed `reward.payout` webhooks (HMAC with the world's signing secret) so the operator can pay the user; delivery is retried up to 8 times. 404 if the world is not yours.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param set_world_webhook_dto [SetWorldWebhookDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [RewardsControllerSetWorldWebhook201Response]
     def rewards_controller_set_world_webhook(set_world_webhook_dto, opts = {})
-      rewards_controller_set_world_webhook_with_http_info(set_world_webhook_dto, opts)
-      nil
+      data, _status_code, _headers = rewards_controller_set_world_webhook_with_http_info(set_world_webhook_dto, opts)
+      data
     end
 
+    # Set a world&#39;s reward-payout webhook
+    # Points one of your world integrations at &#x60;url&#x60;. Pending reward payouts for that operator are POSTed there as signed &#x60;reward.payout&#x60; webhooks (HMAC with the world&#39;s signing secret) so the operator can pay the user; delivery is retried up to 8 times. 404 if the world is not yours.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param set_world_webhook_dto [SetWorldWebhookDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(RewardsControllerSetWorldWebhook201Response, Integer, Hash)>] RewardsControllerSetWorldWebhook201Response data, response status code and response headers
     def rewards_controller_set_world_webhook_with_http_info(set_world_webhook_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RewardsApi.rewards_controller_set_world_webhook ...'
@@ -469,6 +515,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -482,10 +530,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(set_world_webhook_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'RewardsControllerSetWorldWebhook201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"RewardsApi.rewards_controller_set_world_webhook",
@@ -504,17 +552,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get the voucher secret for an on-chain pool
+    # Returns the HMAC voucher secret for the campaign's on-chain reward pool. 404 if you have no pool for the campaign, 400 if the pool is not in on-chain mode.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param campaign_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [RewardsControllerVoucherSecret200Response]
     def rewards_controller_voucher_secret(campaign_id, opts = {})
-      rewards_controller_voucher_secret_with_http_info(campaign_id, opts)
-      nil
+      data, _status_code, _headers = rewards_controller_voucher_secret_with_http_info(campaign_id, opts)
+      data
     end
 
+    # Get the voucher secret for an on-chain pool
+    # Returns the HMAC voucher secret for the campaign&#39;s on-chain reward pool. 404 if you have no pool for the campaign, 400 if the pool is not in on-chain mode.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param campaign_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(RewardsControllerVoucherSecret200Response, Integer, Hash)>] RewardsControllerVoucherSecret200Response data, response status code and response headers
     def rewards_controller_voucher_secret_with_http_info(campaign_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RewardsApi.rewards_controller_voucher_secret ...'
@@ -531,6 +583,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -539,10 +593,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'RewardsControllerVoucherSecret200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"RewardsApi.rewards_controller_voucher_secret",

@@ -19,15 +19,19 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Check the SKAdNetwork postback endpoint
+    # Public liveness check for the registered postback URL.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SkadnetworkControllerHealth200Response]
     def skadnetwork_controller_health(opts = {})
-      skadnetwork_controller_health_with_http_info(opts)
-      nil
+      data, _status_code, _headers = skadnetwork_controller_health_with_http_info(opts)
+      data
     end
 
+    # Check the SKAdNetwork postback endpoint
+    # Public liveness check for the registered postback URL.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SkadnetworkControllerHealth200Response, Integer, Hash)>] SkadnetworkControllerHealth200Response data, response status code and response headers
     def skadnetwork_controller_health_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SkadnetworkApi.skadnetwork_controller_health ...'
@@ -40,6 +44,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -48,7 +54,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SkadnetworkControllerHealth200Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -70,15 +76,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Receive an Apple SKAdNetwork install postback
+    # Public, rate-limited endpoint Apple POSTs signed install postbacks to. Every postback is stored once per `transaction-id`; the signature is verified, the campaign resolved from `source-identifier`/`campaign-id` (and `app-id`), and won, verified postbacks are emitted as conversions. Always answers 200 so Apple does not retry; the outcome is in `status`: attributed, duplicate, invalid_signature, verified_unmatched, verified_lost, wrong_network, unsupported, bad_request or error.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SkadnetworkControllerPostback200Response]
     def skadnetwork_controller_postback(opts = {})
-      skadnetwork_controller_postback_with_http_info(opts)
-      nil
+      data, _status_code, _headers = skadnetwork_controller_postback_with_http_info(opts)
+      data
     end
 
+    # Receive an Apple SKAdNetwork install postback
+    # Public, rate-limited endpoint Apple POSTs signed install postbacks to. Every postback is stored once per &#x60;transaction-id&#x60;; the signature is verified, the campaign resolved from &#x60;source-identifier&#x60;/&#x60;campaign-id&#x60; (and &#x60;app-id&#x60;), and won, verified postbacks are emitted as conversions. Always answers 200 so Apple does not retry; the outcome is in &#x60;status&#x60;: attributed, duplicate, invalid_signature, verified_unmatched, verified_lost, wrong_network, unsupported, bad_request or error.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SkadnetworkControllerPostback200Response, Integer, Hash)>] SkadnetworkControllerPostback200Response data, response status code and response headers
     def skadnetwork_controller_postback_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SkadnetworkApi.skadnetwork_controller_postback ...'
@@ -91,6 +101,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -99,7 +111,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SkadnetworkControllerPostback200Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []

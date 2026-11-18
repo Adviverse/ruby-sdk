@@ -19,15 +19,19 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # List all world integrations
+    # Admin view of up to 1000 world integrations across all accounts, with the operator's email.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<MetaverseControllerAdminWorlds200ResponseInner>]
     def metaverse_controller_admin_worlds(opts = {})
-      metaverse_controller_admin_worlds_with_http_info(opts)
-      nil
+      data, _status_code, _headers = metaverse_controller_admin_worlds_with_http_info(opts)
+      data
     end
 
+    # List all world integrations
+    # Admin view of up to 1000 world integrations across all accounts, with the operator&#39;s email.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<MetaverseControllerAdminWorlds200ResponseInner>, Integer, Hash)>] Array<MetaverseControllerAdminWorlds200ResponseInner> data, response status code and response headers
     def metaverse_controller_admin_worlds_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MetaverseApi.metaverse_controller_admin_worlds ...'
@@ -40,6 +44,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -48,10 +54,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<MetaverseControllerAdminWorlds200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MetaverseApi.metaverse_controller_admin_worlds",
@@ -70,19 +76,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get metaverse proof-of-view for your campaigns
+    # Same report as the publisher view, scoped to surface events on your campaigns between `from` and `to` (default last 30 days).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param from [String] 
     # @param to [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SupSurfaceReport]
     def metaverse_controller_advertiser_views(from, to, opts = {})
-      metaverse_controller_advertiser_views_with_http_info(from, to, opts)
-      nil
+      data, _status_code, _headers = metaverse_controller_advertiser_views_with_http_info(from, to, opts)
+      data
     end
 
+    # Get metaverse proof-of-view for your campaigns
+    # Same report as the publisher view, scoped to surface events on your campaigns between &#x60;from&#x60; and &#x60;to&#x60; (default last 30 days).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param from [String] 
     # @param to [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SupSurfaceReport, Integer, Hash)>] SupSurfaceReport data, response status code and response headers
     def metaverse_controller_advertiser_views_with_http_info(from, to, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MetaverseApi.metaverse_controller_advertiser_views ...'
@@ -105,6 +115,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -113,10 +125,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SupSurfaceReport'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MetaverseApi.metaverse_controller_advertiser_views",
@@ -135,17 +147,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Claim a metaverse surface by its pairing code
+    # Attaches the pending surface showing `code` to your account and starts serving: creates a `surface` placement (signed with the world's attestation key) under a per-world property that inherits the world's trust tier. Optional spatial details: `shopId`, `world`, `surfaceType`, `posX/Y/Z`, `widthM`, `heightM`, `floorCpm`, `audienceMultiplier` (default 1), `maxDistanceM`. 404 if no surface is waiting for that code.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param claim_surface_dto [ClaimSurfaceDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SupSurface]
     def metaverse_controller_claim(claim_surface_dto, opts = {})
-      metaverse_controller_claim_with_http_info(claim_surface_dto, opts)
-      nil
+      data, _status_code, _headers = metaverse_controller_claim_with_http_info(claim_surface_dto, opts)
+      data
     end
 
+    # Claim a metaverse surface by its pairing code
+    # Attaches the pending surface showing &#x60;code&#x60; to your account and starts serving: creates a &#x60;surface&#x60; placement (signed with the world&#39;s attestation key) under a per-world property that inherits the world&#39;s trust tier. Optional spatial details: &#x60;shopId&#x60;, &#x60;world&#x60;, &#x60;surfaceType&#x60;, &#x60;posX/Y/Z&#x60;, &#x60;widthM&#x60;, &#x60;heightM&#x60;, &#x60;floorCpm&#x60;, &#x60;audienceMultiplier&#x60; (default 1), &#x60;maxDistanceM&#x60;. 404 if no surface is waiting for that code.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param claim_surface_dto [ClaimSurfaceDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SupSurface, Integer, Hash)>] SupSurface data, response status code and response headers
     def metaverse_controller_claim_with_http_info(claim_surface_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MetaverseApi.metaverse_controller_claim ...'
@@ -162,6 +178,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -175,10 +193,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(claim_surface_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SupSurface'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MetaverseApi.metaverse_controller_claim",
@@ -197,17 +215,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Register a metaverse world integration
+    # Creates a world integration for a metaverse operator from `name` (required) and optional `networkId`. New worlds start `unverified` (their surfaces serve CPA-only until trusted). The response includes `signing_secret`, which the world's server uses to attest proofs of view; it is returned only here. 400 if name is empty.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param create_world_dto [CreateWorldDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [MetaverseControllerCreateWorld201Response]
     def metaverse_controller_create_world(create_world_dto, opts = {})
-      metaverse_controller_create_world_with_http_info(create_world_dto, opts)
-      nil
+      data, _status_code, _headers = metaverse_controller_create_world_with_http_info(create_world_dto, opts)
+      data
     end
 
+    # Register a metaverse world integration
+    # Creates a world integration for a metaverse operator from &#x60;name&#x60; (required) and optional &#x60;networkId&#x60;. New worlds start &#x60;unverified&#x60; (their surfaces serve CPA-only until trusted). The response includes &#x60;signing_secret&#x60;, which the world&#39;s server uses to attest proofs of view; it is returned only here. 400 if name is empty.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param create_world_dto [CreateWorldDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(MetaverseControllerCreateWorld201Response, Integer, Hash)>] MetaverseControllerCreateWorld201Response data, response status code and response headers
     def metaverse_controller_create_world_with_http_info(create_world_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MetaverseApi.metaverse_controller_create_world ...'
@@ -224,6 +246,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -237,10 +261,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'MetaverseControllerCreateWorld201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MetaverseApi.metaverse_controller_create_world",
@@ -259,17 +283,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get a metaverse surface
+    # Returns one of your surfaces with its serving tag. 404 if not found, 403 if another account owns it.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SupSurface]
     def metaverse_controller_get(id, opts = {})
-      metaverse_controller_get_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = metaverse_controller_get_with_http_info(id, opts)
+      data
     end
 
+    # Get a metaverse surface
+    # Returns one of your surfaces with its serving tag. 404 if not found, 403 if another account owns it.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SupSurface, Integer, Hash)>] SupSurface data, response status code and response headers
     def metaverse_controller_get_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MetaverseApi.metaverse_controller_get ...'
@@ -286,6 +314,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -294,10 +324,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SupSurface'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MetaverseApi.metaverse_controller_get",
@@ -316,15 +346,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List your metaverse surfaces
+    # Returns your surfaces, newest first, with `online` (heartbeat within 5 minutes) and the latest heartbeat time.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<MetaverseControllerList200ResponseInner>]
     def metaverse_controller_list(opts = {})
-      metaverse_controller_list_with_http_info(opts)
-      nil
+      data, _status_code, _headers = metaverse_controller_list_with_http_info(opts)
+      data
     end
 
+    # List your metaverse surfaces
+    # Returns your surfaces, newest first, with &#x60;online&#x60; (heartbeat within 5 minutes) and the latest heartbeat time.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<MetaverseControllerList200ResponseInner>, Integer, Hash)>] Array<MetaverseControllerList200ResponseInner> data, response status code and response headers
     def metaverse_controller_list_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MetaverseApi.metaverse_controller_list ...'
@@ -337,6 +371,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -345,10 +381,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<MetaverseControllerList200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MetaverseApi.metaverse_controller_list",
@@ -367,15 +403,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List your world integrations
+    # Returns the caller's world integrations (without signing secrets), newest first.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<SupWorld>]
     def metaverse_controller_list_worlds(opts = {})
-      metaverse_controller_list_worlds_with_http_info(opts)
-      nil
+      data, _status_code, _headers = metaverse_controller_list_worlds_with_http_info(opts)
+      data
     end
 
+    # List your world integrations
+    # Returns the caller&#39;s world integrations (without signing secrets), newest first.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<SupWorld>, Integer, Hash)>] Array<SupWorld> data, response status code and response headers
     def metaverse_controller_list_worlds_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MetaverseApi.metaverse_controller_list_worlds ...'
@@ -388,6 +428,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -396,10 +438,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<SupWorld>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MetaverseApi.metaverse_controller_list_worlds",
@@ -418,17 +460,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Start pairing a metaverse ad surface
+    # Public, rate-limited. A world client calls this with `worldId` (must be an active world) and optional `surfaceType` (screen, poster, portal; default screen). Returns a pairing code to show in-world and a poll token. 404 for an unknown world.  Auth: public, no credentials required.
     # @param surface_pair_init_dto [SurfacePairInitDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ScreensControllerPairInit201Response]
     def metaverse_controller_pair_init(surface_pair_init_dto, opts = {})
-      metaverse_controller_pair_init_with_http_info(surface_pair_init_dto, opts)
-      nil
+      data, _status_code, _headers = metaverse_controller_pair_init_with_http_info(surface_pair_init_dto, opts)
+      data
     end
 
+    # Start pairing a metaverse ad surface
+    # Public, rate-limited. A world client calls this with &#x60;worldId&#x60; (must be an active world) and optional &#x60;surfaceType&#x60; (screen, poster, portal; default screen). Returns a pairing code to show in-world and a poll token. 404 for an unknown world.  Auth: public, no credentials required.
     # @param surface_pair_init_dto [SurfacePairInitDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ScreensControllerPairInit201Response, Integer, Hash)>] ScreensControllerPairInit201Response data, response status code and response headers
     def metaverse_controller_pair_init_with_http_info(surface_pair_init_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MetaverseApi.metaverse_controller_pair_init ...'
@@ -445,6 +491,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -458,7 +506,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(surface_pair_init_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ScreensControllerPairInit201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -480,17 +528,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Poll a metaverse surface's pairing status
+    # Public, rate-limited. Poll with `?pollToken=` until a shop owner claims the code, then receive the serving `tag`. 404 for an unknown token.  Auth: public, no credentials required.
     # @param poll_token [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ScreensControllerPairStatus200Response]
     def metaverse_controller_pair_status(poll_token, opts = {})
-      metaverse_controller_pair_status_with_http_info(poll_token, opts)
-      nil
+      data, _status_code, _headers = metaverse_controller_pair_status_with_http_info(poll_token, opts)
+      data
     end
 
+    # Poll a metaverse surface&#39;s pairing status
+    # Public, rate-limited. Poll with &#x60;?pollToken&#x3D;&#x60; until a shop owner claims the code, then receive the serving &#x60;tag&#x60;. 404 for an unknown token.  Auth: public, no credentials required.
     # @param poll_token [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ScreensControllerPairStatus200Response, Integer, Hash)>] ScreensControllerPairStatus200Response data, response status code and response headers
     def metaverse_controller_pair_status_with_http_info(poll_token, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MetaverseApi.metaverse_controller_pair_status ...'
@@ -508,6 +560,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -516,7 +570,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ScreensControllerPairStatus200Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -538,19 +592,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get your metaverse proof-of-view report
+    # Summarizes and lists (up to 2000) surface events on your surfaces between `from` and `to` (default last 30 days): views, valid views, portal enters and completes, spend, and distinct surfaces.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param from [String] 
     # @param to [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SupSurfaceReport]
     def metaverse_controller_publisher_views(from, to, opts = {})
-      metaverse_controller_publisher_views_with_http_info(from, to, opts)
-      nil
+      data, _status_code, _headers = metaverse_controller_publisher_views_with_http_info(from, to, opts)
+      data
     end
 
+    # Get your metaverse proof-of-view report
+    # Summarizes and lists (up to 2000) surface events on your surfaces between &#x60;from&#x60; and &#x60;to&#x60; (default last 30 days): views, valid views, portal enters and completes, spend, and distinct surfaces.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param from [String] 
     # @param to [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SupSurfaceReport, Integer, Hash)>] SupSurfaceReport data, response status code and response headers
     def metaverse_controller_publisher_views_with_http_info(from, to, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MetaverseApi.metaverse_controller_publisher_views ...'
@@ -573,6 +631,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -581,10 +641,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SupSurfaceReport'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MetaverseApi.metaverse_controller_publisher_views",
@@ -603,15 +663,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Run world trust scoring now
+    # Scores every active world's last 7 days of surface traffic immediately (normally a scheduled job), stores the snapshots, and promotes or demotes worlds whose computed tier differs from their current one.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [MetaverseControllerScoreNow201Response]
     def metaverse_controller_score_now(opts = {})
-      metaverse_controller_score_now_with_http_info(opts)
-      nil
+      data, _status_code, _headers = metaverse_controller_score_now_with_http_info(opts)
+      data
     end
 
+    # Run world trust scoring now
+    # Scores every active world&#39;s last 7 days of surface traffic immediately (normally a scheduled job), stores the snapshots, and promotes or demotes worlds whose computed tier differs from their current one.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(MetaverseControllerScoreNow201Response, Integer, Hash)>] MetaverseControllerScoreNow201Response data, response status code and response headers
     def metaverse_controller_score_now_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MetaverseApi.metaverse_controller_score_now ...'
@@ -624,6 +688,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -632,10 +698,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'MetaverseControllerScoreNow201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MetaverseApi.metaverse_controller_score_now",
@@ -654,19 +720,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Pause or activate a metaverse surface
+    # Sets `status` (`active`/`paused`) on the surface and its placement and republishes the index. 400 if not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param id [String] 
     # @param set_surface_status_dto [SetSurfaceStatusDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ScreensControllerSetStatus201Response]
     def metaverse_controller_set_status(id, set_surface_status_dto, opts = {})
-      metaverse_controller_set_status_with_http_info(id, set_surface_status_dto, opts)
-      nil
+      data, _status_code, _headers = metaverse_controller_set_status_with_http_info(id, set_surface_status_dto, opts)
+      data
     end
 
+    # Pause or activate a metaverse surface
+    # Sets &#x60;status&#x60; (&#x60;active&#x60;/&#x60;paused&#x60;) on the surface and its placement and republishes the index. 400 if not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param id [String] 
     # @param set_surface_status_dto [SetSurfaceStatusDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ScreensControllerSetStatus201Response, Integer, Hash)>] ScreensControllerSetStatus201Response data, response status code and response headers
     def metaverse_controller_set_status_with_http_info(id, set_surface_status_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MetaverseApi.metaverse_controller_set_status ...'
@@ -687,6 +757,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -700,10 +772,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(set_surface_status_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ScreensControllerSetStatus201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MetaverseApi.metaverse_controller_set_status",
@@ -722,19 +794,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Set a world's trust tier
+    # Sets `trust` to `trusted` (surfaces may sell CPM) or `unverified` (CPA-only), cascades it to the world's surface properties, and republishes the index. 404 if the world does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param set_world_trust_dto [SetWorldTrustDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [MetaverseControllerSetWorldTrust201Response]
     def metaverse_controller_set_world_trust(id, set_world_trust_dto, opts = {})
-      metaverse_controller_set_world_trust_with_http_info(id, set_world_trust_dto, opts)
-      nil
+      data, _status_code, _headers = metaverse_controller_set_world_trust_with_http_info(id, set_world_trust_dto, opts)
+      data
     end
 
+    # Set a world&#39;s trust tier
+    # Sets &#x60;trust&#x60; to &#x60;trusted&#x60; (surfaces may sell CPM) or &#x60;unverified&#x60; (CPA-only), cascades it to the world&#39;s surface properties, and republishes the index. 404 if the world does not exist.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param set_world_trust_dto [SetWorldTrustDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(MetaverseControllerSetWorldTrust201Response, Integer, Hash)>] MetaverseControllerSetWorldTrust201Response data, response status code and response headers
     def metaverse_controller_set_world_trust_with_http_info(id, set_world_trust_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MetaverseApi.metaverse_controller_set_world_trust ...'
@@ -755,6 +831,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -768,10 +846,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(set_world_trust_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'MetaverseControllerSetWorldTrust201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MetaverseApi.metaverse_controller_set_world_trust",
@@ -790,15 +868,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List world trust scores
+    # Admin view of the latest automatic trust-score snapshot per world (7-day view volume, valid and attested rates, unique-user ratio, dwell-time variation, the tier the scorer chose, and its factors).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<MetaverseControllerTrustScores200ResponseInner>]
     def metaverse_controller_trust_scores(opts = {})
-      metaverse_controller_trust_scores_with_http_info(opts)
-      nil
+      data, _status_code, _headers = metaverse_controller_trust_scores_with_http_info(opts)
+      data
     end
 
+    # List world trust scores
+    # Admin view of the latest automatic trust-score snapshot per world (7-day view volume, valid and attested rates, unique-user ratio, dwell-time variation, the tier the scorer chose, and its factors).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<MetaverseControllerTrustScores200ResponseInner>, Integer, Hash)>] Array<MetaverseControllerTrustScores200ResponseInner> data, response status code and response headers
     def metaverse_controller_trust_scores_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MetaverseApi.metaverse_controller_trust_scores ...'
@@ -811,6 +893,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -819,10 +903,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<MetaverseControllerTrustScores200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MetaverseApi.metaverse_controller_trust_scores",
@@ -841,19 +925,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update a metaverse surface
+    # Edits `surfaceType`, `floorCpm`, `audienceMultiplier` and `maxDistanceM` on a paired surface (synced into its placement settings) and republishes the index. 400 if not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param id [String] 
     # @param update_surface_dto [UpdateSurfaceDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SupSurface]
     def metaverse_controller_update(id, update_surface_dto, opts = {})
-      metaverse_controller_update_with_http_info(id, update_surface_dto, opts)
-      nil
+      data, _status_code, _headers = metaverse_controller_update_with_http_info(id, update_surface_dto, opts)
+      data
     end
 
+    # Update a metaverse surface
+    # Edits &#x60;surfaceType&#x60;, &#x60;floorCpm&#x60;, &#x60;audienceMultiplier&#x60; and &#x60;maxDistanceM&#x60; on a paired surface (synced into its placement settings) and republishes the index. 400 if not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param id [String] 
     # @param update_surface_dto [UpdateSurfaceDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SupSurface, Integer, Hash)>] SupSurface data, response status code and response headers
     def metaverse_controller_update_with_http_info(id, update_surface_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MetaverseApi.metaverse_controller_update ...'
@@ -874,6 +962,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -887,10 +977,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(update_surface_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SupSurface'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MetaverseApi.metaverse_controller_update",

@@ -19,17 +19,21 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Create a serving region
+    # Adds a region from `code` (lowercase slug, unique), `name`, `public_endpoint`, `lat`, `lng`, optional `country_codes` (uppercased), `status` (active, draining, disabled; default active) and `priority` (default 100, lower wins). Invalidates the region cache.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param create_region_dto [CreateRegionDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [RewRegion]
     def regions_controller_create(create_region_dto, opts = {})
-      regions_controller_create_with_http_info(create_region_dto, opts)
-      nil
+      data, _status_code, _headers = regions_controller_create_with_http_info(create_region_dto, opts)
+      data
     end
 
+    # Create a serving region
+    # Adds a region from &#x60;code&#x60; (lowercase slug, unique), &#x60;name&#x60;, &#x60;public_endpoint&#x60;, &#x60;lat&#x60;, &#x60;lng&#x60;, optional &#x60;country_codes&#x60; (uppercased), &#x60;status&#x60; (active, draining, disabled; default active) and &#x60;priority&#x60; (default 100, lower wins). Invalidates the region cache.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param create_region_dto [CreateRegionDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(RewRegion, Integer, Hash)>] RewRegion data, response status code and response headers
     def regions_controller_create_with_http_info(create_region_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RegionsApi.regions_controller_create ...'
@@ -46,6 +50,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -59,10 +65,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_region_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'RewRegion'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"RegionsApi.regions_controller_create",
@@ -81,15 +87,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get per-region engine health
+    # Public. Probes every configured region's engine `/healthz` (1.5s timeout) and reports whether it is up with its indexed campaign and placement counts and version. Unreachable engines report `up: false` with null metrics.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<RegionsControllerHealth200ResponseInner>]
     def regions_controller_health(opts = {})
-      regions_controller_health_with_http_info(opts)
-      nil
+      data, _status_code, _headers = regions_controller_health_with_http_info(opts)
+      data
     end
 
+    # Get per-region engine health
+    # Public. Probes every configured region&#39;s engine &#x60;/healthz&#x60; (1.5s timeout) and reports whether it is up with its indexed campaign and placement counts and version. Unreachable engines report &#x60;up: false&#x60; with null metrics.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<RegionsControllerHealth200ResponseInner>, Integer, Hash)>] Array<RegionsControllerHealth200ResponseInner> data, response status code and response headers
     def regions_controller_health_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RegionsApi.regions_controller_health ...'
@@ -102,6 +112,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -110,7 +122,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<RegionsControllerHealth200ResponseInner>'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -132,15 +144,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List active serving regions
+    # Public. Returns the active ad-engine regions ordered by priority, served from a 30-second in-memory cache.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<RewRegion>]
     def regions_controller_list(opts = {})
-      regions_controller_list_with_http_info(opts)
-      nil
+      data, _status_code, _headers = regions_controller_list_with_http_info(opts)
+      data
     end
 
+    # List active serving regions
+    # Public. Returns the active ad-engine regions ordered by priority, served from a 30-second in-memory cache.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<RewRegion>, Integer, Hash)>] Array<RewRegion> data, response status code and response headers
     def regions_controller_list_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RegionsApi.regions_controller_list ...'
@@ -153,6 +169,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -161,7 +179,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<RewRegion>'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -183,21 +201,25 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Resolve the best serving region
+    # Public and fail-soft; the SDK calls it before auth to choose an engine. Matches `?country=` (ISO alpha-2) against region country lists, else picks the nearest region to `?lat=&lng=`, else the highest-priority region. Falls back to a built-in default region if none are configured or lookup fails.  Auth: public, no credentials required.
     # @param country [String] 
     # @param lat [String] 
     # @param lng [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [RegionsControllerNearest200Response]
     def regions_controller_nearest(country, lat, lng, opts = {})
-      regions_controller_nearest_with_http_info(country, lat, lng, opts)
-      nil
+      data, _status_code, _headers = regions_controller_nearest_with_http_info(country, lat, lng, opts)
+      data
     end
 
+    # Resolve the best serving region
+    # Public and fail-soft; the SDK calls it before auth to choose an engine. Matches &#x60;?country&#x3D;&#x60; (ISO alpha-2) against region country lists, else picks the nearest region to &#x60;?lat&#x3D;&amp;lng&#x3D;&#x60;, else the highest-priority region. Falls back to a built-in default region if none are configured or lookup fails.  Auth: public, no credentials required.
     # @param country [String] 
     # @param lat [String] 
     # @param lng [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(RegionsControllerNearest200Response, Integer, Hash)>] RegionsControllerNearest200Response data, response status code and response headers
     def regions_controller_nearest_with_http_info(country, lat, lng, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RegionsApi.regions_controller_nearest ...'
@@ -225,6 +247,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -233,7 +257,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'RegionsControllerNearest200Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -255,19 +279,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update a serving region
+    # Patches `status`, `public_endpoint`, `priority`, `country_codes` or `name` of the region with UUID `id` and invalidates the cache. 404 if the region does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param update_region_dto [UpdateRegionDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [RewRegion]
     def regions_controller_update(id, update_region_dto, opts = {})
-      regions_controller_update_with_http_info(id, update_region_dto, opts)
-      nil
+      data, _status_code, _headers = regions_controller_update_with_http_info(id, update_region_dto, opts)
+      data
     end
 
+    # Update a serving region
+    # Patches &#x60;status&#x60;, &#x60;public_endpoint&#x60;, &#x60;priority&#x60;, &#x60;country_codes&#x60; or &#x60;name&#x60; of the region with UUID &#x60;id&#x60; and invalidates the cache. 404 if the region does not exist.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param update_region_dto [UpdateRegionDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(RewRegion, Integer, Hash)>] RewRegion data, response status code and response headers
     def regions_controller_update_with_http_info(id, update_region_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RegionsApi.regions_controller_update ...'
@@ -288,6 +316,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -301,10 +331,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(update_region_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'RewRegion'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"RegionsApi.regions_controller_update",

@@ -19,15 +19,19 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Accept a pixel transfer
+    # The recipient, signed in to their own account, accepts with `token`. In one transaction the pixel, its pixel-scoped audiences and their sync destinations move to the accepting account, and the sender's campaigns tagged to a client linked to that pixel are untagged. Audience membership keys are unchanged, so serving continues; historical analytics stay with the sender. Returns 400 if the transfer is not pending, has expired, is your own, or the pixel is gone.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyControllerAcceptTransfer201Response]
     def agency_controller_accept_transfer(opts = {})
-      agency_controller_accept_transfer_with_http_info(opts)
-      nil
+      data, _status_code, _headers = agency_controller_accept_transfer_with_http_info(opts)
+      data
     end
 
+    # Accept a pixel transfer
+    # The recipient, signed in to their own account, accepts with &#x60;token&#x60;. In one transaction the pixel, its pixel-scoped audiences and their sync destinations move to the accepting account, and the sender&#39;s campaigns tagged to a client linked to that pixel are untagged. Audience membership keys are unchanged, so serving continues; historical analytics stay with the sender. Returns 400 if the transfer is not pending, has expired, is your own, or the pixel is gone.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyControllerAcceptTransfer201Response, Integer, Hash)>] AgencyControllerAcceptTransfer201Response data, response status code and response headers
     def agency_controller_accept_transfer_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_accept_transfer ...'
@@ -40,6 +44,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -48,10 +54,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyControllerAcceptTransfer201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_accept_transfer",
@@ -70,17 +76,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Add a line item to a draft invoice
+    # Appends a line with `description` (required), optional `kind` (default `fee`), `quantity` (default 1) and `unitAmount`. `amount` defaults to quantity x unitAmount, rounded to cents. Draft invoices only (400 otherwise); totals are recomputed.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyInvoice]
     def agency_controller_add_item(id, opts = {})
-      agency_controller_add_item_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = agency_controller_add_item_with_http_info(id, opts)
+      data
     end
 
+    # Add a line item to a draft invoice
+    # Appends a line with &#x60;description&#x60; (required), optional &#x60;kind&#x60; (default &#x60;fee&#x60;), &#x60;quantity&#x60; (default 1) and &#x60;unitAmount&#x60;. &#x60;amount&#x60; defaults to quantity x unitAmount, rounded to cents. Draft invoices only (400 otherwise); totals are recomputed.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyInvoice, Integer, Hash)>] AgencyInvoice data, response status code and response headers
     def agency_controller_add_item_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_add_item ...'
@@ -97,6 +107,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -105,10 +117,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyInvoice'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_add_item",
@@ -127,17 +139,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Cancel a pending pixel transfer
+    # Cancels a transfer this account started. Only `pending` transfers can be cancelled (400 otherwise); 404 if unknown.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyControllerCancelTransfer201Response]
     def agency_controller_cancel_transfer(id, opts = {})
-      agency_controller_cancel_transfer_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = agency_controller_cancel_transfer_with_http_info(id, opts)
+      data
     end
 
+    # Cancel a pending pixel transfer
+    # Cancels a transfer this account started. Only &#x60;pending&#x60; transfers can be cancelled (400 otherwise); 404 if unknown.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyControllerCancelTransfer201Response, Integer, Hash)>] AgencyControllerCancelTransfer201Response data, response status code and response headers
     def agency_controller_cancel_transfer_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_cancel_transfer ...'
@@ -154,6 +170,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -162,10 +180,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyControllerCancelTransfer201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_cancel_transfer",
@@ -184,21 +202,25 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get spend and delivery for a client
+    # Sums spend, impressions, clicks and conversions from the ClickHouse hourly rollup across the client's tagged campaigns for the inclusive date range `from`..`to` (YYYY-MM-DD). Defaults to the last 30 days. Returns zeros when no campaigns are tagged. 404 for an unknown client.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param from [String] 
     # @param to [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyControllerClientSpend200Response]
     def agency_controller_client_spend(id, from, to, opts = {})
-      agency_controller_client_spend_with_http_info(id, from, to, opts)
-      nil
+      data, _status_code, _headers = agency_controller_client_spend_with_http_info(id, from, to, opts)
+      data
     end
 
+    # Get spend and delivery for a client
+    # Sums spend, impressions, clicks and conversions from the ClickHouse hourly rollup across the client&#39;s tagged campaigns for the inclusive date range &#x60;from&#x60;..&#x60;to&#x60; (YYYY-MM-DD). Defaults to the last 30 days. Returns zeros when no campaigns are tagged. 404 for an unknown client.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param from [String] 
     # @param to [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyControllerClientSpend200Response, Integer, Hash)>] AgencyControllerClientSpend200Response data, response status code and response headers
     def agency_controller_client_spend_with_http_info(id, from, to, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_client_spend ...'
@@ -225,6 +247,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -233,10 +257,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyControllerClientSpend200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_client_spend",
@@ -255,15 +279,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create an agency client
+    # Creates a client with `name` (required, truncated to 160 chars), optional `billingEmail` (lowercased; used when sending invoices), `pixelId` and `notes` (truncated to 2000 chars). A supplied `pixelId` must belong to the calling account, otherwise 400. A missing name also returns 400.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyClient]
     def agency_controller_create_client(opts = {})
-      agency_controller_create_client_with_http_info(opts)
-      nil
+      data, _status_code, _headers = agency_controller_create_client_with_http_info(opts)
+      data
     end
 
+    # Create an agency client
+    # Creates a client with &#x60;name&#x60; (required, truncated to 160 chars), optional &#x60;billingEmail&#x60; (lowercased; used when sending invoices), &#x60;pixelId&#x60; and &#x60;notes&#x60; (truncated to 2000 chars). A supplied &#x60;pixelId&#x60; must belong to the calling account, otherwise 400. A missing name also returns 400.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyClient, Integer, Hash)>] AgencyClient data, response status code and response headers
     def agency_controller_create_client_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_create_client ...'
@@ -276,6 +304,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -284,10 +314,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyClient'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_create_client",
@@ -306,15 +336,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create a draft invoice for a client
+    # Creates a draft invoice numbered `INV-NNNN` for `clientId` (required, must be owned). When `periodStart` and `periodEnd` are set and `includeSpend` is not false, an \"Ad spend\" line is added from the client's tagged-campaign spend, plus an agency fee line of `markupPct` percent of it. Optional `items` (description, kind, quantity, unitAmount, amount) are appended; `currency` defaults to USD. Totals are recomputed from the lines.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyInvoice]
     def agency_controller_create_invoice(opts = {})
-      agency_controller_create_invoice_with_http_info(opts)
-      nil
+      data, _status_code, _headers = agency_controller_create_invoice_with_http_info(opts)
+      data
     end
 
+    # Create a draft invoice for a client
+    # Creates a draft invoice numbered &#x60;INV-NNNN&#x60; for &#x60;clientId&#x60; (required, must be owned). When &#x60;periodStart&#x60; and &#x60;periodEnd&#x60; are set and &#x60;includeSpend&#x60; is not false, an \&quot;Ad spend\&quot; line is added from the client&#39;s tagged-campaign spend, plus an agency fee line of &#x60;markupPct&#x60; percent of it. Optional &#x60;items&#x60; (description, kind, quantity, unitAmount, amount) are appended; &#x60;currency&#x60; defaults to USD. Totals are recomputed from the lines.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyInvoice, Integer, Hash)>] AgencyInvoice data, response status code and response headers
     def agency_controller_create_invoice_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_create_invoice ...'
@@ -327,6 +361,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -335,10 +371,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyInvoice'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_create_invoice",
@@ -357,17 +393,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get an agency client
+    # Returns one client owned by the calling account. 404 if it does not exist or belongs to another account. The single-client view reports `taggedCampaigns` as 0; use the list endpoint for counts.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyClient]
     def agency_controller_get_client(id, opts = {})
-      agency_controller_get_client_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = agency_controller_get_client_with_http_info(id, opts)
+      data
     end
 
+    # Get an agency client
+    # Returns one client owned by the calling account. 404 if it does not exist or belongs to another account. The single-client view reports &#x60;taggedCampaigns&#x60; as 0; use the list endpoint for counts.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyClient, Integer, Hash)>] AgencyClient data, response status code and response headers
     def agency_controller_get_client_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_get_client ...'
@@ -384,6 +424,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -392,10 +434,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyClient'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_get_client",
@@ -414,17 +456,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get an invoice with line items
+    # Returns one invoice owned by the calling account, including its line items ordered by sort position. 404 if unknown.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyInvoice]
     def agency_controller_get_invoice(id, opts = {})
-      agency_controller_get_invoice_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = agency_controller_get_invoice_with_http_info(id, opts)
+      data
     end
 
+    # Get an invoice with line items
+    # Returns one invoice owned by the calling account, including its line items ordered by sort position. 404 if unknown.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyInvoice, Integer, Hash)>] AgencyInvoice data, response status code and response headers
     def agency_controller_get_invoice_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_get_invoice ...'
@@ -441,6 +487,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -449,10 +497,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyInvoice'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_get_invoice",
@@ -471,15 +519,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Start a pixel ownership transfer
+    # Offers one of the account's pixels (`pixelId`), with its pixel-scoped audiences, to the account at `email`. The recipient is emailed a link that expires in 14 days. Returns 400 for an invalid email, a transfer to yourself, or a pixel that already has a pending transfer, and 404 for an unknown pixel. Not available to manager/analyst team seats.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyTransfer]
     def agency_controller_initiate_transfer(opts = {})
-      agency_controller_initiate_transfer_with_http_info(opts)
-      nil
+      data, _status_code, _headers = agency_controller_initiate_transfer_with_http_info(opts)
+      data
     end
 
+    # Start a pixel ownership transfer
+    # Offers one of the account&#39;s pixels (&#x60;pixelId&#x60;), with its pixel-scoped audiences, to the account at &#x60;email&#x60;. The recipient is emailed a link that expires in 14 days. Returns 400 for an invalid email, a transfer to yourself, or a pixel that already has a pending transfer, and 404 for an unknown pixel. Not available to manager/analyst team seats.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyTransfer, Integer, Hash)>] AgencyTransfer data, response status code and response headers
     def agency_controller_initiate_transfer_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_initiate_transfer ...'
@@ -492,6 +544,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -500,10 +554,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyTransfer'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_initiate_transfer",
@@ -522,15 +576,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List agency clients
+    # Returns the billable clients this agency account runs campaigns and pixels for, newest first. Each client includes `taggedCampaigns`, the number of non-deleted campaigns currently tagged to it.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AgencyClient>]
     def agency_controller_list_clients(opts = {})
-      agency_controller_list_clients_with_http_info(opts)
-      nil
+      data, _status_code, _headers = agency_controller_list_clients_with_http_info(opts)
+      data
     end
 
+    # List agency clients
+    # Returns the billable clients this agency account runs campaigns and pixels for, newest first. Each client includes &#x60;taggedCampaigns&#x60;, the number of non-deleted campaigns currently tagged to it.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AgencyClient>, Integer, Hash)>] Array<AgencyClient> data, response status code and response headers
     def agency_controller_list_clients_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_list_clients ...'
@@ -543,6 +601,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -551,10 +611,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AgencyClient>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_list_clients",
@@ -573,17 +633,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List agency invoices
+    # Returns the account's client invoices, newest first, optionally filtered by `clientId`. List entries carry an empty `items` array; fetch a single invoice for its line items.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param client_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AgencyInvoice>]
     def agency_controller_list_invoices(client_id, opts = {})
-      agency_controller_list_invoices_with_http_info(client_id, opts)
-      nil
+      data, _status_code, _headers = agency_controller_list_invoices_with_http_info(client_id, opts)
+      data
     end
 
+    # List agency invoices
+    # Returns the account&#39;s client invoices, newest first, optionally filtered by &#x60;clientId&#x60;. List entries carry an empty &#x60;items&#x60; array; fetch a single invoice for its line items.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param client_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AgencyInvoice>, Integer, Hash)>] Array<AgencyInvoice> data, response status code and response headers
     def agency_controller_list_invoices_with_http_info(client_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_list_invoices ...'
@@ -601,6 +665,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -609,10 +675,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AgencyInvoice>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_list_invoices",
@@ -631,15 +697,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List outgoing pixel transfers
+    # Returns up to 100 transfers this account has started, newest first, with pixel names and current status.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AgencyTransfer>]
     def agency_controller_list_transfers(opts = {})
-      agency_controller_list_transfers_with_http_info(opts)
-      nil
+      data, _status_code, _headers = agency_controller_list_transfers_with_http_info(opts)
+      data
     end
 
+    # List outgoing pixel transfers
+    # Returns up to 100 transfers this account has started, newest first, with pixel names and current status.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AgencyTransfer>, Integer, Hash)>] Array<AgencyTransfer> data, response status code and response headers
     def agency_controller_list_transfers_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_list_transfers ...'
@@ -652,6 +722,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -660,10 +732,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AgencyTransfer>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_list_transfers",
@@ -682,17 +754,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Mark an invoice paid manually
+    # Records an offline payment by setting the status to `paid` and stamping `paidAt`. No ledger entry is posted. Void invoices return 400.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyInvoice]
     def agency_controller_mark_paid(id, opts = {})
-      agency_controller_mark_paid_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = agency_controller_mark_paid_with_http_info(id, opts)
+      data
     end
 
+    # Mark an invoice paid manually
+    # Records an offline payment by setting the status to &#x60;paid&#x60; and stamping &#x60;paidAt&#x60;. No ledger entry is posted. Void invoices return 400.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyInvoice, Integer, Hash)>] AgencyInvoice data, response status code and response headers
     def agency_controller_mark_paid_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_mark_paid ...'
@@ -709,6 +785,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -717,10 +795,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyInvoice'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_mark_paid",
@@ -739,17 +817,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get the public view of an invoice
+    # Unauthenticated: the pay token in the path grants access. Returns what the client needs to review an invoice: number, status, total, agency and client names, period, notes, due/paid dates and line descriptions with amounts. 404 for an unknown token.  Auth: public, no credentials required.
     # @param token [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyControllerPayInfo200Response]
     def agency_controller_pay_info(token, opts = {})
-      agency_controller_pay_info_with_http_info(token, opts)
-      nil
+      data, _status_code, _headers = agency_controller_pay_info_with_http_info(token, opts)
+      data
     end
 
+    # Get the public view of an invoice
+    # Unauthenticated: the pay token in the path grants access. Returns what the client needs to review an invoice: number, status, total, agency and client names, period, notes, due/paid dates and line descriptions with amounts. 404 for an unknown token.  Auth: public, no credentials required.
     # @param token [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyControllerPayInfo200Response, Integer, Hash)>] AgencyControllerPayInfo200Response data, response status code and response headers
     def agency_controller_pay_info_with_http_info(token, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_pay_info ...'
@@ -766,6 +848,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -774,7 +858,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyControllerPayInfo200Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -796,17 +880,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delete an agency client
+    # Deletes the client if it belongs to the calling account. Campaigns tagged to it are untagged by the database (ON DELETE SET NULL). Returns `{ deleted: true }` even when no matching client existed.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PixelControllerDeletePixel200Response]
     def agency_controller_remove_client(id, opts = {})
-      agency_controller_remove_client_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = agency_controller_remove_client_with_http_info(id, opts)
+      data
     end
 
+    # Delete an agency client
+    # Deletes the client if it belongs to the calling account. Campaigns tagged to it are untagged by the database (ON DELETE SET NULL). Returns &#x60;{ deleted: true }&#x60; even when no matching client existed.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PixelControllerDeletePixel200Response, Integer, Hash)>] PixelControllerDeletePixel200Response data, response status code and response headers
     def agency_controller_remove_client_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_remove_client ...'
@@ -823,6 +911,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -831,10 +921,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PixelControllerDeletePixel200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_remove_client",
@@ -853,19 +943,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Remove a line item from a draft invoice
+    # Deletes the line item `itemId` from a draft invoice and recomputes the totals. Returns 400 if the invoice is not a draft.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param item_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyInvoice]
     def agency_controller_remove_item(id, item_id, opts = {})
-      agency_controller_remove_item_with_http_info(id, item_id, opts)
-      nil
+      data, _status_code, _headers = agency_controller_remove_item_with_http_info(id, item_id, opts)
+      data
     end
 
+    # Remove a line item from a draft invoice
+    # Deletes the line item &#x60;itemId&#x60; from a draft invoice and recomputes the totals. Returns 400 if the invoice is not a draft.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param item_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyInvoice, Integer, Hash)>] AgencyInvoice data, response status code and response headers
     def agency_controller_remove_item_with_http_info(id, item_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_remove_item ...'
@@ -886,6 +980,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -894,10 +990,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyInvoice'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_remove_item",
@@ -916,17 +1012,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Send an invoice and mint its pay link
+    # Moves the invoice to `sent`, mints a public pay token (reused if already set) and stamps `issuedAt`. If the client has a billing email, it is emailed a link to the hosted pay page. Fails with 400 for paid or void invoices or a non-positive total. The response adds `payLink`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyInvoice]
     def agency_controller_send_invoice(id, opts = {})
-      agency_controller_send_invoice_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = agency_controller_send_invoice_with_http_info(id, opts)
+      data
     end
 
+    # Send an invoice and mint its pay link
+    # Moves the invoice to &#x60;sent&#x60;, mints a public pay token (reused if already set) and stamps &#x60;issuedAt&#x60;. If the client has a billing email, it is emailed a link to the hosted pay page. Fails with 400 for paid or void invoices or a non-positive total. The response adds &#x60;payLink&#x60;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyInvoice, Integer, Hash)>] AgencyInvoice data, response status code and response headers
     def agency_controller_send_invoice_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_send_invoice ...'
@@ -943,6 +1043,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -951,10 +1053,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyInvoice'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_send_invoice",
@@ -973,17 +1075,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Start paying an invoice
+    # Unauthenticated (pay token in the path). Creates a pending deposit on the agency's account linked to the invoice and starts checkout with `provider` (`crypto`, anything else means Stripe). When the provider confirms, the deposit credits the agency balance and marks the invoice paid. Only `sent` invoices can be paid (400 otherwise).  Auth: public, no credentials required.
     # @param token [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyControllerStartPayment201Response]
     def agency_controller_start_payment(token, opts = {})
-      agency_controller_start_payment_with_http_info(token, opts)
-      nil
+      data, _status_code, _headers = agency_controller_start_payment_with_http_info(token, opts)
+      data
     end
 
+    # Start paying an invoice
+    # Unauthenticated (pay token in the path). Creates a pending deposit on the agency&#39;s account linked to the invoice and starts checkout with &#x60;provider&#x60; (&#x60;crypto&#x60;, anything else means Stripe). When the provider confirms, the deposit credits the agency balance and marks the invoice paid. Only &#x60;sent&#x60; invoices can be paid (400 otherwise).  Auth: public, no credentials required.
     # @param token [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyControllerStartPayment201Response, Integer, Hash)>] AgencyControllerStartPayment201Response data, response status code and response headers
     def agency_controller_start_payment_with_http_info(token, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_start_payment ...'
@@ -1000,6 +1106,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1008,7 +1116,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyControllerStartPayment201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -1030,15 +1138,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Tag or untag a campaign to a client
+    # Sets `campaignId`'s client tag to `clientId`, or clears it when `clientId` is null. Both the campaign and the client must belong to the calling account (404 otherwise). Tagged campaigns' spend is what client spend reports and auto-generated invoices bill.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyControllerTagCampaign201Response]
     def agency_controller_tag_campaign(opts = {})
-      agency_controller_tag_campaign_with_http_info(opts)
-      nil
+      data, _status_code, _headers = agency_controller_tag_campaign_with_http_info(opts)
+      data
     end
 
+    # Tag or untag a campaign to a client
+    # Sets &#x60;campaignId&#x60;&#39;s client tag to &#x60;clientId&#x60;, or clears it when &#x60;clientId&#x60; is null. Both the campaign and the client must belong to the calling account (404 otherwise). Tagged campaigns&#39; spend is what client spend reports and auto-generated invoices bill.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyControllerTagCampaign201Response, Integer, Hash)>] AgencyControllerTagCampaign201Response data, response status code and response headers
     def agency_controller_tag_campaign_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_tag_campaign ...'
@@ -1051,6 +1163,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1059,10 +1173,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyControllerTagCampaign201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_tag_campaign",
@@ -1081,15 +1195,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List campaigns available for client tagging
+    # Returns up to 500 of the account's non-deleted campaigns (ad sets) with their current `client_id` tag, newest first. Used by the tagging UI to assign campaign spend to a client.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AgencyControllerTaggable200ResponseInner>]
     def agency_controller_taggable(opts = {})
-      agency_controller_taggable_with_http_info(opts)
-      nil
+      data, _status_code, _headers = agency_controller_taggable_with_http_info(opts)
+      data
     end
 
+    # List campaigns available for client tagging
+    # Returns up to 500 of the account&#39;s non-deleted campaigns (ad sets) with their current &#x60;client_id&#x60; tag, newest first. Used by the tagging UI to assign campaign spend to a client.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AgencyControllerTaggable200ResponseInner>, Integer, Hash)>] Array<AgencyControllerTaggable200ResponseInner> data, response status code and response headers
     def agency_controller_taggable_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_taggable ...'
@@ -1102,6 +1220,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1110,10 +1230,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AgencyControllerTaggable200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_taggable",
@@ -1132,17 +1252,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Preview a pixel transfer by token
+    # Looks up a transfer by the `token` query parameter from the email link, so the recipient can review it before accepting. A pending transfer past its expiry is reported as `expired`. 404 for an unknown token.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param token [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyControllerTransferInfo200Response]
     def agency_controller_transfer_info(token, opts = {})
-      agency_controller_transfer_info_with_http_info(token, opts)
-      nil
+      data, _status_code, _headers = agency_controller_transfer_info_with_http_info(token, opts)
+      data
     end
 
+    # Preview a pixel transfer by token
+    # Looks up a transfer by the &#x60;token&#x60; query parameter from the email link, so the recipient can review it before accepting. A pending transfer past its expiry is reported as &#x60;expired&#x60;. 404 for an unknown token.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param token [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyControllerTransferInfo200Response, Integer, Hash)>] AgencyControllerTransferInfo200Response data, response status code and response headers
     def agency_controller_transfer_info_with_http_info(token, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_transfer_info ...'
@@ -1160,6 +1284,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1168,10 +1294,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyControllerTransferInfo200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_transfer_info",
@@ -1190,17 +1316,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update an agency client
+    # Partially updates `name`, `billingEmail`, `pixelId`, `notes` and `status`. Only fields present are changed; `status` is applied only when it is `active` or `archived`. A new `pixelId` must belong to the account (400 otherwise); an empty string clears it. Returns the updated client.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyClient]
     def agency_controller_update_client(id, opts = {})
-      agency_controller_update_client_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = agency_controller_update_client_with_http_info(id, opts)
+      data
     end
 
+    # Update an agency client
+    # Partially updates &#x60;name&#x60;, &#x60;billingEmail&#x60;, &#x60;pixelId&#x60;, &#x60;notes&#x60; and &#x60;status&#x60;. Only fields present are changed; &#x60;status&#x60; is applied only when it is &#x60;active&#x60; or &#x60;archived&#x60;. A new &#x60;pixelId&#x60; must belong to the account (400 otherwise); an empty string clears it. Returns the updated client.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyClient, Integer, Hash)>] AgencyClient data, response status code and response headers
     def agency_controller_update_client_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_update_client ...'
@@ -1217,6 +1347,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1225,10 +1357,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyClient'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_update_client",
@@ -1247,17 +1379,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update a draft invoice
+    # Updates `notes` (truncated to 4000 chars) and/or `dueAt` on a draft invoice. Returns 400 if the invoice is no longer a draft and 404 if unknown.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyInvoice]
     def agency_controller_update_invoice(id, opts = {})
-      agency_controller_update_invoice_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = agency_controller_update_invoice_with_http_info(id, opts)
+      data
     end
 
+    # Update a draft invoice
+    # Updates &#x60;notes&#x60; (truncated to 4000 chars) and/or &#x60;dueAt&#x60; on a draft invoice. Returns 400 if the invoice is no longer a draft and 404 if unknown.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyInvoice, Integer, Hash)>] AgencyInvoice data, response status code and response headers
     def agency_controller_update_invoice_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_update_invoice ...'
@@ -1274,6 +1410,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1282,10 +1420,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyInvoice'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_update_invoice",
@@ -1304,17 +1442,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Void an invoice
+    # Sets the invoice status to `void`; its pay link stops accepting payments. Paid invoices cannot be voided (400).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AgencyInvoice]
     def agency_controller_void_invoice(id, opts = {})
-      agency_controller_void_invoice_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = agency_controller_void_invoice_with_http_info(id, opts)
+      data
     end
 
+    # Void an invoice
+    # Sets the invoice status to &#x60;void&#x60;; its pay link stops accepting payments. Paid invoices cannot be voided (400).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AgencyInvoice, Integer, Hash)>] AgencyInvoice data, response status code and response headers
     def agency_controller_void_invoice_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AgencyApi.agency_controller_void_invoice ...'
@@ -1331,6 +1473,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1339,10 +1483,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AgencyInvoice'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AgencyApi.agency_controller_void_invoice",

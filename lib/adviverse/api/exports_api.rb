@@ -19,15 +19,19 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # List export jobs
+    # Returns the 200 most recent export jobs, newest first: the caller's own for advertisers, all jobs for admins.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ExportJob>]
     def exports_controller_list(opts = {})
-      exports_controller_list_with_http_info(opts)
-      nil
+      data, _status_code, _headers = exports_controller_list_with_http_info(opts)
+      data
     end
 
+    # List export jobs
+    # Returns the 200 most recent export jobs, newest first: the caller&#39;s own for advertisers, all jobs for admins.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ExportJob>, Integer, Hash)>] Array<ExportJob> data, response status code and response headers
     def exports_controller_list_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ExportsApi.exports_controller_list ...'
@@ -40,6 +44,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -48,10 +54,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ExportJob>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ExportsApi.exports_controller_list",
@@ -70,17 +76,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Export an analytics dataset to object storage
+    # Pages a ClickHouse dataset into one NDJSON or CSV object plus a manifest JSON in object storage and returns a presigned download URL. Body: `dataset` (events = raw impressions, conversions, or spend = hourly rollup), `from` (inclusive) and `to` (exclusive) as ISO dates, optional `format` (ndjson default, csv). Advertisers export only their own rows; admins export network-wide. The job is recorded and marked failed if the export errors.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param run_export_dto [RunExportDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ExportsControllerRun201Response]
     def exports_controller_run(run_export_dto, opts = {})
-      exports_controller_run_with_http_info(run_export_dto, opts)
-      nil
+      data, _status_code, _headers = exports_controller_run_with_http_info(run_export_dto, opts)
+      data
     end
 
+    # Export an analytics dataset to object storage
+    # Pages a ClickHouse dataset into one NDJSON or CSV object plus a manifest JSON in object storage and returns a presigned download URL. Body: &#x60;dataset&#x60; (events &#x3D; raw impressions, conversions, or spend &#x3D; hourly rollup), &#x60;from&#x60; (inclusive) and &#x60;to&#x60; (exclusive) as ISO dates, optional &#x60;format&#x60; (ndjson default, csv). Advertisers export only their own rows; admins export network-wide. The job is recorded and marked failed if the export errors.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param run_export_dto [RunExportDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ExportsControllerRun201Response, Integer, Hash)>] ExportsControllerRun201Response data, response status code and response headers
     def exports_controller_run_with_http_info(run_export_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ExportsApi.exports_controller_run ...'
@@ -97,6 +107,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -110,10 +122,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(run_export_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ExportsControllerRun201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ExportsApi.exports_controller_run",

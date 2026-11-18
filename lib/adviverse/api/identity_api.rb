@@ -19,17 +19,21 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Set identity consent state
+    # Sets `state` (`granted` or `denied`) on the identity `canonicalId`. `denied` blocks future cross-identity merges and signal moves involving it. Returns 404 if the identity does not exist or the caller does not own it (admins bypass).  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param consent_dto [ConsentDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [IdentityControllerConsent201Response]
     def identity_controller_consent(consent_dto, opts = {})
-      identity_controller_consent_with_http_info(consent_dto, opts)
-      nil
+      data, _status_code, _headers = identity_controller_consent_with_http_info(consent_dto, opts)
+      data
     end
 
+    # Set identity consent state
+    # Sets &#x60;state&#x60; (&#x60;granted&#x60; or &#x60;denied&#x60;) on the identity &#x60;canonicalId&#x60;. &#x60;denied&#x60; blocks future cross-identity merges and signal moves involving it. Returns 404 if the identity does not exist or the caller does not own it (admins bypass).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param consent_dto [ConsentDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(IdentityControllerConsent201Response, Integer, Hash)>] IdentityControllerConsent201Response data, response status code and response headers
     def identity_controller_consent_with_http_info(consent_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: IdentityApi.identity_controller_consent ...'
@@ -46,6 +50,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -59,10 +65,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(consent_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'IdentityControllerConsent201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"IdentityApi.identity_controller_consent",
@@ -81,17 +87,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get an identity with its signals
+    # Returns the identity row, the signals on it that the caller supplied (oldest first; admins see all) and the raw cookie/device ids among them. Never returns signals supplied by other accounts. Returns 404 if `canonicalId` does not exist or the caller does not own it (owns none of its signals).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param canonical_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [IdentityControllerGet200Response]
     def identity_controller_get(canonical_id, opts = {})
-      identity_controller_get_with_http_info(canonical_id, opts)
-      nil
+      data, _status_code, _headers = identity_controller_get_with_http_info(canonical_id, opts)
+      data
     end
 
+    # Get an identity with its signals
+    # Returns the identity row, the signals on it that the caller supplied (oldest first; admins see all) and the raw cookie/device ids among them. Never returns signals supplied by other accounts. Returns 404 if &#x60;canonicalId&#x60; does not exist or the caller does not own it (owns none of its signals).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param canonical_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(IdentityControllerGet200Response, Integer, Hash)>] IdentityControllerGet200Response data, response status code and response headers
     def identity_controller_get_with_http_info(canonical_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: IdentityApi.identity_controller_get ...'
@@ -108,6 +118,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -116,10 +128,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'IdentityControllerGet200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"IdentityApi.identity_controller_get",
@@ -138,17 +150,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Link signals to an identity
+    # Adds `signals` (each `{ type, value }`, type one of email/phone/cookie/device/ip_ua) to the identity `canonicalId` without merging identities. A signal owned by another identity is moved only if neither identity has denied consent; otherwise it is skipped. The caller becomes an owner of the linked signals. Returns 404 if the identity does not exist or the caller does not own it (has not resolved/linked any of its signals; admins bypass), and 400 for an empty list.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param link_identity_dto [LinkIdentityDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [IdentityControllerLink201Response]
     def identity_controller_link(link_identity_dto, opts = {})
-      identity_controller_link_with_http_info(link_identity_dto, opts)
-      nil
+      data, _status_code, _headers = identity_controller_link_with_http_info(link_identity_dto, opts)
+      data
     end
 
+    # Link signals to an identity
+    # Adds &#x60;signals&#x60; (each &#x60;{ type, value }&#x60;, type one of email/phone/cookie/device/ip_ua) to the identity &#x60;canonicalId&#x60; without merging identities. A signal owned by another identity is moved only if neither identity has denied consent; otherwise it is skipped. The caller becomes an owner of the linked signals. Returns 404 if the identity does not exist or the caller does not own it (has not resolved/linked any of its signals; admins bypass), and 400 for an empty list.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param link_identity_dto [LinkIdentityDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(IdentityControllerLink201Response, Integer, Hash)>] IdentityControllerLink201Response data, response status code and response headers
     def identity_controller_link_with_http_info(link_identity_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: IdentityApi.identity_controller_link ...'
@@ -165,6 +181,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -178,10 +196,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(link_identity_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'IdentityControllerLink201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"IdentityApi.identity_controller_link",
@@ -200,17 +218,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Resolve signals to a canonical identity
+    # Resolves any of `email`, `phone`, `cookieId`, `deviceId` (at least one, else 400) to a canonical identity, creating one if none matches and linking all signals to it. If the signals already belong to different identities they are merged into the oldest one, unless any of them has consent `denied`, in which case no merge happens and their signals stay put. Email and phone are normalized and hashed; mappings are mirrored to Redis for the ad-engine. The graph is shared across accounts (the same person resolves to one `canonicalId`), but the caller is recorded as an owner of the signals it supplied and the response lists only those signals, never signals supplied by other accounts.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param resolve_identity_dto [ResolveIdentityDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [IdentityControllerResolve201Response]
     def identity_controller_resolve(resolve_identity_dto, opts = {})
-      identity_controller_resolve_with_http_info(resolve_identity_dto, opts)
-      nil
+      data, _status_code, _headers = identity_controller_resolve_with_http_info(resolve_identity_dto, opts)
+      data
     end
 
+    # Resolve signals to a canonical identity
+    # Resolves any of &#x60;email&#x60;, &#x60;phone&#x60;, &#x60;cookieId&#x60;, &#x60;deviceId&#x60; (at least one, else 400) to a canonical identity, creating one if none matches and linking all signals to it. If the signals already belong to different identities they are merged into the oldest one, unless any of them has consent &#x60;denied&#x60;, in which case no merge happens and their signals stay put. Email and phone are normalized and hashed; mappings are mirrored to Redis for the ad-engine. The graph is shared across accounts (the same person resolves to one &#x60;canonicalId&#x60;), but the caller is recorded as an owner of the signals it supplied and the response lists only those signals, never signals supplied by other accounts.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param resolve_identity_dto [ResolveIdentityDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(IdentityControllerResolve201Response, Integer, Hash)>] IdentityControllerResolve201Response data, response status code and response headers
     def identity_controller_resolve_with_http_info(resolve_identity_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: IdentityApi.identity_controller_resolve ...'
@@ -227,6 +249,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -240,10 +264,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(resolve_identity_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'IdentityControllerResolve201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"IdentityApi.identity_controller_resolve",
@@ -262,15 +286,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get identity graph counts
+    # Returns counts across the identity graph: identities, linked signals, distinct households and identities that belong to a household (merged). Scoped to the calling account: only identities it owns and signals it supplied (admins get graph-wide totals).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [IdentityControllerStats200Response]
     def identity_controller_stats(opts = {})
-      identity_controller_stats_with_http_info(opts)
-      nil
+      data, _status_code, _headers = identity_controller_stats_with_http_info(opts)
+      data
     end
 
+    # Get identity graph counts
+    # Returns counts across the identity graph: identities, linked signals, distinct households and identities that belong to a household (merged). Scoped to the calling account: only identities it owns and signals it supplied (admins get graph-wide totals).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(IdentityControllerStats200Response, Integer, Hash)>] IdentityControllerStats200Response data, response status code and response headers
     def identity_controller_stats_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: IdentityApi.identity_controller_stats ...'
@@ -283,6 +311,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -291,10 +321,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'IdentityControllerStats200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"IdentityApi.identity_controller_stats",

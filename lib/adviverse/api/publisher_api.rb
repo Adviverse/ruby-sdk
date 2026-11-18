@@ -19,17 +19,21 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Get the app-ads.txt content for an app
+    # Returns plain-text app-ads.txt: a comment, the network's own `adviverse.com, <publisherAccountId>, DIRECT` line, then each configured authorized-seller entry (`domain, sellerId, DIRECT|RESELLER[, certId]`). 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [String]
     def publisher_controller_app_ads_txt(id, opts = {})
-      publisher_controller_app_ads_txt_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = publisher_controller_app_ads_txt_with_http_info(id, opts)
+      data
     end
 
+    # Get the app-ads.txt content for an app
+    # Returns plain-text app-ads.txt: a comment, the network&#39;s own &#x60;adviverse.com, &lt;publisherAccountId&gt;, DIRECT&#x60; line, then each configured authorized-seller entry (&#x60;domain, sellerId, DIRECT|RESELLER[, certId]&#x60;). 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
     def publisher_controller_app_ads_txt_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_app_ads_txt ...'
@@ -46,6 +50,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/plain']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -54,10 +60,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'String'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_app_ads_txt",
@@ -76,17 +82,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Register a mobile or CTV app
+    # Creates a `mobile_app` or `ctv` property from `kind`, `name`, `bundleId` and `platform` (ios, android, roku, firetv, appletv, androidtv, web), with optional `storeUrl`, `appStoreId`, `category` and `ctvMeta`. The bundle id is stored in both `bundle_id` and `domain`; the app enters the normal `pending` approval flow with file verification.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param create_app_dto [CreateAppDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PubProperty]
     def publisher_controller_create_app(create_app_dto, opts = {})
-      publisher_controller_create_app_with_http_info(create_app_dto, opts)
-      nil
+      data, _status_code, _headers = publisher_controller_create_app_with_http_info(create_app_dto, opts)
+      data
     end
 
+    # Register a mobile or CTV app
+    # Creates a &#x60;mobile_app&#x60; or &#x60;ctv&#x60; property from &#x60;kind&#x60;, &#x60;name&#x60;, &#x60;bundleId&#x60; and &#x60;platform&#x60; (ios, android, roku, firetv, appletv, androidtv, web), with optional &#x60;storeUrl&#x60;, &#x60;appStoreId&#x60;, &#x60;category&#x60; and &#x60;ctvMeta&#x60;. The bundle id is stored in both &#x60;bundle_id&#x60; and &#x60;domain&#x60;; the app enters the normal &#x60;pending&#x60; approval flow with file verification.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param create_app_dto [CreateAppDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PubProperty, Integer, Hash)>] PubProperty data, response status code and response headers
     def publisher_controller_create_app_with_http_info(create_app_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_create_app ...'
@@ -103,6 +113,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -116,10 +128,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_app_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PubProperty'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_create_app",
@@ -138,17 +150,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create a placement
+    # Creates an ad unit on one of your properties (`propertyId`, `name`, `format` required) with a generated `tag_key`. Optional fields cover size (`width`/`height` or `responsive`), `floorCpm`, `revShare` (defaults to the network rev-share), `auctionType` (default `first_price`), `passbackUrl`, `frequencyCap`, format `settings`, and yield fill (`houseOnly`, `houseShare` clamped to 0-1, `houseBackfill`, `floorFallback`). Popunders default to a 1-per-visitor-per-24h frequency cap unless `frequencyCap` is given (`{}` opts out). The serving index is republished. 404 if the property is missing, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param create_placement_dto [CreatePlacementDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PubPlacement]
     def publisher_controller_create_placement(create_placement_dto, opts = {})
-      publisher_controller_create_placement_with_http_info(create_placement_dto, opts)
-      nil
+      data, _status_code, _headers = publisher_controller_create_placement_with_http_info(create_placement_dto, opts)
+      data
     end
 
+    # Create a placement
+    # Creates an ad unit on one of your properties (&#x60;propertyId&#x60;, &#x60;name&#x60;, &#x60;format&#x60; required) with a generated &#x60;tag_key&#x60;. Optional fields cover size (&#x60;width&#x60;/&#x60;height&#x60; or &#x60;responsive&#x60;), &#x60;floorCpm&#x60;, &#x60;revShare&#x60; (defaults to the network rev-share), &#x60;auctionType&#x60; (default &#x60;first_price&#x60;), &#x60;passbackUrl&#x60;, &#x60;frequencyCap&#x60;, format &#x60;settings&#x60;, and yield fill (&#x60;houseOnly&#x60;, &#x60;houseShare&#x60; clamped to 0-1, &#x60;houseBackfill&#x60;, &#x60;floorFallback&#x60;). Popunders default to a 1-per-visitor-per-24h frequency cap unless &#x60;frequencyCap&#x60; is given (&#x60;{}&#x60; opts out). The serving index is republished. 404 if the property is missing, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param create_placement_dto [CreatePlacementDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PubPlacement, Integer, Hash)>] PubPlacement data, response status code and response headers
     def publisher_controller_create_placement_with_http_info(create_placement_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_create_placement ...'
@@ -165,6 +181,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -178,10 +196,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_placement_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PubPlacement'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_create_placement",
@@ -200,17 +218,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Register a property
+    # Creates a property with a fresh `adviverse-verify-…` verification token. `domain` is required; `kind` defaults to `website` and `verificationMethod` to `dns`. Website properties start `unverified`/`pending` and must be verified before they serve. With `kind: \"cli\"` the property is a terminal/AI-agent tool: `domain` is treated as a tool name and turned into a unique slug, and the row is created already `verified` and `approved` (no domain to prove).  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param create_property_dto [CreatePropertyDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PubProperty]
     def publisher_controller_create_property(create_property_dto, opts = {})
-      publisher_controller_create_property_with_http_info(create_property_dto, opts)
-      nil
+      data, _status_code, _headers = publisher_controller_create_property_with_http_info(create_property_dto, opts)
+      data
     end
 
+    # Register a property
+    # Creates a property with a fresh &#x60;adviverse-verify-…&#x60; verification token. &#x60;domain&#x60; is required; &#x60;kind&#x60; defaults to &#x60;website&#x60; and &#x60;verificationMethod&#x60; to &#x60;dns&#x60;. Website properties start &#x60;unverified&#x60;/&#x60;pending&#x60; and must be verified before they serve. With &#x60;kind: \&quot;cli\&quot;&#x60; the property is a terminal/AI-agent tool: &#x60;domain&#x60; is treated as a tool name and turned into a unique slug, and the row is created already &#x60;verified&#x60; and &#x60;approved&#x60; (no domain to prove).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param create_property_dto [CreatePropertyDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PubProperty, Integer, Hash)>] PubProperty data, response status code and response headers
     def publisher_controller_create_property_with_http_info(create_property_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_create_property ...'
@@ -227,6 +249,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -240,10 +264,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_property_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PubProperty'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_create_property",
@@ -262,17 +286,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Disable signed-tag enforcement
+    # Removes the placement's signing secret so it goes back to unsigned serving, and republishes the index. 404 if not your placement.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PublisherControllerDisableSigning200Response]
     def publisher_controller_disable_signing(id, opts = {})
-      publisher_controller_disable_signing_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = publisher_controller_disable_signing_with_http_info(id, opts)
+      data
     end
 
+    # Disable signed-tag enforcement
+    # Removes the placement&#39;s signing secret so it goes back to unsigned serving, and republishes the index. 404 if not your placement.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PublisherControllerDisableSigning200Response, Integer, Hash)>] PublisherControllerDisableSigning200Response data, response status code and response headers
     def publisher_controller_disable_signing_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_disable_signing ...'
@@ -289,6 +317,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -297,10 +327,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PublisherControllerDisableSigning200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_disable_signing",
@@ -319,17 +349,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get a DomainConnect one-click DNS setup URL
+    # Discovers whether the property domain's DNS provider supports DomainConnect (TXT at `_domainconnect.<domain>`, then the provider settings `urlSyncUX`). If it does, returns `supported: true` with an `applyUrl` the user opens to approve writing the verification TXT record; afterwards call verify. On any discovery failure it returns `supported: false, method: \"manual\"` with the token so the publisher can add the TXT record by hand.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PublisherControllerDomainConnect201Response]
     def publisher_controller_domain_connect(id, opts = {})
-      publisher_controller_domain_connect_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = publisher_controller_domain_connect_with_http_info(id, opts)
+      data
     end
 
+    # Get a DomainConnect one-click DNS setup URL
+    # Discovers whether the property domain&#39;s DNS provider supports DomainConnect (TXT at &#x60;_domainconnect.&lt;domain&gt;&#x60;, then the provider settings &#x60;urlSyncUX&#x60;). If it does, returns &#x60;supported: true&#x60; with an &#x60;applyUrl&#x60; the user opens to approve writing the verification TXT record; afterwards call verify. On any discovery failure it returns &#x60;supported: false, method: \&quot;manual\&quot;&#x60; with the token so the publisher can add the TXT record by hand.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PublisherControllerDomainConnect201Response, Integer, Hash)>] PublisherControllerDomainConnect201Response data, response status code and response headers
     def publisher_controller_domain_connect_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_domain_connect ...'
@@ -346,6 +380,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -354,10 +390,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PublisherControllerDomainConnect201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_domain_connect",
@@ -376,17 +412,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get a mobile or CTV app
+    # Returns one app/CTV property. 404 if it does not exist (or is a web property), 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PubProperty]
     def publisher_controller_get_app(id, opts = {})
-      publisher_controller_get_app_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = publisher_controller_get_app_with_http_info(id, opts)
+      data
     end
 
+    # Get a mobile or CTV app
+    # Returns one app/CTV property. 404 if it does not exist (or is a web property), 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PubProperty, Integer, Hash)>] PubProperty data, response status code and response headers
     def publisher_controller_get_app_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_get_app ...'
@@ -403,6 +443,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -411,10 +453,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PubProperty'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_get_app",
@@ -433,15 +475,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List your mobile and CTV apps
+    # Returns the publisher's properties of kind `mobile_app` or `ctv`, newest first. Web properties are excluded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<PubProperty>]
     def publisher_controller_list_apps(opts = {})
-      publisher_controller_list_apps_with_http_info(opts)
-      nil
+      data, _status_code, _headers = publisher_controller_list_apps_with_http_info(opts)
+      data
     end
 
+    # List your mobile and CTV apps
+    # Returns the publisher&#39;s properties of kind &#x60;mobile_app&#x60; or &#x60;ctv&#x60;, newest first. Web properties are excluded.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<PubProperty>, Integer, Hash)>] Array<PubProperty> data, response status code and response headers
     def publisher_controller_list_apps_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_list_apps ...'
@@ -454,6 +500,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -462,10 +510,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<PubProperty>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_list_apps",
@@ -484,15 +532,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List your placements
+    # Returns every non-deleted placement across all of the publisher's properties, newest first. Optional `limit`/`offset` paginate.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<PubPlacement>]
     def publisher_controller_list_placements(opts = {})
-      publisher_controller_list_placements_with_http_info(opts)
-      nil
+      data, _status_code, _headers = publisher_controller_list_placements_with_http_info(opts)
+      data
     end
 
+    # List your placements
+    # Returns every non-deleted placement across all of the publisher&#39;s properties, newest first. Optional &#x60;limit&#x60;/&#x60;offset&#x60; paginate.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<PubPlacement>, Integer, Hash)>] Array<PubPlacement> data, response status code and response headers
     def publisher_controller_list_placements_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_list_placements ...'
@@ -505,6 +557,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -513,10 +567,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<PubPlacement>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_list_placements",
@@ -535,15 +589,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List your properties
+    # Returns every non-deleted property (websites, CLI tools, mobile apps, CTV apps) owned by the publisher, newest first. Optional `limit` (1-500) and `offset` query params paginate; without `limit` the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<PubProperty>]
     def publisher_controller_list_properties(opts = {})
-      publisher_controller_list_properties_with_http_info(opts)
-      nil
+      data, _status_code, _headers = publisher_controller_list_properties_with_http_info(opts)
+      data
     end
 
+    # List your properties
+    # Returns every non-deleted property (websites, CLI tools, mobile apps, CTV apps) owned by the publisher, newest first. Optional &#x60;limit&#x60; (1-500) and &#x60;offset&#x60; query params paginate; without &#x60;limit&#x60; the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<PubProperty>, Integer, Hash)>] Array<PubProperty> data, response status code and response headers
     def publisher_controller_list_properties_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_list_properties ...'
@@ -556,6 +614,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -564,10 +624,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<PubProperty>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_list_properties",
@@ -586,17 +646,84 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get the ads.txt lines for a property
+    # Returns the plain-text ads.txt content to publish at `https://<domain>/ads.txt`: a comment line plus `adviverse.com, <publisherAccountId>, DIRECT` (the seller id matches sellers.json). 404 if not found, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
-    def publisher_controller_remove_property(id, opts = {})
-      publisher_controller_remove_property_with_http_info(id, opts)
-      nil
+    # @return [String]
+    def publisher_controller_property_ads_txt(id, opts = {})
+      data, _status_code, _headers = publisher_controller_property_ads_txt_with_http_info(id, opts)
+      data
     end
 
+    # Get the ads.txt lines for a property
+    # Returns the plain-text ads.txt content to publish at &#x60;https://&lt;domain&gt;/ads.txt&#x60;: a comment line plus &#x60;adviverse.com, &lt;publisherAccountId&gt;, DIRECT&#x60; (the seller id matches sellers.json). 404 if not found, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
+    def publisher_controller_property_ads_txt_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_property_ads_txt ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling PublisherApi.publisher_controller_property_ads_txt"
+      end
+      # resource path
+      local_var_path = '/v1/publisher/properties/{id}/ads.txt'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/plain']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'String'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
+
+      new_options = opts.merge(
+        :operation => :"PublisherApi.publisher_controller_property_ads_txt",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PublisherApi#publisher_controller_property_ads_txt\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Delete a property
+    # Soft-deletes the property and all of its placements, then republishes the serving index so ads stop promptly. 404 if not found, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [AuthControllerResendVerification201Response]
+    def publisher_controller_remove_property(id, opts = {})
+      data, _status_code, _headers = publisher_controller_remove_property_with_http_info(id, opts)
+      data
+    end
+
+    # Delete a property
+    # Soft-deletes the property and all of its placements, then republishes the serving index so ads stop promptly. 404 if not found, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(AuthControllerResendVerification201Response, Integer, Hash)>] AuthControllerResendVerification201Response data, response status code and response headers
     def publisher_controller_remove_property_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_remove_property ...'
@@ -613,6 +740,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -621,10 +750,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerResendVerification201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_remove_property",
@@ -643,17 +772,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Remove the first-party serving domain
+    # Clears the property's custom serving domain; tags fall back to the default serving edge and the edge stops issuing certificates for the old host. 404/403 if the property is not found or not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PubServingDomain]
     def publisher_controller_remove_serving_domain(id, opts = {})
-      publisher_controller_remove_serving_domain_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = publisher_controller_remove_serving_domain_with_http_info(id, opts)
+      data
     end
 
+    # Remove the first-party serving domain
+    # Clears the property&#39;s custom serving domain; tags fall back to the default serving edge and the edge stops issuing certificates for the old host. 404/403 if the property is not found or not yours.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PubServingDomain, Integer, Hash)>] PubServingDomain data, response status code and response headers
     def publisher_controller_remove_serving_domain_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_remove_serving_domain ...'
@@ -670,6 +803,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -678,10 +813,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PubServingDomain'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_remove_serving_domain",
@@ -700,17 +835,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Generate or rotate a placement signing secret
+    # Creates a new `tsk_…` HMAC secret for the placement, replacing any previous one, and republishes the index. With a secret set, the engine only serves terminal requests (and accepts integrity pings) that carry a valid signature, so embed it in your signing client. The secret is returned only once. 404 if not your placement.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PublisherControllerRotateSigningSecret201Response]
     def publisher_controller_rotate_signing_secret(id, opts = {})
-      publisher_controller_rotate_signing_secret_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = publisher_controller_rotate_signing_secret_with_http_info(id, opts)
+      data
     end
 
+    # Generate or rotate a placement signing secret
+    # Creates a new &#x60;tsk_…&#x60; HMAC secret for the placement, replacing any previous one, and republishes the index. With a secret set, the engine only serves terminal requests (and accepts integrity pings) that carry a valid signature, so embed it in your signing client. The secret is returned only once. 404 if not your placement.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PublisherControllerRotateSigningSecret201Response, Integer, Hash)>] PublisherControllerRotateSigningSecret201Response data, response status code and response headers
     def publisher_controller_rotate_signing_secret_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_rotate_signing_secret ...'
@@ -727,6 +866,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -735,10 +876,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PublisherControllerRotateSigningSecret201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_rotate_signing_secret",
@@ -757,19 +898,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Set a first-party serving domain
+    # Sets the property's custom ad-serving hostname (anti-adblock). Body `{ domain }` is normalized to a bare hostname; an empty/missing domain clears it. The domain starts unverified: the publisher must CNAME it to `cname_target` and call the verify endpoint before tags use it. 400 for an invalid hostname or one already held by another property.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param serving_domain_dto [ServingDomainDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PubServingDomain]
     def publisher_controller_set_serving_domain(id, serving_domain_dto, opts = {})
-      publisher_controller_set_serving_domain_with_http_info(id, serving_domain_dto, opts)
-      nil
+      data, _status_code, _headers = publisher_controller_set_serving_domain_with_http_info(id, serving_domain_dto, opts)
+      data
     end
 
+    # Set a first-party serving domain
+    # Sets the property&#39;s custom ad-serving hostname (anti-adblock). Body &#x60;{ domain }&#x60; is normalized to a bare hostname; an empty/missing domain clears it. The domain starts unverified: the publisher must CNAME it to &#x60;cname_target&#x60; and call the verify endpoint before tags use it. 400 for an invalid hostname or one already held by another property.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param serving_domain_dto [ServingDomainDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PubServingDomain, Integer, Hash)>] PubServingDomain data, response status code and response headers
     def publisher_controller_set_serving_domain_with_http_info(id, serving_domain_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_set_serving_domain ...'
@@ -790,6 +935,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -803,10 +950,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(serving_domain_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PubServingDomain'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_set_serving_domain",
@@ -825,17 +972,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get the embed code for a placement
+    # Returns the integration snippet for the placement, shaped by format: `script` (SDK `<script>` loader) for web formats, `directUrl` for `direct_link`, `emailSnippet` (tracked image + link with a `{{RECIPIENT}}` merge field) for `email`, and an HTTP `endpoint` for `terminal`. If the property has a verified first-party serving domain the snippet points at it and `firstParty` is true. 404 if not your placement.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PublisherControllerTag200Response]
     def publisher_controller_tag(id, opts = {})
-      publisher_controller_tag_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = publisher_controller_tag_with_http_info(id, opts)
+      data
     end
 
+    # Get the embed code for a placement
+    # Returns the integration snippet for the placement, shaped by format: &#x60;script&#x60; (SDK &#x60;&lt;script&gt;&#x60; loader) for web formats, &#x60;directUrl&#x60; for &#x60;direct_link&#x60;, &#x60;emailSnippet&#x60; (tracked image + link with a &#x60;{{RECIPIENT}}&#x60; merge field) for &#x60;email&#x60;, and an HTTP &#x60;endpoint&#x60; for &#x60;terminal&#x60;. If the property has a verified first-party serving domain the snippet points at it and &#x60;firstParty&#x60; is true. 404 if not your placement.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PublisherControllerTag200Response, Integer, Hash)>] PublisherControllerTag200Response data, response status code and response headers
     def publisher_controller_tag_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_tag ...'
@@ -852,6 +1003,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -860,10 +1013,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PublisherControllerTag200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_tag",
@@ -882,19 +1035,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update app-ads.txt, SKAdNetwork and CTV metadata
+    # Patches only the fields sent: `appAdsTxt` (authorized-seller entries `{domain, sellerId, relationship?, certId?}`, normalized and invalid ones dropped), `skadnetworkIds`, `ctvMeta`, `storeUrl`, `platform`. Republishes the serving index. 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param update_app_dto [UpdateAppDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PubProperty]
     def publisher_controller_update_app(id, update_app_dto, opts = {})
-      publisher_controller_update_app_with_http_info(id, update_app_dto, opts)
-      nil
+      data, _status_code, _headers = publisher_controller_update_app_with_http_info(id, update_app_dto, opts)
+      data
     end
 
+    # Update app-ads.txt, SKAdNetwork and CTV metadata
+    # Patches only the fields sent: &#x60;appAdsTxt&#x60; (authorized-seller entries &#x60;{domain, sellerId, relationship?, certId?}&#x60;, normalized and invalid ones dropped), &#x60;skadnetworkIds&#x60;, &#x60;ctvMeta&#x60;, &#x60;storeUrl&#x60;, &#x60;platform&#x60;. Republishes the serving index. 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param update_app_dto [UpdateAppDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PubProperty, Integer, Hash)>] PubProperty data, response status code and response headers
     def publisher_controller_update_app_with_http_info(id, update_app_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_update_app ...'
@@ -915,6 +1072,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -928,10 +1087,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(update_app_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PubProperty'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_update_app",
@@ -950,19 +1109,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update a placement
+    # Patches `name`, `floorCpm`, `revShare`, `auctionType`, `passbackUrl`, `status` (`active`/`paused`), house/yield flags, and the dynamic-floor settings `floorAuto` (let the yield optimizer manage the floor) and `floorSoft` (soft reserve). Returns the updated row and republishes the serving index. 404 if the placement is not found among your properties.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param update_placement_dto [UpdatePlacementDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PubPlacement]
     def publisher_controller_update_placement(id, update_placement_dto, opts = {})
-      publisher_controller_update_placement_with_http_info(id, update_placement_dto, opts)
-      nil
+      data, _status_code, _headers = publisher_controller_update_placement_with_http_info(id, update_placement_dto, opts)
+      data
     end
 
+    # Update a placement
+    # Patches &#x60;name&#x60;, &#x60;floorCpm&#x60;, &#x60;revShare&#x60;, &#x60;auctionType&#x60;, &#x60;passbackUrl&#x60;, &#x60;status&#x60; (&#x60;active&#x60;/&#x60;paused&#x60;), house/yield flags, and the dynamic-floor settings &#x60;floorAuto&#x60; (let the yield optimizer manage the floor) and &#x60;floorSoft&#x60; (soft reserve). Returns the updated row and republishes the serving index. 404 if the placement is not found among your properties.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param update_placement_dto [UpdatePlacementDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PubPlacement, Integer, Hash)>] PubPlacement data, response status code and response headers
     def publisher_controller_update_placement_with_http_info(id, update_placement_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_update_placement ...'
@@ -983,6 +1146,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -996,10 +1161,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(update_placement_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PubPlacement'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_update_placement",
@@ -1018,19 +1183,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update a property
+    # Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param update_property_dto [UpdatePropertyDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PubProperty]
     def publisher_controller_update_property(id, update_property_dto, opts = {})
-      publisher_controller_update_property_with_http_info(id, update_property_dto, opts)
-      nil
+      data, _status_code, _headers = publisher_controller_update_property_with_http_info(id, update_property_dto, opts)
+      data
     end
 
+    # Update a property
+    # Patches &#x60;name&#x60;, &#x60;domain&#x60;, &#x60;category&#x60;, &#x60;verificationMethod&#x60; and &#x60;crossFill&#x60; (opt in to filling this property with other-network demand). Changing &#x60;domain&#x60; resets &#x60;verification_status&#x60; to &#x60;unverified&#x60;, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param update_property_dto [UpdatePropertyDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PubProperty, Integer, Hash)>] PubProperty data, response status code and response headers
     def publisher_controller_update_property_with_http_info(id, update_property_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_update_property ...'
@@ -1051,6 +1220,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -1064,10 +1235,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(update_property_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PubProperty'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_update_property",
@@ -1086,17 +1257,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Verify property ownership
+    # Checks the property for its verification token using its method: `dns` looks up a TXT record at `adviverse-verify.<domain>`, `file` fetches `http://<domain>/.well-known/adviverse-verify.txt`, `meta` fetches the homepage and looks for the token. On success the property becomes `verified`, a `pending` property is auto-approved, and the serving index is republished so its placements start serving. A failed check is not an error: it returns `verified: false` with the token and method to show the publisher.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PublisherControllerVerify201Response]
     def publisher_controller_verify(id, opts = {})
-      publisher_controller_verify_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = publisher_controller_verify_with_http_info(id, opts)
+      data
     end
 
+    # Verify property ownership
+    # Checks the property for its verification token using its method: &#x60;dns&#x60; looks up a TXT record at &#x60;adviverse-verify.&lt;domain&gt;&#x60;, &#x60;file&#x60; fetches &#x60;http://&lt;domain&gt;/.well-known/adviverse-verify.txt&#x60;, &#x60;meta&#x60; fetches the homepage and looks for the token. On success the property becomes &#x60;verified&#x60;, a &#x60;pending&#x60; property is auto-approved, and the serving index is republished so its placements start serving. A failed check is not an error: it returns &#x60;verified: false&#x60; with the token and method to show the publisher.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PublisherControllerVerify201Response, Integer, Hash)>] PublisherControllerVerify201Response data, response status code and response headers
     def publisher_controller_verify_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_verify ...'
@@ -1113,6 +1288,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1121,10 +1298,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PublisherControllerVerify201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_verify",
@@ -1143,17 +1320,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Verify the first-party serving domain
+    # Checks that the serving domain CNAMEs to the serving edge (or, for flattened CNAME/ALIAS records, resolves to the same A records). Stores the result and refreshes the edge router config; once verified, generated tags load from `https://<serving_domain>` and the edge will issue TLS for it. 400 if no serving domain is set.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PublisherControllerVerifyServingDomain201Response]
     def publisher_controller_verify_serving_domain(id, opts = {})
-      publisher_controller_verify_serving_domain_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = publisher_controller_verify_serving_domain_with_http_info(id, opts)
+      data
     end
 
+    # Verify the first-party serving domain
+    # Checks that the serving domain CNAMEs to the serving edge (or, for flattened CNAME/ALIAS records, resolves to the same A records). Stores the result and refreshes the edge router config; once verified, generated tags load from &#x60;https://&lt;serving_domain&gt;&#x60; and the edge will issue TLS for it. 400 if no serving domain is set.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PublisherControllerVerifyServingDomain201Response, Integer, Hash)>] PublisherControllerVerifyServingDomain201Response data, response status code and response headers
     def publisher_controller_verify_serving_domain_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_verify_serving_domain ...'
@@ -1170,6 +1351,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1178,10 +1361,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PublisherControllerVerifyServingDomain201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherApi.publisher_controller_verify_serving_domain",

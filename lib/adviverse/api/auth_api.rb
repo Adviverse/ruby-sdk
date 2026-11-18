@@ -19,15 +19,19 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # List linked SSO providers
+    # Lists the social sign-in providers connected to the current account, oldest first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AuthControllerConnections200ResponseInner>]
     def auth_controller_connections(opts = {})
-      auth_controller_connections_with_http_info(opts)
-      nil
+      data, _status_code, _headers = auth_controller_connections_with_http_info(opts)
+      data
     end
 
+    # List linked SSO providers
+    # Lists the social sign-in providers connected to the current account, oldest first.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AuthControllerConnections200ResponseInner>, Integer, Hash)>] Array<AuthControllerConnections200ResponseInner> data, response status code and response headers
     def auth_controller_connections_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_connections ...'
@@ -40,6 +44,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -48,10 +54,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AuthControllerConnections200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AuthApi.auth_controller_connections",
@@ -70,17 +76,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Disconnect an SSO provider
+    # Removes the connection for `provider` from the current account. Refuses with 400 when the account has no password and this is its only connection, so the user cannot lock themselves out. Unknown providers are a no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
     # @param provider [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerResendVerification201Response]
     def auth_controller_disconnect(provider, opts = {})
-      auth_controller_disconnect_with_http_info(provider, opts)
-      nil
+      data, _status_code, _headers = auth_controller_disconnect_with_http_info(provider, opts)
+      data
     end
 
+    # Disconnect an SSO provider
+    # Removes the connection for &#x60;provider&#x60; from the current account. Refuses with 400 when the account has no password and this is its only connection, so the user cannot lock themselves out. Unknown providers are a no-op.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
     # @param provider [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerResendVerification201Response, Integer, Hash)>] AuthControllerResendVerification201Response data, response status code and response headers
     def auth_controller_disconnect_with_http_info(provider, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_disconnect ...'
@@ -97,6 +107,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -105,10 +117,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerResendVerification201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AuthApi.auth_controller_disconnect",
@@ -127,15 +139,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Confirm and enable TOTP 2FA
+    # Verifies `totp` against the secret from the setup step and turns on 2FA, after which login requires a code. Returns 400 `run setup first` if no secret exists, or `invalid code`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerEnable2fa201Response]
     def auth_controller_enable2fa(opts = {})
-      auth_controller_enable2fa_with_http_info(opts)
-      nil
+      data, _status_code, _headers = auth_controller_enable2fa_with_http_info(opts)
+      data
     end
 
+    # Confirm and enable TOTP 2FA
+    # Verifies &#x60;totp&#x60; against the secret from the setup step and turns on 2FA, after which login requires a code. Returns 400 &#x60;run setup first&#x60; if no secret exists, or &#x60;invalid code&#x60;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerEnable2fa201Response, Integer, Hash)>] AuthControllerEnable2fa201Response data, response status code and response headers
     def auth_controller_enable2fa_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_enable2fa ...'
@@ -148,6 +164,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -156,10 +174,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerEnable2fa201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AuthApi.auth_controller_enable2fa",
@@ -178,17 +196,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Start a password reset
+    # Emails a one-hour password reset link to `email` when an account exists. Always returns `{ ok: true }` to avoid account enumeration. Rate-limited per IP.  Auth: public, no credentials required.
     # @param email_dto [EmailDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerResendVerification201Response]
     def auth_controller_forgot_password(email_dto, opts = {})
-      auth_controller_forgot_password_with_http_info(email_dto, opts)
-      nil
+      data, _status_code, _headers = auth_controller_forgot_password_with_http_info(email_dto, opts)
+      data
     end
 
+    # Start a password reset
+    # Emails a one-hour password reset link to &#x60;email&#x60; when an account exists. Always returns &#x60;{ ok: true }&#x60; to avoid account enumeration. Rate-limited per IP.  Auth: public, no credentials required.
     # @param email_dto [EmailDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerResendVerification201Response, Integer, Hash)>] AuthControllerResendVerification201Response data, response status code and response headers
     def auth_controller_forgot_password_with_http_info(email_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_forgot_password ...'
@@ -205,6 +227,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -218,7 +242,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(email_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerResendVerification201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -240,6 +264,8 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # GitHub OAuth callback
+    # Browser redirect target for GitHub. Exchanges `code`, verifies `state`, then 302-redirects to the dashboard: `/settings#sso=connected` after linking, `/login#sso_token=<token>` after login/signup, or `/login#sso_error=github` on any failure. The session token is passed in the URL fragment so it never reaches a server. Callbacks carrying a state issued by the Atlas identity service are forwarded there instead.  Auth: public, no credentials required.
     # @param code [String] 
     # @param state [String] 
     # @param [Hash] opts the optional parameters
@@ -249,6 +275,8 @@ module Adviverse
       nil
     end
 
+    # GitHub OAuth callback
+    # Browser redirect target for GitHub. Exchanges &#x60;code&#x60;, verifies &#x60;state&#x60;, then 302-redirects to the dashboard: &#x60;/settings#sso&#x3D;connected&#x60; after linking, &#x60;/login#sso_token&#x3D;&lt;token&gt;&#x60; after login/signup, or &#x60;/login#sso_error&#x3D;github&#x60; on any failure. The session token is passed in the URL fragment so it never reaches a server. Callbacks carrying a state issued by the Atlas identity service are forwarded there instead.  Auth: public, no credentials required.
     # @param code [String] 
     # @param state [String] 
     # @param [Hash] opts the optional parameters
@@ -305,19 +333,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Start GitHub sign-in
+    # Returns the GitHub authorize URL with a signed state carrying the optional signup `type` and, if a bearer token was sent, a \"connect to this account\" intent. POST is used so the session token never appears in a URL. Returns 401 if GitHub SSO is not configured.  Auth: public, no credentials required.
     # @param authorization [String] 
     # @param oauth_start_dto [OauthStartDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerGithubStart201Response]
     def auth_controller_github_start(authorization, oauth_start_dto, opts = {})
-      auth_controller_github_start_with_http_info(authorization, oauth_start_dto, opts)
-      nil
+      data, _status_code, _headers = auth_controller_github_start_with_http_info(authorization, oauth_start_dto, opts)
+      data
     end
 
+    # Start GitHub sign-in
+    # Returns the GitHub authorize URL with a signed state carrying the optional signup &#x60;type&#x60; and, if a bearer token was sent, a \&quot;connect to this account\&quot; intent. POST is used so the session token never appears in a URL. Returns 401 if GitHub SSO is not configured.  Auth: public, no credentials required.
     # @param authorization [String] 
     # @param oauth_start_dto [OauthStartDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerGithubStart201Response, Integer, Hash)>] AuthControllerGithubStart201Response data, response status code and response headers
     def auth_controller_github_start_with_http_info(authorization, oauth_start_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_github_start ...'
@@ -338,6 +370,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -352,7 +386,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(oauth_start_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerGithubStart201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -374,17 +408,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Log in with email and password
+    # Exchanges `email` + `password` for a session bearer token. When 2FA is enabled a `totp` code is required; without one the call fails with 401 `2fa_required`. Emails not found on an account are tried as agency team-member seats, in which case the session is bound to the agency account and `account.member` is set. Returns 401 for bad credentials, banned/suspended accounts, or SSO-only accounts without a password. A Turnstile token is checked when configured; rate-limited per IP.  Auth: public, no credentials required.
     # @param login_dto [LoginDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthSession]
     def auth_controller_login(login_dto, opts = {})
-      auth_controller_login_with_http_info(login_dto, opts)
-      nil
+      data, _status_code, _headers = auth_controller_login_with_http_info(login_dto, opts)
+      data
     end
 
+    # Log in with email and password
+    # Exchanges &#x60;email&#x60; + &#x60;password&#x60; for a session bearer token. When 2FA is enabled a &#x60;totp&#x60; code is required; without one the call fails with 401 &#x60;2fa_required&#x60;. Emails not found on an account are tried as agency team-member seats, in which case the session is bound to the agency account and &#x60;account.member&#x60; is set. Returns 401 for bad credentials, banned/suspended accounts, or SSO-only accounts without a password. A Turnstile token is checked when configured; rate-limited per IP.  Auth: public, no credentials required.
     # @param login_dto [LoginDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthSession, Integer, Hash)>] AuthSession data, response status code and response headers
     def auth_controller_login_with_http_info(login_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_login ...'
@@ -401,6 +439,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -414,7 +454,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(login_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthSession'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -436,17 +476,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Log out
+    # Revokes the session identified by the bearer token in the Authorization header. Always returns `{ ok: true }`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
     # @param authorization [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerResendVerification201Response]
     def auth_controller_logout(authorization, opts = {})
-      auth_controller_logout_with_http_info(authorization, opts)
-      nil
+      data, _status_code, _headers = auth_controller_logout_with_http_info(authorization, opts)
+      data
     end
 
+    # Log out
+    # Revokes the session identified by the bearer token in the Authorization header. Always returns &#x60;{ ok: true }&#x60;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
     # @param authorization [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerResendVerification201Response, Integer, Hash)>] AuthControllerResendVerification201Response data, response status code and response headers
     def auth_controller_logout_with_http_info(authorization, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_logout ...'
@@ -463,6 +507,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       header_params[:'authorization'] = authorization
 
       # form parameters
@@ -472,10 +518,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerResendVerification201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AuthApi.auth_controller_logout",
@@ -494,15 +540,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get the current session account
+    # Returns the account behind the current session or API key. `roles` is `[\"admin\"]` for admins and `[\"publisher\",\"advertiser\"]` for every other account, since all accounts are dual-sided; `type` is only the signup choice. For agency team-member sessions `email` is the member email and `member` describes the seat role and pixel grant; otherwise `member` is null.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthMe]
     def auth_controller_me(opts = {})
-      auth_controller_me_with_http_info(opts)
-      nil
+      data, _status_code, _headers = auth_controller_me_with_http_info(opts)
+      data
     end
 
+    # Get the current session account
+    # Returns the account behind the current session or API key. &#x60;roles&#x60; is &#x60;[\&quot;admin\&quot;]&#x60; for admins and &#x60;[\&quot;publisher\&quot;,\&quot;advertiser\&quot;]&#x60; for every other account, since all accounts are dual-sided; &#x60;type&#x60; is only the signup choice. For agency team-member sessions &#x60;email&#x60; is the member email and &#x60;member&#x60; describes the seat role and pixel grant; otherwise &#x60;member&#x60; is null.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthMe, Integer, Hash)>] AuthMe data, response status code and response headers
     def auth_controller_me_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_me ...'
@@ -515,6 +565,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -523,10 +575,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthMe'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AuthApi.auth_controller_me",
@@ -545,6 +597,8 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Microsoft OAuth callback
+    # Browser redirect target for Microsoft. Completes the code flow and 302-redirects to the dashboard with `#sso=connected`, `#sso_token=<token>` or `#sso_error=microsoft`, same as the GitHub callback. Atlas-issued states are forwarded to Atlas.  Auth: public, no credentials required.
     # @param code [String] 
     # @param state [String] 
     # @param [Hash] opts the optional parameters
@@ -554,6 +608,8 @@ module Adviverse
       nil
     end
 
+    # Microsoft OAuth callback
+    # Browser redirect target for Microsoft. Completes the code flow and 302-redirects to the dashboard with &#x60;#sso&#x3D;connected&#x60;, &#x60;#sso_token&#x3D;&lt;token&gt;&#x60; or &#x60;#sso_error&#x3D;microsoft&#x60;, same as the GitHub callback. Atlas-issued states are forwarded to Atlas.  Auth: public, no credentials required.
     # @param code [String] 
     # @param state [String] 
     # @param [Hash] opts the optional parameters
@@ -610,19 +666,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Start Microsoft sign-in
+    # Returns the Microsoft (Entra) authorize URL with a signed state, exactly like the GitHub start endpoint. An optional bearer token marks a connect intent; `type` sets the account type for a new signup. Returns 401 if Microsoft SSO is not configured.  Auth: public, no credentials required.
     # @param authorization [String] 
     # @param oauth_start_dto [OauthStartDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerGithubStart201Response]
     def auth_controller_microsoft_start(authorization, oauth_start_dto, opts = {})
-      auth_controller_microsoft_start_with_http_info(authorization, oauth_start_dto, opts)
-      nil
+      data, _status_code, _headers = auth_controller_microsoft_start_with_http_info(authorization, oauth_start_dto, opts)
+      data
     end
 
+    # Start Microsoft sign-in
+    # Returns the Microsoft (Entra) authorize URL with a signed state, exactly like the GitHub start endpoint. An optional bearer token marks a connect intent; &#x60;type&#x60; sets the account type for a new signup. Returns 401 if Microsoft SSO is not configured.  Auth: public, no credentials required.
     # @param authorization [String] 
     # @param oauth_start_dto [OauthStartDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerGithubStart201Response, Integer, Hash)>] AuthControllerGithubStart201Response data, response status code and response headers
     def auth_controller_microsoft_start_with_http_info(authorization, oauth_start_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_microsoft_start ...'
@@ -643,6 +703,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -657,7 +719,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(oauth_start_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerGithubStart201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -679,19 +741,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Sign in or connect with Discord
+    # Verifies a single-use RestoreHub widget `token` and resolves the Discord identity. Without a bearer token it logs in the account already connected to that identity, else attaches it to an account with the same provider-verified email, else creates a new passwordless account of `type`. With a valid bearer token the identity is linked to the current account instead and `{ linked: true }` is returned. Returns 400 when the email belongs to an existing account but is not verified by the provider, or no email is shared.  Auth: public, no credentials required.
     # @param authorization [String] 
     # @param oauth_discord_dto [OauthDiscordDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerOauthDiscord201Response]
     def auth_controller_oauth_discord(authorization, oauth_discord_dto, opts = {})
-      auth_controller_oauth_discord_with_http_info(authorization, oauth_discord_dto, opts)
-      nil
+      data, _status_code, _headers = auth_controller_oauth_discord_with_http_info(authorization, oauth_discord_dto, opts)
+      data
     end
 
+    # Sign in or connect with Discord
+    # Verifies a single-use RestoreHub widget &#x60;token&#x60; and resolves the Discord identity. Without a bearer token it logs in the account already connected to that identity, else attaches it to an account with the same provider-verified email, else creates a new passwordless account of &#x60;type&#x60;. With a valid bearer token the identity is linked to the current account instead and &#x60;{ linked: true }&#x60; is returned. Returns 400 when the email belongs to an existing account but is not verified by the provider, or no email is shared.  Auth: public, no credentials required.
     # @param authorization [String] 
     # @param oauth_discord_dto [OauthDiscordDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerOauthDiscord201Response, Integer, Hash)>] AuthControllerOauthDiscord201Response data, response status code and response headers
     def auth_controller_oauth_discord_with_http_info(authorization, oauth_discord_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_oauth_discord ...'
@@ -712,6 +778,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -726,7 +794,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(oauth_discord_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerOauthDiscord201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -748,19 +816,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Sign in or connect with Google
+    # Validates a Google Identity Services ID token (`credential`) against Google tokeninfo, checking that the audience is the Adviverse client id and the issuer is Google. Login, auto-link and signup behave as for Discord; with a bearer token the Google identity is linked to the current account. Returns 401 `verification_failed` for an invalid token, or when Google SSO is not configured.  Auth: public, no credentials required.
     # @param authorization [String] 
     # @param oauth_google_dto [OauthGoogleDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerOauthDiscord201Response]
     def auth_controller_oauth_google(authorization, oauth_google_dto, opts = {})
-      auth_controller_oauth_google_with_http_info(authorization, oauth_google_dto, opts)
-      nil
+      data, _status_code, _headers = auth_controller_oauth_google_with_http_info(authorization, oauth_google_dto, opts)
+      data
     end
 
+    # Sign in or connect with Google
+    # Validates a Google Identity Services ID token (&#x60;credential&#x60;) against Google tokeninfo, checking that the audience is the Adviverse client id and the issuer is Google. Login, auto-link and signup behave as for Discord; with a bearer token the Google identity is linked to the current account. Returns 401 &#x60;verification_failed&#x60; for an invalid token, or when Google SSO is not configured.  Auth: public, no credentials required.
     # @param authorization [String] 
     # @param oauth_google_dto [OauthGoogleDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerOauthDiscord201Response, Integer, Hash)>] AuthControllerOauthDiscord201Response data, response status code and response headers
     def auth_controller_oauth_google_with_http_info(authorization, oauth_google_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_oauth_google ...'
@@ -781,6 +853,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -795,7 +869,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(oauth_google_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerOauthDiscord201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -817,17 +891,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Resend the verification email
+    # Sends a fresh verification link to `email` if an account exists and is not yet verified. Always returns `{ ok: true }` so the response does not reveal whether the email is registered. Rate-limited per IP.  Auth: public, no credentials required.
     # @param email_dto [EmailDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerResendVerification201Response]
     def auth_controller_resend_verification(email_dto, opts = {})
-      auth_controller_resend_verification_with_http_info(email_dto, opts)
-      nil
+      data, _status_code, _headers = auth_controller_resend_verification_with_http_info(email_dto, opts)
+      data
     end
 
+    # Resend the verification email
+    # Sends a fresh verification link to &#x60;email&#x60; if an account exists and is not yet verified. Always returns &#x60;{ ok: true }&#x60; so the response does not reveal whether the email is registered. Rate-limited per IP.  Auth: public, no credentials required.
     # @param email_dto [EmailDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerResendVerification201Response, Integer, Hash)>] AuthControllerResendVerification201Response data, response status code and response headers
     def auth_controller_resend_verification_with_http_info(email_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_resend_verification ...'
@@ -844,6 +922,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -857,7 +937,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(email_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerResendVerification201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -879,17 +959,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Complete a password reset
+    # Sets a new `password` (min 8 chars) using the single-use reset `token` from the email. On success the token is consumed and every active session of the account is revoked, so the user must log in again. Returns 400 for an invalid or expired token. Rate-limited per IP.  Auth: public, no credentials required.
     # @param reset_password_dto [ResetPasswordDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerResendVerification201Response]
     def auth_controller_reset_password(reset_password_dto, opts = {})
-      auth_controller_reset_password_with_http_info(reset_password_dto, opts)
-      nil
+      data, _status_code, _headers = auth_controller_reset_password_with_http_info(reset_password_dto, opts)
+      data
     end
 
+    # Complete a password reset
+    # Sets a new &#x60;password&#x60; (min 8 chars) using the single-use reset &#x60;token&#x60; from the email. On success the token is consumed and every active session of the account is revoked, so the user must log in again. Returns 400 for an invalid or expired token. Rate-limited per IP.  Auth: public, no credentials required.
     # @param reset_password_dto [ResetPasswordDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerResendVerification201Response, Integer, Hash)>] AuthControllerResendVerification201Response data, response status code and response headers
     def auth_controller_reset_password_with_http_info(reset_password_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_reset_password ...'
@@ -906,6 +990,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -919,7 +1005,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(reset_password_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerResendVerification201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -941,17 +1027,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Set or change the password
+    # Sets `newPassword` (min 8 chars). If the account already has a password, `currentPassword` is required and must match (400 if missing, 401 if wrong); SSO-only accounts can set a first password without it, which enables email login. Team-member seats get 403. `hadPassword` tells whether this was a change or a first set.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
     # @param set_password_dto [SetPasswordDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerSetPassword201Response]
     def auth_controller_set_password(set_password_dto, opts = {})
-      auth_controller_set_password_with_http_info(set_password_dto, opts)
-      nil
+      data, _status_code, _headers = auth_controller_set_password_with_http_info(set_password_dto, opts)
+      data
     end
 
+    # Set or change the password
+    # Sets &#x60;newPassword&#x60; (min 8 chars). If the account already has a password, &#x60;currentPassword&#x60; is required and must match (400 if missing, 401 if wrong); SSO-only accounts can set a first password without it, which enables email login. Team-member seats get 403. &#x60;hadPassword&#x60; tells whether this was a change or a first set.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
     # @param set_password_dto [SetPasswordDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerSetPassword201Response, Integer, Hash)>] AuthControllerSetPassword201Response data, response status code and response headers
     def auth_controller_set_password_with_http_info(set_password_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_set_password ...'
@@ -968,6 +1058,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -981,10 +1073,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(set_password_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerSetPassword201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AuthApi.auth_controller_set_password",
@@ -1003,15 +1095,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Begin TOTP 2FA setup
+    # Generates a new TOTP secret, stores it on the account and returns it with an `otpauth://` URI for authenticator apps. 2FA is not active until confirmed with the enable endpoint. Calling again replaces any unconfirmed secret.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerSetup2fa201Response]
     def auth_controller_setup2fa(opts = {})
-      auth_controller_setup2fa_with_http_info(opts)
-      nil
+      data, _status_code, _headers = auth_controller_setup2fa_with_http_info(opts)
+      data
     end
 
+    # Begin TOTP 2FA setup
+    # Generates a new TOTP secret, stores it on the account and returns it with an &#x60;otpauth://&#x60; URI for authenticator apps. 2FA is not active until confirmed with the enable endpoint. Calling again replaces any unconfirmed secret.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerSetup2fa201Response, Integer, Hash)>] AuthControllerSetup2fa201Response data, response status code and response headers
     def auth_controller_setup2fa_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_setup2fa ...'
@@ -1024,6 +1120,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1032,10 +1130,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerSetup2fa201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AuthApi.auth_controller_setup2fa",
@@ -1054,17 +1152,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create an account
+    # Registers a new account from `email` and `password` (min 8 chars), with optional `type` (advertiser|publisher, default advertiser; only the default landing side, every account is dual-sided), `companyName`, `country` and `referredByCode`. A Turnstile token (`turnstileToken`) is checked first when Turnstile is configured. Creates a zero balance, records the referral if the code matches, emails a 48-hour verification link and returns a session token so the client is logged in immediately. The account starts in `pending` status until the email is verified. Returns 400 if the email is already registered.  Auth: public, no credentials required.
     # @param signup_dto [SignupDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerSignup201Response]
     def auth_controller_signup(signup_dto, opts = {})
-      auth_controller_signup_with_http_info(signup_dto, opts)
-      nil
+      data, _status_code, _headers = auth_controller_signup_with_http_info(signup_dto, opts)
+      data
     end
 
+    # Create an account
+    # Registers a new account from &#x60;email&#x60; and &#x60;password&#x60; (min 8 chars), with optional &#x60;type&#x60; (advertiser|publisher, default advertiser; only the default landing side, every account is dual-sided), &#x60;companyName&#x60;, &#x60;country&#x60; and &#x60;referredByCode&#x60;. A Turnstile token (&#x60;turnstileToken&#x60;) is checked first when Turnstile is configured. Creates a zero balance, records the referral if the code matches, emails a 48-hour verification link and returns a session token so the client is logged in immediately. The account starts in &#x60;pending&#x60; status until the email is verified. Returns 400 if the email is already registered.  Auth: public, no credentials required.
     # @param signup_dto [SignupDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerSignup201Response, Integer, Hash)>] AuthControllerSignup201Response data, response status code and response headers
     def auth_controller_signup_with_http_info(signup_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_signup ...'
@@ -1081,6 +1183,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -1094,7 +1198,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(signup_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerSignup201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -1116,15 +1220,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get public SSO and Turnstile config
+    # Returns the public settings the login page needs to render SSO buttons and the Turnstile widget: the Google client id (or null), whether GitHub and Microsoft SSO are configured, and the Turnstile site key (or null). No secrets are returned.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerSsoConfig200Response]
     def auth_controller_sso_config(opts = {})
-      auth_controller_sso_config_with_http_info(opts)
-      nil
+      data, _status_code, _headers = auth_controller_sso_config_with_http_info(opts)
+      data
     end
 
+    # Get public SSO and Turnstile config
+    # Returns the public settings the login page needs to render SSO buttons and the Turnstile widget: the Google client id (or null), whether GitHub and Microsoft SSO are configured, and the Turnstile site key (or null). No secrets are returned.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerSsoConfig200Response, Integer, Hash)>] AuthControllerSsoConfig200Response data, response status code and response headers
     def auth_controller_sso_config_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_sso_config ...'
@@ -1137,6 +1245,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1145,7 +1255,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerSsoConfig200Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -1167,15 +1277,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Verify an email address
+    # Consumes the single-use `token` from the verification email. Marks the account email as verified and moves a `pending` account to `active`. Returns 400 if the token is unknown, already used or expired (tokens live 48 hours).  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerVerify201Response]
     def auth_controller_verify(opts = {})
-      auth_controller_verify_with_http_info(opts)
-      nil
+      data, _status_code, _headers = auth_controller_verify_with_http_info(opts)
+      data
     end
 
+    # Verify an email address
+    # Consumes the single-use &#x60;token&#x60; from the verification email. Marks the account email as verified and moves a &#x60;pending&#x60; account to &#x60;active&#x60;. Returns 400 if the token is unknown, already used or expired (tokens live 48 hours).  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerVerify201Response, Integer, Hash)>] AuthControllerVerify201Response data, response status code and response headers
     def auth_controller_verify_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AuthApi.auth_controller_verify ...'
@@ -1188,6 +1302,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1196,7 +1312,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerVerify201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []

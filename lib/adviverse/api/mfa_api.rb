@@ -19,17 +19,21 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Get my property's MFA score
+    # Returns the latest MFA score for one of the caller's properties, whether it crosses the flag threshold, the reasons, raw signals and improvement tips. If no score has been stored yet it is computed on the fly (not persisted) and `computedAt` is null. Returns 404 for an unknown property and 403 if it belongs to another publisher.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [MfaControllerOwn200Response]
     def mfa_controller_own(id, opts = {})
-      mfa_controller_own_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = mfa_controller_own_with_http_info(id, opts)
+      data
     end
 
+    # Get my property&#39;s MFA score
+    # Returns the latest MFA score for one of the caller&#39;s properties, whether it crosses the flag threshold, the reasons, raw signals and improvement tips. If no score has been stored yet it is computed on the fly (not persisted) and &#x60;computedAt&#x60; is null. Returns 404 for an unknown property and 403 if it belongs to another publisher.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(MfaControllerOwn200Response, Integer, Hash)>] MfaControllerOwn200Response data, response status code and response headers
     def mfa_controller_own_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MfaApi.mfa_controller_own ...'
@@ -46,6 +50,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -54,10 +60,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'MfaControllerOwn200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MfaApi.mfa_controller_own",
@@ -76,17 +82,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Rank properties by MFA score (admin)
+    # Lists properties with their latest made-for-advertising (MFA) score, highest first, including the stored signal breakdown and manual `mfa_flag`. `limit` defaults to 200 (max 1000). Properties never scored are omitted.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param limit [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<MfaControllerRanked200ResponseInner>]
     def mfa_controller_ranked(limit, opts = {})
-      mfa_controller_ranked_with_http_info(limit, opts)
-      nil
+      data, _status_code, _headers = mfa_controller_ranked_with_http_info(limit, opts)
+      data
     end
 
+    # Rank properties by MFA score (admin)
+    # Lists properties with their latest made-for-advertising (MFA) score, highest first, including the stored signal breakdown and manual &#x60;mfa_flag&#x60;. &#x60;limit&#x60; defaults to 200 (max 1000). Properties never scored are omitted.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param limit [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<MfaControllerRanked200ResponseInner>, Integer, Hash)>] Array<MfaControllerRanked200ResponseInner> data, response status code and response headers
     def mfa_controller_ranked_with_http_info(limit, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MfaApi.mfa_controller_ranked ...'
@@ -104,6 +114,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -112,10 +124,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<MfaControllerRanked200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"MfaApi.mfa_controller_ranked",

@@ -19,19 +19,23 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Get per-promote-campaign performance
+    # Returns one row for each of the caller's non-deleted promote (Sponsored Products) campaigns, including those with no traffic yet (zeros). Delivery and spend come from stats_hourly and revenue from attributed conversion_value, scoped to the caller's own promote campaign ids. Sorted by spend then impressions. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :to ISO end (inclusive).
     # @option opts [String] :from ISO start (inclusive).
-    # @return [nil]
+    # @return [Array<ReportPromoteCampaignRow>]
     def promote_campaign_reporting_controller_report(opts = {})
-      promote_campaign_reporting_controller_report_with_http_info(opts)
-      nil
+      data, _status_code, _headers = promote_campaign_reporting_controller_report_with_http_info(opts)
+      data
     end
 
+    # Get per-promote-campaign performance
+    # Returns one row for each of the caller&#39;s non-deleted promote (Sponsored Products) campaigns, including those with no traffic yet (zeros). Delivery and spend come from stats_hourly and revenue from attributed conversion_value, scoped to the caller&#39;s own promote campaign ids. Sorted by spend then impressions. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :to ISO end (inclusive).
     # @option opts [String] :from ISO start (inclusive).
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportPromoteCampaignRow>, Integer, Hash)>] Array<ReportPromoteCampaignRow> data, response status code and response headers
     def promote_campaign_reporting_controller_report_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.promote_campaign_reporting_controller_report ...'
@@ -46,6 +50,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -54,10 +60,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportPromoteCampaignRow>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.promote_campaign_reporting_controller_report",
@@ -76,19 +82,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get totals across promote campaigns
+    # Rolls up the per-promote-campaign report into one totals object over the same window, with the campaign count and recomputed CTR and ROAS. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :to ISO end (inclusive).
     # @option opts [String] :from ISO start (inclusive).
-    # @return [nil]
+    # @return [PromoteCampaignReportingControllerSummary200Response]
     def promote_campaign_reporting_controller_summary(opts = {})
-      promote_campaign_reporting_controller_summary_with_http_info(opts)
-      nil
+      data, _status_code, _headers = promote_campaign_reporting_controller_summary_with_http_info(opts)
+      data
     end
 
+    # Get totals across promote campaigns
+    # Rolls up the per-promote-campaign report into one totals object over the same window, with the campaign count and recomputed CTR and ROAS. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :to ISO end (inclusive).
     # @option opts [String] :from ISO start (inclusive).
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PromoteCampaignReportingControllerSummary200Response, Integer, Hash)>] PromoteCampaignReportingControllerSummary200Response data, response status code and response headers
     def promote_campaign_reporting_controller_summary_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.promote_campaign_reporting_controller_summary ...'
@@ -103,6 +113,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -111,10 +123,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PromoteCampaignReportingControllerSummary200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.promote_campaign_reporting_controller_summary",
@@ -133,15 +145,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get advertiser spend and performance by dimension
+    # Aggregates the caller's advertiser delivery from adnet.stats_hourly, grouped by `dim` (day default, hour, geo, device, format, placement_id, campaign_id), with eCPM, eCPC, eCPA and CTR. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ReportAdvertiserStatsRow>]
     def reporting_controller_advertiser(opts = {})
-      reporting_controller_advertiser_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_advertiser_with_http_info(opts)
+      data
     end
 
+    # Get advertiser spend and performance by dimension
+    # Aggregates the caller&#39;s advertiser delivery from adnet.stats_hourly, grouped by &#x60;dim&#x60; (day default, hour, geo, device, format, placement_id, campaign_id), with eCPM, eCPC, eCPA and CTR. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportAdvertiserStatsRow>, Integer, Hash)>] Array<ReportAdvertiserStatsRow> data, response status code and response headers
     def reporting_controller_advertiser_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_advertiser ...'
@@ -154,6 +170,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -162,10 +180,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportAdvertiserStatsRow>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_advertiser",
@@ -184,21 +202,25 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get affiliate sub-id funnel
+    # Per sub-id value funnel (impressions, clicks, conversions) with CTR and CVR in percent, revenue (earnings or spend), CPA payout and conversion value. `sub` picks sub1..sub5 (default sub1). Conversions carry no publisher id, so publishers get impressions/clicks/revenue only. Top 100 by revenue. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :to 
     # @option opts [String] :from 
     # @option opts [String] :sub Which sub-id to group by (default sub1).
-    # @return [nil]
+    # @return [Array<ReportingControllerAffiliate200ResponseInner>]
     def reporting_controller_affiliate(opts = {})
-      reporting_controller_affiliate_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_affiliate_with_http_info(opts)
+      data
     end
 
+    # Get affiliate sub-id funnel
+    # Per sub-id value funnel (impressions, clicks, conversions) with CTR and CVR in percent, revenue (earnings or spend), CPA payout and conversion value. &#x60;sub&#x60; picks sub1..sub5 (default sub1). Conversions carry no publisher id, so publishers get impressions/clicks/revenue only. Top 100 by revenue. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :to 
     # @option opts [String] :from 
     # @option opts [String] :sub Which sub-id to group by (default sub1).
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportingControllerAffiliate200ResponseInner>, Integer, Hash)>] Array<ReportingControllerAffiliate200ResponseInner> data, response status code and response headers
     def reporting_controller_affiliate_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_affiliate ...'
@@ -218,6 +240,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -226,10 +250,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportingControllerAffiliate200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_affiliate",
@@ -248,15 +272,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get impressions recovered from adblock visitors
+    # Reports valid impressions served to visitors the SDK detected as running an adblocker (for example via a first-party serving domain), as a daily series and a window total. recovered_pct is the share of valid impressions that came from adblock users. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerAntiAdblock200Response]
     def reporting_controller_anti_adblock(opts = {})
-      reporting_controller_anti_adblock_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_anti_adblock_with_http_info(opts)
+      data
     end
 
+    # Get impressions recovered from adblock visitors
+    # Reports valid impressions served to visitors the SDK detected as running an adblocker (for example via a first-party serving domain), as a daily series and a window total. recovered_pct is the share of valid impressions that came from adblock users. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerAntiAdblock200Response, Integer, Hash)>] ReportingControllerAntiAdblock200Response data, response status code and response headers
     def reporting_controller_anti_adblock_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_anti_adblock ...'
@@ -269,6 +297,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -277,10 +307,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerAntiAdblock200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_anti_adblock",
@@ -299,15 +329,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get auction fill rate and top no-fill reasons
+    # Request count, filled count and fill rate from adnet.ad_requests plus the top 10 no-fill reasons. Publishers see their own inventory; ad_requests has no advertiser column, so other accounts see network-wide auction health. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerAuction200Response]
     def reporting_controller_auction(opts = {})
-      reporting_controller_auction_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_auction_with_http_info(opts)
+      data
     end
 
+    # Get auction fill rate and top no-fill reasons
+    # Request count, filled count and fill rate from adnet.ad_requests plus the top 10 no-fill reasons. Publishers see their own inventory; ad_requests has no advertiser column, so other accounts see network-wide auction health. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerAuction200Response, Integer, Hash)>] ReportingControllerAuction200Response data, response status code and response headers
     def reporting_controller_auction_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_auction ...'
@@ -320,6 +354,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -328,10 +364,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerAuction200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_auction",
@@ -350,15 +386,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Benchmark eCPM, fill and viewability against the network
+    # Ranks the caller among publishers with enough volume in the window (>= 1000 impressions for eCPM, >= 1000 requests for fill, >= 500 measurable for viewability). Only the caller's own value plus the network median, percentile rank and sample size are returned, never another publisher's data. fillRate and viewableRate are percentages. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerBenchmark200Response]
     def reporting_controller_benchmark(opts = {})
-      reporting_controller_benchmark_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_benchmark_with_http_info(opts)
+      data
     end
 
+    # Benchmark eCPM, fill and viewability against the network
+    # Ranks the caller among publishers with enough volume in the window (&gt;&#x3D; 1000 impressions for eCPM, &gt;&#x3D; 1000 requests for fill, &gt;&#x3D; 500 measurable for viewability). Only the caller&#39;s own value plus the network median, percentile rank and sample size are returned, never another publisher&#39;s data. fillRate and viewableRate are percentages. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerBenchmark200Response, Integer, Hash)>] ReportingControllerBenchmark200Response data, response status code and response headers
     def reporting_controller_benchmark_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_benchmark ...'
@@ -371,6 +411,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -379,10 +421,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerBenchmark200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_benchmark",
@@ -401,15 +443,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get clearing-price percentiles and estimated win curve
+    # From the caller's valid paid impressions over the last 30 days, returns clearing-price (price_paid) percentiles and a 10-point estimated win-rate curve: for each candidate bid, the fraction of observed won auctions that cleared at or below it. Only won auctions are seen, so the curve is optimistic at low bids. With no history the curve is empty and `note` is set.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerBidLandscape200Response]
     def reporting_controller_bid_landscape(opts = {})
-      reporting_controller_bid_landscape_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_bid_landscape_with_http_info(opts)
+      data
     end
 
+    # Get clearing-price percentiles and estimated win curve
+    # From the caller&#39;s valid paid impressions over the last 30 days, returns clearing-price (price_paid) percentiles and a 10-point estimated win-rate curve: for each candidate bid, the fraction of observed won auctions that cleared at or below it. Only won auctions are seen, so the curve is optimistic at low bids. With no history the curve is empty and &#x60;note&#x60; is set.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerBidLandscape200Response, Integer, Hash)>] ReportingControllerBidLandscape200Response data, response status code and response headers
     def reporting_controller_bid_landscape_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_bid_landscape ...'
@@ -422,6 +468,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -430,10 +478,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerBidLandscape200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_bid_landscape",
@@ -452,21 +500,25 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Break down delivery by OS, browser, deal, page, app or sub-id
+    # Groups valid raw impressions (and matching clicks) by `bdim`: os (default), browser, deal, page (host), page_url (host+path), app, property, region, make, model or sub1..sub5. Unknown values fall back to os. Returns at most 50 rows ordered by revenue (impression-only dims) or impressions (os/browser). Revenue is publisher earnings for publishers and spend for other accounts. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :to ISO end (inclusive).
     # @option opts [String] :from ISO start (inclusive).
     # @option opts [String] :bdim Breakdown dimension (default os). &#39;page&#39;&#x3D;site (host), &#39;page_url&#39;&#x3D;individual page (host+path), &#39;app&#39;&#x3D;in-app/in-game app id, &#39;property&#39;&#x3D;owning property (app/site). &#39;region&#39;/&#39;make&#39;/&#39;model&#39; &#x3D; deployment region / device make / device model; &#39;sub1&#39;..&#39;sub5&#39; &#x3D; affiliate sub-ids. Use &#39;app&#39;/&#39;property&#39; for per-app earnings, &#39;sub*&#39; for affiliate performance.
-    # @return [nil]
+    # @return [Array<ReportBreakdownRow>]
     def reporting_controller_breakdown(opts = {})
-      reporting_controller_breakdown_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_breakdown_with_http_info(opts)
+      data
     end
 
+    # Break down delivery by OS, browser, deal, page, app or sub-id
+    # Groups valid raw impressions (and matching clicks) by &#x60;bdim&#x60;: os (default), browser, deal, page (host), page_url (host+path), app, property, region, make, model or sub1..sub5. Unknown values fall back to os. Returns at most 50 rows ordered by revenue (impression-only dims) or impressions (os/browser). Revenue is publisher earnings for publishers and spend for other accounts. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :to ISO end (inclusive).
     # @option opts [String] :from ISO start (inclusive).
     # @option opts [String] :bdim Breakdown dimension (default os). &#39;page&#39;&#x3D;site (host), &#39;page_url&#39;&#x3D;individual page (host+path), &#39;app&#39;&#x3D;in-app/in-game app id, &#39;property&#39;&#x3D;owning property (app/site). &#39;region&#39;/&#39;make&#39;/&#39;model&#39; &#x3D; deployment region / device make / device model; &#39;sub1&#39;..&#39;sub5&#39; &#x3D; affiliate sub-ids. Use &#39;app&#39;/&#39;property&#39; for per-app earnings, &#39;sub*&#39; for affiliate performance.
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportBreakdownRow>, Integer, Hash)>] Array<ReportBreakdownRow> data, response status code and response headers
     def reporting_controller_breakdown_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_breakdown ...'
@@ -486,6 +538,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -494,10 +548,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportBreakdownRow>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_breakdown",
@@ -516,15 +570,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get clicks per carousel card
+    # Clicks per card (0-based index) of each of the caller's carousel creatives, with the card title and price taken from the creative's stored carousel_items (title defaults to 'Card N'). Top 500 by clicks. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ReportingControllerCarousel200ResponseInner>]
     def reporting_controller_carousel(opts = {})
-      reporting_controller_carousel_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_carousel_with_http_info(opts)
+      data
     end
 
+    # Get clicks per carousel card
+    # Clicks per card (0-based index) of each of the caller&#39;s carousel creatives, with the card title and price taken from the creative&#39;s stored carousel_items (title defaults to &#39;Card N&#39;). Top 500 by clicks. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportingControllerCarousel200ResponseInner>, Integer, Hash)>] Array<ReportingControllerCarousel200ResponseInner> data, response status code and response headers
     def reporting_controller_carousel_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_carousel ...'
@@ -537,6 +595,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -545,10 +605,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportingControllerCarousel200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_carousel",
@@ -567,15 +627,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get funnel for the account's house campaigns
+    # Impressions, clicks, conversions and spend (returned as `revenue`) across the caller's house-ad campaigns from stats_hourly, with CTR, CVR and impression-to-conversion rate in percent. Returns zeros (with houseCampaigns) when there are no house campaigns or the query fails. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerClosedLoop200Response]
     def reporting_controller_closed_loop(opts = {})
-      reporting_controller_closed_loop_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_closed_loop_with_http_info(opts)
+      data
     end
 
+    # Get funnel for the account&#39;s house campaigns
+    # Impressions, clicks, conversions and spend (returned as &#x60;revenue&#x60;) across the caller&#39;s house-ad campaigns from stats_hourly, with CTR, CVR and impression-to-conversion rate in percent. Returns zeros (with houseCampaigns) when there are no house campaigns or the query fails. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerClosedLoop200Response, Integer, Hash)>] ReportingControllerClosedLoop200Response data, response status code and response headers
     def reporting_controller_closed_loop_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_closed_loop ...'
@@ -588,6 +652,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -596,10 +662,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerClosedLoop200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_closed_loop",
@@ -618,15 +684,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get cohort retention and LTV triangle (admin)
+    # Groups accounts by signup month and, for months 0..12 after signup, reports retention (fraction of the cohort with delivery that month) and cumulative average revenue per account. `scope=advertiser` uses spend; anything else (default) uses publisher earnings. Only accounts ever active on the chosen side are counted; cells in the future are null. No date window.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerCohorts200Response]
     def reporting_controller_cohorts(opts = {})
-      reporting_controller_cohorts_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_cohorts_with_http_info(opts)
+      data
     end
 
+    # Get cohort retention and LTV triangle (admin)
+    # Groups accounts by signup month and, for months 0..12 after signup, reports retention (fraction of the cohort with delivery that month) and cumulative average revenue per account. &#x60;scope&#x3D;advertiser&#x60; uses spend; anything else (default) uses publisher earnings. Only accounts ever active on the chosen side are counted; cells in the future are null. No date window.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerCohorts200Response, Integer, Hash)>] ReportingControllerCohorts200Response data, response status code and response headers
     def reporting_controller_cohorts_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_cohorts ...'
@@ -639,6 +709,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -647,10 +719,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerCohorts200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_cohorts",
@@ -669,15 +741,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get pixel consent rate (personalized vs aggregate-only)
+    # Share of the caller's pixel events (adnet.pixel_events) ingested in personalized mode (consent granted, no GPC) versus aggregate-only, as totals and a daily series. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerConsentRate200Response]
     def reporting_controller_consent_rate(opts = {})
-      reporting_controller_consent_rate_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_consent_rate_with_http_info(opts)
+      data
     end
 
+    # Get pixel consent rate (personalized vs aggregate-only)
+    # Share of the caller&#39;s pixel events (adnet.pixel_events) ingested in personalized mode (consent granted, no GPC) versus aggregate-only, as totals and a daily series. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerConsentRate200Response, Integer, Hash)>] ReportingControllerConsentRate200Response data, response status code and response headers
     def reporting_controller_consent_rate_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_consent_rate ...'
@@ -690,6 +766,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -698,10 +776,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerConsentRate200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_consent_rate",
@@ -720,17 +798,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Save a report definition
+    # Stores a named report definition for the caller. Body: `name` (default 'Untitled report') and `config` (any JSON object, default {}).  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
     # @param create_saved_report_dto [CreateSavedReportDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportSavedReport]
     def reporting_controller_create_saved(create_saved_report_dto, opts = {})
-      reporting_controller_create_saved_with_http_info(create_saved_report_dto, opts)
-      nil
+      data, _status_code, _headers = reporting_controller_create_saved_with_http_info(create_saved_report_dto, opts)
+      data
     end
 
+    # Save a report definition
+    # Stores a named report definition for the caller. Body: &#x60;name&#x60; (default &#39;Untitled report&#39;) and &#x60;config&#x60; (any JSON object, default {}).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param create_saved_report_dto [CreateSavedReportDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportSavedReport, Integer, Hash)>] ReportSavedReport data, response status code and response headers
     def reporting_controller_create_saved_with_http_info(create_saved_report_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_create_saved ...'
@@ -747,6 +829,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -760,10 +844,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_saved_report_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportSavedReport'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_create_saved",
@@ -782,17 +866,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Schedule an emailed report
+    # Creates a scheduled report. Body: `name`, `config` (JSON; `scope` 'advertiser'|'publisher' and `dim` select the stats query), `cadence` ('daily' default, or 'weekly') and `email`. next_run_at is set one day or one week from now; each run emails the stats for the last 1 or 7 days.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
     # @param create_scheduled_report_dto [CreateScheduledReportDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportScheduledReport]
     def reporting_controller_create_scheduled(create_scheduled_report_dto, opts = {})
-      reporting_controller_create_scheduled_with_http_info(create_scheduled_report_dto, opts)
-      nil
+      data, _status_code, _headers = reporting_controller_create_scheduled_with_http_info(create_scheduled_report_dto, opts)
+      data
     end
 
+    # Schedule an emailed report
+    # Creates a scheduled report. Body: &#x60;name&#x60;, &#x60;config&#x60; (JSON; &#x60;scope&#x60; &#39;advertiser&#39;|&#39;publisher&#39; and &#x60;dim&#x60; select the stats query), &#x60;cadence&#x60; (&#39;daily&#39; default, or &#39;weekly&#39;) and &#x60;email&#x60;. next_run_at is set one day or one week from now; each run emails the stats for the last 1 or 7 days.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param create_scheduled_report_dto [CreateScheduledReportDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportScheduledReport, Integer, Hash)>] ReportScheduledReport data, response status code and response headers
     def reporting_controller_create_scheduled_with_http_info(create_scheduled_report_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_create_scheduled ...'
@@ -809,6 +897,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -822,10 +912,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_scheduled_report_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportScheduledReport'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_create_scheduled",
@@ -844,15 +934,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get per-creative performance and fatigue
+    # For the caller's creatives: valid impressions, clicks, CTR, conversions (attributed through the click that drove them) and CVR, sorted by impressions and capped at 50. Names come from the creative title or brand name. `fatigue` is the daily CTR series of the highest-volume creative so decay is visible. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerCreatives200Response]
     def reporting_controller_creatives(opts = {})
-      reporting_controller_creatives_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_creatives_with_http_info(opts)
+      data
     end
 
+    # Get per-creative performance and fatigue
+    # For the caller&#39;s creatives: valid impressions, clicks, CTR, conversions (attributed through the click that drove them) and CVR, sorted by impressions and capped at 50. Names come from the creative title or brand name. &#x60;fatigue&#x60; is the daily CTR series of the highest-volume creative so decay is visible. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerCreatives200Response, Integer, Hash)>] ReportingControllerCreatives200Response data, response status code and response headers
     def reporting_controller_creatives_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_creatives ...'
@@ -865,6 +959,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -873,10 +969,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerCreatives200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_creatives",
@@ -895,17 +991,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delete a saved report
+    # Deletes one of the caller's saved reports by id. Returns 404 if it does not exist or belongs to another account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerDeleteSaved200Response]
     def reporting_controller_delete_saved(id, opts = {})
-      reporting_controller_delete_saved_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = reporting_controller_delete_saved_with_http_info(id, opts)
+      data
     end
 
+    # Delete a saved report
+    # Deletes one of the caller&#39;s saved reports by id. Returns 404 if it does not exist or belongs to another account.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerDeleteSaved200Response, Integer, Hash)>] ReportingControllerDeleteSaved200Response data, response status code and response headers
     def reporting_controller_delete_saved_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_delete_saved ...'
@@ -922,6 +1022,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -930,10 +1032,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerDeleteSaved200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_delete_saved",
@@ -952,17 +1054,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delete a scheduled report
+    # Deletes one of the caller's scheduled reports by id. Returns 404 if it does not exist or belongs to another account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerDeleteSaved200Response]
     def reporting_controller_delete_scheduled(id, opts = {})
-      reporting_controller_delete_scheduled_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = reporting_controller_delete_scheduled_with_http_info(id, opts)
+      data
     end
 
+    # Delete a scheduled report
+    # Deletes one of the caller&#39;s scheduled reports by id. Returns 404 if it does not exist or belongs to another account.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerDeleteSaved200Response, Integer, Hash)>] ReportingControllerDeleteSaved200Response data, response status code and response headers
     def reporting_controller_delete_scheduled_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_delete_scheduled ...'
@@ -979,6 +1085,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -987,10 +1095,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerDeleteSaved200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_delete_scheduled",
@@ -1009,15 +1117,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get publisher delivery waterfall
+    # Requests and filled responses (ad_requests), rendered valid impressions (impressions) and measurable/viewable beacons (viewability) for the caller's inventory, with stage-to-stage rates. `discrepancy` is filled minus rendered (floored at 0). Rates are fractions 0..1. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerDeliveryFunnel200Response]
     def reporting_controller_delivery_funnel(opts = {})
-      reporting_controller_delivery_funnel_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_delivery_funnel_with_http_info(opts)
+      data
     end
 
+    # Get publisher delivery waterfall
+    # Requests and filled responses (ad_requests), rendered valid impressions (impressions) and measurable/viewable beacons (viewability) for the caller&#39;s inventory, with stage-to-stage rates. &#x60;discrepancy&#x60; is filled minus rendered (floored at 0). Rates are fractions 0..1. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerDeliveryFunnel200Response, Integer, Hash)>] ReportingControllerDeliveryFunnel200Response data, response status code and response headers
     def reporting_controller_delivery_funnel_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_delivery_funnel ...'
@@ -1030,6 +1142,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1038,10 +1152,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerDeliveryFunnel200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_delivery_funnel",
@@ -1060,15 +1174,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get delivery pacing for booked and goal campaigns
+    # For each of the caller's campaigns with a delivery_goal or a guaranteed/sponsorship priority tier: the goal, all-time valid delivered impressions or clicks (per goal_type), percent to goal, percent of the flight elapsed, and whether delivery is keeping up (pctToGoal >= flightProgressPct). Open-ended flights count as 100% elapsed once started. No query params.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ReportingControllerDeliveryPacing200ResponseInner>]
     def reporting_controller_delivery_pacing(opts = {})
-      reporting_controller_delivery_pacing_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_delivery_pacing_with_http_info(opts)
+      data
     end
 
+    # Get delivery pacing for booked and goal campaigns
+    # For each of the caller&#39;s campaigns with a delivery_goal or a guaranteed/sponsorship priority tier: the goal, all-time valid delivered impressions or clicks (per goal_type), percent to goal, percent of the flight elapsed, and whether delivery is keeping up (pctToGoal &gt;&#x3D; flightProgressPct). Open-ended flights count as 100% elapsed once started. No query params.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportingControllerDeliveryPacing200ResponseInner>, Integer, Hash)>] Array<ReportingControllerDeliveryPacing200ResponseInner> data, response status code and response headers
     def reporting_controller_delivery_pacing_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_delivery_pacing ...'
@@ -1081,6 +1199,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1089,10 +1209,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportingControllerDeliveryPacing200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_delivery_pacing",
@@ -1111,15 +1231,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get publisher fill rate and no-fill reasons
+    # Counts the caller's ad requests from adnet.ad_requests, how many were filled, and the fill rate, plus a map of unfilled requests by no-fill reason (empty reasons bucketed as 'unknown'). Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerFill200Response]
     def reporting_controller_fill(opts = {})
-      reporting_controller_fill_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_fill_with_http_info(opts)
+      data
     end
 
+    # Get publisher fill rate and no-fill reasons
+    # Counts the caller&#39;s ad requests from adnet.ad_requests, how many were filled, and the fill rate, plus a map of unfilled requests by no-fill reason (empty reasons bucketed as &#39;unknown&#39;). Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerFill200Response, Integer, Hash)>] ReportingControllerFill200Response data, response status code and response headers
     def reporting_controller_fill_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_fill ...'
@@ -1132,6 +1256,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1140,10 +1266,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerFill200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_fill",
@@ -1162,15 +1288,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get advertiser impression-click-conversion funnel
+    # Totals impressions, clicks and conversions for the caller's campaigns from adnet.stats_hourly with CTR, CVR (conversions/clicks) and impression-to-conversion rate, all in percent. Returns zeros when there is no data. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerFunnel200Response]
     def reporting_controller_funnel(opts = {})
-      reporting_controller_funnel_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_funnel_with_http_info(opts)
+      data
     end
 
+    # Get advertiser impression-click-conversion funnel
+    # Totals impressions, clicks and conversions for the caller&#39;s campaigns from adnet.stats_hourly with CTR, CVR (conversions/clicks) and impression-to-conversion rate, all in percent. Returns zeros when there is no data. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerFunnel200Response, Integer, Hash)>] ReportingControllerFunnel200Response data, response status code and response headers
     def reporting_controller_funnel_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_funnel ...'
@@ -1183,6 +1313,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1191,10 +1323,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerFunnel200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_funnel",
@@ -1213,15 +1345,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get per-country delivery breakdown
+    # Impressions, clicks and amount per country from adnet.stats_hourly, ordered by amount. Amount is publisher earnings for publisher accounts and spend for other accounts; rows with an empty geo are skipped. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ReportingControllerGeo200ResponseInner>]
     def reporting_controller_geo(opts = {})
-      reporting_controller_geo_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_geo_with_http_info(opts)
+      data
     end
 
+    # Get per-country delivery breakdown
+    # Impressions, clicks and amount per country from adnet.stats_hourly, ordered by amount. Amount is publisher earnings for publisher accounts and spend for other accounts; rows with an empty geo are skipped. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportingControllerGeo200ResponseInner>, Integer, Hash)>] Array<ReportingControllerGeo200ResponseInner> data, response status code and response headers
     def reporting_controller_geo_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_geo ...'
@@ -1234,6 +1370,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1242,10 +1380,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportingControllerGeo200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_geo",
@@ -1264,15 +1402,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get per-campaign conversion lift vs holdout
+    # For up to 200 of the caller's campaigns, compares the conversion rate of exposed users (served an impression) with a holdout group (adnet.holdouts). Conversions attribute to users via the click that drove them. lift = (exposedCvr - holdoutCvr) / holdoutCvr; holdout figures and lift are 0 when there is no holdout data. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ReportingControllerIncrementality200ResponseInner>]
     def reporting_controller_incrementality(opts = {})
-      reporting_controller_incrementality_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_incrementality_with_http_info(opts)
+      data
     end
 
+    # Get per-campaign conversion lift vs holdout
+    # For up to 200 of the caller&#39;s campaigns, compares the conversion rate of exposed users (served an impression) with a holdout group (adnet.holdouts). Conversions attribute to users via the click that drove them. lift &#x3D; (exposedCvr - holdoutCvr) / holdoutCvr; holdout figures and lift are 0 when there is no holdout data. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportingControllerIncrementality200ResponseInner>, Integer, Hash)>] Array<ReportingControllerIncrementality200ResponseInner> data, response status code and response headers
     def reporting_controller_incrementality_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_incrementality ...'
@@ -1285,6 +1427,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1293,10 +1437,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportingControllerIncrementality200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_incrementality",
@@ -1315,15 +1459,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get invalid-traffic breakdown by reason (last 30 days)
+    # Counts impressions flagged invalid (is_valid = 0) in the last 30 days, grouped by IVT reason and ordered by count. Publishers see IVT on their inventory; every other account sees IVT on its campaigns. Takes no window params.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ReportingControllerIvt200ResponseInner>]
     def reporting_controller_ivt(opts = {})
-      reporting_controller_ivt_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_ivt_with_http_info(opts)
+      data
     end
 
+    # Get invalid-traffic breakdown by reason (last 30 days)
+    # Counts impressions flagged invalid (is_valid &#x3D; 0) in the last 30 days, grouped by IVT reason and ordered by count. Publishers see IVT on their inventory; every other account sees IVT on its campaigns. Takes no window params.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportingControllerIvt200ResponseInner>, Integer, Hash)>] Array<ReportingControllerIvt200ResponseInner> data, response status code and response headers
     def reporting_controller_ivt_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_ivt ...'
@@ -1336,6 +1484,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1344,10 +1494,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportingControllerIvt200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_ivt",
@@ -1366,15 +1516,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get top cross-site user paths
+    # Builds each user's time-ordered sequence of placements (first 6) from the caller's valid impressions and counts the most common paths, joined with ' > '. `topN` sets the result size (default 20, max 50); at most 50,000 users are scanned. Returns an empty list on query failure. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ReportingControllerJourney200ResponseInner>]
     def reporting_controller_journey(opts = {})
-      reporting_controller_journey_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_journey_with_http_info(opts)
+      data
     end
 
+    # Get top cross-site user paths
+    # Builds each user&#39;s time-ordered sequence of placements (first 6) from the caller&#39;s valid impressions and counts the most common paths, joined with &#39; &gt; &#39;. &#x60;topN&#x60; sets the result size (default 20, max 50); at most 50,000 users are scanned. Returns an empty list on query failure. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportingControllerJourney200ResponseInner>, Integer, Hash)>] Array<ReportingControllerJourney200ResponseInner> data, response status code and response headers
     def reporting_controller_journey_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_journey ...'
@@ -1387,6 +1541,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1395,10 +1551,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportingControllerJourney200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_journey",
@@ -1417,15 +1573,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get network-wide marketplace liquidity (admin)
+    # Network-wide ad requests, filled and unmatched requests, fill rate, the top 12 no-fill reasons and a daily requests/filled series, from adnet.ad_requests. Not scoped to an account. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerLiquidity200Response]
     def reporting_controller_liquidity(opts = {})
-      reporting_controller_liquidity_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_liquidity_with_http_info(opts)
+      data
     end
 
+    # Get network-wide marketplace liquidity (admin)
+    # Network-wide ad requests, filled and unmatched requests, fill rate, the top 12 no-fill reasons and a daily requests/filled series, from adnet.ad_requests. Not scoped to an account. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerLiquidity200Response, Integer, Hash)>] ReportingControllerLiquidity200Response data, response status code and response headers
     def reporting_controller_liquidity_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_liquidity ...'
@@ -1438,6 +1598,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1446,10 +1608,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerLiquidity200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_liquidity",
@@ -1468,15 +1630,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List saved reports
+    # Returns the caller's saved report definitions, newest first. The config is opaque JSON stored for the dashboard.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ReportSavedReport>]
     def reporting_controller_list_saved(opts = {})
-      reporting_controller_list_saved_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_list_saved_with_http_info(opts)
+      data
     end
 
+    # List saved reports
+    # Returns the caller&#39;s saved report definitions, newest first. The config is opaque JSON stored for the dashboard.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportSavedReport>, Integer, Hash)>] Array<ReportSavedReport> data, response status code and response headers
     def reporting_controller_list_saved_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_list_saved ...'
@@ -1489,6 +1655,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1497,10 +1665,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportSavedReport>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_list_saved",
@@ -1519,15 +1687,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List scheduled email reports
+    # Returns the caller's scheduled email reports with cadence, recipient and last/next run times, newest first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ReportScheduledReport>]
     def reporting_controller_list_scheduled(opts = {})
-      reporting_controller_list_scheduled_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_list_scheduled_with_http_info(opts)
+      data
     end
 
+    # List scheduled email reports
+    # Returns the caller&#39;s scheduled email reports with cadence, recipient and last/next run times, newest first.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportScheduledReport>, Integer, Hash)>] Array<ReportScheduledReport> data, response status code and response headers
     def reporting_controller_list_scheduled_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_list_scheduled ...'
@@ -1540,6 +1712,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1548,10 +1722,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportScheduledReport>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_list_scheduled",
@@ -1570,15 +1744,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get marketplace economics and concentration (admin)
+    # Gross advertiser spend, publisher payout, platform margin and take rate over the window (stats_hourly), the top 10 advertisers by spend and publishers by earnings with their share of the total, and monthly signup counts per account type from Postgres (cohorts ignore the window). Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerMarketplace200Response]
     def reporting_controller_marketplace(opts = {})
-      reporting_controller_marketplace_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_marketplace_with_http_info(opts)
+      data
     end
 
+    # Get marketplace economics and concentration (admin)
+    # Gross advertiser spend, publisher payout, platform margin and take rate over the window (stats_hourly), the top 10 advertisers by spend and publishers by earnings with their share of the total, and monthly signup counts per account type from Postgres (cohorts ignore the window). Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerMarketplace200Response, Integer, Hash)>] ReportingControllerMarketplace200Response data, response status code and response headers
     def reporting_controller_marketplace_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_marketplace ...'
@@ -1591,6 +1769,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1599,10 +1779,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerMarketplace200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_marketplace",
@@ -1621,15 +1801,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get Personal Network infra fees and house-ad delivery
+    # Sums the 'infra_fee' ledger entries charged to the caller over the period (absolute value, total and per day) and counts valid impressions of the caller's house-ad campaigns. `from`/`to` are YYYY-MM-DD dates here (default: the last 30 days through today, inclusive). infraFeePct is read from platform_config (default 0.05).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerPersonalNetwork200Response]
     def reporting_controller_personal_network(opts = {})
-      reporting_controller_personal_network_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_personal_network_with_http_info(opts)
+      data
     end
 
+    # Get Personal Network infra fees and house-ad delivery
+    # Sums the &#39;infra_fee&#39; ledger entries charged to the caller over the period (absolute value, total and per day) and counts valid impressions of the caller&#39;s house-ad campaigns. &#x60;from&#x60;/&#x60;to&#x60; are YYYY-MM-DD dates here (default: the last 30 days through today, inclusive). infraFeePct is read from platform_config (default 0.05).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerPersonalNetwork200Response, Integer, Hash)>] ReportingControllerPersonalNetwork200Response data, response status code and response headers
     def reporting_controller_personal_network_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_personal_network ...'
@@ -1642,6 +1826,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1650,10 +1836,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerPersonalNetwork200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_personal_network",
@@ -1672,15 +1858,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Pivot delivery over two dimensions
+    # Groups adnet.stats_hourly by `dim1` x `dim2`, each one of day, geo, device, os, browser, format, placement_id, campaign_id (os/browser are not in the rollup and resolve to a constant '(n/a)'). An unknown dimension returns 403 'invalid pivot dimension'. Amount is earnings (publisher) or spend (advertiser); max 1000 rows ordered by amount. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ReportingControllerPivot200ResponseInner>]
     def reporting_controller_pivot(opts = {})
-      reporting_controller_pivot_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_pivot_with_http_info(opts)
+      data
     end
 
+    # Pivot delivery over two dimensions
+    # Groups adnet.stats_hourly by &#x60;dim1&#x60; x &#x60;dim2&#x60;, each one of day, geo, device, os, browser, format, placement_id, campaign_id (os/browser are not in the rollup and resolve to a constant &#39;(n/a)&#39;). An unknown dimension returns 403 &#39;invalid pivot dimension&#39;. Amount is earnings (publisher) or spend (advertiser); max 1000 rows ordered by amount. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportingControllerPivot200ResponseInner>, Integer, Hash)>] Array<ReportingControllerPivot200ResponseInner> data, response status code and response headers
     def reporting_controller_pivot_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_pivot ...'
@@ -1693,6 +1883,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1701,10 +1893,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportingControllerPivot200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_pivot",
@@ -1723,15 +1915,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get publisher earnings grouped by a dimension
+    # Aggregates the caller's publisher earnings from the hourly rollup (adnet.stats_hourly). `dim` picks the grouping: day (default), hour, geo, device, format, placement_id or campaign_id; rows are ordered by the dimension. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ReportPublisherStatsRow>]
     def reporting_controller_publisher(opts = {})
-      reporting_controller_publisher_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_publisher_with_http_info(opts)
+      data
     end
 
+    # Get publisher earnings grouped by a dimension
+    # Aggregates the caller&#39;s publisher earnings from the hourly rollup (adnet.stats_hourly). &#x60;dim&#x60; picks the grouping: day (default), hour, geo, device, format, placement_id or campaign_id; rows are ordered by the dimension. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportPublisherStatsRow>, Integer, Hash)>] Array<ReportPublisherStatsRow> data, response status code and response headers
     def reporting_controller_publisher_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_publisher ...'
@@ -1744,6 +1940,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1752,10 +1950,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportPublisherStatsRow>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_publisher",
@@ -1774,15 +1972,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get publisher ad-serving consent rate
+    # Share of the caller's valid impressions served with personalized-processing consent (impressions.consented, set by the engine from the request's privacy signals), as totals and a daily series. Distinct from the advertiser pixel consent rate. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerPublisherConsent200Response]
     def reporting_controller_publisher_consent(opts = {})
-      reporting_controller_publisher_consent_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_publisher_consent_with_http_info(opts)
+      data
     end
 
+    # Get publisher ad-serving consent rate
+    # Share of the caller&#39;s valid impressions served with personalized-processing consent (impressions.consented, set by the engine from the request&#39;s privacy signals), as totals and a daily series. Distinct from the advertiser pixel consent rate. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerPublisherConsent200Response, Integer, Hash)>] ReportingControllerPublisherConsent200Response data, response status code and response headers
     def reporting_controller_publisher_consent_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_publisher_consent ...'
@@ -1795,6 +1997,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1803,10 +2007,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerPublisherConsent200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_publisher_consent",
@@ -1825,15 +2029,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get per-placement earnings, fill and viewability
+    # Joins three ClickHouse aggregations by placement_id: earnings (stats_hourly), fill (ad_requests) and viewability (adnet.viewability), then resolves placement names from Postgres. A placement appears if it has activity in any of the three. Sorted by revenue then impressions. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ReportPlacementRow>]
     def reporting_controller_publisher_placements(opts = {})
-      reporting_controller_publisher_placements_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_publisher_placements_with_http_info(opts)
+      data
     end
 
+    # Get per-placement earnings, fill and viewability
+    # Joins three ClickHouse aggregations by placement_id: earnings (stats_hourly), fill (ad_requests) and viewability (adnet.viewability), then resolves placement names from Postgres. A placement appears if it has activity in any of the three. Sorted by revenue then impressions. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportPlacementRow>, Integer, Hash)>] Array<ReportPlacementRow> data, response status code and response headers
     def reporting_controller_publisher_placements_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_publisher_placements ...'
@@ -1846,6 +2054,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1854,10 +2064,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportPlacementRow>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_publisher_placements",
@@ -1876,15 +2086,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get reach and frequency (unique users)
+    # Computes unique users (by user_id_hash) from valid raw impressions, average frequency, a frequency histogram (buckets 1, 2, 3, 4, 5, 6-10, 11+ in fixed order) and a daily reach series. Publishers measure their inventory's audience; other accounts their campaigns' reach. Impressions without a user hash are excluded. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerReach200Response]
     def reporting_controller_reach(opts = {})
-      reporting_controller_reach_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_reach_with_http_info(opts)
+      data
     end
 
+    # Get reach and frequency (unique users)
+    # Computes unique users (by user_id_hash) from valid raw impressions, average frequency, a frequency histogram (buckets 1, 2, 3, 4, 5, 6-10, 11+ in fixed order) and a daily reach series. Publishers measure their inventory&#39;s audience; other accounts their campaigns&#39; reach. Impressions without a user hash are excluded. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerReach200Response, Integer, Hash)>] ReportingControllerReach200Response data, response status code and response headers
     def reporting_controller_reach_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_reach ...'
@@ -1897,6 +2111,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1905,10 +2121,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerReach200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_reach",
@@ -1927,15 +2143,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get last-15-minute impressions, clicks and amount
+    # Per-minute series of valid impressions and clicks over the last 15 minutes from the raw event tables, with totals. Publisher accounts see their inventory (earnings); other accounts their campaigns (spend).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportRealtime]
     def reporting_controller_realtime(opts = {})
-      reporting_controller_realtime_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_realtime_with_http_info(opts)
+      data
     end
 
+    # Get last-15-minute impressions, clicks and amount
+    # Per-minute series of valid impressions and clicks over the last 15 minutes from the raw event tables, with totals. Publisher accounts see their inventory (earnings); other accounts their campaigns (spend).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportRealtime, Integer, Hash)>] ReportRealtime data, response status code and response headers
     def reporting_controller_realtime_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_realtime ...'
@@ -1948,6 +2168,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1956,10 +2178,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportRealtime'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_realtime",
@@ -1978,17 +2200,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Stream the realtime report as Server-Sent Events
+    # Pushes the same payload as GET /v1/reporting/realtime as an SSE `data:` event immediately on connect and then every ~3 seconds (a server-side poll, not a sub-second event stream). Because EventSource cannot set headers, this route authenticates with the session token in `?access_token=`. `scope=advertiser|publisher` selects the side of a dual-sided account; it defaults to the account type.  Auth: public, no credentials required. Additionally checked by SseAuthGuard.
     # @param scope [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [String]
     def reporting_controller_realtime_stream(scope, opts = {})
-      reporting_controller_realtime_stream_with_http_info(scope, opts)
-      nil
+      data, _status_code, _headers = reporting_controller_realtime_stream_with_http_info(scope, opts)
+      data
     end
 
+    # Stream the realtime report as Server-Sent Events
+    # Pushes the same payload as GET /v1/reporting/realtime as an SSE &#x60;data:&#x60; event immediately on connect and then every ~3 seconds (a server-side poll, not a sub-second event stream). Because EventSource cannot set headers, this route authenticates with the session token in &#x60;?access_token&#x3D;&#x60;. &#x60;scope&#x3D;advertiser|publisher&#x60; selects the side of a dual-sided account; it defaults to the account type.  Auth: public, no credentials required. Additionally checked by SseAuthGuard.
     # @param scope [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
     def reporting_controller_realtime_stream_with_http_info(scope, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_realtime_stream ...'
@@ -2006,6 +2232,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/event-stream']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2014,7 +2242,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'String'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -2036,15 +2264,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get daily ROAS and conversion-value trend
+    # Per-day spend (stats_hourly) joined to attributed conversion count and conversion_value (adnet.conversions), with ROAS = conversionValue / spend. Days present in either source are included, sorted ascending. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ReportingControllerRoas200ResponseInner>]
     def reporting_controller_roas(opts = {})
-      reporting_controller_roas_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_roas_with_http_info(opts)
+      data
     end
 
+    # Get daily ROAS and conversion-value trend
+    # Per-day spend (stats_hourly) joined to attributed conversion count and conversion_value (adnet.conversions), with ROAS &#x3D; conversionValue / spend. Days present in either source are included, sorted ascending. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportingControllerRoas200ResponseInner>, Integer, Hash)>] Array<ReportingControllerRoas200ResponseInner> data, response status code and response headers
     def reporting_controller_roas_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_roas ...'
@@ -2057,6 +2289,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2065,10 +2299,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportingControllerRoas200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_roas",
@@ -2087,15 +2321,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get ad-serving decision and render latency
+    # Engine decision latency percentiles (from ad_requests.decision_us, reported in milliseconds) with the share of requests over the 100 ms soft SLA and a daily p95 series. Also returns client render latency from SDK beacons (null if the tag has not reported any) and client-side load failures (client_timeout/client_error) as a share of all requests. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerServeLatency200Response]
     def reporting_controller_serve_latency(opts = {})
-      reporting_controller_serve_latency_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_serve_latency_with_http_info(opts)
+      data
     end
 
+    # Get ad-serving decision and render latency
+    # Engine decision latency percentiles (from ad_requests.decision_us, reported in milliseconds) with the share of requests over the 100 ms soft SLA and a daily p95 series. Also returns client render latency from SDK beacons (null if the tag has not reported any) and client-side load failures (client_timeout/client_error) as a share of all requests. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerServeLatency200Response, Integer, Hash)>] ReportingControllerServeLatency200Response data, response status code and response headers
     def reporting_controller_serve_latency_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_serve_latency ...'
@@ -2108,6 +2346,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2116,10 +2356,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerServeLatency200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_serve_latency",
@@ -2138,17 +2378,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Estimate energy and carbon footprint of ad delivery
+    # Counts valid impressions over the last `periodDays` days (default 30, min 1) and converts them to kWh and kg CO2e using configurable factors (SUSTAINABILITY_KWH_PER_1K, default 0.0009 kWh per 1000 impressions; SUSTAINABILITY_GRID_GCO2_PER_KWH, default 475). Admins get a network-wide figure; publishers their inventory; other accounts their campaigns.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
     # @param period_days [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerSustainability200Response]
     def reporting_controller_sustainability(period_days, opts = {})
-      reporting_controller_sustainability_with_http_info(period_days, opts)
-      nil
+      data, _status_code, _headers = reporting_controller_sustainability_with_http_info(period_days, opts)
+      data
     end
 
+    # Estimate energy and carbon footprint of ad delivery
+    # Counts valid impressions over the last &#x60;periodDays&#x60; days (default 30, min 1) and converts them to kWh and kg CO2e using configurable factors (SUSTAINABILITY_KWH_PER_1K, default 0.0009 kWh per 1000 impressions; SUSTAINABILITY_GRID_GCO2_PER_KWH, default 475). Admins get a network-wide figure; publishers their inventory; other accounts their campaigns.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
     # @param period_days [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerSustainability200Response, Integer, Hash)>] ReportingControllerSustainability200Response data, response status code and response headers
     def reporting_controller_sustainability_with_http_info(period_days, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_sustainability ...'
@@ -2166,6 +2410,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2174,10 +2420,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerSustainability200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_sustainability",
@@ -2196,15 +2442,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get time-to-click latency distribution
+    # Average and median milliseconds between render and click for valid clicks with a recorded time_to_click_ms, plus counts in fixed buckets (<1s, 1-3s, 3-10s, 10-30s, 30s+). Publishers see clicks on their inventory; other accounts on their campaigns. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerTimeToClick200Response]
     def reporting_controller_time_to_click(opts = {})
-      reporting_controller_time_to_click_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_time_to_click_with_http_info(opts)
+      data
     end
 
+    # Get time-to-click latency distribution
+    # Average and median milliseconds between render and click for valid clicks with a recorded time_to_click_ms, plus counts in fixed buckets (&lt;1s, 1-3s, 3-10s, 10-30s, 30s+). Publishers see clicks on their inventory; other accounts on their campaigns. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded (2020-01-01 .. 2099-01-01).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerTimeToClick200Response, Integer, Hash)>] ReportingControllerTimeToClick200Response data, response status code and response headers
     def reporting_controller_time_to_click_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_time_to_click ...'
@@ -2217,6 +2467,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2225,10 +2477,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerTimeToClick200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_time_to_click",
@@ -2247,15 +2499,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get video completion funnel and breakdown
+    # Overall video funnel (starts, quartiles, completes, skips, errors and rates) from adnet.video_events, plus the same metrics per placement (publisher accounts) or per campaign (other accounts), top 100 by starts. Only exact VAST quartile events count toward the funnel. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ReportingControllerVideo200Response]
     def reporting_controller_video(opts = {})
-      reporting_controller_video_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_video_with_http_info(opts)
+      data
     end
 
+    # Get video completion funnel and breakdown
+    # Overall video funnel (starts, quartiles, completes, skips, errors and rates) from adnet.video_events, plus the same metrics per placement (publisher accounts) or per campaign (other accounts), top 100 by starts. Only exact VAST quartile events count toward the funnel. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReportingControllerVideo200Response, Integer, Hash)>] ReportingControllerVideo200Response data, response status code and response headers
     def reporting_controller_video_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_video ...'
@@ -2268,6 +2524,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2276,10 +2534,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReportingControllerVideo200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_video",
@@ -2298,15 +2556,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get viewability by placement or campaign
+    # Measurable and viewable beacon counts, viewable rate, and average in-view percent and duration (of viewable events) from adnet.viewability. `groupBy=campaign` groups by campaign, anything else by placement. Advertisers see their own campaigns, publishers their own inventory, admins the whole network. Max 1000 rows ordered by measurable. Optional `from`/`to` query params bound the window (ClickHouse DateTime, e.g. `2026-01-01 00:00:00`, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ReportingControllerViewability200ResponseInner>]
     def reporting_controller_viewability(opts = {})
-      reporting_controller_viewability_with_http_info(opts)
-      nil
+      data, _status_code, _headers = reporting_controller_viewability_with_http_info(opts)
+      data
     end
 
+    # Get viewability by placement or campaign
+    # Measurable and viewable beacon counts, viewable rate, and average in-view percent and duration (of viewable events) from adnet.viewability. &#x60;groupBy&#x3D;campaign&#x60; groups by campaign, anything else by placement. Advertisers see their own campaigns, publishers their own inventory, admins the whole network. Max 1000 rows ordered by measurable. Optional &#x60;from&#x60;/&#x60;to&#x60; query params bound the window (ClickHouse DateTime, e.g. &#x60;2026-01-01 00:00:00&#x60;, inclusive); when omitted the window is unbounded.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ReportingControllerViewability200ResponseInner>, Integer, Hash)>] Array<ReportingControllerViewability200ResponseInner> data, response status code and response headers
     def reporting_controller_viewability_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReportingApi.reporting_controller_viewability ...'
@@ -2319,6 +2581,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -2327,10 +2591,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ReportingControllerViewability200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReportingApi.reporting_controller_viewability",

@@ -19,19 +19,23 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Get a bid recommendation
+    # Recommends a CPM bid for `format` (and optional `geo`) from the last 7 days of valid winning impressions in ClickHouse. `recommendedCpm` is the 60th percentile of clearing CPM, `floorObserved` the median and `competitiveCpm` the 90th percentile, as 4-decimal strings. If the query fails it returns zeros with `note: \"insufficient data\"`.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param format [String] 
     # @param geo [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SettingsControllerBidRec200Response]
     def settings_controller_bid_rec(format, geo, opts = {})
-      settings_controller_bid_rec_with_http_info(format, geo, opts)
-      nil
+      data, _status_code, _headers = settings_controller_bid_rec_with_http_info(format, geo, opts)
+      data
     end
 
+    # Get a bid recommendation
+    # Recommends a CPM bid for &#x60;format&#x60; (and optional &#x60;geo&#x60;) from the last 7 days of valid winning impressions in ClickHouse. &#x60;recommendedCpm&#x60; is the 60th percentile of clearing CPM, &#x60;floorObserved&#x60; the median and &#x60;competitiveCpm&#x60; the 90th percentile, as 4-decimal strings. If the query fails it returns zeros with &#x60;note: \&quot;insufficient data\&quot;&#x60;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param format [String] 
     # @param geo [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SettingsControllerBidRec200Response, Integer, Hash)>] SettingsControllerBidRec200Response data, response status code and response headers
     def settings_controller_bid_rec_with_http_info(format, geo, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SettingsApi.settings_controller_bid_rec ...'
@@ -54,6 +58,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -62,10 +68,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SettingsControllerBidRec200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SettingsApi.settings_controller_bid_rec",
@@ -84,19 +90,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Set campaign brand-safety controls
+    # Stores brand-safety settings (`categories`, `keywords`, `domains`, `sensitivity`, free-form `options`) as JSON on the campaign, replacing any previous value. Only campaigns owned by the caller are updated; a foreign or unknown id is silently ignored.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param brand_safety_dto [BrandSafetyDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdminControllerSetStatus201Response]
     def settings_controller_brand_safety(id, brand_safety_dto, opts = {})
-      settings_controller_brand_safety_with_http_info(id, brand_safety_dto, opts)
-      nil
+      data, _status_code, _headers = settings_controller_brand_safety_with_http_info(id, brand_safety_dto, opts)
+      data
     end
 
+    # Set campaign brand-safety controls
+    # Stores brand-safety settings (&#x60;categories&#x60;, &#x60;keywords&#x60;, &#x60;domains&#x60;, &#x60;sensitivity&#x60;, free-form &#x60;options&#x60;) as JSON on the campaign, replacing any previous value. Only campaigns owned by the caller are updated; a foreign or unknown id is silently ignored.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param brand_safety_dto [BrandSafetyDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdminControllerSetStatus201Response, Integer, Hash)>] AdminControllerSetStatus201Response data, response status code and response headers
     def settings_controller_brand_safety_with_http_info(id, brand_safety_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SettingsApi.settings_controller_brand_safety ...'
@@ -117,6 +127,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -130,10 +142,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(brand_safety_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdminControllerSetStatus201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SettingsApi.settings_controller_brand_safety",
@@ -152,17 +164,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create an API key
+    # Creates a scoped API key with `name`, optional `scopes` (default `[\"read\"]`) and optional `expiresInDays` (1-365; omitted = never expires). The full `key` (`ak_<prefix>.<secret>`) is returned exactly once; only its SHA-256 hash is stored. The key is projected to Redis immediately so the ad-engine accepts it without waiting for a resync.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
     # @param create_key_dto [CreateKeyDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ApiKeyCreated]
     def settings_controller_create_key(create_key_dto, opts = {})
-      settings_controller_create_key_with_http_info(create_key_dto, opts)
-      nil
+      data, _status_code, _headers = settings_controller_create_key_with_http_info(create_key_dto, opts)
+      data
     end
 
+    # Create an API key
+    # Creates a scoped API key with &#x60;name&#x60;, optional &#x60;scopes&#x60; (default &#x60;[\&quot;read\&quot;]&#x60;) and optional &#x60;expiresInDays&#x60; (1-365; omitted &#x3D; never expires). The full &#x60;key&#x60; (&#x60;ak_&lt;prefix&gt;.&lt;secret&gt;&#x60;) is returned exactly once; only its SHA-256 hash is stored. The key is projected to Redis immediately so the ad-engine accepts it without waiting for a resync.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
     # @param create_key_dto [CreateKeyDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ApiKeyCreated, Integer, Hash)>] ApiKeyCreated data, response status code and response headers
     def settings_controller_create_key_with_http_info(create_key_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SettingsApi.settings_controller_create_key ...'
@@ -179,6 +195,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -192,10 +210,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_key_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ApiKeyCreated'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SettingsApi.settings_controller_create_key",
@@ -214,17 +232,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create a terminal serve token
+    # Mints a public `ts_` token for shipping inside a terminal client, with optional `name`, `campaignId` (must be one of your `terminal`-format campaigns) and `switch` policy. A switch policy (`flipAfter` / `flipOnClick`) requires a pinned campaign, and `fallbackTag` must be one of your own placement tags, otherwise 400. The token is projected to Redis so the engine resolves it on the serve path.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param create_terminal_token_dto [CreateTerminalTokenDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SettingsControllerCreateTerminalToken201Response]
     def settings_controller_create_terminal_token(create_terminal_token_dto, opts = {})
-      settings_controller_create_terminal_token_with_http_info(create_terminal_token_dto, opts)
-      nil
+      data, _status_code, _headers = settings_controller_create_terminal_token_with_http_info(create_terminal_token_dto, opts)
+      data
     end
 
+    # Create a terminal serve token
+    # Mints a public &#x60;ts_&#x60; token for shipping inside a terminal client, with optional &#x60;name&#x60;, &#x60;campaignId&#x60; (must be one of your &#x60;terminal&#x60;-format campaigns) and &#x60;switch&#x60; policy. A switch policy (&#x60;flipAfter&#x60; / &#x60;flipOnClick&#x60;) requires a pinned campaign, and &#x60;fallbackTag&#x60; must be one of your own placement tags, otherwise 400. The token is projected to Redis so the engine resolves it on the serve path.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param create_terminal_token_dto [CreateTerminalTokenDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SettingsControllerCreateTerminalToken201Response, Integer, Hash)>] SettingsControllerCreateTerminalToken201Response data, response status code and response headers
     def settings_controller_create_terminal_token_with_http_info(create_terminal_token_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SettingsApi.settings_controller_create_terminal_token ...'
@@ -241,6 +263,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -254,10 +278,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_terminal_token_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SettingsControllerCreateTerminalToken201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SettingsApi.settings_controller_create_terminal_token",
@@ -276,15 +300,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List API keys
+    # Lists the account's live (non-revoked) API keys, newest first. Only the public `key_prefix` is returned; the secret is never shown again after creation. `expired` is true once `expires_at` has passed.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ApiKey>]
     def settings_controller_list_keys(opts = {})
-      settings_controller_list_keys_with_http_info(opts)
-      nil
+      data, _status_code, _headers = settings_controller_list_keys_with_http_info(opts)
+      data
     end
 
+    # List API keys
+    # Lists the account&#39;s live (non-revoked) API keys, newest first. Only the public &#x60;key_prefix&#x60; is returned; the secret is never shown again after creation. &#x60;expired&#x60; is true once &#x60;expires_at&#x60; has passed.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ApiKey>, Integer, Hash)>] Array<ApiKey> data, response status code and response headers
     def settings_controller_list_keys_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SettingsApi.settings_controller_list_keys ...'
@@ -297,6 +325,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -305,10 +335,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ApiKey>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SettingsApi.settings_controller_list_keys",
@@ -327,15 +357,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List terminal serve tokens
+    # Lists the account's live public terminal serve tokens (`ts_...`), newest first, including any adaptive switch policy columns. These tokens are serve-only and safe to embed in distributed CLIs, so the full value is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<SettingsControllerListTerminalTokens200ResponseInner>]
     def settings_controller_list_terminal_tokens(opts = {})
-      settings_controller_list_terminal_tokens_with_http_info(opts)
-      nil
+      data, _status_code, _headers = settings_controller_list_terminal_tokens_with_http_info(opts)
+      data
     end
 
+    # List terminal serve tokens
+    # Lists the account&#39;s live public terminal serve tokens (&#x60;ts_...&#x60;), newest first, including any adaptive switch policy columns. These tokens are serve-only and safe to embed in distributed CLIs, so the full value is returned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<SettingsControllerListTerminalTokens200ResponseInner>, Integer, Hash)>] Array<SettingsControllerListTerminalTokens200ResponseInner> data, response status code and response headers
     def settings_controller_list_terminal_tokens_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SettingsApi.settings_controller_list_terminal_tokens ...'
@@ -348,6 +382,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -356,10 +392,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<SettingsControllerListTerminalTokens200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SettingsApi.settings_controller_list_terminal_tokens",
@@ -378,17 +414,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Revoke an API key
+    # Marks the key revoked and removes it from the engine's Redis credential map, so it stops working everywhere. Revoking an unknown or foreign id is a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SettingsControllerRevokeKey200Response]
     def settings_controller_revoke_key(id, opts = {})
-      settings_controller_revoke_key_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = settings_controller_revoke_key_with_http_info(id, opts)
+      data
     end
 
+    # Revoke an API key
+    # Marks the key revoked and removes it from the engine&#39;s Redis credential map, so it stops working everywhere. Revoking an unknown or foreign id is a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SettingsControllerRevokeKey200Response, Integer, Hash)>] SettingsControllerRevokeKey200Response data, response status code and response headers
     def settings_controller_revoke_key_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SettingsApi.settings_controller_revoke_key ...'
@@ -405,6 +445,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -413,10 +455,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SettingsControllerRevokeKey200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SettingsApi.settings_controller_revoke_key",
@@ -435,17 +477,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Revoke a terminal serve token
+    # Marks the token revoked and deletes its Redis projection so the engine stops serving it. Unknown ids are a no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SegmentsControllerRevoke201Response]
     def settings_controller_revoke_terminal_token(id, opts = {})
-      settings_controller_revoke_terminal_token_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = settings_controller_revoke_terminal_token_with_http_info(id, opts)
+      data
     end
 
+    # Revoke a terminal serve token
+    # Marks the token revoked and deletes its Redis projection so the engine stops serving it. Unknown ids are a no-op.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SegmentsControllerRevoke201Response, Integer, Hash)>] SegmentsControllerRevoke201Response data, response status code and response headers
     def settings_controller_revoke_terminal_token_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SettingsApi.settings_controller_revoke_terminal_token ...'
@@ -462,6 +508,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -470,10 +518,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SegmentsControllerRevoke201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SettingsApi.settings_controller_revoke_terminal_token",
@@ -492,17 +540,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Rotate a terminal serve token
+    # Replaces the token value with a new `ts_` string, keeping its campaign and switch policy. The old value is removed from Redis and stops serving immediately. Returns 400 if the token is not found.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SettingsControllerRotateTerminalToken201Response]
     def settings_controller_rotate_terminal_token(id, opts = {})
-      settings_controller_rotate_terminal_token_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = settings_controller_rotate_terminal_token_with_http_info(id, opts)
+      data
     end
 
+    # Rotate a terminal serve token
+    # Replaces the token value with a new &#x60;ts_&#x60; string, keeping its campaign and switch policy. The old value is removed from Redis and stops serving immediately. Returns 400 if the token is not found.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SettingsControllerRotateTerminalToken201Response, Integer, Hash)>] SettingsControllerRotateTerminalToken201Response data, response status code and response headers
     def settings_controller_rotate_terminal_token_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SettingsApi.settings_controller_rotate_terminal_token ...'
@@ -519,6 +571,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -527,10 +581,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SettingsControllerRotateTerminalToken201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SettingsApi.settings_controller_rotate_terminal_token",
@@ -549,19 +603,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update a terminal token switch policy
+    # Arms, changes or disables (`flipAfter: 0`, `flipOnClick: false`) adaptive mode-switching on an existing token without changing its `ts_` value. Same validation as creation; 400 if the token is not found or the policy is invalid. The new policy is re-projected to Redis.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param id [String] 
     # @param terminal_switch_dto [TerminalSwitchDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SettingsControllerSetTerminalTokenPolicy200Response]
     def settings_controller_set_terminal_token_policy(id, terminal_switch_dto, opts = {})
-      settings_controller_set_terminal_token_policy_with_http_info(id, terminal_switch_dto, opts)
-      nil
+      data, _status_code, _headers = settings_controller_set_terminal_token_policy_with_http_info(id, terminal_switch_dto, opts)
+      data
     end
 
+    # Update a terminal token switch policy
+    # Arms, changes or disables (&#x60;flipAfter: 0&#x60;, &#x60;flipOnClick: false&#x60;) adaptive mode-switching on an existing token without changing its &#x60;ts_&#x60; value. Same validation as creation; 400 if the token is not found or the policy is invalid. The new policy is re-projected to Redis.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param id [String] 
     # @param terminal_switch_dto [TerminalSwitchDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SettingsControllerSetTerminalTokenPolicy200Response, Integer, Hash)>] SettingsControllerSetTerminalTokenPolicy200Response data, response status code and response headers
     def settings_controller_set_terminal_token_policy_with_http_info(id, terminal_switch_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SettingsApi.settings_controller_set_terminal_token_policy ...'
@@ -582,6 +640,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -595,10 +655,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(terminal_switch_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SettingsControllerSetTerminalTokenPolicy200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SettingsApi.settings_controller_set_terminal_token_policy",
@@ -617,17 +677,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update network membership and cross-fill
+    # Sets the account's tenant `networkId` (null or empty = the general open pool) and/or `crossFill` opt-in to transact with other networks. Only provided fields change. Because these flags are projected onto every campaign and placement in the serving index, the indexer republishes after a change.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param network_settings_dto [NetworkSettingsDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SettingsControllerUpdateNetwork200Response]
     def settings_controller_update_network(network_settings_dto, opts = {})
-      settings_controller_update_network_with_http_info(network_settings_dto, opts)
-      nil
+      data, _status_code, _headers = settings_controller_update_network_with_http_info(network_settings_dto, opts)
+      data
     end
 
+    # Update network membership and cross-fill
+    # Sets the account&#39;s tenant &#x60;networkId&#x60; (null or empty &#x3D; the general open pool) and/or &#x60;crossFill&#x60; opt-in to transact with other networks. Only provided fields change. Because these flags are projected onto every campaign and placement in the serving index, the indexer republishes after a change.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param network_settings_dto [NetworkSettingsDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SettingsControllerUpdateNetwork200Response, Integer, Hash)>] SettingsControllerUpdateNetwork200Response data, response status code and response headers
     def settings_controller_update_network_with_http_info(network_settings_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SettingsApi.settings_controller_update_network ...'
@@ -644,6 +708,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -657,10 +723,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(network_settings_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SettingsControllerUpdateNetwork200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SettingsApi.settings_controller_update_network",

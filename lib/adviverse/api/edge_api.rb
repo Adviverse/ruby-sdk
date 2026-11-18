@@ -19,17 +19,21 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Check whether the edge may issue TLS for a domain
+    # Public, unauthenticated endpoint called by the TLS edge's on-demand certificate check, not by users. Returns 200 with body `ok` only if `?domain=` is a verified publisher serving domain on a live property; otherwise 403.  Auth: public, no credentials required.
     # @param domain [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [String]
     def edge_controller_domain_allowed(domain, opts = {})
-      edge_controller_domain_allowed_with_http_info(domain, opts)
-      nil
+      data, _status_code, _headers = edge_controller_domain_allowed_with_http_info(domain, opts)
+      data
     end
 
+    # Check whether the edge may issue TLS for a domain
+    # Public, unauthenticated endpoint called by the TLS edge&#39;s on-demand certificate check, not by users. Returns 200 with body &#x60;ok&#x60; only if &#x60;?domain&#x3D;&#x60; is a verified publisher serving domain on a live property; otherwise 403.  Auth: public, no credentials required.
     # @param domain [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
     def edge_controller_domain_allowed_with_http_info(domain, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: EdgeApi.edge_controller_domain_allowed ...'
@@ -47,6 +51,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/html']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -55,7 +61,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'String'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []

@@ -19,21 +19,25 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Receive Didit verification webhooks
+    # Public callback for Didit, authenticated by HMAC signature (`x-signature-simple`, `x-signature-v2` or `x-signature` over the raw body) plus a `created_at` within 5 minutes. Updates the KYC session and maps the decision onto the account's KYC status, never downgrading a verified account. Returns 401 on a bad or stale signature, otherwise 200 so Didit does not retry.  Auth: public, no credentials required.
     # @param x_signature_simple [String] 
     # @param x_signature_v2 [String] 
     # @param x_signature [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AccountControllerDiditWebhook201Response]
     def account_controller_didit_webhook(x_signature_simple, x_signature_v2, x_signature, opts = {})
-      account_controller_didit_webhook_with_http_info(x_signature_simple, x_signature_v2, x_signature, opts)
-      nil
+      data, _status_code, _headers = account_controller_didit_webhook_with_http_info(x_signature_simple, x_signature_v2, x_signature, opts)
+      data
     end
 
+    # Receive Didit verification webhooks
+    # Public callback for Didit, authenticated by HMAC signature (&#x60;x-signature-simple&#x60;, &#x60;x-signature-v2&#x60; or &#x60;x-signature&#x60; over the raw body) plus a &#x60;created_at&#x60; within 5 minutes. Updates the KYC session and maps the decision onto the account&#39;s KYC status, never downgrading a verified account. Returns 401 on a bad or stale signature, otherwise 200 so Didit does not retry.  Auth: public, no credentials required.
     # @param x_signature_simple [String] 
     # @param x_signature_v2 [String] 
     # @param x_signature [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AccountControllerDiditWebhook201Response, Integer, Hash)>] AccountControllerDiditWebhook201Response data, response status code and response headers
     def account_controller_didit_webhook_with_http_info(x_signature_simple, x_signature_v2, x_signature, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AccountApi.account_controller_didit_webhook ...'
@@ -58,6 +62,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       header_params[:'x-signature-simple'] = x_signature_simple
       header_params[:'x-signature-v2'] = x_signature_v2
       header_params[:'x-signature'] = x_signature
@@ -69,7 +75,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AccountControllerDiditWebhook201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -91,15 +97,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get KYC verification status
+    # Returns the account's identity verification status (`none`, `submitted`, `verified` or `rejected`) and `instantProvider`, which is `didit` when hosted verification is configured and null otherwise. There is no manual document upload path.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AccountControllerKycStatus200Response]
     def account_controller_kyc_status(opts = {})
-      account_controller_kyc_status_with_http_info(opts)
-      nil
+      data, _status_code, _headers = account_controller_kyc_status_with_http_info(opts)
+      data
     end
 
+    # Get KYC verification status
+    # Returns the account&#39;s identity verification status (&#x60;none&#x60;, &#x60;submitted&#x60;, &#x60;verified&#x60; or &#x60;rejected&#x60;) and &#x60;instantProvider&#x60;, which is &#x60;didit&#x60; when hosted verification is configured and null otherwise. There is no manual document upload path.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AccountControllerKycStatus200Response, Integer, Hash)>] AccountControllerKycStatus200Response data, response status code and response headers
     def account_controller_kyc_status_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AccountApi.account_controller_kyc_status ...'
@@ -112,6 +122,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -120,10 +132,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AccountControllerKycStatus200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AccountApi.account_controller_kyc_status",
@@ -142,15 +154,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Start a hosted KYC session
+    # Creates a Didit verification session and returns the URL to send the user to. Documents are captured and reviewed by Didit; Adviverse never receives them. Records the session and sets the account to `submitted` unless already verified. Returns 400 if the provider is not configured or the session could not be created.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AccountControllerStartDidit201Response]
     def account_controller_start_didit(opts = {})
-      account_controller_start_didit_with_http_info(opts)
-      nil
+      data, _status_code, _headers = account_controller_start_didit_with_http_info(opts)
+      data
     end
 
+    # Start a hosted KYC session
+    # Creates a Didit verification session and returns the URL to send the user to. Documents are captured and reviewed by Didit; Adviverse never receives them. Records the session and sets the account to &#x60;submitted&#x60; unless already verified. Returns 400 if the provider is not configured or the session could not be created.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AccountControllerStartDidit201Response, Integer, Hash)>] AccountControllerStartDidit201Response data, response status code and response headers
     def account_controller_start_didit_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AccountApi.account_controller_start_didit ...'
@@ -163,6 +179,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -171,10 +189,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AccountControllerStartDidit201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AccountApi.account_controller_start_didit",
@@ -193,17 +211,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Save onboarding profile answers
+    # Stores the onboarding wizard answers. `company` and `country` (2 letters) update the account columns; `currency` updates the account currency when it is a 2-12 character code; `goal` (advertiser|publisher|both, default both) sets the default landing side. `name`, `timezone`, `marketingOptIn` and an onboarding-completed flag are merged into account metadata. Idempotent.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
     # @param profile_dto [ProfileDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [OnboardingControllerSaveProfile201Response]
     def onboarding_controller_save_profile(profile_dto, opts = {})
-      onboarding_controller_save_profile_with_http_info(profile_dto, opts)
-      nil
+      data, _status_code, _headers = onboarding_controller_save_profile_with_http_info(profile_dto, opts)
+      data
     end
 
+    # Save onboarding profile answers
+    # Stores the onboarding wizard answers. &#x60;company&#x60; and &#x60;country&#x60; (2 letters) update the account columns; &#x60;currency&#x60; updates the account currency when it is a 2-12 character code; &#x60;goal&#x60; (advertiser|publisher|both, default both) sets the default landing side. &#x60;name&#x60;, &#x60;timezone&#x60;, &#x60;marketingOptIn&#x60; and an onboarding-completed flag are merged into account metadata. Idempotent.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param profile_dto [ProfileDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(OnboardingControllerSaveProfile201Response, Integer, Hash)>] OnboardingControllerSaveProfile201Response data, response status code and response headers
     def onboarding_controller_save_profile_with_http_info(profile_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AccountApi.onboarding_controller_save_profile ...'
@@ -220,6 +242,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -233,10 +257,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(profile_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'OnboardingControllerSaveProfile201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AccountApi.onboarding_controller_save_profile",
@@ -255,15 +279,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get onboarding checklist progress
+    # Returns onboarding checklist booleans for both sides, derived from real account state in one query: properties, verified properties, placements and tax form for the publisher side; a completed deposit, campaigns, creatives and an active campaign for the advertiser side.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [OnboardingControllerStatus200Response]
     def onboarding_controller_status(opts = {})
-      onboarding_controller_status_with_http_info(opts)
-      nil
+      data, _status_code, _headers = onboarding_controller_status_with_http_info(opts)
+      data
     end
 
+    # Get onboarding checklist progress
+    # Returns onboarding checklist booleans for both sides, derived from real account state in one query: properties, verified properties, placements and tax form for the publisher side; a completed deposit, campaigns, creatives and an active campaign for the advertiser side.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(OnboardingControllerStatus200Response, Integer, Hash)>] OnboardingControllerStatus200Response data, response status code and response headers
     def onboarding_controller_status_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AccountApi.onboarding_controller_status ...'
@@ -276,6 +304,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -284,10 +314,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'OnboardingControllerStatus200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AccountApi.onboarding_controller_status",

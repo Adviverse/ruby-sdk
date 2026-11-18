@@ -19,15 +19,19 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Get the caller's available and held balance
+    # Returns the materialized balance row for the caller's account: available funds, funds held (pending payouts and unmatured earnings) and the account currency. Returns zeros in USD when no ledger activity exists.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [FinBalance]
     def finance_controller_balance(opts = {})
-      finance_controller_balance_with_http_info(opts)
-      nil
+      data, _status_code, _headers = finance_controller_balance_with_http_info(opts)
+      data
     end
 
+    # Get the caller&#39;s available and held balance
+    # Returns the materialized balance row for the caller&#39;s account: available funds, funds held (pending payouts and unmatured earnings) and the account currency. Returns zeros in USD when no ledger activity exists.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(FinBalance, Integer, Hash)>] FinBalance data, response status code and response headers
     def finance_controller_balance_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FinanceApi.finance_controller_balance ...'
@@ -40,6 +44,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -48,10 +54,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'FinBalance'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"FinanceApi.finance_controller_balance",
@@ -70,17 +76,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Receive OxaPay crypto webhooks
+    # Called by OxaPay. Verifies the `hmac` header (HMAC-SHA512 of the raw body). Payment callbacks (merchant key) credit the deposit when status is 'Paid'; payout callbacks (payout key) settle the held funds as paid on 'Confirmed' or return them on 'Failed'/'Rejected'. Always answers 200 with the plain body 'ok' once verified so OxaPay stops retrying.  Auth: public, no credentials required.
     # @param hmac [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [String]
     def finance_controller_crypto_webhook(hmac, opts = {})
-      finance_controller_crypto_webhook_with_http_info(hmac, opts)
-      nil
+      data, _status_code, _headers = finance_controller_crypto_webhook_with_http_info(hmac, opts)
+      data
     end
 
+    # Receive OxaPay crypto webhooks
+    # Called by OxaPay. Verifies the &#x60;hmac&#x60; header (HMAC-SHA512 of the raw body). Payment callbacks (merchant key) credit the deposit when status is &#39;Paid&#39;; payout callbacks (payout key) settle the held funds as paid on &#39;Confirmed&#39; or return them on &#39;Failed&#39;/&#39;Rejected&#39;. Always answers 200 with the plain body &#39;ok&#39; once verified so OxaPay stops retrying.  Auth: public, no credentials required.
     # @param hmac [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
     def finance_controller_crypto_webhook_with_http_info(hmac, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FinanceApi.finance_controller_crypto_webhook ...'
@@ -97,6 +107,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/plain']) unless header_params['Accept']
       header_params[:'hmac'] = hmac
 
       # form parameters
@@ -106,7 +118,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'String'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -128,15 +140,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List registered currencies and token rates
+    # Returns every row of currency_rates (fiat codes and tenant-registered tokens) with its USD rate in micro-USD, optional live price feed and last update, ordered by most recently updated.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<FinCurrencyRate>]
     def finance_controller_currencies(opts = {})
-      finance_controller_currencies_with_http_info(opts)
-      nil
+      data, _status_code, _headers = finance_controller_currencies_with_http_info(opts)
+      data
     end
 
+    # List registered currencies and token rates
+    # Returns every row of currency_rates (fiat codes and tenant-registered tokens) with its USD rate in micro-USD, optional live price feed and last update, ordered by most recently updated.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<FinCurrencyRate>, Integer, Hash)>] Array<FinCurrencyRate> data, response status code and response headers
     def finance_controller_currencies_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FinanceApi.finance_controller_currencies ...'
@@ -149,6 +165,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -157,10 +175,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<FinCurrencyRate>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"FinanceApi.finance_controller_currencies",
@@ -179,17 +197,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Start a deposit
+    # Creates a pending deposit for `amount` (0.01..1,000,000, 2 dp) through `provider`: stripe (default) / card, paypal, crypto, wire, paxum, or mock (refused in production). The deposit is denominated in the account's currency; tokens not at USD par are charged to the provider in USD. Hosted-checkout providers return a redirectUrl and are credited later by webhook; wire/paxum return transfer instructions and are credited when ops confirm receipt; mock completes immediately. An unconfigured provider is refused.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param deposit_dto [DepositDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [FinDepositResult]
     def finance_controller_deposit(deposit_dto, opts = {})
-      finance_controller_deposit_with_http_info(deposit_dto, opts)
-      nil
+      data, _status_code, _headers = finance_controller_deposit_with_http_info(deposit_dto, opts)
+      data
     end
 
+    # Start a deposit
+    # Creates a pending deposit for &#x60;amount&#x60; (0.01..1,000,000, 2 dp) through &#x60;provider&#x60;: stripe (default) / card, paypal, crypto, wire, paxum, or mock (refused in production). The deposit is denominated in the account&#39;s currency; tokens not at USD par are charged to the provider in USD. Hosted-checkout providers return a redirectUrl and are credited later by webhook; wire/paxum return transfer instructions and are credited when ops confirm receipt; mock completes immediately. An unconfigured provider is refused.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param deposit_dto [DepositDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(FinDepositResult, Integer, Hash)>] FinDepositResult data, response status code and response headers
     def finance_controller_deposit_with_http_info(deposit_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FinanceApi.finance_controller_deposit ...'
@@ -206,6 +228,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -219,10 +243,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(deposit_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'FinDepositResult'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"FinanceApi.finance_controller_deposit",
@@ -241,15 +265,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List the caller's deposits
+    # Returns the caller's 100 most recent deposits (all statuses), newest first.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<FinDeposit>]
     def finance_controller_deposits(opts = {})
-      finance_controller_deposits_with_http_info(opts)
-      nil
+      data, _status_code, _headers = finance_controller_deposits_with_http_info(opts)
+      data
     end
 
+    # List the caller&#39;s deposits
+    # Returns the caller&#39;s 100 most recent deposits (all statuses), newest first.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<FinDeposit>, Integer, Hash)>] Array<FinDeposit> data, response status code and response headers
     def finance_controller_deposits_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FinanceApi.finance_controller_deposits ...'
@@ -262,6 +290,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -270,10 +300,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<FinDeposit>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"FinanceApi.finance_controller_deposits",
@@ -292,15 +322,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List the caller's ledger entries
+    # Returns the caller's 100 most recent ledger entries, newest first. Every money movement is one immutable, signed entry with a running balance_after and a unique idempotency key.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<FinLedgerEntry>]
     def finance_controller_history(opts = {})
-      finance_controller_history_with_http_info(opts)
-      nil
+      data, _status_code, _headers = finance_controller_history_with_http_info(opts)
+      data
     end
 
+    # List the caller&#39;s ledger entries
+    # Returns the caller&#39;s 100 most recent ledger entries, newest first. Every money movement is one immutable, signed entry with a running balance_after and a unique idempotency key.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<FinLedgerEntry>, Integer, Hash)>] Array<FinLedgerEntry> data, response status code and response headers
     def finance_controller_history_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FinanceApi.finance_controller_history ...'
@@ -313,6 +347,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -321,10 +357,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<FinLedgerEntry>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"FinanceApi.finance_controller_history",
@@ -343,15 +379,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List configured deposit and payout rails
+    # Returns the payment rails usable in this environment, derived from configured provider credentials. Deposit rails can include card, crypto, paypal, wire, paxum (and mock outside production); payout rails crypto, paxum and wire (wire payout is always offered as a manual bank transfer).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [FinanceControllerMethods200Response]
     def finance_controller_methods(opts = {})
-      finance_controller_methods_with_http_info(opts)
-      nil
+      data, _status_code, _headers = finance_controller_methods_with_http_info(opts)
+      data
     end
 
+    # List configured deposit and payout rails
+    # Returns the payment rails usable in this environment, derived from configured provider credentials. Deposit rails can include card, crypto, paypal, wire, paxum (and mock outside production); payout rails crypto, paxum and wire (wire payout is always offered as a manual bank transfer).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(FinanceControllerMethods200Response, Integer, Hash)>] FinanceControllerMethods200Response data, response status code and response headers
     def finance_controller_methods_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FinanceApi.finance_controller_methods ...'
@@ -364,6 +404,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -372,10 +414,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'FinanceControllerMethods200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"FinanceApi.finance_controller_methods",
@@ -394,17 +436,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Request a payout
+    # Requests a withdrawal of `amount` via `method` (crypto, paxum or wire) to `destination` (method-specific object). Enforces the minimum payout and, when configured, a tax form on file. Inside one transaction the balance row is locked, available funds are re-checked (400 'insufficient available balance'), and the amount is moved from available to held. Dispatch to the provider happens later; the payout starts in status 'requested'.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param payout_dto [PayoutDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [FinanceControllerPayout201Response]
     def finance_controller_payout(payout_dto, opts = {})
-      finance_controller_payout_with_http_info(payout_dto, opts)
-      nil
+      data, _status_code, _headers = finance_controller_payout_with_http_info(payout_dto, opts)
+      data
     end
 
+    # Request a payout
+    # Requests a withdrawal of &#x60;amount&#x60; via &#x60;method&#x60; (crypto, paxum or wire) to &#x60;destination&#x60; (method-specific object). Enforces the minimum payout and, when configured, a tax form on file. Inside one transaction the balance row is locked, available funds are re-checked (400 &#39;insufficient available balance&#39;), and the amount is moved from available to held. Dispatch to the provider happens later; the payout starts in status &#39;requested&#39;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param payout_dto [PayoutDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(FinanceControllerPayout201Response, Integer, Hash)>] FinanceControllerPayout201Response data, response status code and response headers
     def finance_controller_payout_with_http_info(payout_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FinanceApi.finance_controller_payout ...'
@@ -421,6 +467,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -434,10 +482,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(payout_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'FinanceControllerPayout201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"FinanceApi.finance_controller_payout",
@@ -456,15 +504,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List the caller's payouts
+    # Returns the publisher's 100 most recent payout requests, newest first, with status, method, destination and provider reference.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<FinPayout>]
     def finance_controller_payouts(opts = {})
-      finance_controller_payouts_with_http_info(opts)
-      nil
+      data, _status_code, _headers = finance_controller_payouts_with_http_info(opts)
+      data
     end
 
+    # List the caller&#39;s payouts
+    # Returns the publisher&#39;s 100 most recent payout requests, newest first, with status, method, destination and provider reference.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<FinPayout>, Integer, Hash)>] Array<FinPayout> data, response status code and response headers
     def finance_controller_payouts_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FinanceApi.finance_controller_payouts ...'
@@ -477,6 +529,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -485,10 +539,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<FinPayout>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"FinanceApi.finance_controller_payouts",
@@ -507,25 +561,29 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Receive PayPal order webhooks
+    # Called by PayPal. Verifies the PayPal-Transmission-* headers via PayPal's verify-webhook-signature API before any crediting (400 if unverifiable or PayPal is not configured). CHECKOUT.ORDER.APPROVED captures the order and credits the matching deposit; PAYMENT.CAPTURE.COMPLETED credits directly. Crediting is idempotent; other events are ignored.  Auth: public, no credentials required.
     # @param paypal_transmission_id [String] 
     # @param paypal_transmission_time [String] 
     # @param paypal_cert_url [String] 
     # @param paypal_auth_algo [String] 
     # @param paypal_transmission_sig [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [FinanceControllerPaypalWebhook201Response]
     def finance_controller_paypal_webhook(paypal_transmission_id, paypal_transmission_time, paypal_cert_url, paypal_auth_algo, paypal_transmission_sig, opts = {})
-      finance_controller_paypal_webhook_with_http_info(paypal_transmission_id, paypal_transmission_time, paypal_cert_url, paypal_auth_algo, paypal_transmission_sig, opts)
-      nil
+      data, _status_code, _headers = finance_controller_paypal_webhook_with_http_info(paypal_transmission_id, paypal_transmission_time, paypal_cert_url, paypal_auth_algo, paypal_transmission_sig, opts)
+      data
     end
 
+    # Receive PayPal order webhooks
+    # Called by PayPal. Verifies the PayPal-Transmission-* headers via PayPal&#39;s verify-webhook-signature API before any crediting (400 if unverifiable or PayPal is not configured). CHECKOUT.ORDER.APPROVED captures the order and credits the matching deposit; PAYMENT.CAPTURE.COMPLETED credits directly. Crediting is idempotent; other events are ignored.  Auth: public, no credentials required.
     # @param paypal_transmission_id [String] 
     # @param paypal_transmission_time [String] 
     # @param paypal_cert_url [String] 
     # @param paypal_auth_algo [String] 
     # @param paypal_transmission_sig [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(FinanceControllerPaypalWebhook201Response, Integer, Hash)>] FinanceControllerPaypalWebhook201Response data, response status code and response headers
     def finance_controller_paypal_webhook_with_http_info(paypal_transmission_id, paypal_transmission_time, paypal_cert_url, paypal_auth_algo, paypal_transmission_sig, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FinanceApi.finance_controller_paypal_webhook ...'
@@ -558,6 +616,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       header_params[:'paypal-transmission-id'] = paypal_transmission_id
       header_params[:'paypal-transmission-time'] = paypal_transmission_time
       header_params[:'paypal-cert-url'] = paypal_cert_url
@@ -571,7 +631,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'FinanceControllerPaypalWebhook201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -593,17 +653,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Receive Stripe payment webhooks
+    # Called by Stripe, not by API clients. Verifies the `stripe-signature` header against the raw body (400 on failure or if Stripe is not configured). On checkout.session.completed (paid) or payment_intent.succeeded it resolves the deposit from metadata or provider_ref and credits it to the ledger idempotently; other event types are acknowledged and ignored.  Auth: public, no credentials required.
     # @param stripe_signature [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [FinanceControllerStripeWebhook201Response]
     def finance_controller_stripe_webhook(stripe_signature, opts = {})
-      finance_controller_stripe_webhook_with_http_info(stripe_signature, opts)
-      nil
+      data, _status_code, _headers = finance_controller_stripe_webhook_with_http_info(stripe_signature, opts)
+      data
     end
 
+    # Receive Stripe payment webhooks
+    # Called by Stripe, not by API clients. Verifies the &#x60;stripe-signature&#x60; header against the raw body (400 on failure or if Stripe is not configured). On checkout.session.completed (paid) or payment_intent.succeeded it resolves the deposit from metadata or provider_ref and credits it to the ledger idempotently; other event types are acknowledged and ignored.  Auth: public, no credentials required.
     # @param stripe_signature [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(FinanceControllerStripeWebhook201Response, Integer, Hash)>] FinanceControllerStripeWebhook201Response data, response status code and response headers
     def finance_controller_stripe_webhook_with_http_info(stripe_signature, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FinanceApi.finance_controller_stripe_webhook ...'
@@ -620,6 +684,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       header_params[:'stripe-signature'] = stripe_signature
 
       # form parameters
@@ -629,7 +695,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'FinanceControllerStripeWebhook201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -651,17 +717,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Submit or replace the tax form
+    # Upserts the publisher's tax form. Body: `formType` (w9|w8ben), `legalName`, optional `taxClassification`, `taxId` (SSN/EIN/TIN, encrypted at rest; only the last 4 digits are kept in clear), `address`, 2-letter `country` and `certified` (must be true). Status resets to 'submitted'. Returns the masked view.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param tax_form_dto [TaxFormDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [FinTaxForm]
     def finance_controller_submit_tax_form(tax_form_dto, opts = {})
-      finance_controller_submit_tax_form_with_http_info(tax_form_dto, opts)
-      nil
+      data, _status_code, _headers = finance_controller_submit_tax_form_with_http_info(tax_form_dto, opts)
+      data
     end
 
+    # Submit or replace the tax form
+    # Upserts the publisher&#39;s tax form. Body: &#x60;formType&#x60; (w9|w8ben), &#x60;legalName&#x60;, optional &#x60;taxClassification&#x60;, &#x60;taxId&#x60; (SSN/EIN/TIN, encrypted at rest; only the last 4 digits are kept in clear), &#x60;address&#x60;, 2-letter &#x60;country&#x60; and &#x60;certified&#x60; (must be true). Status resets to &#39;submitted&#39;. Returns the masked view.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param tax_form_dto [TaxFormDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(FinTaxForm, Integer, Hash)>] FinTaxForm data, response status code and response headers
     def finance_controller_submit_tax_form_with_http_info(tax_form_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FinanceApi.finance_controller_submit_tax_form ...'
@@ -678,6 +748,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -691,10 +763,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(tax_form_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'FinTaxForm'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"FinanceApi.finance_controller_submit_tax_form",
@@ -713,15 +785,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get the caller's tax form (masked)
+    # Returns the publisher's W-9 / W-8BEN on file with the tax id masked to its last 4 digits, or `{ onFile: false }` if none has been submitted.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [FinTaxForm]
     def finance_controller_tax_form(opts = {})
-      finance_controller_tax_form_with_http_info(opts)
-      nil
+      data, _status_code, _headers = finance_controller_tax_form_with_http_info(opts)
+      data
     end
 
+    # Get the caller&#39;s tax form (masked)
+    # Returns the publisher&#39;s W-9 / W-8BEN on file with the tax id masked to its last 4 digits, or &#x60;{ onFile: false }&#x60; if none has been submitted.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(FinTaxForm, Integer, Hash)>] FinTaxForm data, response status code and response headers
     def finance_controller_tax_form_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FinanceApi.finance_controller_tax_form ...'
@@ -734,6 +810,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -742,10 +820,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'FinTaxForm'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"FinanceApi.finance_controller_tax_form",
@@ -764,17 +842,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Register or update the caller's token rate
+    # Creates or updates a currency code (2-12 uppercase alphanumerics) owned by the caller. Body: `code`, `name`, and either `usdMicro` (micro-USD per unit) or `rateUrl` (a price API polled to keep the rate current, SSRF-guarded) with optional `rateJsonPath` (dot-path to the price). When rateUrl is given it is fetched once to seed the rate. Fails with 400 if the code belongs to another account or no positive rate can be determined.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param currency_dto [CurrencyDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [FinCurrencyRate]
     def finance_controller_upsert_currency(currency_dto, opts = {})
-      finance_controller_upsert_currency_with_http_info(currency_dto, opts)
-      nil
+      data, _status_code, _headers = finance_controller_upsert_currency_with_http_info(currency_dto, opts)
+      data
     end
 
+    # Register or update the caller&#39;s token rate
+    # Creates or updates a currency code (2-12 uppercase alphanumerics) owned by the caller. Body: &#x60;code&#x60;, &#x60;name&#x60;, and either &#x60;usdMicro&#x60; (micro-USD per unit) or &#x60;rateUrl&#x60; (a price API polled to keep the rate current, SSRF-guarded) with optional &#x60;rateJsonPath&#x60; (dot-path to the price). When rateUrl is given it is fetched once to seed the rate. Fails with 400 if the code belongs to another account or no positive rate can be determined.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param currency_dto [CurrencyDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(FinCurrencyRate, Integer, Hash)>] FinCurrencyRate data, response status code and response headers
     def finance_controller_upsert_currency_with_http_info(currency_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FinanceApi.finance_controller_upsert_currency ...'
@@ -791,6 +873,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -804,10 +888,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(currency_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'FinCurrencyRate'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"FinanceApi.finance_controller_upsert_currency",

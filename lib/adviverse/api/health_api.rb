@@ -19,15 +19,19 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Control-plane health check
+    # Liveness check that also runs `SELECT 1` against Postgres. Returns `status: \"ok\"` when the database answers, otherwise `degraded` with `db: false` (still HTTP 200). No authentication.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [HealthControllerHealth200Response]
     def health_controller_health(opts = {})
-      health_controller_health_with_http_info(opts)
-      nil
+      data, _status_code, _headers = health_controller_health_with_http_info(opts)
+      data
     end
 
+    # Control-plane health check
+    # Liveness check that also runs &#x60;SELECT 1&#x60; against Postgres. Returns &#x60;status: \&quot;ok\&quot;&#x60; when the database answers, otherwise &#x60;degraded&#x60; with &#x60;db: false&#x60; (still HTTP 200). No authentication.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(HealthControllerHealth200Response, Integer, Hash)>] HealthControllerHealth200Response data, response status code and response headers
     def health_controller_health_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: HealthApi.health_controller_health ...'
@@ -40,6 +44,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -48,7 +54,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'HealthControllerHealth200Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -70,15 +76,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Prometheus metrics
+    # Prometheus text exposition of control-plane process metrics (prefixed `control_plane_`). When the server has a metrics token configured it must be sent as a Bearer token or `?token=`, otherwise 403; without one the endpoint is open.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [String]
     def health_controller_metrics(opts = {})
-      health_controller_metrics_with_http_info(opts)
-      nil
+      data, _status_code, _headers = health_controller_metrics_with_http_info(opts)
+      data
     end
 
+    # Prometheus metrics
+    # Prometheus text exposition of control-plane process metrics (prefixed &#x60;control_plane_&#x60;). When the server has a metrics token configured it must be sent as a Bearer token or &#x60;?token&#x3D;&#x60;, otherwise 403; without one the endpoint is open.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
     def health_controller_metrics_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: HealthApi.health_controller_metrics ...'
@@ -91,6 +101,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/plain']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -99,7 +111,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'String'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []

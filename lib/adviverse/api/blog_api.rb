@@ -19,17 +19,21 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # List all blog posts
+    # Returns every post, including unpublished ones, optionally filtered by `locale`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param locale [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<BlogPost>]
     def blog_controller_admin_list(locale, opts = {})
-      blog_controller_admin_list_with_http_info(locale, opts)
-      nil
+      data, _status_code, _headers = blog_controller_admin_list_with_http_info(locale, opts)
+      data
     end
 
+    # List all blog posts
+    # Returns every post, including unpublished ones, optionally filtered by &#x60;locale&#x60;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param locale [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<BlogPost>, Integer, Hash)>] Array<BlogPost> data, response status code and response headers
     def blog_controller_admin_list_with_http_info(locale, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BlogApi.blog_controller_admin_list ...'
@@ -47,6 +51,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -55,10 +61,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<BlogPost>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"BlogApi.blog_controller_admin_list",
@@ -77,17 +83,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create or replace a blog post
+    # Creates a post from `slug` and `title` with optional `locale` (`en`), `tag` (`News`), `author` (`Adviverse Team`), `excerpt`, Markdown `body`, `cover_image`, `published_at` (now), `position` and `published` (true). An existing post with the same slug and locale is overwritten (upsert). Clears the public cache. Posts without a cover get a generated SVG cover at the next service start.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param create_post_dto [CreatePostDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [BlogPost]
     def blog_controller_create(create_post_dto, opts = {})
-      blog_controller_create_with_http_info(create_post_dto, opts)
-      nil
+      data, _status_code, _headers = blog_controller_create_with_http_info(create_post_dto, opts)
+      data
     end
 
+    # Create or replace a blog post
+    # Creates a post from &#x60;slug&#x60; and &#x60;title&#x60; with optional &#x60;locale&#x60; (&#x60;en&#x60;), &#x60;tag&#x60; (&#x60;News&#x60;), &#x60;author&#x60; (&#x60;Adviverse Team&#x60;), &#x60;excerpt&#x60;, Markdown &#x60;body&#x60;, &#x60;cover_image&#x60;, &#x60;published_at&#x60; (now), &#x60;position&#x60; and &#x60;published&#x60; (true). An existing post with the same slug and locale is overwritten (upsert). Clears the public cache. Posts without a cover get a generated SVG cover at the next service start.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param create_post_dto [CreatePostDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(BlogPost, Integer, Hash)>] BlogPost data, response status code and response headers
     def blog_controller_create_with_http_info(create_post_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BlogApi.blog_controller_create ...'
@@ -104,6 +114,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -117,10 +129,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_post_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'BlogPost'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"BlogApi.blog_controller_create",
@@ -139,19 +151,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get a published blog post
+    # Public. Returns a published post by `slug` and `locale` (default `en`). An unknown or unpublished slug returns HTTP 200 with `{ error: \"not_found\" }`, not 404.  Auth: public, no credentials required.
     # @param slug [String] 
     # @param locale [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [BlogControllerGet200Response]
     def blog_controller_get(slug, locale, opts = {})
-      blog_controller_get_with_http_info(slug, locale, opts)
-      nil
+      data, _status_code, _headers = blog_controller_get_with_http_info(slug, locale, opts)
+      data
     end
 
+    # Get a published blog post
+    # Public. Returns a published post by &#x60;slug&#x60; and &#x60;locale&#x60; (default &#x60;en&#x60;). An unknown or unpublished slug returns HTTP 200 with &#x60;{ error: \&quot;not_found\&quot; }&#x60;, not 404.  Auth: public, no credentials required.
     # @param slug [String] 
     # @param locale [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(BlogControllerGet200Response, Integer, Hash)>] BlogControllerGet200Response data, response status code and response headers
     def blog_controller_get_with_http_info(slug, locale, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BlogApi.blog_controller_get ...'
@@ -173,6 +189,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -181,7 +199,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'BlogControllerGet200Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -203,15 +221,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Render the public blog index page
+    # Public, server-rendered HTML for /blog listing published English posts. Cached (max-age 300, s-maxage 3600).  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [String]
     def blog_controller_index_html(opts = {})
-      blog_controller_index_html_with_http_info(opts)
-      nil
+      data, _status_code, _headers = blog_controller_index_html_with_http_info(opts)
+      data
     end
 
+    # Render the public blog index page
+    # Public, server-rendered HTML for /blog listing published English posts. Cached (max-age 300, s-maxage 3600).  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
     def blog_controller_index_html_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BlogApi.blog_controller_index_html ...'
@@ -224,6 +246,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/html']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -232,7 +256,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'String'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -254,19 +278,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List published blog posts
+    # Public. Returns published posts for `locale` (default `en`), newest `published_at` first, optionally filtered by `tag`. Reads are cached in Redis for 60 seconds.  Auth: public, no credentials required.
     # @param locale [String] 
     # @param tag [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<BlogPost>]
     def blog_controller_list(locale, tag, opts = {})
-      blog_controller_list_with_http_info(locale, tag, opts)
-      nil
+      data, _status_code, _headers = blog_controller_list_with_http_info(locale, tag, opts)
+      data
     end
 
+    # List published blog posts
+    # Public. Returns published posts for &#x60;locale&#x60; (default &#x60;en&#x60;), newest &#x60;published_at&#x60; first, optionally filtered by &#x60;tag&#x60;. Reads are cached in Redis for 60 seconds.  Auth: public, no credentials required.
     # @param locale [String] 
     # @param tag [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<BlogPost>, Integer, Hash)>] Array<BlogPost> data, response status code and response headers
     def blog_controller_list_with_http_info(locale, tag, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BlogApi.blog_controller_list ...'
@@ -289,6 +317,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -297,7 +327,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<BlogPost>'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -319,17 +349,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Render a public blog post page
+    # Public, server-rendered HTML for one English post, with its Markdown body rendered escape-first. Unknown slugs return a 404 HTML page.  Auth: public, no credentials required.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [String]
     def blog_controller_page_html(slug, opts = {})
-      blog_controller_page_html_with_http_info(slug, opts)
-      nil
+      data, _status_code, _headers = blog_controller_page_html_with_http_info(slug, opts)
+      data
     end
 
+    # Render a public blog post page
+    # Public, server-rendered HTML for one English post, with its Markdown body rendered escape-first. Unknown slugs return a 404 HTML page.  Auth: public, no credentials required.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
     def blog_controller_page_html_with_http_info(slug, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BlogApi.blog_controller_page_html ...'
@@ -346,6 +380,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/html']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -354,7 +390,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'String'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -376,17 +412,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delete a blog post
+    # Deletes the post and clears the public cache. Returns `{ ok: true }` even for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdminControllerSetStatus201Response]
     def blog_controller_remove(id, opts = {})
-      blog_controller_remove_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = blog_controller_remove_with_http_info(id, opts)
+      data
     end
 
+    # Delete a blog post
+    # Deletes the post and clears the public cache. Returns &#x60;{ ok: true }&#x60; even for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdminControllerSetStatus201Response, Integer, Hash)>] AdminControllerSetStatus201Response data, response status code and response headers
     def blog_controller_remove_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BlogApi.blog_controller_remove ...'
@@ -403,6 +443,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -411,10 +453,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdminControllerSetStatus201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"BlogApi.blog_controller_remove",
@@ -433,15 +475,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get the blog sitemap
+    # Public XML sitemap listing /blog and every published English post page.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [String]
     def blog_controller_sitemap(opts = {})
-      blog_controller_sitemap_with_http_info(opts)
-      nil
+      data, _status_code, _headers = blog_controller_sitemap_with_http_info(opts)
+      data
     end
 
+    # Get the blog sitemap
+    # Public XML sitemap listing /blog and every published English post page.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
     def blog_controller_sitemap_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BlogApi.blog_controller_sitemap ...'
@@ -454,6 +500,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/xml']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -462,7 +510,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'String'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -484,19 +532,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update a blog post
+    # Partially updates any post field (slug, locale, title, tag, author, excerpt, body, cover_image, position, published, published_at) and clears the public cache. Returns the updated post, or null for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param update_post_dto [UpdatePostDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [BlogPost]
     def blog_controller_update(id, update_post_dto, opts = {})
-      blog_controller_update_with_http_info(id, update_post_dto, opts)
-      nil
+      data, _status_code, _headers = blog_controller_update_with_http_info(id, update_post_dto, opts)
+      data
     end
 
+    # Update a blog post
+    # Partially updates any post field (slug, locale, title, tag, author, excerpt, body, cover_image, position, published, published_at) and clears the public cache. Returns the updated post, or null for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param update_post_dto [UpdatePostDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(BlogPost, Integer, Hash)>] BlogPost data, response status code and response headers
     def blog_controller_update_with_http_info(id, update_post_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BlogApi.blog_controller_update ...'
@@ -517,6 +569,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -530,10 +584,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(update_post_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'BlogPost'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"BlogApi.blog_controller_update",

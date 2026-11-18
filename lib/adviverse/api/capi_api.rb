@@ -19,17 +19,21 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Ingest server-side conversion events (CAPI)
+    # Server-to-server batch ingest authenticated by the advertiser's CAPI token in the `X-CAPI-Token` header, not a session; a missing or invalid token returns 401. Each item in `events` needs `eventId` and `eventName`, plus optional `value`, `currency`, `clickId`, hashed `identifiers` (emailHash, phoneHash, externalId), `eventTime` and `customData`. Events are deduplicated per advertiser on `eventId` and attributed by click id first, then by the identity graph's most recent eligible click or impression. Results are per event and a failing event never fails the batch.  Auth: public, no credentials required.
     # @param capi_events_dto [CapiEventsDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [CapiControllerEvents201Response]
     def capi_controller_events(capi_events_dto, opts = {})
-      capi_controller_events_with_http_info(capi_events_dto, opts)
-      nil
+      data, _status_code, _headers = capi_controller_events_with_http_info(capi_events_dto, opts)
+      data
     end
 
+    # Ingest server-side conversion events (CAPI)
+    # Server-to-server batch ingest authenticated by the advertiser&#39;s CAPI token in the &#x60;X-CAPI-Token&#x60; header, not a session; a missing or invalid token returns 401. Each item in &#x60;events&#x60; needs &#x60;eventId&#x60; and &#x60;eventName&#x60;, plus optional &#x60;value&#x60;, &#x60;currency&#x60;, &#x60;clickId&#x60;, hashed &#x60;identifiers&#x60; (emailHash, phoneHash, externalId), &#x60;eventTime&#x60; and &#x60;customData&#x60;. Events are deduplicated per advertiser on &#x60;eventId&#x60; and attributed by click id first, then by the identity graph&#39;s most recent eligible click or impression. Results are per event and a failing event never fails the batch.  Auth: public, no credentials required.
     # @param capi_events_dto [CapiEventsDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(CapiControllerEvents201Response, Integer, Hash)>] CapiControllerEvents201Response data, response status code and response headers
     def capi_controller_events_with_http_info(capi_events_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CapiApi.capi_controller_events ...'
@@ -46,6 +50,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -59,7 +65,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(capi_events_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'CapiControllerEvents201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -81,17 +87,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List recent CAPI events
+    # Returns the advertiser's most recent CAPI-sourced postback log rows, newest first. `limit` defaults to 100 and is capped at 500. `attributed` shows whether the event was matched to a campaign.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param limit [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<CapiControllerRecent200ResponseInner>]
     def capi_controller_recent(limit, opts = {})
-      capi_controller_recent_with_http_info(limit, opts)
-      nil
+      data, _status_code, _headers = capi_controller_recent_with_http_info(limit, opts)
+      data
     end
 
+    # List recent CAPI events
+    # Returns the advertiser&#39;s most recent CAPI-sourced postback log rows, newest first. &#x60;limit&#x60; defaults to 100 and is capped at 500. &#x60;attributed&#x60; shows whether the event was matched to a campaign.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param limit [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<CapiControllerRecent200ResponseInner>, Integer, Hash)>] Array<CapiControllerRecent200ResponseInner> data, response status code and response headers
     def capi_controller_recent_with_http_info(limit, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CapiApi.capi_controller_recent ...'
@@ -109,6 +119,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -117,10 +129,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<CapiControllerRecent200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"CapiApi.capi_controller_recent",
@@ -139,15 +151,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Rotate the CAPI access token
+    # Revokes any active CAPI token for the advertiser and issues a new one. The full token (`<prefix>.<secret>`) is returned only in this response; the server stores only its hash. Use it as the `X-CAPI-Token` header on POST /v1/capi/events.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [CapiControllerToken201Response]
     def capi_controller_token(opts = {})
-      capi_controller_token_with_http_info(opts)
-      nil
+      data, _status_code, _headers = capi_controller_token_with_http_info(opts)
+      data
     end
 
+    # Rotate the CAPI access token
+    # Revokes any active CAPI token for the advertiser and issues a new one. The full token (&#x60;&lt;prefix&gt;.&lt;secret&gt;&#x60;) is returned only in this response; the server stores only its hash. Use it as the &#x60;X-CAPI-Token&#x60; header on POST /v1/capi/events.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(CapiControllerToken201Response, Integer, Hash)>] CapiControllerToken201Response data, response status code and response headers
     def capi_controller_token_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CapiApi.capi_controller_token ...'
@@ -160,6 +176,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -168,10 +186,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'CapiControllerToken201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"CapiApi.capi_controller_token",

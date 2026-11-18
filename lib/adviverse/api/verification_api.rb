@@ -19,15 +19,19 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # List brand-safety categories
+    # Returns the static brand-safety category catalog (ids such as `adult`, `violence`, `hate`) accepted in verification settings.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<VerificationControllerCategories200ResponseInner>]
     def verification_controller_categories(opts = {})
-      verification_controller_categories_with_http_info(opts)
-      nil
+      data, _status_code, _headers = verification_controller_categories_with_http_info(opts)
+      data
     end
 
+    # List brand-safety categories
+    # Returns the static brand-safety category catalog (ids such as &#x60;adult&#x60;, &#x60;violence&#x60;, &#x60;hate&#x60;) accepted in verification settings.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<VerificationControllerCategories200ResponseInner>, Integer, Hash)>] Array<VerificationControllerCategories200ResponseInner> data, response status code and response headers
     def verification_controller_categories_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VerificationApi.verification_controller_categories ...'
@@ -40,6 +44,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -48,10 +54,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<VerificationControllerCategories200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"VerificationApi.verification_controller_categories",
@@ -70,15 +76,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get your verification and brand-safety settings
+    # Returns your measurement vendor, viewability target, blocked brand-safety categories, blocked domains and keywords, falling back to the global defaults when you have not saved settings. The vendor API key is never returned, only `apiKeySet`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [RewVerificationSettings]
     def verification_controller_get_settings(opts = {})
-      verification_controller_get_settings_with_http_info(opts)
-      nil
+      data, _status_code, _headers = verification_controller_get_settings_with_http_info(opts)
+      data
     end
 
+    # Get your verification and brand-safety settings
+    # Returns your measurement vendor, viewability target, blocked brand-safety categories, blocked domains and keywords, falling back to the global defaults when you have not saved settings. The vendor API key is never returned, only &#x60;apiKeySet&#x60;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(RewVerificationSettings, Integer, Hash)>] RewVerificationSettings data, response status code and response headers
     def verification_controller_get_settings_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VerificationApi.verification_controller_get_settings ...'
@@ -91,6 +101,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -99,10 +111,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'RewVerificationSettings'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"VerificationApi.verification_controller_get_settings",
@@ -121,17 +133,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Save your verification and brand-safety settings
+    # Replaces your settings: `vendor` (none, ias, doubleverify, moat; default none), `measurementEnabled`, `viewabilityTarget` (0-1, default 0.7), `brandSafetyCategories` (unknown ids dropped), `blockedDomains` (normalized to bare hosts) and `blockedKeywords` (lowercased tokens), all enforced at serve time. `apiKey` is encrypted at rest; omit it to keep the stored key, send an empty string to clear it.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param put_settings_dto [PutSettingsDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [RewVerificationSettings]
     def verification_controller_put_settings(put_settings_dto, opts = {})
-      verification_controller_put_settings_with_http_info(put_settings_dto, opts)
-      nil
+      data, _status_code, _headers = verification_controller_put_settings_with_http_info(put_settings_dto, opts)
+      data
     end
 
+    # Save your verification and brand-safety settings
+    # Replaces your settings: &#x60;vendor&#x60; (none, ias, doubleverify, moat; default none), &#x60;measurementEnabled&#x60;, &#x60;viewabilityTarget&#x60; (0-1, default 0.7), &#x60;brandSafetyCategories&#x60; (unknown ids dropped), &#x60;blockedDomains&#x60; (normalized to bare hosts) and &#x60;blockedKeywords&#x60; (lowercased tokens), all enforced at serve time. &#x60;apiKey&#x60; is encrypted at rest; omit it to keep the stored key, send an empty string to clear it.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param put_settings_dto [PutSettingsDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(RewVerificationSettings, Integer, Hash)>] RewVerificationSettings data, response status code and response headers
     def verification_controller_put_settings_with_http_info(put_settings_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VerificationApi.verification_controller_put_settings ...'
@@ -148,6 +164,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -161,10 +179,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(put_settings_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'RewVerificationSettings'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"VerificationApi.verification_controller_put_settings",

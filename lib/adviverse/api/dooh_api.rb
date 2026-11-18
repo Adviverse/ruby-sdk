@@ -19,15 +19,19 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Get your DOOH network registration
+    # Returns the account's DOOH partner registration (company, contact, screen count, venue types, integration, onboarding status), or null if it has not registered one.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SupDoohPartner]
     def dooh_controller_get_setup(opts = {})
-      dooh_controller_get_setup_with_http_info(opts)
-      nil
+      data, _status_code, _headers = dooh_controller_get_setup_with_http_info(opts)
+      data
     end
 
+    # Get your DOOH network registration
+    # Returns the account&#39;s DOOH partner registration (company, contact, screen count, venue types, integration, onboarding status), or null if it has not registered one.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SupDoohPartner, Integer, Hash)>] SupDoohPartner data, response status code and response headers
     def dooh_controller_get_setup_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DoohApi.dooh_controller_get_setup ...'
@@ -40,6 +44,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -48,10 +54,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SupDoohPartner'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DoohApi.dooh_controller_get_setup",
@@ -70,17 +76,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List DOOH partner registrations
+    # Admin view of up to 500 DOOH registrations, newest first, each with the registering account's email. Optional `?status=` filters by new, contacted, onboarding, live or rejected (other values are ignored).  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param status [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<DoohControllerList200ResponseInner>]
     def dooh_controller_list(status, opts = {})
-      dooh_controller_list_with_http_info(status, opts)
-      nil
+      data, _status_code, _headers = dooh_controller_list_with_http_info(status, opts)
+      data
     end
 
+    # List DOOH partner registrations
+    # Admin view of up to 500 DOOH registrations, newest first, each with the registering account&#39;s email. Optional &#x60;?status&#x3D;&#x60; filters by new, contacted, onboarding, live or rejected (other values are ignored).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param status [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<DoohControllerList200ResponseInner>, Integer, Hash)>] Array<DoohControllerList200ResponseInner> data, response status code and response headers
     def dooh_controller_list_with_http_info(status, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DoohApi.dooh_controller_list ...'
@@ -98,6 +108,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -106,10 +118,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<DoohControllerList200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DoohApi.dooh_controller_list",
@@ -128,17 +140,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create or update your DOOH network registration
+    # Upserts the account's single DOOH registration. `company` is required; `contactName`, `email`, `website`, `country`, `screenCount`, `venueTypes` (max 20), `integration` and `notes` are optional and trimmed to length limits. Returns the row id and its current onboarding status. 400 if `company` is empty.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, advertiser, admin.
     # @param dooh_setup_dto [DoohSetupDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [DoohControllerSaveSetup201Response]
     def dooh_controller_save_setup(dooh_setup_dto, opts = {})
-      dooh_controller_save_setup_with_http_info(dooh_setup_dto, opts)
-      nil
+      data, _status_code, _headers = dooh_controller_save_setup_with_http_info(dooh_setup_dto, opts)
+      data
     end
 
+    # Create or update your DOOH network registration
+    # Upserts the account&#39;s single DOOH registration. &#x60;company&#x60; is required; &#x60;contactName&#x60;, &#x60;email&#x60;, &#x60;website&#x60;, &#x60;country&#x60;, &#x60;screenCount&#x60;, &#x60;venueTypes&#x60; (max 20), &#x60;integration&#x60; and &#x60;notes&#x60; are optional and trimmed to length limits. Returns the row id and its current onboarding status. 400 if &#x60;company&#x60; is empty.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, advertiser, admin.
     # @param dooh_setup_dto [DoohSetupDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(DoohControllerSaveSetup201Response, Integer, Hash)>] DoohControllerSaveSetup201Response data, response status code and response headers
     def dooh_controller_save_setup_with_http_info(dooh_setup_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DoohApi.dooh_controller_save_setup ...'
@@ -155,6 +171,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -168,10 +186,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(dooh_setup_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'DoohControllerSaveSetup201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DoohApi.dooh_controller_save_setup",
@@ -190,17 +208,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Set a DOOH registration's onboarding status
+    # Moves a registration to `status` new, contacted, onboarding, live or rejected. 400 for any other value. Returns ok even if the id does not exist.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AuthControllerResendVerification201Response]
     def dooh_controller_set_status(id, opts = {})
-      dooh_controller_set_status_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = dooh_controller_set_status_with_http_info(id, opts)
+      data
     end
 
+    # Set a DOOH registration&#39;s onboarding status
+    # Moves a registration to &#x60;status&#x60; new, contacted, onboarding, live or rejected. 400 for any other value. Returns ok even if the id does not exist.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AuthControllerResendVerification201Response, Integer, Hash)>] AuthControllerResendVerification201Response data, response status code and response headers
     def dooh_controller_set_status_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DoohApi.dooh_controller_set_status ...'
@@ -217,6 +239,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -225,10 +249,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AuthControllerResendVerification201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DoohApi.dooh_controller_set_status",
@@ -247,15 +271,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List all paired DOOH screens
+    # Admin fleet overview: up to 2000 claimed screens across all accounts, newest first, with serving tag and owner email.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ScreensControllerAdminScreens200ResponseInner>]
     def screens_controller_admin_screens(opts = {})
-      screens_controller_admin_screens_with_http_info(opts)
-      nil
+      data, _status_code, _headers = screens_controller_admin_screens_with_http_info(opts)
+      data
     end
 
+    # List all paired DOOH screens
+    # Admin fleet overview: up to 2000 claimed screens across all accounts, newest first, with serving tag and owner email.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ScreensControllerAdminScreens200ResponseInner>, Integer, Hash)>] Array<ScreensControllerAdminScreens200ResponseInner> data, response status code and response headers
     def screens_controller_admin_screens_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DoohApi.screens_controller_admin_screens ...'
@@ -268,6 +296,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -276,10 +306,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ScreensControllerAdminScreens200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DoohApi.screens_controller_admin_screens",
@@ -298,19 +328,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get DOOH proof-of-play for your campaigns
+    # Advertiser verification report over your campaigns' DOOH plays between `from` and `to` (default last 30 days), including venue name and any screenshot attestation per play. Same shape as the publisher report.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param from [String] 
     # @param to [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SupDoohPlayReport]
     def screens_controller_advertiser_plays(from, to, opts = {})
-      screens_controller_advertiser_plays_with_http_info(from, to, opts)
-      nil
+      data, _status_code, _headers = screens_controller_advertiser_plays_with_http_info(from, to, opts)
+      data
     end
 
+    # Get DOOH proof-of-play for your campaigns
+    # Advertiser verification report over your campaigns&#39; DOOH plays between &#x60;from&#x60; and &#x60;to&#x60; (default last 30 days), including venue name and any screenshot attestation per play. Same shape as the publisher report.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param from [String] 
     # @param to [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SupDoohPlayReport, Integer, Hash)>] SupDoohPlayReport data, response status code and response headers
     def screens_controller_advertiser_plays_with_http_info(from, to, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DoohApi.screens_controller_advertiser_plays ...'
@@ -333,6 +367,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -341,10 +377,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SupDoohPlayReport'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DoohApi.screens_controller_advertiser_plays",
@@ -363,15 +399,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Upload a proof-of-play screenshot
+    # Public, rate-limited endpoint used by the native DOOH player, authenticated by the active screen's serving `tag`. Body `image` is a base64 JPEG (data-URL prefix allowed, max ~2.5 MB). The image is stored and attached to the play identified by `popToken`, or to the screen's most recent play if omitted, and also counts as a heartbeat. 400 if tag/image are missing or the image is invalid, 404 if the tag is not an active screen.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ScreensControllerAttest201Response]
     def screens_controller_attest(opts = {})
-      screens_controller_attest_with_http_info(opts)
-      nil
+      data, _status_code, _headers = screens_controller_attest_with_http_info(opts)
+      data
     end
 
+    # Upload a proof-of-play screenshot
+    # Public, rate-limited endpoint used by the native DOOH player, authenticated by the active screen&#39;s serving &#x60;tag&#x60;. Body &#x60;image&#x60; is a base64 JPEG (data-URL prefix allowed, max ~2.5 MB). The image is stored and attached to the play identified by &#x60;popToken&#x60;, or to the screen&#39;s most recent play if omitted, and also counts as a heartbeat. 400 if tag/image are missing or the image is invalid, 404 if the tag is not an active screen.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ScreensControllerAttest201Response, Integer, Hash)>] ScreensControllerAttest201Response data, response status code and response headers
     def screens_controller_attest_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DoohApi.screens_controller_attest ...'
@@ -384,6 +424,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -392,7 +434,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ScreensControllerAttest201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -414,17 +456,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Claim a DOOH screen by its pairing code
+    # Attaches the pending screen showing `code` to your account and starts serving: creates a `dooh` placement under your DOOH property (created on first use) and stores venue details (`venueName`, `venueType`, `orientation`, resolution, `lat`/`lng`, `timezone`, `loopSeconds` default 8, `floorCpm`, `audienceMultiplier` default 1). Republishes the serving index. 404 if no screen is waiting for that code.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param claim_screen_dto [ClaimScreenDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SupDoohScreen]
     def screens_controller_claim(claim_screen_dto, opts = {})
-      screens_controller_claim_with_http_info(claim_screen_dto, opts)
-      nil
+      data, _status_code, _headers = screens_controller_claim_with_http_info(claim_screen_dto, opts)
+      data
     end
 
+    # Claim a DOOH screen by its pairing code
+    # Attaches the pending screen showing &#x60;code&#x60; to your account and starts serving: creates a &#x60;dooh&#x60; placement under your DOOH property (created on first use) and stores venue details (&#x60;venueName&#x60;, &#x60;venueType&#x60;, &#x60;orientation&#x60;, resolution, &#x60;lat&#x60;/&#x60;lng&#x60;, &#x60;timezone&#x60;, &#x60;loopSeconds&#x60; default 8, &#x60;floorCpm&#x60;, &#x60;audienceMultiplier&#x60; default 1). Republishes the serving index. 404 if no screen is waiting for that code.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param claim_screen_dto [ClaimScreenDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SupDoohScreen, Integer, Hash)>] SupDoohScreen data, response status code and response headers
     def screens_controller_claim_with_http_info(claim_screen_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DoohApi.screens_controller_claim ...'
@@ -441,6 +487,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -454,10 +502,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(claim_screen_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SupDoohScreen'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DoohApi.screens_controller_claim",
@@ -476,17 +524,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get a DOOH screen
+    # Returns one of your screens with its serving tag. 404 if it does not exist, 403 if another account owns it.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SupDoohScreen]
     def screens_controller_get(id, opts = {})
-      screens_controller_get_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = screens_controller_get_with_http_info(id, opts)
+      data
     end
 
+    # Get a DOOH screen
+    # Returns one of your screens with its serving tag. 404 if it does not exist, 403 if another account owns it.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SupDoohScreen, Integer, Hash)>] SupDoohScreen data, response status code and response headers
     def screens_controller_get_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DoohApi.screens_controller_get ...'
@@ -503,6 +555,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -511,10 +565,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SupDoohScreen'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DoohApi.screens_controller_get",
@@ -533,15 +587,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List your DOOH screens
+    # Returns your screen fleet, newest first, with `online` (heartbeat within 5 minutes) and the latest heartbeat time and player version taken from live heartbeat data when available.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<ScreensControllerList200ResponseInner>]
     def screens_controller_list(opts = {})
-      screens_controller_list_with_http_info(opts)
-      nil
+      data, _status_code, _headers = screens_controller_list_with_http_info(opts)
+      data
     end
 
+    # List your DOOH screens
+    # Returns your screen fleet, newest first, with &#x60;online&#x60; (heartbeat within 5 minutes) and the latest heartbeat time and player version taken from live heartbeat data when available.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<ScreensControllerList200ResponseInner>, Integer, Hash)>] Array<ScreensControllerList200ResponseInner> data, response status code and response headers
     def screens_controller_list_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DoohApi.screens_controller_list ...'
@@ -554,6 +612,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -562,10 +622,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<ScreensControllerList200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DoohApi.screens_controller_list",
@@ -584,17 +644,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Start pairing a DOOH screen
+    # Public, rate-limited endpoint the DOOH player calls on first boot. Creates a pending screen and returns a human-readable `pairingCode` to show on the display plus a secret `pollToken`. Optional body `version` records the player version.  Auth: public, no credentials required.
     # @param pair_init_dto [PairInitDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ScreensControllerPairInit201Response]
     def screens_controller_pair_init(pair_init_dto, opts = {})
-      screens_controller_pair_init_with_http_info(pair_init_dto, opts)
-      nil
+      data, _status_code, _headers = screens_controller_pair_init_with_http_info(pair_init_dto, opts)
+      data
     end
 
+    # Start pairing a DOOH screen
+    # Public, rate-limited endpoint the DOOH player calls on first boot. Creates a pending screen and returns a human-readable &#x60;pairingCode&#x60; to show on the display plus a secret &#x60;pollToken&#x60;. Optional body &#x60;version&#x60; records the player version.  Auth: public, no credentials required.
     # @param pair_init_dto [PairInitDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ScreensControllerPairInit201Response, Integer, Hash)>] ScreensControllerPairInit201Response data, response status code and response headers
     def screens_controller_pair_init_with_http_info(pair_init_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DoohApi.screens_controller_pair_init ...'
@@ -611,6 +675,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -624,7 +690,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(pair_init_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ScreensControllerPairInit201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -646,17 +712,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Poll a DOOH screen's pairing status
+    # Public, rate-limited. The player polls with `?pollToken=` until a publisher claims its code; then it receives its serving `tag` and `servingBase`. 404 for an unknown poll token.  Auth: public, no credentials required.
     # @param poll_token [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ScreensControllerPairStatus200Response]
     def screens_controller_pair_status(poll_token, opts = {})
-      screens_controller_pair_status_with_http_info(poll_token, opts)
-      nil
+      data, _status_code, _headers = screens_controller_pair_status_with_http_info(poll_token, opts)
+      data
     end
 
+    # Poll a DOOH screen&#39;s pairing status
+    # Public, rate-limited. The player polls with &#x60;?pollToken&#x3D;&#x60; until a publisher claims its code; then it receives its serving &#x60;tag&#x60; and &#x60;servingBase&#x60;. 404 for an unknown poll token.  Auth: public, no credentials required.
     # @param poll_token [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ScreensControllerPairStatus200Response, Integer, Hash)>] ScreensControllerPairStatus200Response data, response status code and response headers
     def screens_controller_pair_status_with_http_info(poll_token, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DoohApi.screens_controller_pair_status ...'
@@ -674,6 +744,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -682,7 +754,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ScreensControllerPairStatus200Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -704,19 +776,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get your DOOH proof-of-play report
+    # Summarizes and lists (up to 2000) plays on your screens between `from` and `to` (ISO dates; default last 30 days): play and completion counts, completion rate (0-1), spend on completed plays, and distinct screens.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param from [String] 
     # @param to [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SupDoohPlayReport]
     def screens_controller_publisher_plays(from, to, opts = {})
-      screens_controller_publisher_plays_with_http_info(from, to, opts)
-      nil
+      data, _status_code, _headers = screens_controller_publisher_plays_with_http_info(from, to, opts)
+      data
     end
 
+    # Get your DOOH proof-of-play report
+    # Summarizes and lists (up to 2000) plays on your screens between &#x60;from&#x60; and &#x60;to&#x60; (ISO dates; default last 30 days): play and completion counts, completion rate (0-1), spend on completed plays, and distinct screens.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param from [String] 
     # @param to [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SupDoohPlayReport, Integer, Hash)>] SupDoohPlayReport data, response status code and response headers
     def screens_controller_publisher_plays_with_http_info(from, to, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DoohApi.screens_controller_publisher_plays ...'
@@ -739,6 +815,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -747,10 +825,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SupDoohPlayReport'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DoohApi.screens_controller_publisher_plays",
@@ -769,19 +847,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Pause or activate a DOOH screen
+    # Sets `status` (`active` or `paused`) on both the screen and its placement, then republishes the index so serving stops or resumes. 400 if not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param id [String] 
     # @param set_screen_status_dto [SetScreenStatusDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ScreensControllerSetStatus201Response]
     def screens_controller_set_status(id, set_screen_status_dto, opts = {})
-      screens_controller_set_status_with_http_info(id, set_screen_status_dto, opts)
-      nil
+      data, _status_code, _headers = screens_controller_set_status_with_http_info(id, set_screen_status_dto, opts)
+      data
     end
 
+    # Pause or activate a DOOH screen
+    # Sets &#x60;status&#x60; (&#x60;active&#x60; or &#x60;paused&#x60;) on both the screen and its placement, then republishes the index so serving stops or resumes. 400 if not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param id [String] 
     # @param set_screen_status_dto [SetScreenStatusDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ScreensControllerSetStatus201Response, Integer, Hash)>] ScreensControllerSetStatus201Response data, response status code and response headers
     def screens_controller_set_status_with_http_info(id, set_screen_status_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DoohApi.screens_controller_set_status ...'
@@ -802,6 +884,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -815,10 +899,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(set_screen_status_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ScreensControllerSetStatus201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DoohApi.screens_controller_set_status",
@@ -837,19 +921,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update a DOOH screen
+    # Edits `venueName`, `venueType`, `orientation`, `loopSeconds`, `floorCpm` and `audienceMultiplier` on a paired screen, keeping its placement settings in sync, and republishes the index. 400 if the screen is not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: publisher, admin.
     # @param id [String] 
     # @param update_screen_dto [UpdateScreenDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SupDoohScreen]
     def screens_controller_update(id, update_screen_dto, opts = {})
-      screens_controller_update_with_http_info(id, update_screen_dto, opts)
-      nil
+      data, _status_code, _headers = screens_controller_update_with_http_info(id, update_screen_dto, opts)
+      data
     end
 
+    # Update a DOOH screen
+    # Edits &#x60;venueName&#x60;, &#x60;venueType&#x60;, &#x60;orientation&#x60;, &#x60;loopSeconds&#x60;, &#x60;floorCpm&#x60; and &#x60;audienceMultiplier&#x60; on a paired screen, keeping its placement settings in sync, and republishes the index. 400 if the screen is not paired yet; 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: publisher, admin.
     # @param id [String] 
     # @param update_screen_dto [UpdateScreenDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SupDoohScreen, Integer, Hash)>] SupDoohScreen data, response status code and response headers
     def screens_controller_update_with_http_info(id, update_screen_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DoohApi.screens_controller_update ...'
@@ -870,6 +958,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -883,10 +973,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(update_screen_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SupDoohScreen'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DoohApi.screens_controller_update",

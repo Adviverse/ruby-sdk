@@ -19,17 +19,21 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Accept a deal offered to you
+    # The targeted advertiser accepts the deal, which becomes `active` and is published to the engine index; the publisher is emailed. Returns 403 if the caller is not the deal's advertiser and 404 if the deal is unknown.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [DealsControllerClaim201Response]
     def deals_controller_accept(id, opts = {})
-      deals_controller_accept_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = deals_controller_accept_with_http_info(id, opts)
+      data
     end
 
+    # Accept a deal offered to you
+    # The targeted advertiser accepts the deal, which becomes &#x60;active&#x60; and is published to the engine index; the publisher is emailed. Returns 403 if the caller is not the deal&#39;s advertiser and 404 if the deal is unknown.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(DealsControllerClaim201Response, Integer, Hash)>] DealsControllerClaim201Response data, response status code and response headers
     def deals_controller_accept_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DealsApi.deals_controller_accept ...'
@@ -46,6 +50,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -54,10 +60,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'DealsControllerClaim201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DealsApi.deals_controller_accept",
@@ -76,17 +82,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Claim an open deal
+    # The caller becomes the deal's advertiser; the deal goes `active`, the claim token is cleared and the publisher is emailed. Returns 400 if the deal already has an advertiser or the caller is its publisher, and 404 for an unknown token.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param token [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [DealsControllerClaim201Response]
     def deals_controller_claim(token, opts = {})
-      deals_controller_claim_with_http_info(token, opts)
-      nil
+      data, _status_code, _headers = deals_controller_claim_with_http_info(token, opts)
+      data
     end
 
+    # Claim an open deal
+    # The caller becomes the deal&#39;s advertiser; the deal goes &#x60;active&#x60;, the claim token is cleared and the publisher is emailed. Returns 400 if the deal already has an advertiser or the caller is its publisher, and 404 for an unknown token.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param token [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(DealsControllerClaim201Response, Integer, Hash)>] DealsControllerClaim201Response data, response status code and response headers
     def deals_controller_claim_with_http_info(token, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DealsApi.deals_controller_claim ...'
@@ -103,6 +113,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -111,10 +123,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'DealsControllerClaim201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DealsApi.deals_controller_claim",
@@ -133,17 +145,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create a deal
+    # Creates a `pending` deal with `name` (required), `dealType` (`pmp` default, `preferred`, `guaranteed`), `floorCpm`, `currency` (USD), optional `placementId` and `startsAt`/`endsAt`. Fields are also accepted in snake_case. With `advertiserId` (must be an advertiser account) the advertiser is emailed an invite; without it the deal is open and gets a `claim_token` to share. The placement must belong to the creating publisher (403); its owner becomes the deal's publisher. Active deals are republished to the engine index.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param create_deal_dto [CreateDealDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Deal]
     def deals_controller_create(create_deal_dto, opts = {})
-      deals_controller_create_with_http_info(create_deal_dto, opts)
-      nil
+      data, _status_code, _headers = deals_controller_create_with_http_info(create_deal_dto, opts)
+      data
     end
 
+    # Create a deal
+    # Creates a &#x60;pending&#x60; deal with &#x60;name&#x60; (required), &#x60;dealType&#x60; (&#x60;pmp&#x60; default, &#x60;preferred&#x60;, &#x60;guaranteed&#x60;), &#x60;floorCpm&#x60;, &#x60;currency&#x60; (USD), optional &#x60;placementId&#x60; and &#x60;startsAt&#x60;/&#x60;endsAt&#x60;. Fields are also accepted in snake_case. With &#x60;advertiserId&#x60; (must be an advertiser account) the advertiser is emailed an invite; without it the deal is open and gets a &#x60;claim_token&#x60; to share. The placement must belong to the creating publisher (403); its owner becomes the deal&#39;s publisher. Active deals are republished to the engine index.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param create_deal_dto [CreateDealDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Deal, Integer, Hash)>] Deal data, response status code and response headers
     def deals_controller_create_with_http_info(create_deal_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DealsApi.deals_controller_create ...'
@@ -160,6 +176,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -173,10 +191,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_deal_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Deal'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DealsApi.deals_controller_create",
@@ -195,15 +213,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List deals
+    # Lists private-marketplace deals for the caller. Accounts can act on both sides, so `role=publisher` returns deals the account sells and `role=advertiser` returns deals offered to it. Without `role` the account type decides. Admins see all deals (capped at 500 when unpaginated). Supports optional `limit`/`offset`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<Deal>]
     def deals_controller_list(opts = {})
-      deals_controller_list_with_http_info(opts)
-      nil
+      data, _status_code, _headers = deals_controller_list_with_http_info(opts)
+      data
     end
 
+    # List deals
+    # Lists private-marketplace deals for the caller. Accounts can act on both sides, so &#x60;role&#x3D;publisher&#x60; returns deals the account sells and &#x60;role&#x3D;advertiser&#x60; returns deals offered to it. Without &#x60;role&#x60; the account type decides. Admins see all deals (capped at 500 when unpaginated). Supports optional &#x60;limit&#x60;/&#x60;offset&#x60;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<Deal>, Integer, Hash)>] Array<Deal> data, response status code and response headers
     def deals_controller_list_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DealsApi.deals_controller_list ...'
@@ -216,6 +238,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -224,10 +248,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<Deal>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DealsApi.deals_controller_list",
@@ -246,17 +270,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Find an advertiser by email
+    # Resolves an advertiser account by exact, case-insensitive `email` so a publisher can target a deal without knowing the account id. Exact match only, to avoid account enumeration. Returns 400 without an email and 404 when no advertiser matches.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param email [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [DealsControllerLookupAdvertiser200Response]
     def deals_controller_lookup_advertiser(email, opts = {})
-      deals_controller_lookup_advertiser_with_http_info(email, opts)
-      nil
+      data, _status_code, _headers = deals_controller_lookup_advertiser_with_http_info(email, opts)
+      data
     end
 
+    # Find an advertiser by email
+    # Resolves an advertiser account by exact, case-insensitive &#x60;email&#x60; so a publisher can target a deal without knowing the account id. Exact match only, to avoid account enumeration. Returns 400 without an email and 404 when no advertiser matches.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param email [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(DealsControllerLookupAdvertiser200Response, Integer, Hash)>] DealsControllerLookupAdvertiser200Response data, response status code and response headers
     def deals_controller_lookup_advertiser_with_http_info(email, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DealsApi.deals_controller_lookup_advertiser ...'
@@ -274,6 +302,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -282,10 +312,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'DealsControllerLookupAdvertiser200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DealsApi.deals_controller_lookup_advertiser",
@@ -304,17 +334,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Preview an open deal from its claim link
+    # Returns the deal behind a claim token (code, name, type, floor, currency, status and publisher company name) plus `claimable`, which is true while no advertiser is attached. 404 when the token is unknown or already used.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param token [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [DealsControllerPreviewClaim200Response]
     def deals_controller_preview_claim(token, opts = {})
-      deals_controller_preview_claim_with_http_info(token, opts)
-      nil
+      data, _status_code, _headers = deals_controller_preview_claim_with_http_info(token, opts)
+      data
     end
 
+    # Preview an open deal from its claim link
+    # Returns the deal behind a claim token (code, name, type, floor, currency, status and publisher company name) plus &#x60;claimable&#x60;, which is true while no advertiser is attached. 404 when the token is unknown or already used.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param token [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(DealsControllerPreviewClaim200Response, Integer, Hash)>] DealsControllerPreviewClaim200Response data, response status code and response headers
     def deals_controller_preview_claim_with_http_info(token, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DealsApi.deals_controller_preview_claim ...'
@@ -331,6 +365,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -339,10 +375,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'DealsControllerPreviewClaim200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DealsApi.deals_controller_preview_claim",
@@ -361,17 +397,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Change a deal's status
+    # Sets `status` to `active`, `paused`, `pending` or `expired`. Only the deal's publisher or an admin may do this (403 otherwise). The engine's active-deal index is republished, so pausing takes effect for serving right away.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [DealsControllerStatus201Response]
     def deals_controller_status(id, opts = {})
-      deals_controller_status_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = deals_controller_status_with_http_info(id, opts)
+      data
     end
 
+    # Change a deal&#39;s status
+    # Sets &#x60;status&#x60; to &#x60;active&#x60;, &#x60;paused&#x60;, &#x60;pending&#x60; or &#x60;expired&#x60;. Only the deal&#39;s publisher or an admin may do this (403 otherwise). The engine&#39;s active-deal index is republished, so pausing takes effect for serving right away.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(DealsControllerStatus201Response, Integer, Hash)>] DealsControllerStatus201Response data, response status code and response headers
     def deals_controller_status_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DealsApi.deals_controller_status ...'
@@ -388,6 +428,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -396,10 +438,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'DealsControllerStatus201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"DealsApi.deals_controller_status",

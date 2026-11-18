@@ -19,21 +19,25 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Simulate win rate, reach and spend across bids
+    # For the required `format` and optional `geo`, takes about 10 candidate bids spanning the advertiser's recent clearing-price range, plus the caller's own `bid` if given. Each bid gets an estimated win rate from the empirical CDF of the advertiser's last-30-day clearing prices, and projected impressions and spend per day. Prices are per impression (CPM = price x 1000). With no auction history for the slice, `points` is empty and `note` explains why.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param format [String] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :geo 
     # @option opts [Float] :bid 
-    # @return [nil]
+    # @return [InsightsControllerBidSimulator200Response]
     def insights_controller_bid_simulator(format, opts = {})
-      insights_controller_bid_simulator_with_http_info(format, opts)
-      nil
+      data, _status_code, _headers = insights_controller_bid_simulator_with_http_info(format, opts)
+      data
     end
 
+    # Simulate win rate, reach and spend across bids
+    # For the required &#x60;format&#x60; and optional &#x60;geo&#x60;, takes about 10 candidate bids spanning the advertiser&#39;s recent clearing-price range, plus the caller&#39;s own &#x60;bid&#x60; if given. Each bid gets an estimated win rate from the empirical CDF of the advertiser&#39;s last-30-day clearing prices, and projected impressions and spend per day. Prices are per impression (CPM &#x3D; price x 1000). With no auction history for the slice, &#x60;points&#x60; is empty and &#x60;note&#x60; explains why.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param format [String] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :geo 
     # @option opts [Float] :bid 
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(InsightsControllerBidSimulator200Response, Integer, Hash)>] InsightsControllerBidSimulator200Response data, response status code and response headers
     def insights_controller_bid_simulator_with_http_info(format, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserInsightsApi.insights_controller_bid_simulator ...'
@@ -53,6 +57,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -61,10 +67,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'InsightsControllerBidSimulator200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserInsightsApi.insights_controller_bid_simulator",
@@ -83,19 +89,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Score how competitive a targeting slice is
+    # Reads the market-wide clearing-price distribution over the last 30 days for `format` (required) and optional `geo`, and returns p50, p90, the sample size and a low/moderate/high score based on the price spread. The score is \"low\" when there is no data. Uses market data only, not the caller's own history.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param format [String] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :geo 
-    # @return [nil]
+    # @return [InsightsControllerCompetitiveness200Response]
     def insights_controller_competitiveness(format, opts = {})
-      insights_controller_competitiveness_with_http_info(format, opts)
-      nil
+      data, _status_code, _headers = insights_controller_competitiveness_with_http_info(format, opts)
+      data
     end
 
+    # Score how competitive a targeting slice is
+    # Reads the market-wide clearing-price distribution over the last 30 days for &#x60;format&#x60; (required) and optional &#x60;geo&#x60;, and returns p50, p90, the sample size and a low/moderate/high score based on the price spread. The score is \&quot;low\&quot; when there is no data. Uses market data only, not the caller&#39;s own history.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param format [String] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :geo 
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(InsightsControllerCompetitiveness200Response, Integer, Hash)>] InsightsControllerCompetitiveness200Response data, response status code and response headers
     def insights_controller_competitiveness_with_http_info(format, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserInsightsApi.insights_controller_competitiveness ...'
@@ -114,6 +124,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -122,10 +134,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'InsightsControllerCompetitiveness200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserInsightsApi.insights_controller_competitiveness",
@@ -144,17 +156,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Per-creative performance for a campaign
+    # Rolls up the last 30 days of valid impressions and spend, clicks and click-attributed conversions by creative for `campaignId` (required). Creative names come from Postgres. Rows include CTR and CVR as percentages and eCPM, sorted by spend. A campaign the advertiser does not own returns an empty list, not an error.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param campaign_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [InsightsControllerCreativePerformance200Response]
     def insights_controller_creative_performance(campaign_id, opts = {})
-      insights_controller_creative_performance_with_http_info(campaign_id, opts)
-      nil
+      data, _status_code, _headers = insights_controller_creative_performance_with_http_info(campaign_id, opts)
+      data
     end
 
+    # Per-creative performance for a campaign
+    # Rolls up the last 30 days of valid impressions and spend, clicks and click-attributed conversions by creative for &#x60;campaignId&#x60; (required). Creative names come from Postgres. Rows include CTR and CVR as percentages and eCPM, sorted by spend. A campaign the advertiser does not own returns an empty list, not an error.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param campaign_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(InsightsControllerCreativePerformance200Response, Integer, Hash)>] InsightsControllerCreativePerformance200Response data, response status code and response headers
     def insights_controller_creative_performance_with_http_info(campaign_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserInsightsApi.insights_controller_creative_performance ...'
@@ -172,6 +188,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -180,10 +198,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'InsightsControllerCreativePerformance200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserInsightsApi.insights_controller_creative_performance",
@@ -202,15 +220,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delivery pacing per campaign
+    # For each of the advertiser's campaigns, compares the percentage of the delivery goal reached with the percentage of the flight that has elapsed, and flags whether the campaign is on pace. Reuses the billing-reports pacing calculation.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [InsightsControllerPacing200Response]
     def insights_controller_pacing(opts = {})
-      insights_controller_pacing_with_http_info(opts)
-      nil
+      data, _status_code, _headers = insights_controller_pacing_with_http_info(opts)
+      data
     end
 
+    # Delivery pacing per campaign
+    # For each of the advertiser&#39;s campaigns, compares the percentage of the delivery goal reached with the percentage of the flight that has elapsed, and flags whether the campaign is on pace. Reuses the billing-reports pacing calculation.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(InsightsControllerPacing200Response, Integer, Hash)>] InsightsControllerPacing200Response data, response status code and response headers
     def insights_controller_pacing_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserInsightsApi.insights_controller_pacing ...'
@@ -223,6 +245,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -231,10 +255,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'InsightsControllerPacing200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserInsightsApi.insights_controller_pacing",
@@ -253,17 +277,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Estimate savings from bid shading
+    # Combines the bid-shading factors the engine publishes for this advertiser with its last-30-day spend (optionally only `campaignId`) to estimate overpay avoided: roughly spend x (1/avgFactor - 1), with the factor floored at 0.5. If shading is not active for the advertiser yet, all values are zero and a note says so. The figures are directional estimates.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :campaign_id 
-    # @return [nil]
+    # @return [InsightsControllerShadingSavings200Response]
     def insights_controller_shading_savings(opts = {})
-      insights_controller_shading_savings_with_http_info(opts)
-      nil
+      data, _status_code, _headers = insights_controller_shading_savings_with_http_info(opts)
+      data
     end
 
+    # Estimate savings from bid shading
+    # Combines the bid-shading factors the engine publishes for this advertiser with its last-30-day spend (optionally only &#x60;campaignId&#x60;) to estimate overpay avoided: roughly spend x (1/avgFactor - 1), with the factor floored at 0.5. If shading is not active for the advertiser yet, all values are zero and a note says so. The figures are directional estimates.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :campaign_id 
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(InsightsControllerShadingSavings200Response, Integer, Hash)>] InsightsControllerShadingSavings200Response data, response status code and response headers
     def insights_controller_shading_savings_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdvertiserInsightsApi.insights_controller_shading_savings ...'
@@ -277,6 +305,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -285,10 +315,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'InsightsControllerShadingSavings200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"AdvertiserInsightsApi.insights_controller_shading_savings",

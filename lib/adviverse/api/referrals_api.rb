@@ -19,15 +19,133 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Get Refer & earn (affiliate) overview
+    # Returns the account's Refer & earn partner status from Referalli. Before joining it returns `joined: false` with the program terms and summary. After joining it adds the partner code, `?via=` signup link, clicks, signups, pending reviews and converted customers. `commissions` (pending and settled, in USD, net of reversals) come from local records.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
-    def referrals_controller_overview(opts = {})
-      referrals_controller_overview_with_http_info(opts)
-      nil
+    # @return [ReferralsControllerAffiliateOverview200Response]
+    def referrals_controller_affiliate_overview(opts = {})
+      data, _status_code, _headers = referrals_controller_affiliate_overview_with_http_info(opts)
+      data
     end
 
+    # Get Refer &amp; earn (affiliate) overview
+    # Returns the account&#39;s Refer &amp; earn partner status from Referalli. Before joining it returns &#x60;joined: false&#x60; with the program terms and summary. After joining it adds the partner code, &#x60;?via&#x3D;&#x60; signup link, clicks, signups, pending reviews and converted customers. &#x60;commissions&#x60; (pending and settled, in USD, net of reversals) come from local records.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ReferralsControllerAffiliateOverview200Response, Integer, Hash)>] ReferralsControllerAffiliateOverview200Response data, response status code and response headers
+    def referrals_controller_affiliate_overview_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ReferralsApi.referrals_controller_affiliate_overview ...'
+      end
+      # resource path
+      local_var_path = '/v1/referrals/affiliate'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ReferralsControllerAffiliateOverview200Response'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
+
+      new_options = opts.merge(
+        :operation => :"ReferralsApi.referrals_controller_affiliate_overview",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ReferralsApi#referrals_controller_affiliate_overview\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Join Refer & earn
+    # Enrolls the account as a Referalli partner keyed on its account id and email, then returns the same body as the affiliate overview. Idempotent (calls are deduplicated per account). Returns 400 `email_taken` if the email is already a partner elsewhere, or `join_failed`.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser, publisher.
+    # @param [Hash] opts the optional parameters
+    # @return [ReferralsControllerJoinAffiliate200Response]
+    def referrals_controller_join_affiliate(opts = {})
+      data, _status_code, _headers = referrals_controller_join_affiliate_with_http_info(opts)
+      data
+    end
+
+    # Join Refer &amp; earn
+    # Enrolls the account as a Referalli partner keyed on its account id and email, then returns the same body as the affiliate overview. Idempotent (calls are deduplicated per account). Returns 400 &#x60;email_taken&#x60; if the email is already a partner elsewhere, or &#x60;join_failed&#x60;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ReferralsControllerJoinAffiliate200Response, Integer, Hash)>] ReferralsControllerJoinAffiliate200Response data, response status code and response headers
+    def referrals_controller_join_affiliate_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ReferralsApi.referrals_controller_join_affiliate ...'
+      end
+      # resource path
+      local_var_path = '/v1/referrals/affiliate/join'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ReferralsControllerJoinAffiliate200Response'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
+
+      new_options = opts.merge(
+        :operation => :"ReferralsApi.referrals_controller_join_affiliate",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ReferralsApi#referrals_controller_join_affiliate\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Get referral program overview
+    # Returns the account's referral code and signup link (`/signup?ref=<code>`), and every account it referred with that account's status, join date and the referral earnings credited to the caller from it (summed from `referral` ledger entries).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser, publisher.
+    # @param [Hash] opts the optional parameters
+    # @return [ReferralsControllerOverview200Response]
+    def referrals_controller_overview(opts = {})
+      data, _status_code, _headers = referrals_controller_overview_with_http_info(opts)
+      data
+    end
+
+    # Get referral program overview
+    # Returns the account&#39;s referral code and signup link (&#x60;/signup?ref&#x3D;&lt;code&gt;&#x60;), and every account it referred with that account&#39;s status, join date and the referral earnings credited to the caller from it (summed from &#x60;referral&#x60; ledger entries).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ReferralsControllerOverview200Response, Integer, Hash)>] ReferralsControllerOverview200Response data, response status code and response headers
     def referrals_controller_overview_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReferralsApi.referrals_controller_overview ...'
@@ -40,6 +158,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -48,10 +168,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ReferralsControllerOverview200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ReferralsApi.referrals_controller_overview",

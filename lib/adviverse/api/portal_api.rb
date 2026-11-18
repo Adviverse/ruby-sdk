@@ -19,17 +19,21 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Save a portal template config
+    # Stores a `config` object for template key `template` and returns its id and the hosted template URL that renders it. Use the URL as an `html5` creative's asset URL (for example on a metaverse portal surface). 400 for an unknown template.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param create_portal_config_dto [CreatePortalConfigDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PortalTemplatesControllerCreateConfig201Response]
     def portal_templates_controller_create_config(create_portal_config_dto, opts = {})
-      portal_templates_controller_create_config_with_http_info(create_portal_config_dto, opts)
-      nil
+      data, _status_code, _headers = portal_templates_controller_create_config_with_http_info(create_portal_config_dto, opts)
+      data
     end
 
+    # Save a portal template config
+    # Stores a &#x60;config&#x60; object for template key &#x60;template&#x60; and returns its id and the hosted template URL that renders it. Use the URL as an &#x60;html5&#x60; creative&#39;s asset URL (for example on a metaverse portal surface). 400 for an unknown template.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param create_portal_config_dto [CreatePortalConfigDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PortalTemplatesControllerCreateConfig201Response, Integer, Hash)>] PortalTemplatesControllerCreateConfig201Response data, response status code and response headers
     def portal_templates_controller_create_config_with_http_info(create_portal_config_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PortalApi.portal_templates_controller_create_config ...'
@@ -46,6 +50,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -59,10 +65,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_portal_config_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PortalTemplatesControllerCreateConfig201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PortalApi.portal_templates_controller_create_config",
@@ -81,17 +87,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Fetch a portal config
+    # Public endpoint the hosted template calls at runtime to load its saved configuration. 404 if the config id does not exist.  Auth: public, no credentials required.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PortalTemplatesControllerGetConfig200Response]
     def portal_templates_controller_get_config(id, opts = {})
-      portal_templates_controller_get_config_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = portal_templates_controller_get_config_with_http_info(id, opts)
+      data
     end
 
+    # Fetch a portal config
+    # Public endpoint the hosted template calls at runtime to load its saved configuration. 404 if the config id does not exist.  Auth: public, no credentials required.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PortalTemplatesControllerGetConfig200Response, Integer, Hash)>] PortalTemplatesControllerGetConfig200Response data, response status code and response headers
     def portal_templates_controller_get_config_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PortalApi.portal_templates_controller_get_config ...'
@@ -108,6 +118,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -116,7 +128,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PortalTemplatesControllerGetConfig200Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -138,15 +150,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List portal experience templates
+    # Returns the catalog of prebuilt HTML5 portal templates (product-showcase, spin-to-win, 360-viewer, reward-to-play, reward-onchain), each with the config fields it accepts.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<PortalTemplatesControllerListTemplates200ResponseInner>]
     def portal_templates_controller_list_templates(opts = {})
-      portal_templates_controller_list_templates_with_http_info(opts)
-      nil
+      data, _status_code, _headers = portal_templates_controller_list_templates_with_http_info(opts)
+      data
     end
 
+    # List portal experience templates
+    # Returns the catalog of prebuilt HTML5 portal templates (product-showcase, spin-to-win, 360-viewer, reward-to-play, reward-onchain), each with the config fields it accepts.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<PortalTemplatesControllerListTemplates200ResponseInner>, Integer, Hash)>] Array<PortalTemplatesControllerListTemplates200ResponseInner> data, response status code and response headers
     def portal_templates_controller_list_templates_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PortalApi.portal_templates_controller_list_templates ...'
@@ -159,6 +175,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -167,10 +185,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<PortalTemplatesControllerListTemplates200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PortalApi.portal_templates_controller_list_templates",

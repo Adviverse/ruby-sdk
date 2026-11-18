@@ -19,19 +19,23 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Provision a combo of placements on a property
+    # Creates several placements at once under one generated `comboId` and returns a single combined embed snippet to paste before `</body>`. Send either `presetKey` or a custom `units` array (formats banner, native, popunder, social_bar, interstitial, in_page_push, direct_link), plus optional `namePrefix` and shared floor/rev-share/auction/house settings applied to every unit. Adds a warning if the property already has a popunder. 400 for an unknown preset or a non-combinable format; 404/403 if the property is missing or not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param property_id [String] 
     # @param create_combo_dto [CreateComboDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ComboControllerCreateCombo201Response]
     def combo_controller_create_combo(property_id, create_combo_dto, opts = {})
-      combo_controller_create_combo_with_http_info(property_id, create_combo_dto, opts)
-      nil
+      data, _status_code, _headers = combo_controller_create_combo_with_http_info(property_id, create_combo_dto, opts)
+      data
     end
 
+    # Provision a combo of placements on a property
+    # Creates several placements at once under one generated &#x60;comboId&#x60; and returns a single combined embed snippet to paste before &#x60;&lt;/body&gt;&#x60;. Send either &#x60;presetKey&#x60; or a custom &#x60;units&#x60; array (formats banner, native, popunder, social_bar, interstitial, in_page_push, direct_link), plus optional &#x60;namePrefix&#x60; and shared floor/rev-share/auction/house settings applied to every unit. Adds a warning if the property already has a popunder. 400 for an unknown preset or a non-combinable format; 404/403 if the property is missing or not yours.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param property_id [String] 
     # @param create_combo_dto [CreateComboDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ComboControllerCreateCombo201Response, Integer, Hash)>] ComboControllerCreateCombo201Response data, response status code and response headers
     def combo_controller_create_combo_with_http_info(property_id, create_combo_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ComboApi.combo_controller_create_combo ...'
@@ -52,6 +56,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -65,10 +71,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_combo_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ComboControllerCreateCombo201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ComboApi.combo_controller_create_combo",
@@ -87,17 +93,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List combos on a property
+    # Groups the property's live placements by `combo_id` (ungrouped placements are omitted) and rebuilds each group's combined snippet. 404/403 if the property is missing or not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param property_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ComboControllerListCombos200Response]
     def combo_controller_list_combos(property_id, opts = {})
-      combo_controller_list_combos_with_http_info(property_id, opts)
-      nil
+      data, _status_code, _headers = combo_controller_list_combos_with_http_info(property_id, opts)
+      data
     end
 
+    # List combos on a property
+    # Groups the property&#39;s live placements by &#x60;combo_id&#x60; (ungrouped placements are omitted) and rebuilds each group&#39;s combined snippet. 404/403 if the property is missing or not yours.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param property_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ComboControllerListCombos200Response, Integer, Hash)>] ComboControllerListCombos200Response data, response status code and response headers
     def combo_controller_list_combos_with_http_info(property_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ComboApi.combo_controller_list_combos ...'
@@ -114,6 +124,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -122,10 +134,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ComboControllerListCombos200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ComboApi.combo_controller_list_combos",
@@ -144,15 +156,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List combo layout presets
+    # Returns the static catalog of combo presets (`standard_combo`, `leaderboard_pop`, `social_push`, `sticky_interstitial`, `full_monetization`), each with the placement units it provisions. Preset keys are stable.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ComboControllerListPresets200Response]
     def combo_controller_list_presets(opts = {})
-      combo_controller_list_presets_with_http_info(opts)
-      nil
+      data, _status_code, _headers = combo_controller_list_presets_with_http_info(opts)
+      data
     end
 
+    # List combo layout presets
+    # Returns the static catalog of combo presets (&#x60;standard_combo&#x60;, &#x60;leaderboard_pop&#x60;, &#x60;social_push&#x60;, &#x60;sticky_interstitial&#x60;, &#x60;full_monetization&#x60;), each with the placement units it provisions. Preset keys are stable.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(ComboControllerListPresets200Response, Integer, Hash)>] ComboControllerListPresets200Response data, response status code and response headers
     def combo_controller_list_presets_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ComboApi.combo_controller_list_presets ...'
@@ -165,6 +181,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -173,10 +191,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'ComboControllerListPresets200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ComboApi.combo_controller_list_presets",

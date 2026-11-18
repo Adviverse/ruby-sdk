@@ -19,17 +19,21 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Get the clearing-price distribution for a placement
+    # For about 10 candidate floors across the placement's observed clearing range, returns `fillRate` (share of bids clearing at or above the floor) and `expectedRevenue` (floor x fillRate), plus clearing p50/p90 and sample size. Requires `?placementId=`; only your own revenue data is exposed. 404 if the placement is not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param placement_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PublisherInsightsControllerClearing200Response]
     def publisher_insights_controller_clearing(placement_id, opts = {})
-      publisher_insights_controller_clearing_with_http_info(placement_id, opts)
-      nil
+      data, _status_code, _headers = publisher_insights_controller_clearing_with_http_info(placement_id, opts)
+      data
     end
 
+    # Get the clearing-price distribution for a placement
+    # For about 10 candidate floors across the placement&#39;s observed clearing range, returns &#x60;fillRate&#x60; (share of bids clearing at or above the floor) and &#x60;expectedRevenue&#x60; (floor x fillRate), plus clearing p50/p90 and sample size. Requires &#x60;?placementId&#x3D;&#x60;; only your own revenue data is exposed. 404 if the placement is not yours.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param placement_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PublisherInsightsControllerClearing200Response, Integer, Hash)>] PublisherInsightsControllerClearing200Response data, response status code and response headers
     def publisher_insights_controller_clearing_with_http_info(placement_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherInsightsApi.publisher_insights_controller_clearing ...'
@@ -47,6 +51,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -55,10 +61,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PublisherInsightsControllerClearing200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherInsightsApi.publisher_insights_controller_clearing",
@@ -77,15 +83,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get performance of your deals
+    # Returns every deal you own with attributed impressions, clicks, revenue and eCPM, sorted by revenue. Deals with no delivery show zeros; if analytics is unavailable metrics fall back to zero rather than failing.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PublisherInsightsControllerDeals200Response]
     def publisher_insights_controller_deals(opts = {})
-      publisher_insights_controller_deals_with_http_info(opts)
-      nil
+      data, _status_code, _headers = publisher_insights_controller_deals_with_http_info(opts)
+      data
     end
 
+    # Get performance of your deals
+    # Returns every deal you own with attributed impressions, clicks, revenue and eCPM, sorted by revenue. Deals with no delivery show zeros; if analytics is unavailable metrics fall back to zero rather than failing.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PublisherInsightsControllerDeals200Response, Integer, Hash)>] PublisherInsightsControllerDeals200Response data, response status code and response headers
     def publisher_insights_controller_deals_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherInsightsApi.publisher_insights_controller_deals ...'
@@ -98,6 +108,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -106,10 +118,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PublisherInsightsControllerDeals200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherInsightsApi.publisher_insights_controller_deals",
@@ -128,17 +140,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get a revenue-maximizing floor recommendation
+    # Picks the floor that maximizes expected revenue on the placement's empirical fill curve and a matching soft reserve, with the expected revenue lift versus the current floor. With fewer than 500 recent cleared impressions it keeps the current floor and explains why in `note`. Requires `?placementId=`; 404 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param placement_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PublisherInsightsControllerFloorRecommendation200Response]
     def publisher_insights_controller_floor_recommendation(placement_id, opts = {})
-      publisher_insights_controller_floor_recommendation_with_http_info(placement_id, opts)
-      nil
+      data, _status_code, _headers = publisher_insights_controller_floor_recommendation_with_http_info(placement_id, opts)
+      data
     end
 
+    # Get a revenue-maximizing floor recommendation
+    # Picks the floor that maximizes expected revenue on the placement&#39;s empirical fill curve and a matching soft reserve, with the expected revenue lift versus the current floor. With fewer than 500 recent cleared impressions it keeps the current floor and explains why in &#x60;note&#x60;. Requires &#x60;?placementId&#x3D;&#x60;; 404 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param placement_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PublisherInsightsControllerFloorRecommendation200Response, Integer, Hash)>] PublisherInsightsControllerFloorRecommendation200Response data, response status code and response headers
     def publisher_insights_controller_floor_recommendation_with_http_info(placement_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherInsightsApi.publisher_insights_controller_floor_recommendation ...'
@@ -156,6 +172,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -164,10 +182,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PublisherInsightsControllerFloorRecommendation200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherInsightsApi.publisher_insights_controller_floor_recommendation",
@@ -186,17 +204,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get no-fill reasons for a placement
+    # Breaks down the placement's last 30 days of requests into filled vs. no-fill, with each no-fill reason's count and percentage share. `fillRate` and `pct` are percentages (0-100). Requires `?placementId=`; 404 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param placement_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PublisherInsightsControllerNoFill200Response]
     def publisher_insights_controller_no_fill(placement_id, opts = {})
-      publisher_insights_controller_no_fill_with_http_info(placement_id, opts)
-      nil
+      data, _status_code, _headers = publisher_insights_controller_no_fill_with_http_info(placement_id, opts)
+      data
     end
 
+    # Get no-fill reasons for a placement
+    # Breaks down the placement&#39;s last 30 days of requests into filled vs. no-fill, with each no-fill reason&#39;s count and percentage share. &#x60;fillRate&#x60; and &#x60;pct&#x60; are percentages (0-100). Requires &#x60;?placementId&#x3D;&#x60;; 404 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param placement_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(PublisherInsightsControllerNoFill200Response, Integer, Hash)>] PublisherInsightsControllerNoFill200Response data, response status code and response headers
     def publisher_insights_controller_no_fill_with_http_info(placement_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PublisherInsightsApi.publisher_insights_controller_no_fill ...'
@@ -214,6 +236,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -222,10 +246,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'PublisherInsightsControllerNoFill200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"PublisherInsightsApi.publisher_insights_controller_no_fill",

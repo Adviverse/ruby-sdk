@@ -19,19 +19,23 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # List recent deliveries
+    # Lists delivery attempts for one endpoint, newest first. `limit` defaults to 50 (max 200). Returns 400 if the endpoint is not found.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @option opts [Float] :limit 
-    # @return [nil]
+    # @return [Array<WebhookDelivery>]
     def webhooks_controller_deliveries(id, opts = {})
-      webhooks_controller_deliveries_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = webhooks_controller_deliveries_with_http_info(id, opts)
+      data
     end
 
+    # List recent deliveries
+    # Lists delivery attempts for one endpoint, newest first. &#x60;limit&#x60; defaults to 50 (max 200). Returns 400 if the endpoint is not found.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @option opts [Float] :limit 
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<WebhookDelivery>, Integer, Hash)>] Array<WebhookDelivery> data, response status code and response headers
     def webhooks_controller_deliveries_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WebhooksApi.webhooks_controller_deliveries ...'
@@ -57,6 +61,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -65,10 +71,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<WebhookDelivery>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"WebhooksApi.webhooks_controller_deliveries",
@@ -87,15 +93,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List webhook event types
+    # Returns the event type names a webhook endpoint can subscribe to.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [WebhooksControllerEvents200Response]
     def webhooks_controller_events(opts = {})
-      webhooks_controller_events_with_http_info(opts)
-      nil
+      data, _status_code, _headers = webhooks_controller_events_with_http_info(opts)
+      data
     end
 
+    # List webhook event types
+    # Returns the event type names a webhook endpoint can subscribe to.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(WebhooksControllerEvents200Response, Integer, Hash)>] WebhooksControllerEvents200Response data, response status code and response headers
     def webhooks_controller_events_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WebhooksApi.webhooks_controller_events ...'
@@ -108,6 +118,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -116,10 +128,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'WebhooksControllerEvents200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"WebhooksApi.webhooks_controller_events",
@@ -138,15 +150,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List webhook endpoints
+    # Lists the account's webhook subscriptions, newest first. Includes each endpoint's HMAC signing `secret` so the dashboard can show it for verifying the `X-Adviverse-Signature` header.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<WebhookEndpoint>]
     def webhooks_controller_list(opts = {})
-      webhooks_controller_list_with_http_info(opts)
-      nil
+      data, _status_code, _headers = webhooks_controller_list_with_http_info(opts)
+      data
     end
 
+    # List webhook endpoints
+    # Lists the account&#39;s webhook subscriptions, newest first. Includes each endpoint&#39;s HMAC signing &#x60;secret&#x60; so the dashboard can show it for verifying the &#x60;X-Adviverse-Signature&#x60; header.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<WebhookEndpoint>, Integer, Hash)>] Array<WebhookEndpoint> data, response status code and response headers
     def webhooks_controller_list_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WebhooksApi.webhooks_controller_list ...'
@@ -159,6 +175,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -167,10 +185,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<WebhookEndpoint>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"WebhooksApi.webhooks_controller_list",
@@ -189,17 +207,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Send a test ping
+    # Synchronously delivers a signed `ping` event to the endpoint and reports the result. The attempt is logged as a delivery and retried later if it failed. Returns 400 if the endpoint is not found.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [WebhookDeliveryResult]
     def webhooks_controller_ping(id, opts = {})
-      webhooks_controller_ping_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = webhooks_controller_ping_with_http_info(id, opts)
+      data
     end
 
+    # Send a test ping
+    # Synchronously delivers a signed &#x60;ping&#x60; event to the endpoint and reports the result. The attempt is logged as a delivery and retried later if it failed. Returns 400 if the endpoint is not found.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(WebhookDeliveryResult, Integer, Hash)>] WebhookDeliveryResult data, response status code and response headers
     def webhooks_controller_ping_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WebhooksApi.webhooks_controller_ping ...'
@@ -216,6 +238,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -224,10 +248,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'WebhookDeliveryResult'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"WebhooksApi.webhooks_controller_ping",
@@ -246,17 +270,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Redeliver a past webhook
+    # Re-sends the exact stored payload of a past delivery as a new attempt, with a signature computed from the endpoint's current secret. Returns 400 if the delivery does not belong to this account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
     # @param delivery_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [WebhookDeliveryResult]
     def webhooks_controller_redeliver(delivery_id, opts = {})
-      webhooks_controller_redeliver_with_http_info(delivery_id, opts)
-      nil
+      data, _status_code, _headers = webhooks_controller_redeliver_with_http_info(delivery_id, opts)
+      data
     end
 
+    # Redeliver a past webhook
+    # Re-sends the exact stored payload of a past delivery as a new attempt, with a signature computed from the endpoint&#39;s current secret. Returns 400 if the delivery does not belong to this account.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
     # @param delivery_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(WebhookDeliveryResult, Integer, Hash)>] WebhookDeliveryResult data, response status code and response headers
     def webhooks_controller_redeliver_with_http_info(delivery_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WebhooksApi.webhooks_controller_redeliver ...'
@@ -273,6 +301,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -281,10 +311,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'WebhookDeliveryResult'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"WebhooksApi.webhooks_controller_redeliver",
@@ -303,17 +333,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Rotate a webhook signing secret
+    # Generates a new `whsec_` signing secret. The old secret stops verifying immediately, so update the receiver right away. Returns 400 if the endpoint is not found.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [WebhookEndpoint]
     def webhooks_controller_rotate_secret(id, opts = {})
-      webhooks_controller_rotate_secret_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = webhooks_controller_rotate_secret_with_http_info(id, opts)
+      data
     end
 
+    # Rotate a webhook signing secret
+    # Generates a new &#x60;whsec_&#x60; signing secret. The old secret stops verifying immediately, so update the receiver right away. Returns 400 if the endpoint is not found.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(WebhookEndpoint, Integer, Hash)>] WebhookEndpoint data, response status code and response headers
     def webhooks_controller_rotate_secret_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WebhooksApi.webhooks_controller_rotate_secret ...'
@@ -330,6 +364,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -338,10 +374,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'WebhookEndpoint'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"WebhooksApi.webhooks_controller_rotate_secret",
@@ -360,17 +396,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create a webhook endpoint
+    # Registers `url` to receive the listed `events` (non-empty array). The URL is checked by the SSRF guard (localhost, private and metadata addresses are rejected with 400). A `whsec_` signing secret is generated and returned. Deliveries are JSON `{ event, data, ts }` POSTs signed with HMAC-SHA256 of the body in `X-Adviverse-Signature`; failures are retried with backoff.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
     # @param subscribe_webhook_dto [SubscribeWebhookDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [WebhookEndpoint]
     def webhooks_controller_subscribe(subscribe_webhook_dto, opts = {})
-      webhooks_controller_subscribe_with_http_info(subscribe_webhook_dto, opts)
-      nil
+      data, _status_code, _headers = webhooks_controller_subscribe_with_http_info(subscribe_webhook_dto, opts)
+      data
     end
 
+    # Create a webhook endpoint
+    # Registers &#x60;url&#x60; to receive the listed &#x60;events&#x60; (non-empty array). The URL is checked by the SSRF guard (localhost, private and metadata addresses are rejected with 400). A &#x60;whsec_&#x60; signing secret is generated and returned. Deliveries are JSON &#x60;{ event, data, ts }&#x60; POSTs signed with HMAC-SHA256 of the body in &#x60;X-Adviverse-Signature&#x60;; failures are retried with backoff.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
     # @param subscribe_webhook_dto [SubscribeWebhookDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(WebhookEndpoint, Integer, Hash)>] WebhookEndpoint data, response status code and response headers
     def webhooks_controller_subscribe_with_http_info(subscribe_webhook_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WebhooksApi.webhooks_controller_subscribe ...'
@@ -387,6 +427,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -400,10 +442,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(subscribe_webhook_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'WebhookEndpoint'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"WebhooksApi.webhooks_controller_subscribe",
@@ -422,17 +464,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delete a webhook endpoint
+    # Deletes the subscription. Unknown or foreign ids are a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [WebhooksControllerUnsubscribe200Response]
     def webhooks_controller_unsubscribe(id, opts = {})
-      webhooks_controller_unsubscribe_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = webhooks_controller_unsubscribe_with_http_info(id, opts)
+      data
     end
 
+    # Delete a webhook endpoint
+    # Deletes the subscription. Unknown or foreign ids are a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(WebhooksControllerUnsubscribe200Response, Integer, Hash)>] WebhooksControllerUnsubscribe200Response data, response status code and response headers
     def webhooks_controller_unsubscribe_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WebhooksApi.webhooks_controller_unsubscribe ...'
@@ -449,6 +495,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -457,10 +505,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'WebhooksControllerUnsubscribe200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"WebhooksApi.webhooks_controller_unsubscribe",
@@ -479,19 +527,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update a webhook endpoint
+    # Changes an endpoint's `url`, `events` and/or `active` flag (set false to pause deliveries); omitted fields are kept. A new URL goes through the SSRF guard and unknown event names are rejected with 400. Returns 400 if the endpoint is not found for this account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
     # @param id [String] 
     # @param update_webhook_dto [UpdateWebhookDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [WebhookEndpoint]
     def webhooks_controller_update(id, update_webhook_dto, opts = {})
-      webhooks_controller_update_with_http_info(id, update_webhook_dto, opts)
-      nil
+      data, _status_code, _headers = webhooks_controller_update_with_http_info(id, update_webhook_dto, opts)
+      data
     end
 
+    # Update a webhook endpoint
+    # Changes an endpoint&#39;s &#x60;url&#x60;, &#x60;events&#x60; and/or &#x60;active&#x60; flag (set false to pause deliveries); omitted fields are kept. A new URL goes through the SSRF guard and unknown event names are rejected with 400. Returns 400 if the endpoint is not found for this account.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
     # @param id [String] 
     # @param update_webhook_dto [UpdateWebhookDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(WebhookEndpoint, Integer, Hash)>] WebhookEndpoint data, response status code and response headers
     def webhooks_controller_update_with_http_info(id, update_webhook_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WebhooksApi.webhooks_controller_update ...'
@@ -512,6 +564,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -525,10 +579,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(update_webhook_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'WebhookEndpoint'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"WebhooksApi.webhooks_controller_update",

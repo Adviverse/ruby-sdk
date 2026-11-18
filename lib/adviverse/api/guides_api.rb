@@ -19,17 +19,21 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # List all guides
+    # Returns every guide, including unpublished ones, optionally filtered by `locale`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param locale [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<Guide>]
     def guides_controller_admin_list(locale, opts = {})
-      guides_controller_admin_list_with_http_info(locale, opts)
-      nil
+      data, _status_code, _headers = guides_controller_admin_list_with_http_info(locale, opts)
+      data
     end
 
+    # List all guides
+    # Returns every guide, including unpublished ones, optionally filtered by &#x60;locale&#x60;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param locale [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<Guide>, Integer, Hash)>] Array<Guide> data, response status code and response headers
     def guides_controller_admin_list_with_http_info(locale, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: GuidesApi.guides_controller_admin_list ...'
@@ -47,6 +51,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -55,10 +61,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<Guide>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"GuidesApi.guides_controller_admin_list",
@@ -77,17 +83,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Create or replace a guide
+    # Creates a guide from `slug` and `title` with optional `locale` (`en`), `category` (`Guides`), `summary`, Markdown `body`, `position` (0) and `published` (true). An existing guide with the same slug and locale is overwritten (upsert). Clears the public read cache.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param create_guide_dto [CreateGuideDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Guide]
     def guides_controller_create(create_guide_dto, opts = {})
-      guides_controller_create_with_http_info(create_guide_dto, opts)
-      nil
+      data, _status_code, _headers = guides_controller_create_with_http_info(create_guide_dto, opts)
+      data
     end
 
+    # Create or replace a guide
+    # Creates a guide from &#x60;slug&#x60; and &#x60;title&#x60; with optional &#x60;locale&#x60; (&#x60;en&#x60;), &#x60;category&#x60; (&#x60;Guides&#x60;), &#x60;summary&#x60;, Markdown &#x60;body&#x60;, &#x60;position&#x60; (0) and &#x60;published&#x60; (true). An existing guide with the same slug and locale is overwritten (upsert). Clears the public read cache.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param create_guide_dto [CreateGuideDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Guide, Integer, Hash)>] Guide data, response status code and response headers
     def guides_controller_create_with_http_info(create_guide_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: GuidesApi.guides_controller_create ...'
@@ -104,6 +114,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -117,10 +129,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_guide_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Guide'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"GuidesApi.guides_controller_create",
@@ -139,19 +151,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get a published guide
+    # Public. Returns a published guide by `slug` and `locale` (default `en`). An unknown or unpublished slug returns HTTP 200 with `{ error: \"not_found\" }`, not 404.  Auth: public, no credentials required.
     # @param slug [String] 
     # @param locale [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [GuidesControllerGet200Response]
     def guides_controller_get(slug, locale, opts = {})
-      guides_controller_get_with_http_info(slug, locale, opts)
-      nil
+      data, _status_code, _headers = guides_controller_get_with_http_info(slug, locale, opts)
+      data
     end
 
+    # Get a published guide
+    # Public. Returns a published guide by &#x60;slug&#x60; and &#x60;locale&#x60; (default &#x60;en&#x60;). An unknown or unpublished slug returns HTTP 200 with &#x60;{ error: \&quot;not_found\&quot; }&#x60;, not 404.  Auth: public, no credentials required.
     # @param slug [String] 
     # @param locale [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(GuidesControllerGet200Response, Integer, Hash)>] GuidesControllerGet200Response data, response status code and response headers
     def guides_controller_get_with_http_info(slug, locale, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: GuidesApi.guides_controller_get ...'
@@ -173,6 +189,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -181,7 +199,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'GuidesControllerGet200Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -203,15 +221,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Render the public docs index page
+    # Public, server-rendered HTML for /guides: a card per published English guide plus category navigation. Cached (max-age 300, s-maxage 3600) for search engines.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [String]
     def guides_controller_index_html(opts = {})
-      guides_controller_index_html_with_http_info(opts)
-      nil
+      data, _status_code, _headers = guides_controller_index_html_with_http_info(opts)
+      data
     end
 
+    # Render the public docs index page
+    # Public, server-rendered HTML for /guides: a card per published English guide plus category navigation. Cached (max-age 300, s-maxage 3600) for search engines.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
     def guides_controller_index_html_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: GuidesApi.guides_controller_index_html ...'
@@ -224,6 +246,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/html']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -232,7 +256,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'String'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -254,19 +278,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List published guides
+    # Public. Returns published guides for `locale` (default `en`), ordered by category, position and title, optionally filtered by `category`. Reads are cached in Redis for 60 seconds. This is the in-app docs feed, separate from the OpenAPI reference at /v1/docs.  Auth: public, no credentials required.
     # @param locale [String] 
     # @param category [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<Guide>]
     def guides_controller_list(locale, category, opts = {})
-      guides_controller_list_with_http_info(locale, category, opts)
-      nil
+      data, _status_code, _headers = guides_controller_list_with_http_info(locale, category, opts)
+      data
     end
 
+    # List published guides
+    # Public. Returns published guides for &#x60;locale&#x60; (default &#x60;en&#x60;), ordered by category, position and title, optionally filtered by &#x60;category&#x60;. Reads are cached in Redis for 60 seconds. This is the in-app docs feed, separate from the OpenAPI reference at /v1/docs.  Auth: public, no credentials required.
     # @param locale [String] 
     # @param category [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<Guide>, Integer, Hash)>] Array<Guide> data, response status code and response headers
     def guides_controller_list_with_http_info(locale, category, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: GuidesApi.guides_controller_list ...'
@@ -289,6 +317,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -297,7 +327,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<Guide>'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -319,17 +349,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Render a public guide page
+    # Public, server-rendered HTML for one English guide, with its Markdown body rendered escape-first (raw HTML is neutralized), TechArticle JSON-LD and canonical URL. Unknown slugs return a 404 HTML page.  Auth: public, no credentials required.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [String]
     def guides_controller_page_html(slug, opts = {})
-      guides_controller_page_html_with_http_info(slug, opts)
-      nil
+      data, _status_code, _headers = guides_controller_page_html_with_http_info(slug, opts)
+      data
     end
 
+    # Render a public guide page
+    # Public, server-rendered HTML for one English guide, with its Markdown body rendered escape-first (raw HTML is neutralized), TechArticle JSON-LD and canonical URL. Unknown slugs return a 404 HTML page.  Auth: public, no credentials required.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
     def guides_controller_page_html_with_http_info(slug, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: GuidesApi.guides_controller_page_html ...'
@@ -346,6 +380,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/html']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -354,7 +390,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'String'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -376,17 +412,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delete a guide
+    # Deletes the guide and clears the public cache. Returns `{ ok: true }` even for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [AdminControllerSetStatus201Response]
     def guides_controller_remove(id, opts = {})
-      guides_controller_remove_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = guides_controller_remove_with_http_info(id, opts)
+      data
     end
 
+    # Delete a guide
+    # Deletes the guide and clears the public cache. Returns &#x60;{ ok: true }&#x60; even for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(AdminControllerSetStatus201Response, Integer, Hash)>] AdminControllerSetStatus201Response data, response status code and response headers
     def guides_controller_remove_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: GuidesApi.guides_controller_remove ...'
@@ -403,6 +443,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -411,10 +453,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'AdminControllerSetStatus201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"GuidesApi.guides_controller_remove",
@@ -433,15 +475,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get the docs sitemap
+    # Public XML sitemap listing /guides and every published English guide page.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [String]
     def guides_controller_sitemap(opts = {})
-      guides_controller_sitemap_with_http_info(opts)
-      nil
+      data, _status_code, _headers = guides_controller_sitemap_with_http_info(opts)
+      data
     end
 
+    # Get the docs sitemap
+    # Public XML sitemap listing /guides and every published English guide page.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
     def guides_controller_sitemap_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: GuidesApi.guides_controller_sitemap ...'
@@ -454,6 +500,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/xml']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -462,7 +510,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'String'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -484,19 +532,23 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Update a guide
+    # Partially updates any of slug, locale, title, category, summary, body, position and published, and clears the public cache. Returns the updated guide, or null for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param update_guide_dto [UpdateGuideDto] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Guide]
     def guides_controller_update(id, update_guide_dto, opts = {})
-      guides_controller_update_with_http_info(id, update_guide_dto, opts)
-      nil
+      data, _status_code, _headers = guides_controller_update_with_http_info(id, update_guide_dto, opts)
+      data
     end
 
+    # Update a guide
+    # Partially updates any of slug, locale, title, category, summary, body, position and published, and clears the public cache. Returns the updated guide, or null for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param update_guide_dto [UpdateGuideDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Guide, Integer, Hash)>] Guide data, response status code and response headers
     def guides_controller_update_with_http_info(id, update_guide_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: GuidesApi.guides_controller_update ...'
@@ -517,6 +569,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
       # HTTP header 'Content-Type'
       content_type = @api_client.select_header_content_type(['application/json'])
       if !content_type.nil?
@@ -530,10 +584,10 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(update_guide_dto)
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Guide'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"GuidesApi.guides_controller_update",

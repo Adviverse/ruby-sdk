@@ -19,15 +19,19 @@ module Adviverse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Get the targetable interest catalog
+    # Lists every non-sensitive taxonomy node with two ways to target it. `contextualKeywords` goes into targeting.contextual_include, is matched against page content at serve time and is free. `behavioral` is a network preset segment for targeting.audience_include and carries a data CPM; it is null until the preset reaches its k-anonymity minimum, and `behavioralBuilding` reports progress while it builds.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AudienceCatalogEntry>]
     def segments_controller_catalog(opts = {})
-      segments_controller_catalog_with_http_info(opts)
-      nil
+      data, _status_code, _headers = segments_controller_catalog_with_http_info(opts)
+      data
     end
 
+    # Get the targetable interest catalog
+    # Lists every non-sensitive taxonomy node with two ways to target it. &#x60;contextualKeywords&#x60; goes into targeting.contextual_include, is matched against page content at serve time and is free. &#x60;behavioral&#x60; is a network preset segment for targeting.audience_include and carries a data CPM; it is null until the preset reaches its k-anonymity minimum, and &#x60;behavioralBuilding&#x60; reports progress while it builds.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AudienceCatalogEntry>, Integer, Hash)>] Array<AudienceCatalogEntry> data, response status code and response headers
     def segments_controller_catalog_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SegmentsApi.segments_controller_catalog ...'
@@ -40,6 +44,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -48,10 +54,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AudienceCatalogEntry>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SegmentsApi.segments_controller_catalog",
@@ -70,15 +76,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Contribute an audience to the co-op
+    # Shares one of the caller's audiences (`audienceId`) as a co-op segment that other advertisers can license. `taxonomyId` is optional: when omitted the niche is auto-detected from the members, and unknown or sensitive niches leave the segment uncategorized. `revShare` (default 0.5, clamped to 0-0.9) sets the contributor's share of data fees. Re-contributing updates the existing segment. Members are materialized minus opted-out ids. Returns 404 if the audience is not owned.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SegmentsControllerContribute201Response]
     def segments_controller_contribute(opts = {})
-      segments_controller_contribute_with_http_info(opts)
-      nil
+      data, _status_code, _headers = segments_controller_contribute_with_http_info(opts)
+      data
     end
 
+    # Contribute an audience to the co-op
+    # Shares one of the caller&#39;s audiences (&#x60;audienceId&#x60;) as a co-op segment that other advertisers can license. &#x60;taxonomyId&#x60; is optional: when omitted the niche is auto-detected from the members, and unknown or sensitive niches leave the segment uncategorized. &#x60;revShare&#x60; (default 0.5, clamped to 0-0.9) sets the contributor&#39;s share of data fees. Re-contributing updates the existing segment. Members are materialized minus opted-out ids. Returns 404 if the audience is not owned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SegmentsControllerContribute201Response, Integer, Hash)>] SegmentsControllerContribute201Response data, response status code and response headers
     def segments_controller_contribute_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SegmentsApi.segments_controller_contribute ...'
@@ -91,6 +101,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -99,10 +111,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SegmentsControllerContribute201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SegmentsApi.segments_controller_contribute",
@@ -121,15 +133,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List your co-op contributions
+    # Returns the caller's contributed co-op segments, newest first, with their size, rev-share and the number of advertisers that have licensed each one.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<SegmentsControllerContributions200ResponseInner>]
     def segments_controller_contributions(opts = {})
-      segments_controller_contributions_with_http_info(opts)
-      nil
+      data, _status_code, _headers = segments_controller_contributions_with_http_info(opts)
+      data
     end
 
+    # List your co-op contributions
+    # Returns the caller&#39;s contributed co-op segments, newest first, with their size, rev-share and the number of advertisers that have licensed each one.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<SegmentsControllerContributions200ResponseInner>, Integer, Hash)>] Array<SegmentsControllerContributions200ResponseInner> data, response status code and response headers
     def segments_controller_contributions_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SegmentsApi.segments_controller_contributions ...'
@@ -142,6 +158,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -150,10 +168,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<SegmentsControllerContributions200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SegmentsApi.segments_controller_contributions",
@@ -172,17 +190,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Detect an audience's interest niche
+    # Previews the taxonomy node that best matches the members of `audienceId`, scored by keyword overlap. This is the niche contribute would assign. Returns nulls when nothing matches and 404 when the audience is not owned by the caller.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param audience_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SegmentsControllerDetectNiche200Response]
     def segments_controller_detect_niche(audience_id, opts = {})
-      segments_controller_detect_niche_with_http_info(audience_id, opts)
-      nil
+      data, _status_code, _headers = segments_controller_detect_niche_with_http_info(audience_id, opts)
+      data
     end
 
+    # Detect an audience&#39;s interest niche
+    # Previews the taxonomy node that best matches the members of &#x60;audienceId&#x60;, scored by keyword overlap. This is the niche contribute would assign. Returns nulls when nothing matches and 404 when the audience is not owned by the caller.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param audience_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SegmentsControllerDetectNiche200Response, Integer, Hash)>] SegmentsControllerDetectNiche200Response data, response status code and response headers
     def segments_controller_detect_niche_with_http_info(audience_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SegmentsApi.segments_controller_detect_niche ...'
@@ -200,6 +222,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -208,10 +232,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SegmentsControllerDetectNiche200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SegmentsApi.segments_controller_detect_niche",
@@ -230,15 +254,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Co-op data-fee statement
+    # Reads the ledger for co-op data-fee movements. Returns the total earned as a contributor (rev-share credits) and the total spent as a licensee, a per-segment earnings rollup, and the 50 most recent earning and spend entries. Totals are rounded to cents.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SegmentsControllerEarnings200Response]
     def segments_controller_earnings(opts = {})
-      segments_controller_earnings_with_http_info(opts)
-      nil
+      data, _status_code, _headers = segments_controller_earnings_with_http_info(opts)
+      data
     end
 
+    # Co-op data-fee statement
+    # Reads the ledger for co-op data-fee movements. Returns the total earned as a contributor (rev-share credits) and the total spent as a licensee, a per-segment earnings rollup, and the 50 most recent earning and spend entries. Totals are rounded to cents.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SegmentsControllerEarnings200Response, Integer, Hash)>] SegmentsControllerEarnings200Response data, response status code and response headers
     def segments_controller_earnings_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SegmentsApi.segments_controller_earnings ...'
@@ -251,6 +279,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -259,10 +289,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SegmentsControllerEarnings200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SegmentsApi.segments_controller_earnings",
@@ -281,17 +311,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # License a co-op, preset or in-market segment
+    # Grants the advertiser the right to target segment `id`, recording the data CPM that is charged on delivery and shared with the contributor. Returns 404 if the segment is not a coop/preset/in_market segment. Returns 400 if the caller owns it, if it is sensitive, or if it is below the k-anonymity threshold. Licensing is idempotent; add the returned `segmentId` to a campaign's targeting.audience_include.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SegmentsControllerLicense201Response]
     def segments_controller_license(id, opts = {})
-      segments_controller_license_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = segments_controller_license_with_http_info(id, opts)
+      data
     end
 
+    # License a co-op, preset or in-market segment
+    # Grants the advertiser the right to target segment &#x60;id&#x60;, recording the data CPM that is charged on delivery and shared with the contributor. Returns 404 if the segment is not a coop/preset/in_market segment. Returns 400 if the caller owns it, if it is sensitive, or if it is below the k-anonymity threshold. Licensing is idempotent; add the returned &#x60;segmentId&#x60; to a campaign&#39;s targeting.audience_include.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SegmentsControllerLicense201Response, Integer, Hash)>] SegmentsControllerLicense201Response data, response status code and response headers
     def segments_controller_license_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SegmentsApi.segments_controller_license ...'
@@ -308,6 +342,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -316,10 +352,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SegmentsControllerLicense201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SegmentsApi.segments_controller_license",
@@ -338,15 +374,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List licensed segments
+    # Returns the segments the advertiser has licensed, newest first, with the data CPM locked at license time and the segment's name, taxonomy node, size and scope.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<SegmentsControllerLicenses200ResponseInner>]
     def segments_controller_licenses(opts = {})
-      segments_controller_licenses_with_http_info(opts)
-      nil
+      data, _status_code, _headers = segments_controller_licenses_with_http_info(opts)
+      data
     end
 
+    # List licensed segments
+    # Returns the segments the advertiser has licensed, newest first, with the data CPM locked at license time and the segment&#39;s name, taxonomy node, size and scope.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<SegmentsControllerLicenses200ResponseInner>, Integer, Hash)>] Array<SegmentsControllerLicenses200ResponseInner> data, response status code and response headers
     def segments_controller_licenses_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SegmentsApi.segments_controller_licenses ...'
@@ -359,6 +399,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -367,10 +409,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<SegmentsControllerLicenses200ResponseInner>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SegmentsApi.segments_controller_licenses",
@@ -389,15 +431,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Opt a user out of all audience segments
+    # Public privacy endpoint, typically called by a preference center with the visitor's `adnet_uid` cookie or canonical id as `id`. The id is recorded as opted out and excluded from every future segment rebuild, and it is removed from live segment sets straight away on a best-effort basis. A missing `id` returns 400.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SegmentsControllerOptOut201Response]
     def segments_controller_opt_out(opts = {})
-      segments_controller_opt_out_with_http_info(opts)
-      nil
+      data, _status_code, _headers = segments_controller_opt_out_with_http_info(opts)
+      data
     end
 
+    # Opt a user out of all audience segments
+    # Public privacy endpoint, typically called by a preference center with the visitor&#39;s &#x60;adnet_uid&#x60; cookie or canonical id as &#x60;id&#x60;. The id is recorded as opted out and excluded from every future segment rebuild, and it is removed from live segment sets straight away on a best-effort basis. A missing &#x60;id&#x60; returns 400.  Auth: public, no credentials required.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SegmentsControllerOptOut201Response, Integer, Hash)>] SegmentsControllerOptOut201Response data, response status code and response headers
     def segments_controller_opt_out_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SegmentsApi.segments_controller_opt_out ...'
@@ -410,6 +456,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -418,7 +466,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SegmentsControllerOptOut201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
@@ -440,15 +488,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Force a segment rebuild
+    # Runs, in order, the jobs that normally run on a timer: network preset classification, co-op niche union, in-market segments, and per-account first-party interest segments. Returns each job's count. Can be slow on large datasets because it scans ClickHouse keyword data for each taxonomy node.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SegmentsControllerRebuild201Response]
     def segments_controller_rebuild(opts = {})
-      segments_controller_rebuild_with_http_info(opts)
-      nil
+      data, _status_code, _headers = segments_controller_rebuild_with_http_info(opts)
+      data
     end
 
+    # Force a segment rebuild
+    # Runs, in order, the jobs that normally run on a timer: network preset classification, co-op niche union, in-market segments, and per-account first-party interest segments. Returns each job&#39;s count. Can be slow on large datasets because it scans ClickHouse keyword data for each taxonomy node.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SegmentsControllerRebuild201Response, Integer, Hash)>] SegmentsControllerRebuild201Response data, response status code and response headers
     def segments_controller_rebuild_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SegmentsApi.segments_controller_rebuild ...'
@@ -461,6 +513,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -469,10 +523,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SegmentsControllerRebuild201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SegmentsApi.segments_controller_rebuild",
@@ -491,17 +545,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Stop sharing a contributed segment
+    # Unshares the co-op segment `id` and removes its contribution record, so it earns no further data fees. Only affects segments the caller owns; other ids are silently ignored.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SegmentsControllerRevoke201Response]
     def segments_controller_revoke(id, opts = {})
-      segments_controller_revoke_with_http_info(id, opts)
-      nil
+      data, _status_code, _headers = segments_controller_revoke_with_http_info(id, opts)
+      data
     end
 
+    # Stop sharing a contributed segment
+    # Unshares the co-op segment &#x60;id&#x60; and removes its contribution record, so it earns no further data fees. Only affects segments the caller owns; other ids are silently ignored.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SegmentsControllerRevoke201Response, Integer, Hash)>] SegmentsControllerRevoke201Response data, response status code and response headers
     def segments_controller_revoke_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SegmentsApi.segments_controller_revoke ...'
@@ -518,6 +576,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -526,10 +586,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SegmentsControllerRevoke201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SegmentsApi.segments_controller_revoke",
@@ -548,15 +608,19 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Get the interest taxonomy
+    # Returns every node of the Audience Cloud interest taxonomy with its parent, display name, matching keywords and whether it is a sensitive category. Sensitive nodes are never built into shareable or licensable segments.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [Array<AudienceTaxonomyNode>]
     def segments_controller_taxonomy(opts = {})
-      segments_controller_taxonomy_with_http_info(opts)
-      nil
+      data, _status_code, _headers = segments_controller_taxonomy_with_http_info(opts)
+      data
     end
 
+    # Get the interest taxonomy
+    # Returns every node of the Audience Cloud interest taxonomy with its parent, display name, matching keywords and whether it is a sensitive category. Sensitive nodes are never built into shareable or licensable segments.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, publisher, admin.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(Array<AudienceTaxonomyNode>, Integer, Hash)>] Array<AudienceTaxonomyNode> data, response status code and response headers
     def segments_controller_taxonomy_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SegmentsApi.segments_controller_taxonomy ...'
@@ -569,6 +633,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -577,10 +643,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'Array<AudienceTaxonomyNode>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SegmentsApi.segments_controller_taxonomy",
@@ -599,17 +665,21 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # List the segments containing an id
+    # Admin transparency tool: checks every non-empty segment for membership of `idHash` (a canonical id or uid) and returns the matching segments with their scope and taxonomy node.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id_hash [String] 
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [SegmentsControllerUserSegments200Response]
     def segments_controller_user_segments(id_hash, opts = {})
-      segments_controller_user_segments_with_http_info(id_hash, opts)
-      nil
+      data, _status_code, _headers = segments_controller_user_segments_with_http_info(id_hash, opts)
+      data
     end
 
+    # List the segments containing an id
+    # Admin transparency tool: checks every non-empty segment for membership of &#x60;idHash&#x60; (a canonical id or uid) and returns the matching segments with their scope and taxonomy node.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id_hash [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    # @return [Array<(SegmentsControllerUserSegments200Response, Integer, Hash)>] SegmentsControllerUserSegments200Response data, response status code and response headers
     def segments_controller_user_segments_with_http_info(id_hash, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SegmentsApi.segments_controller_user_segments ...'
@@ -626,6 +696,8 @@ module Adviverse
 
       # header parameters
       header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -634,10 +706,10 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type]
+      return_type = opts[:debug_return_type] || 'SegmentsControllerUserSegments200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"SegmentsApi.segments_controller_user_segments",
