@@ -1,0 +1,27 @@
+name: release
+on:
+  push: { tags: ['v*'] }
+permissions:
+  contents: write       # GitHub release
+  id-token: write       # OIDC: provenance signing + registry trusted publishing
+  attestations: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with: { ruby-version: '3.3' }
+      - run: |
+          gem build adviverse.gemspec
+          gem install ./adviverse-*.gem
+          ruby -e 'require "adviverse"'
+      - uses: actions/attest-build-provenance@v2
+        with: { subject-path: 'adviverse-*.gem' }
+      - uses: softprops/action-gh-release@v2
+        with: { files: 'adviverse-*.gem' }
+      # Enable after adding this repo as a trusted publisher on rubygems.org.
+      - if: vars.RUBYGEMS_PUBLISH == 'true'
+        uses: rubygems/configure-rubygems-credentials@v1.0.0
+      - if: vars.RUBYGEMS_PUBLISH == 'true'
+        run: gem push adviverse-*.gem
