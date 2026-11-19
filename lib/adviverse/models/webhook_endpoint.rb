@@ -26,8 +26,14 @@ module Adviverse
     # Not returned on create.
     attr_accessor :created_at
 
-    # HMAC-SHA256 signing secret (whsec_...).
+    # HMAC-SHA256 signing secret (whsec_...). Returned only by create and rotate-secret.
     attr_accessor :secret
+
+    # List/update only: whether a signing secret is set.
+    attr_accessor :has_secret
+
+    # List/update only: last 4 characters of the secret.
+    attr_accessor :secret_hint
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -37,7 +43,9 @@ module Adviverse
         :'events' => :'events',
         :'active' => :'active',
         :'created_at' => :'created_at',
-        :'secret' => :'secret'
+        :'secret' => :'secret',
+        :'has_secret' => :'has_secret',
+        :'secret_hint' => :'secret_hint'
       }
     end
 
@@ -54,13 +62,16 @@ module Adviverse
         :'events' => :'Array<String>',
         :'active' => :'Boolean',
         :'created_at' => :'Time',
-        :'secret' => :'String'
+        :'secret' => :'String',
+        :'has_secret' => :'Boolean',
+        :'secret_hint' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'secret_hint'
       ])
     end
 
@@ -111,8 +122,14 @@ module Adviverse
 
       if attributes.key?(:'secret')
         self.secret = attributes[:'secret']
-      else
-        self.secret = nil
+      end
+
+      if attributes.key?(:'has_secret')
+        self.has_secret = attributes[:'has_secret']
+      end
+
+      if attributes.key?(:'secret_hint')
+        self.secret_hint = attributes[:'secret_hint']
       end
     end
 
@@ -137,10 +154,6 @@ module Adviverse
         invalid_properties.push('invalid value for "active", active cannot be nil.')
       end
 
-      if @secret.nil?
-        invalid_properties.push('invalid value for "secret", secret cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -152,7 +165,6 @@ module Adviverse
       return false if @url.nil?
       return false if @events.nil?
       return false if @active.nil?
-      return false if @secret.nil?
       true
     end
 
@@ -166,7 +178,9 @@ module Adviverse
           events == o.events &&
           active == o.active &&
           created_at == o.created_at &&
-          secret == o.secret
+          secret == o.secret &&
+          has_secret == o.has_secret &&
+          secret_hint == o.secret_hint
     end
 
     # @see the `==` method
@@ -178,7 +192,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, url, events, active, created_at, secret].hash
+      [id, url, events, active, created_at, secret, has_secret, secret_hint].hash
     end
 
     # Builds the object from hash

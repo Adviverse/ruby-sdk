@@ -32,6 +32,7 @@ lib/adviverse/api/mfa_api.rb
 lib/adviverse/api/optimization_api.rb
 lib/adviverse/api/pixel_api.rb
 lib/adviverse/api/portal_api.rb
+lib/adviverse/api/property_trust_api.rb
 lib/adviverse/api/publisher_api.rb
 lib/adviverse/api/publisher_insights_api.rb
 lib/adviverse/api/referrals_api.rb
@@ -58,6 +59,7 @@ lib/adviverse/models/admin_controller_process_payout201_response.rb
 lib/adviverse/models/admin_controller_quality200_response_inner.rb
 lib/adviverse/models/admin_controller_rescan201_response.rb
 lib/adviverse/models/admin_controller_set_status201_response.rb
+lib/adviverse/models/admin_trust_dto.rb
 lib/adviverse/models/adv_ad_set_summary.rb
 lib/adviverse/models/adv_audience.rb
 lib/adviverse/models/adv_audience_destination.rb
@@ -280,6 +282,8 @@ lib/adviverse/models/mfa_controller_ranked200_response_inner.rb
 lib/adviverse/models/modeled_lookalike_dto.rb
 lib/adviverse/models/moderation_decision_dto.rb
 lib/adviverse/models/network_settings_dto.rb
+lib/adviverse/models/niche_classification.rb
+lib/adviverse/models/niche_score.rb
 lib/adviverse/models/oauth_discord_dto.rb
 lib/adviverse/models/oauth_google_dto.rb
 lib/adviverse/models/oauth_start_dto.rb
@@ -311,10 +315,13 @@ lib/adviverse/models/portal_templates_controller_list_templates200_response_inne
 lib/adviverse/models/portal_templates_controller_list_templates200_response_inner_fields_inner.rb
 lib/adviverse/models/profile_dto.rb
 lib/adviverse/models/promote_campaign_reporting_controller_summary200_response.rb
+lib/adviverse/models/property_trust_controller_admin_list200_response_inner.rb
+lib/adviverse/models/property_trust_controller_admin_set201_response.rb
 lib/adviverse/models/pub_combo_preset.rb
 lib/adviverse/models/pub_combo_preset_units_inner.rb
 lib/adviverse/models/pub_placement.rb
 lib/adviverse/models/pub_property.rb
+lib/adviverse/models/pub_property_categories_inner.rb
 lib/adviverse/models/pub_serving_domain.rb
 lib/adviverse/models/publisher_controller_disable_signing200_response.rb
 lib/adviverse/models/publisher_controller_domain_connect201_response.rb
@@ -465,6 +472,7 @@ lib/adviverse/models/settings_controller_rotate_terminal_token201_response.rb
 lib/adviverse/models/settings_controller_set_terminal_token_policy200_response.rb
 lib/adviverse/models/settings_controller_update_network200_response.rb
 lib/adviverse/models/signup_dto.rb
+lib/adviverse/models/site_niche.rb
 lib/adviverse/models/skadnetwork_controller_health200_response.rb
 lib/adviverse/models/skadnetwork_controller_postback200_response.rb
 lib/adviverse/models/stats_controller_get200_response.rb
@@ -483,6 +491,8 @@ lib/adviverse/models/surface_pair_init_dto.rb
 lib/adviverse/models/tax_form_dto.rb
 lib/adviverse/models/terminal_switch_dto.rb
 lib/adviverse/models/track_conversion_dto.rb
+lib/adviverse/models/trust_event.rb
+lib/adviverse/models/trust_progress.rb
 lib/adviverse/models/update_app_dto.rb
 lib/adviverse/models/update_campaign_dto.rb
 lib/adviverse/models/update_campaign_group_dto.rb
@@ -501,5 +511,6 @@ lib/adviverse/models/webhook_delivery.rb
 lib/adviverse/models/webhook_delivery_result.rb
 lib/adviverse/models/webhook_endpoint.rb
 lib/adviverse/models/webhooks_controller_events200_response.rb
+lib/adviverse/models/webhooks_controller_reveal_secret201_response.rb
 lib/adviverse/models/webhooks_controller_unsubscribe200_response.rb
 lib/adviverse/version.rb

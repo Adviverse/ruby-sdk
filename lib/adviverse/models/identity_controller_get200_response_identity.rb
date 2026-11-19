@@ -19,10 +19,12 @@ module Adviverse
 
     attr_accessor :unified_id
 
+    # Admins only
     attr_accessor :household_id
 
     attr_accessor :consent_state
 
+    # Admins only
     attr_accessor :attributes
 
     attr_accessor :first_seen

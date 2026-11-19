@@ -590,7 +590,7 @@ module Adviverse
     end
 
     # List your properties
-    # Returns every non-deleted property (websites, CLI tools, mobile apps, CTV apps) owned by the publisher, newest first. Optional `limit` (1-500) and `offset` query params paginate; without `limit` the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
+    # Returns every non-deleted property (websites, CLI tools, mobile apps, CTV apps) owned by the publisher, newest first, each with `trust_progress` toward paid demand (null for CLI properties or when traffic stats are unavailable). Optional `limit` (1-500) and `offset` query params paginate; without `limit` the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param [Hash] opts the optional parameters
     # @return [Array<PubProperty>]
     def publisher_controller_list_properties(opts = {})
@@ -599,7 +599,7 @@ module Adviverse
     end
 
     # List your properties
-    # Returns every non-deleted property (websites, CLI tools, mobile apps, CTV apps) owned by the publisher, newest first. Optional &#x60;limit&#x60; (1-500) and &#x60;offset&#x60; query params paginate; without &#x60;limit&#x60; the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
+    # Returns every non-deleted property (websites, CLI tools, mobile apps, CTV apps) owned by the publisher, newest first, each with &#x60;trust_progress&#x60; toward paid demand (null for CLI properties or when traffic stats are unavailable). Optional &#x60;limit&#x60; (1-500) and &#x60;offset&#x60; query params paginate; without &#x60;limit&#x60; the full set is returned.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param [Hash] opts the optional parameters
     # @return [Array<(Array<PubProperty>, Integer, Hash)>] Array<PubProperty> data, response status code and response headers
     def publisher_controller_list_properties_with_http_info(opts = {})
@@ -1184,7 +1184,7 @@ module Adviverse
     end
 
     # Update a property
-    # Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+    # Patches `name`, `domain`, `category`, `verificationMethod` and `crossFill` (opt in to filling this property with other-network demand). `category` is a site-niche id from GET /v1/site-niches and marks the niche as set by hand (`category_source: manual`, never overwritten by auto-detection); send 0 to hand it back to auto-detection. 400 for an unknown id. Changing `domain` also drops a trusted property back to `unverified` (unless an admin locked its trust). Changing `domain` resets `verification_status` to `unverified`, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param update_property_dto [UpdatePropertyDto] 
     # @param [Hash] opts the optional parameters
@@ -1195,7 +1195,7 @@ module Adviverse
     end
 
     # Update a property
-    # Patches &#x60;name&#x60;, &#x60;domain&#x60;, &#x60;category&#x60;, &#x60;verificationMethod&#x60; and &#x60;crossFill&#x60; (opt in to filling this property with other-network demand). Changing &#x60;domain&#x60; resets &#x60;verification_status&#x60; to &#x60;unverified&#x60;, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
+    # Patches &#x60;name&#x60;, &#x60;domain&#x60;, &#x60;category&#x60;, &#x60;verificationMethod&#x60; and &#x60;crossFill&#x60; (opt in to filling this property with other-network demand). &#x60;category&#x60; is a site-niche id from GET /v1/site-niches and marks the niche as set by hand (&#x60;category_source: manual&#x60;, never overwritten by auto-detection); send 0 to hand it back to auto-detection. 400 for an unknown id. Changing &#x60;domain&#x60; also drops a trusted property back to &#x60;unverified&#x60; (unless an admin locked its trust). Changing &#x60;domain&#x60; resets &#x60;verification_status&#x60; to &#x60;unverified&#x60;, so the property must be re-verified. Returns the updated row (unchanged row if no fields were sent) and republishes the serving index. 404 if the property does not exist, 403 if another publisher owns it.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param update_property_dto [UpdatePropertyDto] 
     # @param [Hash] opts the optional parameters

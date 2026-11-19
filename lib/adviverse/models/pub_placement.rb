@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module Adviverse
-  # A `placements` row. All columns are returned, including `signing_secret`.
+  # A `placements` row. The signing secret itself is never returned here (only from POST /v1/publisher/placements/{id}/signing-secret); `has_signing_secret` says whether one is set.
   class PubPlacement
     attr_accessor :id
 
@@ -62,7 +62,8 @@ module Adviverse
 
     attr_accessor :floor_fallback
 
-    attr_accessor :signing_secret
+    # True when a signing secret is set (signed-tag enforcement is on)
+    attr_accessor :has_signing_secret
 
     attr_accessor :combo_id
 
@@ -122,7 +123,7 @@ module Adviverse
         :'house_share' => :'house_share',
         :'house_backfill' => :'house_backfill',
         :'floor_fallback' => :'floor_fallback',
-        :'signing_secret' => :'signing_secret',
+        :'has_signing_secret' => :'has_signing_secret',
         :'combo_id' => :'combo_id',
         :'combo_label' => :'combo_label',
         :'last_active_at' => :'last_active_at',
@@ -161,7 +162,7 @@ module Adviverse
         :'house_share' => :'String',
         :'house_backfill' => :'Boolean',
         :'floor_fallback' => :'Boolean',
-        :'signing_secret' => :'String',
+        :'has_signing_secret' => :'Boolean',
         :'combo_id' => :'String',
         :'combo_label' => :'String',
         :'last_active_at' => :'Time',
@@ -178,7 +179,6 @@ module Adviverse
         :'height',
         :'passback_url',
         :'frequency_cap',
-        :'signing_secret',
         :'combo_id',
         :'combo_label',
         :'last_active_at',
@@ -289,8 +289,8 @@ module Adviverse
         self.floor_fallback = attributes[:'floor_fallback']
       end
 
-      if attributes.key?(:'signing_secret')
-        self.signing_secret = attributes[:'signing_secret']
+      if attributes.key?(:'has_signing_secret')
+        self.has_signing_secret = attributes[:'has_signing_secret']
       end
 
       if attributes.key?(:'combo_id')
@@ -371,7 +371,7 @@ module Adviverse
           house_share == o.house_share &&
           house_backfill == o.house_backfill &&
           floor_fallback == o.floor_fallback &&
-          signing_secret == o.signing_secret &&
+          has_signing_secret == o.has_signing_secret &&
           combo_id == o.combo_id &&
           combo_label == o.combo_label &&
           last_active_at == o.last_active_at &&
@@ -389,7 +389,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, property_id, name, format, width, height, responsive, floor_cpm, floor_soft, floor_auto, rev_share, auction_type, passback_url, frequency_cap, status, tag_key, settings, house_only, house_share, house_backfill, floor_fallback, signing_secret, combo_id, combo_label, last_active_at, created_at, updated_at, deleted_at].hash
+      [id, property_id, name, format, width, height, responsive, floor_cpm, floor_soft, floor_auto, rev_share, auction_type, passback_url, frequency_cap, status, tag_key, settings, house_only, house_share, house_backfill, floor_fallback, has_signing_secret, combo_id, combo_label, last_active_at, created_at, updated_at, deleted_at].hash
     end
 
     # Builds the object from hash

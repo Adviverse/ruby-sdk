@@ -200,7 +200,7 @@ module Adviverse
     end
 
     # Report a refund or chargeback for an order
-    # Claws back a held or settled per-checkout CPA conversion identified by `orderId`/`order_id`, optionally narrowed by `advertiserId`/`advertiser_id`. Emits a compensating conversion event carrying the original payout and publisher earnings so the ledger posts exact reversing entries, then marks the row refunded. A missing order id returns `error`, an unknown order `not_found`, and a repeat call `already_refunded`.  Auth: public, no credentials required.
+    # Claws back a held or settled per-checkout CPA conversion identified by `orderId`/`order_id`. Requires the advertiser API key (scope `write`) or session, and only touches that advertiser’s own orders (admins may pass `advertiserId`). Emits a compensating conversion event carrying the original payout and publisher earnings so the ledger posts exact reversing entries, then marks the row refunded. A missing order id returns `error`, an unknown order `not_found`, and a repeat call `already_refunded`.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: advertiser, admin.
     # @param refund_dto [RefundDto] 
     # @param [Hash] opts the optional parameters
     # @return [ConversionsControllerTrackRefund201Response]
@@ -210,7 +210,7 @@ module Adviverse
     end
 
     # Report a refund or chargeback for an order
-    # Claws back a held or settled per-checkout CPA conversion identified by &#x60;orderId&#x60;/&#x60;order_id&#x60;, optionally narrowed by &#x60;advertiserId&#x60;/&#x60;advertiser_id&#x60;. Emits a compensating conversion event carrying the original payout and publisher earnings so the ledger posts exact reversing entries, then marks the row refunded. A missing order id returns &#x60;error&#x60;, an unknown order &#x60;not_found&#x60;, and a repeat call &#x60;already_refunded&#x60;.  Auth: public, no credentials required.
+    # Claws back a held or settled per-checkout CPA conversion identified by &#x60;orderId&#x60;/&#x60;order_id&#x60;. Requires the advertiser API key (scope &#x60;write&#x60;) or session, and only touches that advertiser’s own orders (admins may pass &#x60;advertiserId&#x60;). Emits a compensating conversion event carrying the original payout and publisher earnings so the ledger posts exact reversing entries, then marks the row refunded. A missing order id returns &#x60;error&#x60;, an unknown order &#x60;not_found&#x60;, and a repeat call &#x60;already_refunded&#x60;.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: advertiser, admin.
     # @param refund_dto [RefundDto] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ConversionsControllerTrackRefund201Response, Integer, Hash)>] ConversionsControllerTrackRefund201Response data, response status code and response headers
@@ -248,7 +248,7 @@ module Adviverse
       return_type = opts[:debug_return_type] || 'ConversionsControllerTrackRefund201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
 
       new_options = opts.merge(
         :operation => :"ConversionsApi.conversions_controller_track_refund",

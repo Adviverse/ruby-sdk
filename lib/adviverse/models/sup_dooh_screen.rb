@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module Adviverse
-  # A `dooh_screens` row plus its placement `tag_key`.
+  # A `dooh_screens` row plus its placement `tag_key`. Player credentials (`poll_token`, `pairing_token`) are never returned.
   class SupDoohScreen
     attr_accessor :id
 
@@ -46,10 +46,6 @@ module Adviverse
     attr_accessor :status
 
     attr_accessor :pairing_code
-
-    attr_accessor :poll_token
-
-    attr_accessor :pairing_token
 
     attr_accessor :paired_at
 
@@ -103,8 +99,6 @@ module Adviverse
         :'audience_multiplier' => :'audience_multiplier',
         :'status' => :'status',
         :'pairing_code' => :'pairing_code',
-        :'poll_token' => :'poll_token',
-        :'pairing_token' => :'pairing_token',
         :'paired_at' => :'paired_at',
         :'last_heartbeat_at' => :'last_heartbeat_at',
         :'player_version' => :'player_version',
@@ -137,8 +131,6 @@ module Adviverse
         :'audience_multiplier' => :'String',
         :'status' => :'String',
         :'pairing_code' => :'String',
-        :'poll_token' => :'String',
-        :'pairing_token' => :'String',
         :'paired_at' => :'Time',
         :'last_heartbeat_at' => :'Time',
         :'player_version' => :'String',
@@ -162,8 +154,6 @@ module Adviverse
         :'lng',
         :'timezone',
         :'pairing_code',
-        :'poll_token',
-        :'pairing_token',
         :'paired_at',
         :'last_heartbeat_at',
         :'player_version',
@@ -246,14 +236,6 @@ module Adviverse
         self.pairing_code = attributes[:'pairing_code']
       end
 
-      if attributes.key?(:'poll_token')
-        self.poll_token = attributes[:'poll_token']
-      end
-
-      if attributes.key?(:'pairing_token')
-        self.pairing_token = attributes[:'pairing_token']
-      end
-
       if attributes.key?(:'paired_at')
         self.paired_at = attributes[:'paired_at']
       end
@@ -326,8 +308,6 @@ module Adviverse
           audience_multiplier == o.audience_multiplier &&
           status == o.status &&
           pairing_code == o.pairing_code &&
-          poll_token == o.poll_token &&
-          pairing_token == o.pairing_token &&
           paired_at == o.paired_at &&
           last_heartbeat_at == o.last_heartbeat_at &&
           player_version == o.player_version &&
@@ -345,7 +325,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, placement_id, account_id, venue_name, venue_type, orientation, resolution_w, resolution_h, lat, lng, timezone, loop_seconds, audience_multiplier, status, pairing_code, poll_token, pairing_token, paired_at, last_heartbeat_at, player_version, tag_key, created_at, updated_at].hash
+      [id, placement_id, account_id, venue_name, venue_type, orientation, resolution_w, resolution_h, lat, lng, timezone, loop_seconds, audience_multiplier, status, pairing_code, paired_at, last_heartbeat_at, player_version, tag_key, created_at, updated_at].hash
     end
 
     # Builds the object from hash

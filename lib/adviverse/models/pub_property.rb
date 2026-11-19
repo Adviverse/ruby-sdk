@@ -27,7 +27,26 @@ module Adviverse
     # Hostname, CLI slug, or app bundle id
     attr_accessor :domain
 
+    # Site-niche id (GET /v1/site-niches); null when unknown
     attr_accessor :category
+
+    attr_accessor :category_source
+
+    attr_accessor :categories
+
+    attr_accessor :classified_at
+
+    attr_accessor :classify_error
+
+    # unverified = CPA-only demand; promoted automatically once proven clean
+    attr_accessor :trust_tier
+
+    # An admin pinned the trust tier; automatic changes are off
+    attr_accessor :trust_locked
+
+    attr_accessor :verified_at
+
+    attr_accessor :trust_progress
 
     attr_accessor :verification_status
 
@@ -99,6 +118,14 @@ module Adviverse
         :'name' => :'name',
         :'domain' => :'domain',
         :'category' => :'category',
+        :'category_source' => :'category_source',
+        :'categories' => :'categories',
+        :'classified_at' => :'classified_at',
+        :'classify_error' => :'classify_error',
+        :'trust_tier' => :'trust_tier',
+        :'trust_locked' => :'trust_locked',
+        :'verified_at' => :'verified_at',
+        :'trust_progress' => :'trust_progress',
         :'verification_status' => :'verification_status',
         :'verification_method' => :'verification_method',
         :'verification_token' => :'verification_token',
@@ -135,6 +162,14 @@ module Adviverse
         :'name' => :'String',
         :'domain' => :'String',
         :'category' => :'Integer',
+        :'category_source' => :'String',
+        :'categories' => :'Array<PubPropertyCategoriesInner>',
+        :'classified_at' => :'Time',
+        :'classify_error' => :'String',
+        :'trust_tier' => :'String',
+        :'trust_locked' => :'Boolean',
+        :'verified_at' => :'Time',
+        :'trust_progress' => :'TrustProgress',
         :'verification_status' => :'String',
         :'verification_method' => :'String',
         :'verification_token' => :'String',
@@ -162,6 +197,9 @@ module Adviverse
       Set.new([
         :'name',
         :'category',
+        :'classified_at',
+        :'classify_error',
+        :'verified_at',
         :'verification_method',
         :'verification_token',
         :'serving_domain',
@@ -211,6 +249,40 @@ module Adviverse
 
       if attributes.key?(:'category')
         self.category = attributes[:'category']
+      end
+
+      if attributes.key?(:'category_source')
+        self.category_source = attributes[:'category_source']
+      end
+
+      if attributes.key?(:'categories')
+        if (value = attributes[:'categories']).is_a?(Array)
+          self.categories = value
+        end
+      end
+
+      if attributes.key?(:'classified_at')
+        self.classified_at = attributes[:'classified_at']
+      end
+
+      if attributes.key?(:'classify_error')
+        self.classify_error = attributes[:'classify_error']
+      end
+
+      if attributes.key?(:'trust_tier')
+        self.trust_tier = attributes[:'trust_tier']
+      end
+
+      if attributes.key?(:'trust_locked')
+        self.trust_locked = attributes[:'trust_locked']
+      end
+
+      if attributes.key?(:'verified_at')
+        self.verified_at = attributes[:'verified_at']
+      end
+
+      if attributes.key?(:'trust_progress')
+        self.trust_progress = attributes[:'trust_progress']
       end
 
       if attributes.key?(:'verification_status')
@@ -308,11 +380,35 @@ module Adviverse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      category_source_validator = EnumAttributeValidator.new('String', ["auto", "manual"])
+      return false unless category_source_validator.valid?(@category_source)
+      trust_tier_validator = EnumAttributeValidator.new('String', ["unverified", "trusted"])
+      return false unless trust_tier_validator.valid?(@trust_tier)
       verification_status_validator = EnumAttributeValidator.new('String', ["unverified", "verified"])
       return false unless verification_status_validator.valid?(@verification_status)
       status_validator = EnumAttributeValidator.new('String', ["pending", "approved", "rejected"])
       return false unless status_validator.valid?(@status)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] category_source Object to be assigned
+    def category_source=(category_source)
+      validator = EnumAttributeValidator.new('String', ["auto", "manual"])
+      unless validator.valid?(category_source)
+        fail ArgumentError, "invalid value for \"category_source\", must be one of #{validator.allowable_values}."
+      end
+      @category_source = category_source
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] trust_tier Object to be assigned
+    def trust_tier=(trust_tier)
+      validator = EnumAttributeValidator.new('String', ["unverified", "trusted"])
+      unless validator.valid?(trust_tier)
+        fail ArgumentError, "invalid value for \"trust_tier\", must be one of #{validator.allowable_values}."
+      end
+      @trust_tier = trust_tier
     end
 
     # Custom attribute writer method checking allowed values (enum).
@@ -346,6 +442,14 @@ module Adviverse
           name == o.name &&
           domain == o.domain &&
           category == o.category &&
+          category_source == o.category_source &&
+          categories == o.categories &&
+          classified_at == o.classified_at &&
+          classify_error == o.classify_error &&
+          trust_tier == o.trust_tier &&
+          trust_locked == o.trust_locked &&
+          verified_at == o.verified_at &&
+          trust_progress == o.trust_progress &&
           verification_status == o.verification_status &&
           verification_method == o.verification_method &&
           verification_token == o.verification_token &&
@@ -376,7 +480,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, publisher_id, kind, name, domain, category, verification_status, verification_method, verification_token, status, quality_score, cross_fill, serving_domain, serving_domain_verified, serving_domain_checked_at, bundle_id, store_url, platform, app_store_id, app_ads_txt, skadnetwork_ids, ctv_meta, created_at, updated_at, deleted_at].hash
+      [id, publisher_id, kind, name, domain, category, category_source, categories, classified_at, classify_error, trust_tier, trust_locked, verified_at, trust_progress, verification_status, verification_method, verification_token, status, quality_score, cross_fill, serving_domain, serving_domain_verified, serving_domain_checked_at, bundle_id, store_url, platform, app_store_id, app_ads_txt, skadnetwork_ids, ctv_meta, created_at, updated_at, deleted_at].hash
     end
 
     # Builds the object from hash

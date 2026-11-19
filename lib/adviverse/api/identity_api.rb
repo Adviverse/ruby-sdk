@@ -88,7 +88,7 @@ module Adviverse
     end
 
     # Get an identity with its signals
-    # Returns the identity row, the signals on it that the caller supplied (oldest first; admins see all) and the raw cookie/device ids among them. Never returns signals supplied by other accounts. Returns 404 if `canonicalId` does not exist or the caller does not own it (owns none of its signals).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
+    # Returns the identity (for an advertiser only `canonical_id`, a per-advertiser `unified_id`, `consent_state`, `first_seen` and `last_seen`, since the shared row's other fields can derive from other accounts' signals; admins get the full row), the signals on it that the caller supplied (oldest first; admins see all) and the raw cookie/device ids among them. Never returns signals supplied by other accounts. Returns 404 if `canonicalId` does not exist or the caller does not own it (owns none of its signals).  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: advertiser.
     # @param canonical_id [String] 
     # @param [Hash] opts the optional parameters
     # @return [IdentityControllerGet200Response]
@@ -98,7 +98,7 @@ module Adviverse
     end
 
     # Get an identity with its signals
-    # Returns the identity row, the signals on it that the caller supplied (oldest first; admins see all) and the raw cookie/device ids among them. Never returns signals supplied by other accounts. Returns 404 if &#x60;canonicalId&#x60; does not exist or the caller does not own it (owns none of its signals).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
+    # Returns the identity (for an advertiser only &#x60;canonical_id&#x60;, a per-advertiser &#x60;unified_id&#x60;, &#x60;consent_state&#x60;, &#x60;first_seen&#x60; and &#x60;last_seen&#x60;, since the shared row&#39;s other fields can derive from other accounts&#39; signals; admins get the full row), the signals on it that the caller supplied (oldest first; admins see all) and the raw cookie/device ids among them. Never returns signals supplied by other accounts. Returns 404 if &#x60;canonicalId&#x60; does not exist or the caller does not own it (owns none of its signals).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param canonical_id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(IdentityControllerGet200Response, Integer, Hash)>] IdentityControllerGet200Response data, response status code and response headers
@@ -151,7 +151,7 @@ module Adviverse
     end
 
     # Link signals to an identity
-    # Adds `signals` (each `{ type, value }`, type one of email/phone/cookie/device/ip_ua) to the identity `canonicalId` without merging identities. A signal owned by another identity is moved only if neither identity has denied consent; otherwise it is skipped. The caller becomes an owner of the linked signals. Returns 404 if the identity does not exist or the caller does not own it (has not resolved/linked any of its signals; admins bypass), and 400 for an empty list.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
+    # Adds `signals` (each `{ type, value }`, type one of email/phone/cookie/device/ip_ua) to the identity `canonicalId` without merging identities. A signal owned by another identity is moved only if the caller has itself supplied that signal before (else 409, nothing is linked) and neither identity has denied consent (else it is skipped). The caller becomes an owner of the linked signals. Returns 404 if the identity does not exist or the caller does not own it (has not resolved/linked any of its signals; admins bypass), and 400 for an empty list.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param link_identity_dto [LinkIdentityDto] 
     # @param [Hash] opts the optional parameters
     # @return [IdentityControllerLink201Response]
@@ -161,7 +161,7 @@ module Adviverse
     end
 
     # Link signals to an identity
-    # Adds &#x60;signals&#x60; (each &#x60;{ type, value }&#x60;, type one of email/phone/cookie/device/ip_ua) to the identity &#x60;canonicalId&#x60; without merging identities. A signal owned by another identity is moved only if neither identity has denied consent; otherwise it is skipped. The caller becomes an owner of the linked signals. Returns 404 if the identity does not exist or the caller does not own it (has not resolved/linked any of its signals; admins bypass), and 400 for an empty list.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
+    # Adds &#x60;signals&#x60; (each &#x60;{ type, value }&#x60;, type one of email/phone/cookie/device/ip_ua) to the identity &#x60;canonicalId&#x60; without merging identities. A signal owned by another identity is moved only if the caller has itself supplied that signal before (else 409, nothing is linked) and neither identity has denied consent (else it is skipped). The caller becomes an owner of the linked signals. Returns 404 if the identity does not exist or the caller does not own it (has not resolved/linked any of its signals; admins bypass), and 400 for an empty list.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param link_identity_dto [LinkIdentityDto] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(IdentityControllerLink201Response, Integer, Hash)>] IdentityControllerLink201Response data, response status code and response headers
@@ -219,7 +219,7 @@ module Adviverse
     end
 
     # Resolve signals to a canonical identity
-    # Resolves any of `email`, `phone`, `cookieId`, `deviceId` (at least one, else 400) to a canonical identity, creating one if none matches and linking all signals to it. If the signals already belong to different identities they are merged into the oldest one, unless any of them has consent `denied`, in which case no merge happens and their signals stay put. Email and phone are normalized and hashed; mappings are mirrored to Redis for the ad-engine. The graph is shared across accounts (the same person resolves to one `canonicalId`), but the caller is recorded as an owner of the signals it supplied and the response lists only those signals, never signals supplied by other accounts.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
+    # Resolves any of `email`, `phone`, `cookieId`, `deviceId` (at least one, else 400) to a canonical identity, creating one if none matches and linking all signals to it. If the signals already belong to different identities they are merged into the oldest one, unless any of them has consent `denied`, in which case no merge happens and their signals stay put. Email and phone are normalized and hashed; mappings are mirrored to Redis for the ad-engine. The graph is shared across accounts (the same person resolves to one `canonicalId`), but the caller is recorded as an owner of the signals it supplied and the response lists only those signals, never signals supplied by other accounts. For an advertiser `unifiedId` is a per-advertiser id (HMAC of the account and `canonicalId`): stable for that account, not comparable across accounts; admins get the global email-derived id.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: advertiser.
     # @param resolve_identity_dto [ResolveIdentityDto] 
     # @param [Hash] opts the optional parameters
     # @return [IdentityControllerResolve201Response]
@@ -229,7 +229,7 @@ module Adviverse
     end
 
     # Resolve signals to a canonical identity
-    # Resolves any of &#x60;email&#x60;, &#x60;phone&#x60;, &#x60;cookieId&#x60;, &#x60;deviceId&#x60; (at least one, else 400) to a canonical identity, creating one if none matches and linking all signals to it. If the signals already belong to different identities they are merged into the oldest one, unless any of them has consent &#x60;denied&#x60;, in which case no merge happens and their signals stay put. Email and phone are normalized and hashed; mappings are mirrored to Redis for the ad-engine. The graph is shared across accounts (the same person resolves to one &#x60;canonicalId&#x60;), but the caller is recorded as an owner of the signals it supplied and the response lists only those signals, never signals supplied by other accounts.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
+    # Resolves any of &#x60;email&#x60;, &#x60;phone&#x60;, &#x60;cookieId&#x60;, &#x60;deviceId&#x60; (at least one, else 400) to a canonical identity, creating one if none matches and linking all signals to it. If the signals already belong to different identities they are merged into the oldest one, unless any of them has consent &#x60;denied&#x60;, in which case no merge happens and their signals stay put. Email and phone are normalized and hashed; mappings are mirrored to Redis for the ad-engine. The graph is shared across accounts (the same person resolves to one &#x60;canonicalId&#x60;), but the caller is recorded as an owner of the signals it supplied and the response lists only those signals, never signals supplied by other accounts. For an advertiser &#x60;unifiedId&#x60; is a per-advertiser id (HMAC of the account and &#x60;canonicalId&#x60;): stable for that account, not comparable across accounts; admins get the global email-derived id.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: advertiser.
     # @param resolve_identity_dto [ResolveIdentityDto] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(IdentityControllerResolve201Response, Integer, Hash)>] IdentityControllerResolve201Response data, response status code and response headers

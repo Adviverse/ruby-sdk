@@ -151,7 +151,7 @@ module Adviverse
     end
 
     # List webhook endpoints
-    # Lists the account's webhook subscriptions, newest first. Includes each endpoint's HMAC signing `secret` so the dashboard can show it for verifying the `X-Adviverse-Signature` header.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
+    # Lists the account's webhook subscriptions, newest first. The signing secret is not returned: each endpoint has `has_secret` and `secret_hint` (its last 4 characters). Use POST /v1/webhooks/{id}/secret/reveal to fetch the secret.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`).
     # @param [Hash] opts the optional parameters
     # @return [Array<WebhookEndpoint>]
     def webhooks_controller_list(opts = {})
@@ -160,7 +160,7 @@ module Adviverse
     end
 
     # List webhook endpoints
-    # Lists the account&#39;s webhook subscriptions, newest first. Includes each endpoint&#39;s HMAC signing &#x60;secret&#x60; so the dashboard can show it for verifying the &#x60;X-Adviverse-Signature&#x60; header.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
+    # Lists the account&#39;s webhook subscriptions, newest first. The signing secret is not returned: each endpoint has &#x60;has_secret&#x60; and &#x60;secret_hint&#x60; (its last 4 characters). Use POST /v1/webhooks/{id}/secret/reveal to fetch the secret.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;).
     # @param [Hash] opts the optional parameters
     # @return [Array<(Array<WebhookEndpoint>, Integer, Hash)>] Array<WebhookEndpoint> data, response status code and response headers
     def webhooks_controller_list_with_http_info(opts = {})
@@ -329,6 +329,69 @@ module Adviverse
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: WebhooksApi#webhooks_controller_redeliver\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Reveal a webhook signing secret
+    # Returns the endpoint's current `whsec_` HMAC signing secret, used to verify the `X-Adviverse-Signature` header. List and update never return it. Returns 400 if the endpoint is not found for this account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [WebhooksControllerRevealSecret201Response]
+    def webhooks_controller_reveal_secret(id, opts = {})
+      data, _status_code, _headers = webhooks_controller_reveal_secret_with_http_info(id, opts)
+      data
+    end
+
+    # Reveal a webhook signing secret
+    # Returns the endpoint&#39;s current &#x60;whsec_&#x60; HMAC signing secret, used to verify the &#x60;X-Adviverse-Signature&#x60; header. List and update never return it. Returns 400 if the endpoint is not found for this account.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(WebhooksControllerRevealSecret201Response, Integer, Hash)>] WebhooksControllerRevealSecret201Response data, response status code and response headers
+    def webhooks_controller_reveal_secret_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WebhooksApi.webhooks_controller_reveal_secret ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WebhooksApi.webhooks_controller_reveal_secret"
+      end
+      # resource path
+      local_var_path = '/v1/webhooks/{id}/secret/reveal'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'WebhooksControllerRevealSecret201Response'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
+
+      new_options = opts.merge(
+        :operation => :"WebhooksApi.webhooks_controller_reveal_secret",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WebhooksApi#webhooks_controller_reveal_secret\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -528,7 +591,7 @@ module Adviverse
     end
 
     # Update a webhook endpoint
-    # Changes an endpoint's `url`, `events` and/or `active` flag (set false to pause deliveries); omitted fields are kept. A new URL goes through the SSRF guard and unknown event names are rejected with 400. Returns 400 if the endpoint is not found for this account.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
+    # Changes an endpoint's `url`, `events` and/or `active` flag (set false to pause deliveries); omitted fields are kept. A new URL goes through the SSRF guard and unknown event names are rejected with 400. Returns 400 if the endpoint is not found for this account. The secret is not returned (`has_secret` + `secret_hint` instead).  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
     # @param id [String] 
     # @param update_webhook_dto [UpdateWebhookDto] 
     # @param [Hash] opts the optional parameters
@@ -539,7 +602,7 @@ module Adviverse
     end
 
     # Update a webhook endpoint
-    # Changes an endpoint&#39;s &#x60;url&#x60;, &#x60;events&#x60; and/or &#x60;active&#x60; flag (set false to pause deliveries); omitted fields are kept. A new URL goes through the SSRF guard and unknown event names are rejected with 400. Returns 400 if the endpoint is not found for this account.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
+    # Changes an endpoint&#39;s &#x60;url&#x60;, &#x60;events&#x60; and/or &#x60;active&#x60; flag (set false to pause deliveries); omitted fields are kept. A new URL goes through the SSRF guard and unknown event names are rejected with 400. Returns 400 if the endpoint is not found for this account. The secret is not returned (&#x60;has_secret&#x60; + &#x60;secret_hint&#x60; instead).  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
     # @param id [String] 
     # @param update_webhook_dto [UpdateWebhookDto] 
     # @param [Hash] opts the optional parameters

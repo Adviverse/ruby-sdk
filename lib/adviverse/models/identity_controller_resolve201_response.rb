@@ -17,6 +17,7 @@ module Adviverse
   class IdentityControllerResolve201Response
     attr_accessor :canonical_id
 
+    # Per-advertiser id for advertisers; the global email-derived id (or null) for admins
     attr_accessor :unified_id
 
     attr_accessor :consent_state

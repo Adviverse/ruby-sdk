@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module Adviverse
-  # A `surfaces` row plus its placement `tag_key`.
+  # A `surfaces` row plus its placement `tag_key`. Player credentials (`poll_token`, `pairing_token`) are never returned.
   class SupSurface
     attr_accessor :id
 
@@ -46,8 +46,6 @@ module Adviverse
     attr_accessor :status
 
     attr_accessor :pairing_code
-
-    attr_accessor :poll_token
 
     attr_accessor :last_heartbeat_at
 
@@ -95,7 +93,6 @@ module Adviverse
         :'audience_multiplier' => :'audience_multiplier',
         :'status' => :'status',
         :'pairing_code' => :'pairing_code',
-        :'poll_token' => :'poll_token',
         :'last_heartbeat_at' => :'last_heartbeat_at',
         :'tag_key' => :'tag_key',
         :'created_at' => :'created_at'
@@ -125,7 +122,6 @@ module Adviverse
         :'audience_multiplier' => :'String',
         :'status' => :'String',
         :'pairing_code' => :'String',
-        :'poll_token' => :'String',
         :'last_heartbeat_at' => :'Time',
         :'tag_key' => :'String',
         :'created_at' => :'Time'
@@ -146,7 +142,6 @@ module Adviverse
         :'width_m',
         :'height_m',
         :'pairing_code',
-        :'poll_token',
         :'last_heartbeat_at',
         :'tag_key',
       ])
@@ -227,10 +222,6 @@ module Adviverse
         self.pairing_code = attributes[:'pairing_code']
       end
 
-      if attributes.key?(:'poll_token')
-        self.poll_token = attributes[:'poll_token']
-      end
-
       if attributes.key?(:'last_heartbeat_at')
         self.last_heartbeat_at = attributes[:'last_heartbeat_at']
       end
@@ -291,7 +282,6 @@ module Adviverse
           audience_multiplier == o.audience_multiplier &&
           status == o.status &&
           pairing_code == o.pairing_code &&
-          poll_token == o.poll_token &&
           last_heartbeat_at == o.last_heartbeat_at &&
           tag_key == o.tag_key &&
           created_at == o.created_at
@@ -306,7 +296,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, placement_id, account_id, world_integration_id, shop_id, world, surface_type, pos_x, pos_y, pos_z, width_m, height_m, audience_multiplier, status, pairing_code, poll_token, last_heartbeat_at, tag_key, created_at].hash
+      [id, placement_id, account_id, world_integration_id, shop_id, world, surface_type, pos_x, pos_y, pos_z, width_m, height_m, audience_multiplier, status, pairing_code, last_heartbeat_at, tag_key, created_at].hash
     end
 
     # Builds the object from hash

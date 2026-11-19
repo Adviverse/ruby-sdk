@@ -39,6 +39,10 @@ module Adviverse
 
     attr_accessor :house_ad
 
+    attr_accessor :auto_own_placements
+
+    attr_accessor :network_expansion
+
     attr_accessor :priority_tier
 
     attr_accessor :delivery_goal
@@ -100,6 +104,8 @@ module Adviverse
         :'bid_modifiers' => :'bidModifiers',
         :'targeting' => :'targeting',
         :'house_ad' => :'houseAd',
+        :'auto_own_placements' => :'autoOwnPlacements',
+        :'network_expansion' => :'networkExpansion',
         :'priority_tier' => :'priorityTier',
         :'delivery_goal' => :'deliveryGoal',
         :'goal_type' => :'goalType',
@@ -135,6 +141,8 @@ module Adviverse
         :'bid_modifiers' => :'Object',
         :'targeting' => :'Object',
         :'house_ad' => :'Boolean',
+        :'auto_own_placements' => :'Boolean',
+        :'network_expansion' => :'Boolean',
         :'priority_tier' => :'String',
         :'delivery_goal' => :'Float',
         :'goal_type' => :'String',
@@ -217,6 +225,14 @@ module Adviverse
 
       if attributes.key?(:'house_ad')
         self.house_ad = attributes[:'house_ad']
+      end
+
+      if attributes.key?(:'auto_own_placements')
+        self.auto_own_placements = attributes[:'auto_own_placements']
+      end
+
+      if attributes.key?(:'network_expansion')
+        self.network_expansion = attributes[:'network_expansion']
       end
 
       if attributes.key?(:'priority_tier')
@@ -478,6 +494,8 @@ module Adviverse
           bid_modifiers == o.bid_modifiers &&
           targeting == o.targeting &&
           house_ad == o.house_ad &&
+          auto_own_placements == o.auto_own_placements &&
+          network_expansion == o.network_expansion &&
           priority_tier == o.priority_tier &&
           delivery_goal == o.delivery_goal &&
           goal_type == o.goal_type &&
@@ -501,7 +519,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name, bid_amount, budget_total, budget_daily, pacing, start_at, end_at, skan_app_store_id, skan_source_id, bid_modifiers, targeting, house_ad, priority_tier, delivery_goal, goal_type, portfolio_freq_cap, sequence_group, sequence_order, suppress_after_conversion, holdout_pct, bid_strategy, target_cpa, target_roas, utm].hash
+      [name, bid_amount, budget_total, budget_daily, pacing, start_at, end_at, skan_app_store_id, skan_source_id, bid_modifiers, targeting, house_ad, auto_own_placements, network_expansion, priority_tier, delivery_goal, goal_type, portfolio_freq_cap, sequence_group, sequence_order, suppress_after_conversion, holdout_pct, bid_strategy, target_cpa, target_roas, utm].hash
     end
 
     # Builds the object from hash
