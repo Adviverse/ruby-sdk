@@ -58,7 +58,6 @@ lib/adviverse/models/admin_controller_config200_response_inner.rb
 lib/adviverse/models/admin_controller_process_payout201_response.rb
 lib/adviverse/models/admin_controller_quality200_response_inner.rb
 lib/adviverse/models/admin_controller_rescan201_response.rb
-lib/adviverse/models/admin_controller_set_status201_response.rb
 lib/adviverse/models/admin_trust_dto.rb
 lib/adviverse/models/adv_ad_set_summary.rb
 lib/adviverse/models/adv_audience.rb
@@ -177,6 +176,7 @@ lib/adviverse/models/combo_controller_list_presets200_response.rb
 lib/adviverse/models/combo_unit_dto.rb
 lib/adviverse/models/companion_dto.rb
 lib/adviverse/models/compliance_consent_config.rb
+lib/adviverse/models/compliance_controller_complete201_response.rb
 lib/adviverse/models/compliance_controller_consent201_response.rb
 lib/adviverse/models/compliance_controller_consent_log200_response_inner.rb
 lib/adviverse/models/compliance_controller_sellers200_response.rb
@@ -328,6 +328,7 @@ lib/adviverse/models/publisher_controller_domain_connect201_response.rb
 lib/adviverse/models/publisher_controller_rotate_signing_secret201_response.rb
 lib/adviverse/models/publisher_controller_tag200_response.rb
 lib/adviverse/models/publisher_controller_verify201_response.rb
+lib/adviverse/models/publisher_controller_verify201_response_check.rb
 lib/adviverse/models/publisher_controller_verify_serving_domain201_response.rb
 lib/adviverse/models/publisher_insights_controller_clearing200_response.rb
 lib/adviverse/models/publisher_insights_controller_clearing200_response_points_inner.rb

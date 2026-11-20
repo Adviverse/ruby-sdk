@@ -61,6 +61,12 @@ module Adviverse
 
     attr_accessor :cross_fill
 
+    # Ads before consent (resolved: property consent config, else account default)
+    attr_accessor :contextual_without_consent
+
+    # Enhanced frequency capping (resolved like contextual_without_consent)
+    attr_accessor :enhanced_capping
+
     attr_accessor :serving_domain
 
     attr_accessor :serving_domain_verified
@@ -132,6 +138,8 @@ module Adviverse
         :'status' => :'status',
         :'quality_score' => :'quality_score',
         :'cross_fill' => :'cross_fill',
+        :'contextual_without_consent' => :'contextual_without_consent',
+        :'enhanced_capping' => :'enhanced_capping',
         :'serving_domain' => :'serving_domain',
         :'serving_domain_verified' => :'serving_domain_verified',
         :'serving_domain_checked_at' => :'serving_domain_checked_at',
@@ -176,6 +184,8 @@ module Adviverse
         :'status' => :'String',
         :'quality_score' => :'String',
         :'cross_fill' => :'Boolean',
+        :'contextual_without_consent' => :'Boolean',
+        :'enhanced_capping' => :'Boolean',
         :'serving_domain' => :'String',
         :'serving_domain_verified' => :'Boolean',
         :'serving_domain_checked_at' => :'Time',
@@ -307,6 +317,14 @@ module Adviverse
 
       if attributes.key?(:'cross_fill')
         self.cross_fill = attributes[:'cross_fill']
+      end
+
+      if attributes.key?(:'contextual_without_consent')
+        self.contextual_without_consent = attributes[:'contextual_without_consent']
+      end
+
+      if attributes.key?(:'enhanced_capping')
+        self.enhanced_capping = attributes[:'enhanced_capping']
       end
 
       if attributes.key?(:'serving_domain')
@@ -456,6 +474,8 @@ module Adviverse
           status == o.status &&
           quality_score == o.quality_score &&
           cross_fill == o.cross_fill &&
+          contextual_without_consent == o.contextual_without_consent &&
+          enhanced_capping == o.enhanced_capping &&
           serving_domain == o.serving_domain &&
           serving_domain_verified == o.serving_domain_verified &&
           serving_domain_checked_at == o.serving_domain_checked_at &&
@@ -480,7 +500,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, publisher_id, kind, name, domain, category, category_source, categories, classified_at, classify_error, trust_tier, trust_locked, verified_at, trust_progress, verification_status, verification_method, verification_token, status, quality_score, cross_fill, serving_domain, serving_domain_verified, serving_domain_checked_at, bundle_id, store_url, platform, app_store_id, app_ads_txt, skadnetwork_ids, ctv_meta, created_at, updated_at, deleted_at].hash
+      [id, publisher_id, kind, name, domain, category, category_source, categories, classified_at, classify_error, trust_tier, trust_locked, verified_at, trust_progress, verification_status, verification_method, verification_token, status, quality_score, cross_fill, contextual_without_consent, enhanced_capping, serving_domain, serving_domain_verified, serving_domain_checked_at, bundle_id, store_url, platform, app_store_id, app_ads_txt, skadnetwork_ids, ctv_meta, created_at, updated_at, deleted_at].hash
     end
 
     # Builds the object from hash

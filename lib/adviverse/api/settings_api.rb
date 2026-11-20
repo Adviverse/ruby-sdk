@@ -95,7 +95,7 @@ module Adviverse
     # @param id [String] 
     # @param brand_safety_dto [BrandSafetyDto] 
     # @param [Hash] opts the optional parameters
-    # @return [AdminControllerSetStatus201Response]
+    # @return [ComplianceControllerComplete201Response]
     def settings_controller_brand_safety(id, brand_safety_dto, opts = {})
       data, _status_code, _headers = settings_controller_brand_safety_with_http_info(id, brand_safety_dto, opts)
       data
@@ -106,7 +106,7 @@ module Adviverse
     # @param id [String] 
     # @param brand_safety_dto [BrandSafetyDto] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(AdminControllerSetStatus201Response, Integer, Hash)>] AdminControllerSetStatus201Response data, response status code and response headers
+    # @return [Array<(ComplianceControllerComplete201Response, Integer, Hash)>] ComplianceControllerComplete201Response data, response status code and response headers
     def settings_controller_brand_safety_with_http_info(id, brand_safety_dto, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SettingsApi.settings_controller_brand_safety ...'
@@ -142,7 +142,7 @@ module Adviverse
       post_body = opts[:debug_body] || @api_client.object_to_http_body(brand_safety_dto)
 
       # return_type
-      return_type = opts[:debug_return_type] || 'AdminControllerSetStatus201Response'
+      return_type = opts[:debug_return_type] || 'ComplianceControllerComplete201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']

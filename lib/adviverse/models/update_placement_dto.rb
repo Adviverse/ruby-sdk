@@ -41,6 +41,8 @@ module Adviverse
 
     attr_accessor :auto_ads
 
+    attr_accessor :frequency_cap
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -56,7 +58,8 @@ module Adviverse
         :'floor_fallback' => :'floorFallback',
         :'floor_auto' => :'floorAuto',
         :'floor_soft' => :'floorSoft',
-        :'auto_ads' => :'autoAds'
+        :'auto_ads' => :'autoAds',
+        :'frequency_cap' => :'frequencyCap'
       }
     end
 
@@ -80,14 +83,16 @@ module Adviverse
         :'floor_fallback' => :'Boolean',
         :'floor_auto' => :'Boolean',
         :'floor_soft' => :'Float',
-        :'auto_ads' => :'Object'
+        :'auto_ads' => :'Object',
+        :'frequency_cap' => :'Object'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'auto_ads'
+        :'auto_ads',
+        :'frequency_cap'
       ])
     end
 
@@ -156,6 +161,10 @@ module Adviverse
 
       if attributes.key?(:'auto_ads')
         self.auto_ads = attributes[:'auto_ads']
+      end
+
+      if attributes.key?(:'frequency_cap')
+        self.frequency_cap = attributes[:'frequency_cap']
       end
     end
 
@@ -257,7 +266,8 @@ module Adviverse
           floor_fallback == o.floor_fallback &&
           floor_auto == o.floor_auto &&
           floor_soft == o.floor_soft &&
-          auto_ads == o.auto_ads
+          auto_ads == o.auto_ads &&
+          frequency_cap == o.frequency_cap
     end
 
     # @see the `==` method
@@ -269,7 +279,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name, floor_cpm, rev_share, auction_type, passback_url, status, house_only, house_share, house_backfill, floor_fallback, floor_auto, floor_soft, auto_ads].hash
+      [name, floor_cpm, rev_share, auction_type, passback_url, status, house_only, house_share, house_backfill, floor_fallback, floor_auto, floor_soft, auto_ads, frequency_cap].hash
     end
 
     # Builds the object from hash

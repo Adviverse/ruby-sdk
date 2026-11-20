@@ -25,6 +25,10 @@ module Adviverse
 
     attr_accessor :cross_fill
 
+    attr_accessor :contextual_without_consent
+
+    attr_accessor :enhanced_capping
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -32,7 +36,9 @@ module Adviverse
         :'domain' => :'domain',
         :'category' => :'category',
         :'verification_method' => :'verificationMethod',
-        :'cross_fill' => :'crossFill'
+        :'cross_fill' => :'crossFill',
+        :'contextual_without_consent' => :'contextualWithoutConsent',
+        :'enhanced_capping' => :'enhancedCapping'
       }
     end
 
@@ -48,7 +54,9 @@ module Adviverse
         :'domain' => :'String',
         :'category' => :'Float',
         :'verification_method' => :'String',
-        :'cross_fill' => :'Boolean'
+        :'cross_fill' => :'Boolean',
+        :'contextual_without_consent' => :'Boolean',
+        :'enhanced_capping' => :'Boolean'
       }
     end
 
@@ -92,6 +100,14 @@ module Adviverse
       if attributes.key?(:'cross_fill')
         self.cross_fill = attributes[:'cross_fill']
       end
+
+      if attributes.key?(:'contextual_without_consent')
+        self.contextual_without_consent = attributes[:'contextual_without_consent']
+      end
+
+      if attributes.key?(:'enhanced_capping')
+        self.enhanced_capping = attributes[:'enhanced_capping']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -118,7 +134,9 @@ module Adviverse
           domain == o.domain &&
           category == o.category &&
           verification_method == o.verification_method &&
-          cross_fill == o.cross_fill
+          cross_fill == o.cross_fill &&
+          contextual_without_consent == o.contextual_without_consent &&
+          enhanced_capping == o.enhanced_capping
     end
 
     # @see the `==` method
@@ -130,7 +148,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name, domain, category, verification_method, cross_fill].hash
+      [name, domain, category, verification_method, cross_fill, contextual_without_consent, enhanced_capping].hash
     end
 
     # Builds the object from hash

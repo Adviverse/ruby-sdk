@@ -80,7 +80,7 @@ module Adviverse
     # Marks a DSAR completed. For delete requests it also deletes consent-log rows matching the subject hash. Returns `{ ok: false }` for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [AdminControllerSetStatus201Response]
+    # @return [ComplianceControllerComplete201Response]
     def compliance_controller_complete(id, opts = {})
       data, _status_code, _headers = compliance_controller_complete_with_http_info(id, opts)
       data
@@ -90,7 +90,7 @@ module Adviverse
     # Marks a DSAR completed. For delete requests it also deletes consent-log rows matching the subject hash. Returns &#x60;{ ok: false }&#x60; for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(AdminControllerSetStatus201Response, Integer, Hash)>] AdminControllerSetStatus201Response data, response status code and response headers
+    # @return [Array<(ComplianceControllerComplete201Response, Integer, Hash)>] ComplianceControllerComplete201Response data, response status code and response headers
     def compliance_controller_complete_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ComplianceApi.compliance_controller_complete ...'
@@ -117,7 +117,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'AdminControllerSetStatus201Response'
+      return_type = opts[:debug_return_type] || 'ComplianceControllerComplete201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']

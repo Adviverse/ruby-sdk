@@ -44,6 +44,12 @@ module Adviverse
 
     attr_accessor :tcf_vendor_id
 
+    # Ads always load: visitors who have not answered (or rejected) the CMP get contextual ads with no identifier; personalized still waits for consent. Same as the page flag window.ADVIVERSE_MIN_AC = 0.
+    attr_accessor :contextual_without_consent
+
+    # Enhanced frequency capping: outside the EEA/UK, for visitors with no opt-out signal (GPC, US-privacy opt-out), contextual frequency caps also use browser signals and an SDK canvas hash (daily-rotating, per-site, never stored on the device). Off: caps use IP + user agent only and unusual contextual traffic is not served. Declare it in your privacy policy if you turn it on.
+    attr_accessor :enhanced_capping
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -82,7 +88,9 @@ module Adviverse
         :'consent_key' => :'consentKey',
         :'consent_grant_value' => :'consentGrantValue',
         :'tcf_purpose' => :'tcfPurpose',
-        :'tcf_vendor_id' => :'tcfVendorId'
+        :'tcf_vendor_id' => :'tcfVendorId',
+        :'contextual_without_consent' => :'contextualWithoutConsent',
+        :'enhanced_capping' => :'enhancedCapping'
       }
     end
 
@@ -107,7 +115,9 @@ module Adviverse
         :'consent_key' => :'String',
         :'consent_grant_value' => :'String',
         :'tcf_purpose' => :'Integer',
-        :'tcf_vendor_id' => :'Integer'
+        :'tcf_vendor_id' => :'Integer',
+        :'contextual_without_consent' => :'Boolean',
+        :'enhanced_capping' => :'Boolean'
       }
     end
 
@@ -117,7 +127,7 @@ module Adviverse
         :'property_id',
         :'consent_key',
         :'consent_grant_value',
-        :'tcf_vendor_id'
+        :'tcf_vendor_id',
       ])
     end
 
@@ -191,6 +201,14 @@ module Adviverse
       if attributes.key?(:'tcf_vendor_id')
         self.tcf_vendor_id = attributes[:'tcf_vendor_id']
       end
+
+      if attributes.key?(:'contextual_without_consent')
+        self.contextual_without_consent = attributes[:'contextual_without_consent']
+      end
+
+      if attributes.key?(:'enhanced_capping')
+        self.enhanced_capping = attributes[:'enhanced_capping']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -250,7 +268,9 @@ module Adviverse
           consent_key == o.consent_key &&
           consent_grant_value == o.consent_grant_value &&
           tcf_purpose == o.tcf_purpose &&
-          tcf_vendor_id == o.tcf_vendor_id
+          tcf_vendor_id == o.tcf_vendor_id &&
+          contextual_without_consent == o.contextual_without_consent &&
+          enhanced_capping == o.enhanced_capping
     end
 
     # @see the `==` method
@@ -262,7 +282,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [publisher_id, property_id, mode, default_consent, honor_gpc, collect_tcf, collect_gpp, collect_gpc, resend_on_change, consent_source, consent_key, consent_grant_value, tcf_purpose, tcf_vendor_id].hash
+      [publisher_id, property_id, mode, default_consent, honor_gpc, collect_tcf, collect_gpp, collect_gpc, resend_on_change, consent_source, consent_key, consent_grant_value, tcf_purpose, tcf_vendor_id, contextual_without_consent, enhanced_capping].hash
     end
 
     # Builds the object from hash

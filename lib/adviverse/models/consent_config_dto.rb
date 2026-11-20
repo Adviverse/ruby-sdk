@@ -41,6 +41,10 @@ module Adviverse
 
     attr_accessor :tcf_vendor_id
 
+    attr_accessor :contextual_without_consent
+
+    attr_accessor :enhanced_capping
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -78,7 +82,9 @@ module Adviverse
         :'consent_key' => :'consentKey',
         :'consent_grant_value' => :'consentGrantValue',
         :'tcf_purpose' => :'tcfPurpose',
-        :'tcf_vendor_id' => :'tcfVendorId'
+        :'tcf_vendor_id' => :'tcfVendorId',
+        :'contextual_without_consent' => :'contextualWithoutConsent',
+        :'enhanced_capping' => :'enhancedCapping'
       }
     end
 
@@ -102,7 +108,9 @@ module Adviverse
         :'consent_key' => :'String',
         :'consent_grant_value' => :'String',
         :'tcf_purpose' => :'Float',
-        :'tcf_vendor_id' => :'Float'
+        :'tcf_vendor_id' => :'Float',
+        :'contextual_without_consent' => :'Boolean',
+        :'enhanced_capping' => :'Boolean'
       }
     end
 
@@ -182,6 +190,14 @@ module Adviverse
       if attributes.key?(:'tcf_vendor_id')
         self.tcf_vendor_id = attributes[:'tcf_vendor_id']
       end
+
+      if attributes.key?(:'contextual_without_consent')
+        self.contextual_without_consent = attributes[:'contextual_without_consent']
+      end
+
+      if attributes.key?(:'enhanced_capping')
+        self.enhanced_capping = attributes[:'enhanced_capping']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -250,7 +266,9 @@ module Adviverse
           consent_key == o.consent_key &&
           consent_grant_value == o.consent_grant_value &&
           tcf_purpose == o.tcf_purpose &&
-          tcf_vendor_id == o.tcf_vendor_id
+          tcf_vendor_id == o.tcf_vendor_id &&
+          contextual_without_consent == o.contextual_without_consent &&
+          enhanced_capping == o.enhanced_capping
     end
 
     # @see the `==` method
@@ -262,7 +280,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [property_id, mode, default_consent, honor_gpc, collect_tcf, collect_gpp, collect_gpc, resend_on_change, consent_source, consent_key, consent_grant_value, tcf_purpose, tcf_vendor_id].hash
+      [property_id, mode, default_consent, honor_gpc, collect_tcf, collect_gpp, collect_gpc, resend_on_change, consent_source, consent_key, consent_grant_value, tcf_purpose, tcf_vendor_id, contextual_without_consent, enhanced_capping].hash
     end
 
     # Builds the object from hash

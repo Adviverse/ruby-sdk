@@ -21,12 +21,21 @@ module Adviverse
 
     attr_accessor :method
 
+    attr_accessor :error
+
+    attr_accessor :message
+
+    attr_accessor :check
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'verified' => :'verified',
         :'token' => :'token',
-        :'method' => :'method'
+        :'method' => :'method',
+        :'error' => :'error',
+        :'message' => :'message',
+        :'check' => :'check'
       }
     end
 
@@ -40,14 +49,19 @@ module Adviverse
       {
         :'verified' => :'Boolean',
         :'token' => :'String',
-        :'method' => :'String'
+        :'method' => :'String',
+        :'error' => :'String',
+        :'message' => :'String',
+        :'check' => :'PublisherControllerVerify201ResponseCheck'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'method'
+        :'method',
+        :'error',
+        :'message',
       ])
     end
 
@@ -83,6 +97,24 @@ module Adviverse
       else
         self.method = nil
       end
+
+      if attributes.key?(:'error')
+        self.error = attributes[:'error']
+      else
+        self.error = nil
+      end
+
+      if attributes.key?(:'message')
+        self.message = attributes[:'message']
+      else
+        self.message = nil
+      end
+
+      if attributes.key?(:'check')
+        self.check = attributes[:'check']
+      else
+        self.check = nil
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -98,6 +130,10 @@ module Adviverse
         invalid_properties.push('invalid value for "token", token cannot be nil.')
       end
 
+      if @check.nil?
+        invalid_properties.push('invalid value for "check", check cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -107,6 +143,7 @@ module Adviverse
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @verified.nil?
       return false if @token.nil?
+      return false if @check.nil?
       true
     end
 
@@ -117,7 +154,10 @@ module Adviverse
       self.class == o.class &&
           verified == o.verified &&
           token == o.token &&
-          method == o.method
+          method == o.method &&
+          error == o.error &&
+          message == o.message &&
+          check == o.check
     end
 
     # @see the `==` method
@@ -129,7 +169,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [verified, token, method].hash
+      [verified, token, method, error, message, check].hash
     end
 
     # Builds the object from hash

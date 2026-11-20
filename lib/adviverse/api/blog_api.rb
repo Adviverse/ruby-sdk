@@ -416,7 +416,7 @@ module Adviverse
     # Deletes the post and clears the public cache. Returns `{ ok: true }` even for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope `admin` (or `*`). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [AdminControllerSetStatus201Response]
+    # @return [ComplianceControllerComplete201Response]
     def blog_controller_remove(id, opts = {})
       data, _status_code, _headers = blog_controller_remove_with_http_info(id, opts)
       data
@@ -426,7 +426,7 @@ module Adviverse
     # Deletes the post and clears the public cache. Returns &#x60;{ ok: true }&#x60; even for an unknown id.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;admin&#x60; (or &#x60;*&#x60;). Roles: admin.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(AdminControllerSetStatus201Response, Integer, Hash)>] AdminControllerSetStatus201Response data, response status code and response headers
+    # @return [Array<(ComplianceControllerComplete201Response, Integer, Hash)>] ComplianceControllerComplete201Response data, response status code and response headers
     def blog_controller_remove_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BlogApi.blog_controller_remove ...'
@@ -453,7 +453,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'AdminControllerSetStatus201Response'
+      return_type = opts[:debug_return_type] || 'ComplianceControllerComplete201Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
