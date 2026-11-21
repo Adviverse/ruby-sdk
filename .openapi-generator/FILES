@@ -18,6 +18,7 @@ lib/adviverse/api/combo_api.rb
 lib/adviverse/api/compliance_api.rb
 lib/adviverse/api/conversions_api.rb
 lib/adviverse/api/deals_api.rb
+lib/adviverse/api/device_auth_api.rb
 lib/adviverse/api/dooh_api.rb
 lib/adviverse/api/edge_api.rb
 lib/adviverse/api/exports_api.rb
@@ -217,6 +218,13 @@ lib/adviverse/models/deals_controller_lookup_advertiser200_response.rb
 lib/adviverse/models/deals_controller_preview_claim200_response.rb
 lib/adviverse/models/deals_controller_status201_response.rb
 lib/adviverse/models/deposit_dto.rb
+lib/adviverse/models/device_approve_dto.rb
+lib/adviverse/models/device_auth_controller_approve201_response.rb
+lib/adviverse/models/device_auth_controller_code200_response.rb
+lib/adviverse/models/device_auth_controller_describe200_response.rb
+lib/adviverse/models/device_auth_controller_token200_response.rb
+lib/adviverse/models/device_code_dto.rb
+lib/adviverse/models/device_token_dto.rb
 lib/adviverse/models/dooh_controller_list200_response_inner.rb
 lib/adviverse/models/dooh_controller_save_setup201_response.rb
 lib/adviverse/models/dooh_setup_dto.rb
@@ -468,7 +476,7 @@ lib/adviverse/models/settings_controller_bid_rec200_response.rb
 lib/adviverse/models/settings_controller_create_terminal_token201_response.rb
 lib/adviverse/models/settings_controller_create_terminal_token201_response_switch.rb
 lib/adviverse/models/settings_controller_list_terminal_tokens200_response_inner.rb
-lib/adviverse/models/settings_controller_revoke_key200_response.rb
+lib/adviverse/models/settings_controller_revoke_current_key200_response.rb
 lib/adviverse/models/settings_controller_rotate_terminal_token201_response.rb
 lib/adviverse/models/settings_controller_set_terminal_token_policy200_response.rb
 lib/adviverse/models/settings_controller_update_network200_response.rb
@@ -508,6 +516,7 @@ lib/adviverse/models/update_screen_dto.rb
 lib/adviverse/models/update_surface_dto.rb
 lib/adviverse/models/update_webhook_dto.rb
 lib/adviverse/models/verification_controller_categories200_response_inner.rb
+lib/adviverse/models/verify_app_dto.rb
 lib/adviverse/models/webhook_delivery.rb
 lib/adviverse/models/webhook_delivery_result.rb
 lib/adviverse/models/webhook_endpoint.rb

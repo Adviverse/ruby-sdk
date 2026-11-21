@@ -83,7 +83,7 @@ module Adviverse
     end
 
     # Register a mobile or CTV app
-    # Creates a `mobile_app` or `ctv` property from `kind`, `name`, `bundleId` and `platform` (ios, android, roku, firetv, appletv, androidtv, web), with optional `storeUrl`, `appStoreId`, `category` and `ctvMeta`. The bundle id is stored in both `bundle_id` and `domain`; the app enters the normal `pending` approval flow with file verification.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+    # Creates a `mobile_app` or `ctv` property from `kind`, `name`, `bundleId` and `platform` (ios, android, roku, firetv, appletv, androidtv, web), with optional `storeUrl`, `appStoreId`, `category` and `ctvMeta`. The bundle id is stored in both `bundle_id` and `domain`. Optional `developerPropertyId` links one of your website properties as the developer site. The app starts `pending` / `unverified`; prove it with POST /v1/publisher/apps/{id}/verify (IAB app-ads.txt on the verified developer site, optionally plus the store listing), which approves it. For QA before verification, request ads with the test tag `tk_test`, which always fills. 400 if `developerPropertyId` is not one of your website properties.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param create_app_dto [CreateAppDto] 
     # @param [Hash] opts the optional parameters
     # @return [PubProperty]
@@ -93,7 +93,7 @@ module Adviverse
     end
 
     # Register a mobile or CTV app
-    # Creates a &#x60;mobile_app&#x60; or &#x60;ctv&#x60; property from &#x60;kind&#x60;, &#x60;name&#x60;, &#x60;bundleId&#x60; and &#x60;platform&#x60; (ios, android, roku, firetv, appletv, androidtv, web), with optional &#x60;storeUrl&#x60;, &#x60;appStoreId&#x60;, &#x60;category&#x60; and &#x60;ctvMeta&#x60;. The bundle id is stored in both &#x60;bundle_id&#x60; and &#x60;domain&#x60;; the app enters the normal &#x60;pending&#x60; approval flow with file verification.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
+    # Creates a &#x60;mobile_app&#x60; or &#x60;ctv&#x60; property from &#x60;kind&#x60;, &#x60;name&#x60;, &#x60;bundleId&#x60; and &#x60;platform&#x60; (ios, android, roku, firetv, appletv, androidtv, web), with optional &#x60;storeUrl&#x60;, &#x60;appStoreId&#x60;, &#x60;category&#x60; and &#x60;ctvMeta&#x60;. The bundle id is stored in both &#x60;bundle_id&#x60; and &#x60;domain&#x60;. Optional &#x60;developerPropertyId&#x60; links one of your website properties as the developer site. The app starts &#x60;pending&#x60; / &#x60;unverified&#x60;; prove it with POST /v1/publisher/apps/{id}/verify (IAB app-ads.txt on the verified developer site, optionally plus the store listing), which approves it. For QA before verification, request ads with the test tag &#x60;tk_test&#x60;, which always fills. 400 if &#x60;developerPropertyId&#x60; is not one of your website properties.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param create_app_dto [CreateAppDto] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(PubProperty, Integer, Hash)>] PubProperty data, response status code and response headers
@@ -151,7 +151,7 @@ module Adviverse
     end
 
     # Create a placement
-    # Creates an ad unit on one of your properties (`propertyId`, `name`, `format` required) with a generated `tag_key`. Optional fields cover size (`width`/`height` or `responsive`), `floorCpm`, `revShare` (defaults to the network rev-share), `auctionType` (default `first_price`), `passbackUrl`, `frequencyCap`, format `settings`, and yield fill (`houseOnly`, `houseShare` clamped to 0-1, `houseBackfill`, `floorFallback`). Popunders default to a 1-per-visitor-per-24h frequency cap unless `frequencyCap` is given (`{}` opts out). The serving index is republished. 404 if the property is missing, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+    # Creates an ad unit on one of your properties (`name`, `format` and exactly one of `propertyId` / `appId` required; an app id from /v1/publisher/apps is a valid property id) with a generated `tag_key`. On a mobile_app or ctv property only app formats are accepted (banner, native, interstitial, rewarded, app_open, video, audio, carousel, pod, direct_link); web-only formats such as popunder, social_bar and in_page_push return 400. Optional fields cover size (`width`/`height` or `responsive`), `floorCpm`, `revShare` (defaults to the network rev-share), `auctionType` (default `first_price`), `passbackUrl`, `frequencyCap`, format `settings`, and yield fill (`houseOnly`, `houseShare` clamped to 0-1, `houseBackfill`, `floorFallback`). Popunders default to a 1-per-visitor-per-24h frequency cap unless `frequencyCap` is given (`{}` opts out). The serving index is republished. 404 if the property is missing, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param create_placement_dto [CreatePlacementDto] 
     # @param [Hash] opts the optional parameters
     # @return [PubPlacement]
@@ -161,7 +161,7 @@ module Adviverse
     end
 
     # Create a placement
-    # Creates an ad unit on one of your properties (&#x60;propertyId&#x60;, &#x60;name&#x60;, &#x60;format&#x60; required) with a generated &#x60;tag_key&#x60;. Optional fields cover size (&#x60;width&#x60;/&#x60;height&#x60; or &#x60;responsive&#x60;), &#x60;floorCpm&#x60;, &#x60;revShare&#x60; (defaults to the network rev-share), &#x60;auctionType&#x60; (default &#x60;first_price&#x60;), &#x60;passbackUrl&#x60;, &#x60;frequencyCap&#x60;, format &#x60;settings&#x60;, and yield fill (&#x60;houseOnly&#x60;, &#x60;houseShare&#x60; clamped to 0-1, &#x60;houseBackfill&#x60;, &#x60;floorFallback&#x60;). Popunders default to a 1-per-visitor-per-24h frequency cap unless &#x60;frequencyCap&#x60; is given (&#x60;{}&#x60; opts out). The serving index is republished. 404 if the property is missing, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
+    # Creates an ad unit on one of your properties (&#x60;name&#x60;, &#x60;format&#x60; and exactly one of &#x60;propertyId&#x60; / &#x60;appId&#x60; required; an app id from /v1/publisher/apps is a valid property id) with a generated &#x60;tag_key&#x60;. On a mobile_app or ctv property only app formats are accepted (banner, native, interstitial, rewarded, app_open, video, audio, carousel, pod, direct_link); web-only formats such as popunder, social_bar and in_page_push return 400. Optional fields cover size (&#x60;width&#x60;/&#x60;height&#x60; or &#x60;responsive&#x60;), &#x60;floorCpm&#x60;, &#x60;revShare&#x60; (defaults to the network rev-share), &#x60;auctionType&#x60; (default &#x60;first_price&#x60;), &#x60;passbackUrl&#x60;, &#x60;frequencyCap&#x60;, format &#x60;settings&#x60;, and yield fill (&#x60;houseOnly&#x60;, &#x60;houseShare&#x60; clamped to 0-1, &#x60;houseBackfill&#x60;, &#x60;floorFallback&#x60;). Popunders default to a 1-per-visitor-per-24h frequency cap unless &#x60;frequencyCap&#x60; is given (&#x60;{}&#x60; opts out). The serving index is republished. 404 if the property is missing, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param create_placement_dto [CreatePlacementDto] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(PubPlacement, Integer, Hash)>] PubPlacement data, response status code and response headers
@@ -772,6 +772,69 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Delete a mobile or CTV app
+    # Soft-deletes the app and all of its placements, then republishes the serving index so ads stop promptly (same as deleting a property). 404 if not found or not an app, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [AuthControllerResendVerification201Response]
+    def publisher_controller_remove_app(id, opts = {})
+      data, _status_code, _headers = publisher_controller_remove_app_with_http_info(id, opts)
+      data
+    end
+
+    # Delete a mobile or CTV app
+    # Soft-deletes the app and all of its placements, then republishes the serving index so ads stop promptly (same as deleting a property). 404 if not found or not an app, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(AuthControllerResendVerification201Response, Integer, Hash)>] AuthControllerResendVerification201Response data, response status code and response headers
+    def publisher_controller_remove_app_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_remove_app ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling PublisherApi.publisher_controller_remove_app"
+      end
+      # resource path
+      local_var_path = '/v1/publisher/apps/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'AuthControllerResendVerification201Response'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
+
+      new_options = opts.merge(
+        :operation => :"PublisherApi.publisher_controller_remove_app",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PublisherApi#publisher_controller_remove_app\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Delete a property
     # Soft-deletes the property and all of its placements, then republishes the serving index so ads stop promptly. 404 if not found, 403 if not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param id [String] 
@@ -1099,7 +1162,7 @@ module Adviverse
     end
 
     # Update app-ads.txt, SKAdNetwork and CTV metadata
-    # Patches only the fields sent: `appAdsTxt` (authorized-seller entries `{domain, sellerId, relationship?, certId?}`, normalized and invalid ones dropped), `skadnetworkIds`, `ctvMeta`, `storeUrl`, `platform`. Republishes the serving index. 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+    # Patches only the fields sent: `appAdsTxt` (authorized-seller entries `{domain, sellerId, relationship?, certId?}`, normalized and invalid ones dropped), `skadnetworkIds`, `ctvMeta`, `storeUrl`, `platform`, `developerPropertyId` (one of your website properties; `null` unlinks; 400 otherwise). Republishes the serving index. 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param id [String] 
     # @param update_app_dto [UpdateAppDto] 
     # @param [Hash] opts the optional parameters
@@ -1110,7 +1173,7 @@ module Adviverse
     end
 
     # Update app-ads.txt, SKAdNetwork and CTV metadata
-    # Patches only the fields sent: &#x60;appAdsTxt&#x60; (authorized-seller entries &#x60;{domain, sellerId, relationship?, certId?}&#x60;, normalized and invalid ones dropped), &#x60;skadnetworkIds&#x60;, &#x60;ctvMeta&#x60;, &#x60;storeUrl&#x60;, &#x60;platform&#x60;. Republishes the serving index. 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
+    # Patches only the fields sent: &#x60;appAdsTxt&#x60; (authorized-seller entries &#x60;{domain, sellerId, relationship?, certId?}&#x60;, normalized and invalid ones dropped), &#x60;skadnetworkIds&#x60;, &#x60;ctvMeta&#x60;, &#x60;storeUrl&#x60;, &#x60;platform&#x60;, &#x60;developerPropertyId&#x60; (one of your website properties; &#x60;null&#x60; unlinks; 400 otherwise). Republishes the serving index. 404/403 as for get.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param id [String] 
     # @param update_app_dto [UpdateAppDto] 
     # @param [Hash] opts the optional parameters
@@ -1379,6 +1442,80 @@ module Adviverse
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: PublisherApi#publisher_controller_verify\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Verify a mobile or CTV app
+    # Body `{method?: \"developer_site\" | \"store_listing\"}` (default `developer_site`). `developer_site`: the app's `developerPropertyId` must be one of your website properties and already verified; its `https://<domain>/app-ads.txt` (cache-busted, http fallback) must contain `adviverse.com, <publisherAccountId>, DIRECT` (case/space-insensitive; see GET /v1/publisher/apps/{id}/app-ads.txt). `store_listing`: `storeUrl` must be on apps.apple.com or play.google.com, answer 200 and show the Play package id (`id=`) or the App Store id; then the developer_site check also runs. On success the app becomes `verified`, a `pending` app is approved and the serving index is republished. A failed check returns `verified: false` with `error` (no_developer_property | developer_property_unverified | app_ads_txt_missing_line | http_error | fetch_failed | store_listing_not_found), a `message` saying what to put where, and `check`. Same shape as property verify.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+    # @param id [String] 
+    # @param verify_app_dto [VerifyAppDto] 
+    # @param [Hash] opts the optional parameters
+    # @return [PublisherControllerVerify201Response]
+    def publisher_controller_verify_app(id, verify_app_dto, opts = {})
+      data, _status_code, _headers = publisher_controller_verify_app_with_http_info(id, verify_app_dto, opts)
+      data
+    end
+
+    # Verify a mobile or CTV app
+    # Body &#x60;{method?: \&quot;developer_site\&quot; | \&quot;store_listing\&quot;}&#x60; (default &#x60;developer_site&#x60;). &#x60;developer_site&#x60;: the app&#39;s &#x60;developerPropertyId&#x60; must be one of your website properties and already verified; its &#x60;https://&lt;domain&gt;/app-ads.txt&#x60; (cache-busted, http fallback) must contain &#x60;adviverse.com, &lt;publisherAccountId&gt;, DIRECT&#x60; (case/space-insensitive; see GET /v1/publisher/apps/{id}/app-ads.txt). &#x60;store_listing&#x60;: &#x60;storeUrl&#x60; must be on apps.apple.com or play.google.com, answer 200 and show the Play package id (&#x60;id&#x3D;&#x60;) or the App Store id; then the developer_site check also runs. On success the app becomes &#x60;verified&#x60;, a &#x60;pending&#x60; app is approved and the serving index is republished. A failed check returns &#x60;verified: false&#x60; with &#x60;error&#x60; (no_developer_property | developer_property_unverified | app_ads_txt_missing_line | http_error | fetch_failed | store_listing_not_found), a &#x60;message&#x60; saying what to put where, and &#x60;check&#x60;. Same shape as property verify.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
+    # @param id [String] 
+    # @param verify_app_dto [VerifyAppDto] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(PublisherControllerVerify201Response, Integer, Hash)>] PublisherControllerVerify201Response data, response status code and response headers
+    def publisher_controller_verify_app_with_http_info(id, verify_app_dto, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PublisherApi.publisher_controller_verify_app ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling PublisherApi.publisher_controller_verify_app"
+      end
+      # verify the required parameter 'verify_app_dto' is set
+      if @api_client.config.client_side_validation && verify_app_dto.nil?
+        fail ArgumentError, "Missing the required parameter 'verify_app_dto' when calling PublisherApi.publisher_controller_verify_app"
+      end
+      # resource path
+      local_var_path = '/v1/publisher/apps/{id}/verify'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(verify_app_dto)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'PublisherControllerVerify201Response'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
+
+      new_options = opts.merge(
+        :operation => :"PublisherApi.publisher_controller_verify_app",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PublisherApi#publisher_controller_verify_app\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

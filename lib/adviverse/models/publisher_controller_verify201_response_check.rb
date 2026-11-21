@@ -17,7 +17,7 @@ module Adviverse
   class PublisherControllerVerify201ResponseCheck
     attr_accessor :method
 
-    # URL fetched (file/meta) or DNS name queried (dns)
+    # URL fetched (file/meta/app-ads.txt/store listing) or DNS name queried (dns)
     attr_accessor :target
 
     attr_accessor :status

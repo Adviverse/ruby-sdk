@@ -87,6 +87,9 @@ module Adviverse
 
     attr_accessor :ctv_meta
 
+    # Apps: the website property whose /app-ads.txt verifies the app
+    attr_accessor :developer_property_id
+
     attr_accessor :created_at
 
     attr_accessor :updated_at
@@ -150,6 +153,7 @@ module Adviverse
         :'app_ads_txt' => :'app_ads_txt',
         :'skadnetwork_ids' => :'skadnetwork_ids',
         :'ctv_meta' => :'ctv_meta',
+        :'developer_property_id' => :'developer_property_id',
         :'created_at' => :'created_at',
         :'updated_at' => :'updated_at',
         :'deleted_at' => :'deleted_at'
@@ -196,6 +200,7 @@ module Adviverse
         :'app_ads_txt' => :'Array<Hash<String, Object>>',
         :'skadnetwork_ids' => :'Array<String>',
         :'ctv_meta' => :'Hash<String, Object>',
+        :'developer_property_id' => :'String',
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
         :'deleted_at' => :'Time'
@@ -218,6 +223,7 @@ module Adviverse
         :'store_url',
         :'platform',
         :'app_store_id',
+        :'developer_property_id',
         :'deleted_at'
       ])
     end
@@ -373,6 +379,10 @@ module Adviverse
         end
       end
 
+      if attributes.key?(:'developer_property_id')
+        self.developer_property_id = attributes[:'developer_property_id']
+      end
+
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
       end
@@ -486,6 +496,7 @@ module Adviverse
           app_ads_txt == o.app_ads_txt &&
           skadnetwork_ids == o.skadnetwork_ids &&
           ctv_meta == o.ctv_meta &&
+          developer_property_id == o.developer_property_id &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           deleted_at == o.deleted_at
@@ -500,7 +511,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, publisher_id, kind, name, domain, category, category_source, categories, classified_at, classify_error, trust_tier, trust_locked, verified_at, trust_progress, verification_status, verification_method, verification_token, status, quality_score, cross_fill, contextual_without_consent, enhanced_capping, serving_domain, serving_domain_verified, serving_domain_checked_at, bundle_id, store_url, platform, app_store_id, app_ads_txt, skadnetwork_ids, ctv_meta, created_at, updated_at, deleted_at].hash
+      [id, publisher_id, kind, name, domain, category, category_source, categories, classified_at, classify_error, trust_tier, trust_locked, verified_at, trust_progress, verification_status, verification_method, verification_token, status, quality_score, cross_fill, contextual_without_consent, enhanced_capping, serving_domain, serving_domain_verified, serving_domain_checked_at, bundle_id, store_url, platform, app_store_id, app_ads_txt, skadnetwork_ids, ctv_meta, developer_property_id, created_at, updated_at, deleted_at].hash
     end
 
     # Builds the object from hash

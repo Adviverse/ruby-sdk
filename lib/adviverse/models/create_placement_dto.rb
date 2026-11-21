@@ -17,6 +17,8 @@ module Adviverse
   class CreatePlacementDto
     attr_accessor :property_id
 
+    attr_accessor :app_id
+
     attr_accessor :name
 
     attr_accessor :format
@@ -51,6 +53,7 @@ module Adviverse
     def self.attribute_map
       {
         :'property_id' => :'propertyId',
+        :'app_id' => :'appId',
         :'name' => :'name',
         :'format' => :'format',
         :'width' => :'width',
@@ -78,6 +81,7 @@ module Adviverse
     def self.openapi_types
       {
         :'property_id' => :'String',
+        :'app_id' => :'String',
         :'name' => :'String',
         :'format' => :'String',
         :'width' => :'Float',
@@ -119,8 +123,10 @@ module Adviverse
 
       if attributes.key?(:'property_id')
         self.property_id = attributes[:'property_id']
-      else
-        self.property_id = nil
+      end
+
+      if attributes.key?(:'app_id')
+        self.app_id = attributes[:'app_id']
       end
 
       if attributes.key?(:'name')
@@ -193,10 +199,6 @@ module Adviverse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @property_id.nil?
-        invalid_properties.push('invalid value for "property_id", property_id cannot be nil.')
-      end
-
       if @name.nil?
         invalid_properties.push('invalid value for "name", name cannot be nil.')
       end
@@ -224,7 +226,6 @@ module Adviverse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @property_id.nil?
       return false if @name.nil?
       return false if @format.nil?
       return false if !@floor_cpm.nil? && @floor_cpm < 0
@@ -271,6 +272,7 @@ module Adviverse
       return true if self.equal?(o)
       self.class == o.class &&
           property_id == o.property_id &&
+          app_id == o.app_id &&
           name == o.name &&
           format == o.format &&
           width == o.width &&
@@ -297,7 +299,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [property_id, name, format, width, height, responsive, floor_cpm, rev_share, auction_type, passback_url, frequency_cap, settings, house_only, house_share, house_backfill, floor_fallback].hash
+      [property_id, app_id, name, format, width, height, responsive, floor_cpm, rev_share, auction_type, passback_url, frequency_cap, settings, house_only, house_share, house_backfill, floor_fallback].hash
     end
 
     # Builds the object from hash

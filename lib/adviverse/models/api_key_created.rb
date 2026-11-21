@@ -15,6 +15,9 @@ require 'time'
 
 module Adviverse
   class ApiKeyCreated
+    # The key id (for DELETE /v1/keys/{id}).
+    attr_accessor :id
+
     # Full key, shown only once.
     attr_accessor :key
 
@@ -27,6 +30,7 @@ module Adviverse
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'id' => :'id',
         :'key' => :'key',
         :'prefix' => :'prefix',
         :'scopes' => :'scopes',
@@ -42,6 +46,7 @@ module Adviverse
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'id' => :'String',
         :'key' => :'String',
         :'prefix' => :'String',
         :'scopes' => :'Array<String>',
@@ -70,6 +75,10 @@ module Adviverse
         end
         h[k.to_sym] = v
       }
+
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
+      end
 
       if attributes.key?(:'key')
         self.key = attributes[:'key']
@@ -133,6 +142,7 @@ module Adviverse
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          id == o.id &&
           key == o.key &&
           prefix == o.prefix &&
           scopes == o.scopes &&
@@ -148,7 +158,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [key, prefix, scopes, expires_at].hash
+      [id, key, prefix, scopes, expires_at].hash
     end
 
     # Builds the object from hash

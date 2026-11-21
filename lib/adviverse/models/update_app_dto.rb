@@ -25,6 +25,8 @@ module Adviverse
 
     attr_accessor :platform
 
+    attr_accessor :developer_property_id
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -54,7 +56,8 @@ module Adviverse
         :'skadnetwork_ids' => :'skadnetworkIds',
         :'ctv_meta' => :'ctvMeta',
         :'store_url' => :'storeUrl',
-        :'platform' => :'platform'
+        :'platform' => :'platform',
+        :'developer_property_id' => :'developerPropertyId'
       }
     end
 
@@ -70,13 +73,15 @@ module Adviverse
         :'skadnetwork_ids' => :'Array<String>',
         :'ctv_meta' => :'Object',
         :'store_url' => :'String',
-        :'platform' => :'String'
+        :'platform' => :'String',
+        :'developer_property_id' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'developer_property_id'
       ])
     end
 
@@ -118,6 +123,10 @@ module Adviverse
       if attributes.key?(:'platform')
         self.platform = attributes[:'platform']
       end
+
+      if attributes.key?(:'developer_property_id')
+        self.developer_property_id = attributes[:'developer_property_id']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -156,7 +165,8 @@ module Adviverse
           skadnetwork_ids == o.skadnetwork_ids &&
           ctv_meta == o.ctv_meta &&
           store_url == o.store_url &&
-          platform == o.platform
+          platform == o.platform &&
+          developer_property_id == o.developer_property_id
     end
 
     # @see the `==` method
@@ -168,7 +178,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [app_ads_txt, skadnetwork_ids, ctv_meta, store_url, platform].hash
+      [app_ads_txt, skadnetwork_ids, ctv_meta, store_url, platform, developer_property_id].hash
     end
 
     # Builds the object from hash

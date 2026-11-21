@@ -31,6 +31,8 @@ module Adviverse
 
     attr_accessor :ctv_meta
 
+    attr_accessor :developer_property_id
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -63,7 +65,8 @@ module Adviverse
         :'store_url' => :'storeUrl',
         :'app_store_id' => :'appStoreId',
         :'category' => :'category',
-        :'ctv_meta' => :'ctvMeta'
+        :'ctv_meta' => :'ctvMeta',
+        :'developer_property_id' => :'developerPropertyId'
       }
     end
 
@@ -82,7 +85,8 @@ module Adviverse
         :'store_url' => :'String',
         :'app_store_id' => :'String',
         :'category' => :'Float',
-        :'ctv_meta' => :'Object'
+        :'ctv_meta' => :'Object',
+        :'developer_property_id' => :'String'
       }
     end
 
@@ -145,6 +149,10 @@ module Adviverse
 
       if attributes.key?(:'ctv_meta')
         self.ctv_meta = attributes[:'ctv_meta']
+      end
+
+      if attributes.key?(:'developer_property_id')
+        self.developer_property_id = attributes[:'developer_property_id']
       end
     end
 
@@ -219,7 +227,8 @@ module Adviverse
           store_url == o.store_url &&
           app_store_id == o.app_store_id &&
           category == o.category &&
-          ctv_meta == o.ctv_meta
+          ctv_meta == o.ctv_meta &&
+          developer_property_id == o.developer_property_id
     end
 
     # @see the `==` method
@@ -231,7 +240,7 @@ module Adviverse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [kind, name, bundle_id, platform, store_url, app_store_id, category, ctv_meta].hash
+      [kind, name, bundle_id, platform, store_url, app_store_id, category, ctv_meta, developer_property_id].hash
     end
 
     # Builds the object from hash

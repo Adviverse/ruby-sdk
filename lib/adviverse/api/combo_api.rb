@@ -20,7 +20,7 @@ module Adviverse
       @api_client = api_client
     end
     # Provision a combo of placements on a property
-    # Creates several placements at once under one generated `comboId` and returns a single combined embed snippet to paste before `</body>`. Send either `presetKey` or a custom `units` array (formats banner, native, popunder, social_bar, interstitial, in_page_push, direct_link), plus optional `namePrefix` and shared floor/rev-share/auction/house settings applied to every unit. Adds a warning if the property already has a popunder. 400 for an unknown preset or a non-combinable format; 404/403 if the property is missing or not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
+    # Creates several placements at once under one generated `comboId` and returns a single combined embed snippet to paste before `</body>`. Send either `presetKey` or a custom `units` array (formats banner, native, popunder, social_bar, interstitial, in_page_push, direct_link), plus optional `namePrefix` and shared floor/rev-share/auction/house settings applied to every unit. The property may be an app id; on an app, presets or units with web-only formats (popunder, social_bar, in_page_push) are refused with 400 before anything is created (use `in_app`). Adds a warning if the property already has a popunder. 400 for an unknown preset or a non-combinable format; 404/403 if the property is missing or not yours.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`). Roles: publisher.
     # @param property_id [String] 
     # @param create_combo_dto [CreateComboDto] 
     # @param [Hash] opts the optional parameters
@@ -31,7 +31,7 @@ module Adviverse
     end
 
     # Provision a combo of placements on a property
-    # Creates several placements at once under one generated &#x60;comboId&#x60; and returns a single combined embed snippet to paste before &#x60;&lt;/body&gt;&#x60;. Send either &#x60;presetKey&#x60; or a custom &#x60;units&#x60; array (formats banner, native, popunder, social_bar, interstitial, in_page_push, direct_link), plus optional &#x60;namePrefix&#x60; and shared floor/rev-share/auction/house settings applied to every unit. Adds a warning if the property already has a popunder. 400 for an unknown preset or a non-combinable format; 404/403 if the property is missing or not yours.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
+    # Creates several placements at once under one generated &#x60;comboId&#x60; and returns a single combined embed snippet to paste before &#x60;&lt;/body&gt;&#x60;. Send either &#x60;presetKey&#x60; or a custom &#x60;units&#x60; array (formats banner, native, popunder, social_bar, interstitial, in_page_push, direct_link), plus optional &#x60;namePrefix&#x60; and shared floor/rev-share/auction/house settings applied to every unit. The property may be an app id; on an app, presets or units with web-only formats (popunder, social_bar, in_page_push) are refused with 400 before anything is created (use &#x60;in_app&#x60;). Adds a warning if the property already has a popunder. 400 for an unknown preset or a non-combinable format; 404/403 if the property is missing or not yours.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param property_id [String] 
     # @param create_combo_dto [CreateComboDto] 
     # @param [Hash] opts the optional parameters
@@ -157,7 +157,7 @@ module Adviverse
     end
 
     # List combo layout presets
-    # Returns the static catalog of combo presets (`standard_combo`, `leaderboard_pop`, `social_push`, `sticky_interstitial`, `full_monetization`), each with the placement units it provisions. Preset keys are stable.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
+    # Returns the static catalog of combo presets (`standard_combo`, `leaderboard_pop`, `social_push`, `sticky_interstitial`, `full_monetization`, `in_app`), each with the placement units it provisions. Preset keys are stable. `in_app` (bottom 320x50 banner + interstitial) is the preset for mobile/CTV apps.  Auth: session bearer token, or API key (x-api-key) with scope `read` (or `*`). Roles: publisher.
     # @param [Hash] opts the optional parameters
     # @return [ComboControllerListPresets200Response]
     def combo_controller_list_presets(opts = {})
@@ -166,7 +166,7 @@ module Adviverse
     end
 
     # List combo layout presets
-    # Returns the static catalog of combo presets (&#x60;standard_combo&#x60;, &#x60;leaderboard_pop&#x60;, &#x60;social_push&#x60;, &#x60;sticky_interstitial&#x60;, &#x60;full_monetization&#x60;), each with the placement units it provisions. Preset keys are stable.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
+    # Returns the static catalog of combo presets (&#x60;standard_combo&#x60;, &#x60;leaderboard_pop&#x60;, &#x60;social_push&#x60;, &#x60;sticky_interstitial&#x60;, &#x60;full_monetization&#x60;, &#x60;in_app&#x60;), each with the placement units it provisions. Preset keys are stable. &#x60;in_app&#x60; (bottom 320x50 banner + interstitial) is the preset for mobile/CTV apps.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;read&#x60; (or &#x60;*&#x60;). Roles: publisher.
     # @param [Hash] opts the optional parameters
     # @return [Array<(ComboControllerListPresets200Response, Integer, Hash)>] ComboControllerListPresets200Response data, response status code and response headers
     def combo_controller_list_presets_with_http_info(opts = {})

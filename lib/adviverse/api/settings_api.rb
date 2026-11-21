@@ -414,11 +414,68 @@ module Adviverse
       return data, status_code, headers
     end
 
+    # Revoke the API key making this request
+    # Revokes the key sent in `x-api-key` (used by `adviverse logout`) and removes it from the engine's Redis credential map. 400 when called with a session token instead of an API key.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
+    # @param [Hash] opts the optional parameters
+    # @return [SettingsControllerRevokeCurrentKey200Response]
+    def settings_controller_revoke_current_key(opts = {})
+      data, _status_code, _headers = settings_controller_revoke_current_key_with_http_info(opts)
+      data
+    end
+
+    # Revoke the API key making this request
+    # Revokes the key sent in &#x60;x-api-key&#x60; (used by &#x60;adviverse logout&#x60;) and removes it from the engine&#39;s Redis credential map. 400 when called with a session token instead of an API key.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(SettingsControllerRevokeCurrentKey200Response, Integer, Hash)>] SettingsControllerRevokeCurrentKey200Response data, response status code and response headers
+    def settings_controller_revoke_current_key_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: SettingsApi.settings_controller_revoke_current_key ...'
+      end
+      # resource path
+      local_var_path = '/v1/keys/current'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'SettingsControllerRevokeCurrentKey200Response'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
+
+      new_options = opts.merge(
+        :operation => :"SettingsApi.settings_controller_revoke_current_key",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: SettingsApi#settings_controller_revoke_current_key\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Revoke an API key
     # Marks the key revoked and removes it from the engine's Redis credential map, so it stops working everywhere. Revoking an unknown or foreign id is a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope `write` (or `*`).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [SettingsControllerRevokeKey200Response]
+    # @return [SettingsControllerRevokeCurrentKey200Response]
     def settings_controller_revoke_key(id, opts = {})
       data, _status_code, _headers = settings_controller_revoke_key_with_http_info(id, opts)
       data
@@ -428,7 +485,7 @@ module Adviverse
     # Marks the key revoked and removes it from the engine&#39;s Redis credential map, so it stops working everywhere. Revoking an unknown or foreign id is a silent no-op.  Auth: session bearer token, or API key (x-api-key) with scope &#x60;write&#x60; (or &#x60;*&#x60;).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(SettingsControllerRevokeKey200Response, Integer, Hash)>] SettingsControllerRevokeKey200Response data, response status code and response headers
+    # @return [Array<(SettingsControllerRevokeCurrentKey200Response, Integer, Hash)>] SettingsControllerRevokeCurrentKey200Response data, response status code and response headers
     def settings_controller_revoke_key_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SettingsApi.settings_controller_revoke_key ...'
@@ -455,7 +512,7 @@ module Adviverse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'SettingsControllerRevokeKey200Response'
+      return_type = opts[:debug_return_type] || 'SettingsControllerRevokeCurrentKey200Response'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['apiKey', 'bearer']
